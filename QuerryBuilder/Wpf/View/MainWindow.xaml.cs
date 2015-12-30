@@ -12,6 +12,8 @@ namespace Wpf
         {
             InitializeComponent();
             var ff = new AutorizationForm();
+            var ss = new RegistrationForm();
+            ss.Show();
             ff.Show();
         }
     }

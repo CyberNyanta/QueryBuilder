@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
     <Compile Include="View\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>
@@ -128,7 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataModel\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Styles\WindowStyle\MainIcon.ico" />

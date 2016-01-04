@@ -38,6 +38,23 @@
     <!--ConnectionDbWindow -->
 
     <!--MainWindow -->
+
+        <!--MainMenu -->
+    <v:String x:Key="File">File</v:String>
+        <v:String x:Key="OpenProject">Open project...</v:String>
+        <v:String x:Key="SaveProject">Save project...</v:String>
+        <v:String x:Key="SignIn">Sign in...</v:String>
+        <v:String x:Key="Exit">Exit</v:String>
+        <v:String x:Key="Add">Add...</v:String>
+            <v:String x:Key="AddConnection">Connection...</v:String>
+        <v:String x:Key="CloseProject">Close project</v:String>
+    <v:String x:Key="Edit">Edit</v:String>
+    <v:String x:Key="View">View</v:String>
+    <v:String x:Key="Project">Project</v:String>
+    
+
+    <!--MainMenu -->
+
     <!--MainWindow -->
 
 </ResourceDictionary>

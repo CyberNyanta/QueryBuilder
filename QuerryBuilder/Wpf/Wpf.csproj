@@ -56,7 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\ConnectionDBForm.xaml.cs">
       <DependentUpon>ConnectionDBForm.xaml</DependentUpon>
     </Compile>

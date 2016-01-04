@@ -14,6 +14,10 @@ namespace Wpf.View
         {
            InitializeComponent();
         }
-        
+
+        public static implicit operator UserControl(AutorizationForm v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

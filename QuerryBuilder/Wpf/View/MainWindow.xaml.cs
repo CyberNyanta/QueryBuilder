@@ -11,12 +11,12 @@ namespace Wpf
         public MainWindow()
         {
             InitializeComponent();
-            var ff = new AutorizationForm();
-            var ss = new RegistrationForm();
-            var dd = new ConnectionDBForm();
-            dd.Show();
-            ss.Show();
-            ff.Show();
+            //var ff = new AutorizationForm();
+            //var ss = new RegistrationForm();
+            //var dd = new ConnectionDBForm();
+            //dd.Show();
+            //ss.Show();
+            //ff.Show();
         }
     }
 }

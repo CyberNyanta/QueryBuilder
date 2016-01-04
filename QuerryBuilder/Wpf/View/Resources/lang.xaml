@@ -22,11 +22,21 @@
     <v:String x:Key="UserLName">Last name</v:String>
     <v:String x:Key="Email">E-mail</v:String>
     <v:String x:Key="UserConfirmPassword">Confirm password</v:String>
-    <v:String x:Key="RegistrationWindowTitle">Autorization</v:String>
+    <v:String x:Key="RegistrationWindowTitle">Registration</v:String>
     <v:String x:Key="RegisterButton">Register me</v:String>
     <!--RegistrationWindow -->
-    
-    
+
+    <!--ConnectionDbWindow -->
+    <v:String x:Key="Server">Server:</v:String>
+    <v:String x:Key="Database">Database:</v:String>
+    <v:String x:Key="User">User:</v:String>
+    <v:String x:Key="Password">Password:</v:String>
+    <v:String x:Key="ConnectionDbWindowTitle">Connection settings</v:String>
+    <v:String x:Key="Test">Test connect</v:String>
+    <v:String x:Key="AddConnect">Add connect</v:String>
+    <v:String x:Key="WindowsAutorizatedCheckBox">Windows autorizated</v:String>
+    <!--ConnectionDbWindow -->
+
     <!--MainWindow -->
     <!--MainWindow -->
 

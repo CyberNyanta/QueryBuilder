@@ -57,11 +57,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
+    <Compile Include="View\ConnectionDBForm.xaml.cs">
+      <DependentUpon>ConnectionDBForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Styles\WindowStyle\WindowStyle.cs" />
     <Page Include="View\AutorizationForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConnectionDBForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

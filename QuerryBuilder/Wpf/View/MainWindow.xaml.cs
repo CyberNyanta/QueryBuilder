@@ -13,6 +13,8 @@ namespace Wpf
             InitializeComponent();
             var ff = new AutorizationForm();
             var ss = new RegistrationForm();
+            var dd = new ConnectionDBForm();
+            dd.Show();
             ss.Show();
             ff.Show();
         }

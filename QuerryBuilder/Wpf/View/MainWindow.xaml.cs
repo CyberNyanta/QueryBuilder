@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Wpf.DataModel.Entity;
 using Wpf.View;
 
 namespace Wpf

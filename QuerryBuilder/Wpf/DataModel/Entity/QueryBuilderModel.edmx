@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище SqlConstructorDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище SqlConstructorDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ConnectionDB">
           <Key>
             <PropertyRef Name="ConnectionID" />
@@ -61,8 +61,8 @@
           <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="PasswordHash" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Delflag" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="nchar" MaxLength="255" />
-          <Property Name="LastName" Type="nchar" MaxLength="255" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <Association Name="ConnectionDB_fk0">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
@@ -149,8 +149,7 @@
             <End Role="ResultHistory" EntitySet="ResultHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SqlConstructorDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -178,19 +177,8 @@
           <Property Name="ProjectOwner" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Delflag" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ConnectionDB" Relationship="Self.ConnectionDB_fk0" FromRole="Projects" ToRole="ConnectionDB" />
-          <NavigationProperty Name="Users" Relationship="Self.Projects_fk0" FromRole="Projects" ToRole="Users" />
           <NavigationProperty Name="ProjectsShare" Relationship="Self.ProjectsShare_fk0" FromRole="Projects" ToRole="ProjectsShare" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Email" />
-          </Key>
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordHash" Type="Guid" Nullable="false" />
-          <Property Name="Delflag" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Projects" Relationship="Self.Projects_fk0" FromRole="Users" ToRole="Projects" />
+          <NavigationProperty Name="Users" Relationship="SqlConstructorDBModel.Projects_fk0" FromRole="Projects" ToRole="Users" />
         </EntityType>
         <EntityType Name="ProjectsShare">
           <Key>
@@ -241,18 +229,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Projects_fk0">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Email" />
-            </Principal>
-            <Dependent Role="Projects">
-              <PropertyRef Name="ProjectOwner" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ProjectsShare_fk0">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="ProjectsShare" Type="Self.ProjectsShare" Multiplicity="*" />
@@ -268,7 +244,6 @@
         <EntityContainer Name="SqlConstructorDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ConnectionDB" EntityType="Self.ConnectionDB" />
           <EntitySet Name="Projects" EntityType="Self.Projects" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="ProjectsShare" EntityType="Self.ProjectsShare" />
           <EntitySet Name="ResultHistory" EntityType="Self.ResultHistory" />
           <AssociationSet Name="ConnectionDB_fk0" Association="Self.ConnectionDB_fk0">
@@ -279,15 +254,42 @@
             <End Role="ConnectionDB" EntitySet="ConnectionDB" />
             <End Role="ResultHistory" EntitySet="ResultHistory" />
           </AssociationSet>
-          <AssociationSet Name="Projects_fk0" Association="Self.Projects_fk0">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Projects" EntitySet="Projects" />
-          </AssociationSet>
           <AssociationSet Name="ProjectsShare_fk0" Association="Self.ProjectsShare_fk0">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectsShare" EntitySet="ProjectsShare" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="SqlConstructorDBModel.Users" />
+          <AssociationSet Name="Projects_fk0" Association="SqlConstructorDBModel.Projects_fk0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="ComplexType1">
+          <Property Type="String" Name="FirstName" MaxLength="255" FixedLength="true" Unicode="true" />
+        </ComplexType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="Guid" Nullable="false" />
+          <Property Name="Delflag" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projects" Relationship="SqlConstructorDBModel.Projects_fk0" FromRole="Users" ToRole="Projects" />
+        </EntityType>
+        <Association Name="Projects_fk0">
+          <End Type="SqlConstructorDBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="SqlConstructorDBModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ProjectOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -318,17 +320,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SqlConstructorDBModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="Delflag" ColumnName="Delflag" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProjectsShare">
             <EntityTypeMapping TypeName="SqlConstructorDBModel.ProjectsShare">
               <MappingFragment StoreEntitySet="ProjectsShare">
@@ -346,6 +337,17 @@
                 <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
                 <ScalarProperty Name="ResultBody" ColumnName="ResultBody" />
                 <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SqlConstructorDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

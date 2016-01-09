@@ -27,8 +27,8 @@ namespace Wpf.DataModel.Entity
     
         public virtual DbSet<ConnectionDB> ConnectionDB { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<ProjectsShare> ProjectsShare { get; set; }
         public virtual DbSet<ResultHistory> ResultHistory { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

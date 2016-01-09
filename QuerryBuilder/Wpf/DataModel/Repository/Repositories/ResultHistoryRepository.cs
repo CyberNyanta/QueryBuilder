@@ -10,43 +10,43 @@ namespace Wpf.DataModel.Repository.Repositories
 {
     class ResultHistoryRepository : IRepository<ResultHistory>
     {
-        private SqlConstructorDBEntities context;
+        private SqlConstructorDBEntities _context;
 
-        public ResultHistoryRepository()
+        public ResultHistoryRepository(SqlConstructorDBEntities context)
         {
-            context = new SqlConstructorDBEntities();
+            _context = context;
         }
 
         public void Create(ResultHistory item)
         {
-            context.ResultHistory.Add(item);
+            _context.ResultHistory.Add(item);
         }
 
         public ResultHistory GetItemById(int id)
         {
-            return context.ResultHistory.Find(id);
+            return _context.ResultHistory.Find(id);
         }
 
         public IEnumerable<ResultHistory> GetList()
         {
-            return context.ResultHistory;
+            return _context.ResultHistory;
         }
 
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Update(ResultHistory item)
         {
-            context.Entry(item).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            ResultHistory temp = context.ResultHistory.Find(id);
+            ResultHistory temp = _context.ResultHistory.Find(id);
             if (temp != null)
-                context.ResultHistory.Remove(temp);
+                _context.ResultHistory.Remove(temp);
         }
 
         private bool disposed = false;
@@ -57,7 +57,7 @@ namespace Wpf.DataModel.Repository.Repositories
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

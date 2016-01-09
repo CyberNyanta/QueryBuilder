@@ -10,43 +10,43 @@ namespace Wpf.DataModel.Repository.Repositories
 {
     class ProjectsShareRepository : IRepository<ProjectsShare>
     {
-        private SqlConstructorDBEntities context;
+        private SqlConstructorDBEntities _context;
 
-        public ProjectsShareRepository()
+        public ProjectsShareRepository(SqlConstructorDBEntities context)
         {
-            context = new SqlConstructorDBEntities();
+            _context = context;
         }
 
         public void Create(ProjectsShare item)
         {
-            context.ProjectsShare.Add(item);
+            _context.ProjectsShare.Add(item);
         }
 
         public ProjectsShare GetItemById(int id)
         {
-            return context.ProjectsShare.Find(id);
+            return _context.ProjectsShare.Find(id);
         }
 
         public IEnumerable<ProjectsShare> GetList()
         {
-            return context.ProjectsShare;
+            return _context.ProjectsShare;
         }
 
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Update(ProjectsShare item)
         {
-            context.Entry(item).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            ProjectsShare temp = context.ProjectsShare.Find(id);
+            ProjectsShare temp = _context.ProjectsShare.Find(id);
             if (temp != null)
-                context.ProjectsShare.Remove(temp);
+                _context.ProjectsShare.Remove(temp);
         }
 
         private bool disposed = false;
@@ -57,7 +57,7 @@ namespace Wpf.DataModel.Repository.Repositories
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

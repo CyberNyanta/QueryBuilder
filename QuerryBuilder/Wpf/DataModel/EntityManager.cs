@@ -12,6 +12,16 @@ namespace Wpf.DataModel
 {
     public class EntityManager
     {
+
+        private SqlConstructorDBEntities _context;
+
+        private Users _user;
+        public EntityManager()
+        {
+            _context = new SqlConstructorDBEntities();
+            _user = new Users();
+        }
+
         /// <summary>
         /// Регистрация нового пользователя
         /// </summary>
@@ -26,57 +36,56 @@ namespace Wpf.DataModel
                 PasswordHash=GetHashString(password)
             };
 
-            UsersRepository users = new UsersRepository();
+            UsersRepository users = new UsersRepository(_context);
             users.Create(newUser);
             users.Save();
         }
 
         public Users LoginUser(string email, string password)
         {
-            Users logUser = new Users();
+            //Users logUser = new Users();
 
-            if (ValidationUser(email, password, ref logUser))
+            if (ValidationUser(email, password, ref _user))
             {
-                //ICollection<Projects> MyProjects = LoadMyProject(email);
-                //IEnumerable<Projects> ShareProjects = GetShareProject(email);
-
-                return logUser;
+                return _user;
             }
             throw new ArgumentException();
         }
 
         /// <summary>
-        /// Если проект новый - добавляет новую запись в БД
-        /// Если же идет сохранение ранее созданого проекта, то обновляет запись в БД.
+        /// сохранить проект в бд
+        /// или обновить существующий
         /// </summary>
-        /// <param name="project"></param>
+        /// <returns></returns>
         public void SaveProject(Projects project)
         {
 
+            ProjectsRepository projRepo = new ProjectsRepository(_context);
+
+            var proj = (from p in _user.Projects
+                       where p.ProjectID.Equals(project.ProjectID) &&
+                              p.ProjectName.Equals(project.ProjectName) &&
+                              p.ProjectOwner.Equals(project.ProjectOwner)
+                      select p).First();
+
+
+            if (proj != null) {
+                projRepo.Update(proj);
+            }
+            else 
+                projRepo.Create(proj);
+          
         }
 
         /// <summary>
-        /// загрузка проектов залогиненного пользователя
+        /// получить проекты залогиненного юзера
+        /// или получить проекты которыми делился залогиненный юзер
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        //public ICollection<Projects> LoadMyProject(string email)
-        //{
-        //    ProjectsRepository projects = new ProjectsRepository();
-        //    var getProjects = projects.GetList().Where(p => p.ProjectOwner.Equals(email)).ToList();
-
-        //    return getProjects;
-        //}
-
-        public IEnumerable<Projects> GetShareProject(string email)
-        {
-            ProjectsRepository project = new ProjectsRepository();
-            ProjectsShareRepository share = new ProjectsShareRepository();
-            var getShareProject = from p in project.GetList()
-                                  from ps in share.GetList()
-                                  where (ps.ProjectID == p.ProjectID) && (ps.SharedEmail.Equals(email))
-                                  select p;
-            return getShareProject;
+        public IEnumerable<Projects> GetUserProjects()
+        {            
+            return _user.Projects;
         }
 
         /// <summary>
@@ -86,20 +95,26 @@ namespace Wpf.DataModel
         /// <returns></returns>
         private ConnectionDB GetConnectionByProjectID(int id)
         {
-            ConnectionDBRepository connectionRepo = new ConnectionDBRepository();
+            ConnectionDBRepository connectionRepo = new ConnectionDBRepository(_context);
 
             return connectionRepo.GetItemById(id);
         }
 
         private bool ValidationUser(string email, string password, ref Users user)
         {
-            UsersRepository repository = new UsersRepository();
+            UsersRepository repository = new UsersRepository(_context);
 
-            user = repository.GetList().Where(e => e.Email.Equals(email)).First();
+            var logUser = repository.GetList().Where(e => e.Email.Equals(email)).First();
 
+                if (logUser != null)
+                    user = logUser;
             return user.PasswordHash.Equals(GetHashString(password));
         }
-
+        /// <summary>
+        /// шифрование пароля
+        /// </summary>
+        /// <param name="pass"></param>
+        /// <returns></returns>
 
         public Guid GetHashString(string pass)
         {

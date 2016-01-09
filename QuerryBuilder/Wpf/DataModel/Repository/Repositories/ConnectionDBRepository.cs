@@ -10,43 +10,43 @@ namespace Wpf.DataModel.Repository.Repositories
 {
     class ConnectionDBRepository : IRepository<ConnectionDB>
     {
-        private SqlConstructorDBEntities context;
+        private SqlConstructorDBEntities _context;
 
-        public ConnectionDBRepository()
+        public ConnectionDBRepository(SqlConstructorDBEntities context)
         {
-            context = new SqlConstructorDBEntities();
+            _context = context;
         }
 
         public void Create(ConnectionDB item)
         {
-            context.ConnectionDB.Add(item);
+            _context.ConnectionDB.Add(item);
         }
 
         public ConnectionDB GetItemById(int id)
         {
-            return context.ConnectionDB.Find(id);
+            return _context.ConnectionDB.Find(id);
         }
 
         public IEnumerable<ConnectionDB> GetList()
         {
-            return context.ConnectionDB;
+            return _context.ConnectionDB;
         }
 
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Update(ConnectionDB item)
         {
-            context.Entry(item).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            ConnectionDB temp = context.ConnectionDB.Find(id);
+            ConnectionDB temp = _context.ConnectionDB.Find(id);
             if (temp != null)
-                context.ConnectionDB.Remove(temp);
+                _context.ConnectionDB.Remove(temp);
         }
 
         private bool disposed = false;
@@ -57,7 +57,7 @@ namespace Wpf.DataModel.Repository.Repositories
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

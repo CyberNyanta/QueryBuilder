@@ -10,43 +10,43 @@ namespace Wpf.DataModel.Repository.Repositories
 {
     class UsersRepository : IRepository<Users>
     {
-        private SqlConstructorDBEntities context;
+        private SqlConstructorDBEntities _context;
 
-        public UsersRepository()
+        public UsersRepository(SqlConstructorDBEntities context)
         {
-            context = new SqlConstructorDBEntities();
+            _context = context;
         }
 
         public void Create(Users item)
         {
-            context.Users.Add(item);
+            _context.Users.Add(item);
         }
 
         public Users GetItemById(int id)
         {
-            return context.Users.Find(id);
+            return _context.Users.Find(id);
         }
 
         public IEnumerable<Users> GetList()
         {
-            return context.Users;
+            return _context.Users;
         }
 
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Update(Users item)
         {
-            context.Entry(item).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            Users temp = context.Users.Find(id);
+            Users temp = _context.Users.Find(id);
             if (temp != null)
-                context.Users.Remove(temp);
+                _context.Users.Remove(temp);
         }
 
         private bool disposed = false;
@@ -57,7 +57,7 @@ namespace Wpf.DataModel.Repository.Repositories
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

@@ -10,32 +10,37 @@ using Wpf.DataModel.Repository.Repositories;
 
 namespace Wpf.DataModel
 {
-    class EntityManager
+    public class EntityManager
     {
-        private EntityManager() { }
-
-
         /// <summary>
         /// Регистрация нового пользователя
-        /// Валидация вводимых параметров (имя, мыло) происходит во ViewModel
         /// </summary>
         /// <param name="user"></param>
-        public void RegistrationUser(Users user)
+        public void RegistrationUser(string firstName, string lastyName, string email, string password)
         {
-            UsersRepository temp = new UsersRepository();
-            temp.Create(user);
-            temp.Save();
+            Users newUser = new Users
+            {
+                FirstName = firstName,
+                LastName = lastyName,
+                Email=email,
+                PasswordHash=GetHashString(password)
+            };
+
+            UsersRepository users = new UsersRepository();
+            users.Create(newUser);
+            users.Save();
         }
 
         public Users LoginUser(string email, string password)
         {
-            if (ValidationUser(email, password))
-            {
-                IEnumerable<Projects> MyProjects = LoadMyProject(email);
-                IEnumerable<Projects> ShareProjects = GetShareProject(email);
+            Users logUser = new Users();
 
-                Users user = new Users { Email = email, Projects= };
-                return user;
+            if (ValidationUser(email, password, ref logUser))
+            {
+                //ICollection<Projects> MyProjects = LoadMyProject(email);
+                //IEnumerable<Projects> ShareProjects = GetShareProject(email);
+
+                return logUser;
             }
             throw new ArgumentException();
         }
@@ -55,18 +60,13 @@ namespace Wpf.DataModel
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public IEnumerable<Projects> LoadMyProject(string email)
-        {
-            //UsersRepository users = new UsersRepository();
-            //var getProjects = from a in users.GetList()
-            //                  from p in a.Projects
-            //                  where a.Email.Equals(email)
-            //                  select (p);
-            ProjectsRepository projects = new ProjectsRepository();
-            var getProjects = projects.GetList().Where(p => p.ProjectOwner.Equals(email));
+        //public ICollection<Projects> LoadMyProject(string email)
+        //{
+        //    ProjectsRepository projects = new ProjectsRepository();
+        //    var getProjects = projects.GetList().Where(p => p.ProjectOwner.Equals(email)).ToList();
 
-            return getProjects;
-        }
+        //    return getProjects;
+        //}
 
         public IEnumerable<Projects> GetShareProject(string email)
         {
@@ -91,30 +91,16 @@ namespace Wpf.DataModel
             return connectionRepo.GetItemById(id);
         }
 
-        //private bool ValidationUser(string email, string password)
-        //{
-        //    bool result = false;
+        private bool ValidationUser(string email, string password, ref Users user)
+        {
+            UsersRepository repository = new UsersRepository();
 
-        //    using (DbConnection conn = _connection)
-        //    {
-        //        conn.ConnectionString = Resource.ConnectionString;
-        //        IDbCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = string.Format("USE SqlConstructorDB SELECT Email, PasswordHash FROM Users WHERE Email ='{0}'", email);
-        //        conn.Open();
+            user = repository.GetList().Where(e => e.Email.Equals(email)).First();
 
-        //        IDataReader reader = cmd.ExecuteReader();
+            return user.PasswordHash.Equals(GetHashString(password));
+        }
 
-        //        while (reader.Read())
-        //        {
-        //            string tempMail = reader.GetString(0);
-        //            string tempPass = reader.GetGuid(1).ToString();
-        //            result = (email.Equals(tempMail) && GetHashString(password).ToString().Equals(tempPass));
-        //        }
-        //        reader.Close();
 
-        //    }
-        //    return result;
-        //}
         public Guid GetHashString(string pass)
         {
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 using Wpf.View;
 
@@ -13,6 +14,9 @@ namespace Wpf
         public MainWindow()
         {
             InitializeComponent();
+            EntityManager manager = new EntityManager();
+            manager.LoginUser("fokas.diam@yandex.ru", "12345");
+
             //var ff = new AutorizationForm();
             //var ss = new RegistrationForm();
             //var dd = new ConnectionDBForm();

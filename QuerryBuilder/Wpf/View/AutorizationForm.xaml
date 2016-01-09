@@ -11,6 +11,20 @@
         MaxWidth="300" MinWidth="300"
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <Style TargetType="TextBox" >
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+ 
+                        Value="{Binding RelativeSource={RelativeSource Self}, 
+                  Path=(Validation.Errors)[0].ErrorContent}" />
+                        <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -41,7 +55,7 @@
 
         </ComboBox>
         <StatusBar Height="24" VerticalAlignment="Bottom" Width="Auto" Grid.Row="6" Grid.ColumnSpan="3" Grid.Column="0">
-            <TextBlock> Результат валидации или верификации данных</TextBlock>
+            <TextBlock x:Name="StatusText"></TextBlock>
             <StatusBarItem HorizontalAlignment="Right">
                 <ResizeGrip Opacity="0.75" />
             </StatusBarItem>
@@ -72,7 +86,15 @@
                  Grid.Column="1" Grid.Row="2"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" TextWrapping="Wrap" 
-                 Text=""  Width="120" />
+                  Width="120" >
+            <TextBox.Text>
+                <Binding Path="Login" >
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <PasswordBox x:Name="UserPasswordTextBox" 
                  Grid.Column="1" Grid.Row="3"
                  HorizontalAlignment="Right" VerticalAlignment="Center"

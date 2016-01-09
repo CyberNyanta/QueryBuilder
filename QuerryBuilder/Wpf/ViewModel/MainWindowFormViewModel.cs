@@ -18,6 +18,7 @@ namespace Wpf.ViewModel
         {
             var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.Show();
+
         }
         private void ClickMethodAddConection()
         {

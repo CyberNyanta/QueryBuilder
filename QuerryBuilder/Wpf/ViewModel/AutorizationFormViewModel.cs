@@ -1,25 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using Wpf.View;
+
 
 namespace Wpf.ViewModel
 {
-    class AutorizationFormViewModel
+    class AutorizationFormViewModel : IDataErrorInfo
     {
+        public Action CloseAction { get; set; }
+        public ICommand ClickSignInCommand { get; set; }
+        public ICommand ClickRegisterCommand { get; set; }
 
-    }
-    /// <summary>
-    /// Класс-валидатор для формы авторизации
-    /// </summary>
-    class ValidationData : IDataErrorInfo
-    {
+        public AutorizationFormViewModel()
+        {
+            ClickSignInCommand = new RelayCommand(arg => ClickSignInMethod());
+            ClickRegisterCommand = new RelayCommand(arg => ClickRegisterMethod());
+
+        }
+
+        /// <summary>
+        /// Вызывает окно регистрации
+        /// </summary>
+        private void ClickRegisterMethod()
+        {
+            var windowRegistrationForm = new RegistrationForm();
+            windowRegistrationForm.Show();
+
+            CloseAction();
+        }
+
+        private void ClickSignInMethod()
+        {
+            // Верификация аккаунта с базой данных. Вход в аккаунт
+
+        }
+
         public string Login { get; set; }
         public string Password { get; set; }
+
         /// <summary>
-        /// Правила валидации
+        /// Валидация и сообщения об ошибках
         /// </summary>
         /// <param name="columnName"></param>
         /// <returns></returns>
@@ -27,18 +49,22 @@ namespace Wpf.ViewModel
         {
             get
             {
-                string error = String.Empty;
+                var error = string.Empty;
                 switch (columnName)
                 {
                     case "Login":
-                        if ((Login == "a") || (Login == "s"))
+                        if (Login == null)
                         {
-                            //Сообщение ошибки для свойства Login
-                            error = "Age can not be less than zero and more than 100";
+                            error = "Enter your e-mail";
                         }
+                        else if (!DataModel.ValidationMethods.EmailValidation(Login))
+                        {
+                            error = "Enter correct e-mail";
+                        }
+
                         break;
                     case "Password":
-                        //Сообщение ошибки для свойства Password
+
                         break;
 
                 }
@@ -49,5 +75,7 @@ namespace Wpf.ViewModel
         {
             get { throw new NotImplementedException(); }
         }
+
     }
+
 }

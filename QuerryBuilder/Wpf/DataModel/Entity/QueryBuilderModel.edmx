@@ -61,6 +61,8 @@
           <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="PasswordHash" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Delflag" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="255" />
+          <Property Name="LastName" Type="nchar" MaxLength="255" />
         </EntityType>
         <Association Name="ConnectionDB_fk0">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
@@ -186,6 +188,8 @@
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PasswordHash" Type="Guid" Nullable="false" />
           <Property Name="Delflag" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Projects" Relationship="Self.Projects_fk0" FromRole="Users" ToRole="Projects" />
         </EntityType>
         <EntityType Name="ProjectsShare">
@@ -320,6 +324,8 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

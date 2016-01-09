@@ -23,6 +23,8 @@ namespace Wpf.DataModel.Entity
         public string Email { get; set; }
         public System.Guid PasswordHash { get; set; }
         public int Delflag { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> Projects { get; set; }

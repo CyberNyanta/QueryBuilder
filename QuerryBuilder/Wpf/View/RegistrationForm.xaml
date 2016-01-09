@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mv="clr-namespace:Wpf.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="{DynamicResource RegistrationWindowTitle}" 
@@ -11,7 +13,11 @@
         MaxWidth="300" MinWidth="300"
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}">
-    <Grid>
+    <Window.Resources>
+       <mv:RegistrationFormViewModel x:Key="Registration"/>
+    </Window.Resources>
+    
+    <Grid DataContext="{Binding Source={StaticResource Registration}}">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
@@ -107,29 +113,35 @@
                  Grid.Column="1" Grid.Row="1"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" TextWrapping="Wrap" 
-                 Text=""  Width="120" Margin="0,11,0,5" />
+                 Text="{Binding FirstName}"  Width="120" Margin="0,11,0,5" />
 
         <TextBox x:Name="UserLNameTextBox" 
                  Grid.Column="1" Grid.Row="2"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" TextWrapping="Wrap" 
-                 Text=""  Width="120" Margin="0,7"/>
+                 Text="{Binding FirstName}"  Width="120" Margin="0,7"/>
 
         <TextBox x:Name="UserEmailTextBox" 
                  Grid.Column="1" Grid.Row="3"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" TextWrapping="Wrap" 
-                 Text=""  Width="120" Margin="0,3,0,7" />
+                 Text="{Binding Email}"  Width="120" Margin="0,3,0,7" />
 
-        <PasswordBox x:Name="UserPasswordTextBox" 
+        <PasswordBox x:Name="UserPasswordTextBox"
                  Grid.Column="1" Grid.Row="4"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
-                 Height="22" Width="120" Margin="0,5,0,10" />
+                 Height="22" Width="120" Margin="0,5,0,10" >
+            <i:Interaction.Behaviors x:Uid="{Binding P}">
+                    
+            </i:Interaction.Behaviors>
+        </PasswordBox>
 
         <PasswordBox x:Name="UserConfirmPasswordTextBox" 
                  Grid.Column="1" Grid.Row="5"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" Width="120" Margin="0,12" />
+        
+        
 
         <Button x:Name="LogInButton" Content="{DynamicResource RegisterButton}" 
                 Grid.Column="1" Grid.Row="6"

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using Wpf.ViewModel;
 
 namespace Wpf.View
 {
@@ -10,14 +11,13 @@ namespace Wpf.View
     /// </summary>
     public partial class AutorizationForm : Window
     {
+        private ValidationData User;
         public AutorizationForm()
         {
            InitializeComponent();
+            User = new ValidationData();
+       this.DataContext = User;
         }
-
-        public static implicit operator UserControl(AutorizationForm v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

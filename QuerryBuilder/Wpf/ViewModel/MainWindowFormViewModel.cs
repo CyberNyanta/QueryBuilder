@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Wpf.View;
 
 namespace Wpf.ViewModel
@@ -21,12 +16,12 @@ namespace Wpf.ViewModel
         }
         private void ClickMethodAutorization()
         {
-            AutorizationForm windowAutorizationForm = new AutorizationForm();
+            var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.Show();
         }
         private void ClickMethodAddConection()
         {
-            ConnectionDBForm windowConnectionDbForm = new ConnectionDBForm();
+            var windowConnectionDbForm = new ConnectionDBForm();
             windowConnectionDbForm.Show();
         }
     }

@@ -113,16 +113,13 @@
     <Compile Include="DataModel\Repository\Repositories\ProjectsShareRepository.cs" />
     <Compile Include="DataModel\Repository\Repositories\ResultHistoryRepository.cs" />
     <Compile Include="DataModel\Repository\Repositories\UsersRepository.cs" />
-
+    <Compile Include="DataModel\ValidationMethods.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
-
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
-
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
     <Compile Include="ViewModel\Notify\Notifyer.cs" />
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
-    <Compile Include="ViewModel\Comands\RelayCommand.cs" />
-    <Compile Include="ViewModel\Validations\TextValidator.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\ConnectionDBForm.xaml.cs">
       <DependentUpon>ConnectionDBForm.xaml</DependentUpon>
     </Compile>

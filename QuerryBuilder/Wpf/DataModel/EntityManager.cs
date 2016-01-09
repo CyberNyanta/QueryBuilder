@@ -29,15 +29,15 @@ namespace Wpf.DataModel
 
         public Users LoginUser(string email, string password)
         {
-            if (ValidationUser(email, password))
-            {
-                IEnumerable<Projects> MyProjects = LoadMyProject(email);
-                IEnumerable<Projects> ShareProjects = GetShareProject(email);
+            //if (ValidationUser(email, password))
+            //{
+            //    IEnumerable<Projects> MyProjects = LoadMyProject(email);
+            //    IEnumerable<Projects> ShareProjects = GetShareProject(email);
 
-                Users user = new Users { Email = email, Projects= };
+                Users user = new Users { Email = email };
                 return user;
-            }
-            throw new ArgumentException();
+            //}
+            //throw new ArgumentException();
         }
 
         /// <summary>

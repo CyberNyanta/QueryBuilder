@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Wpf.DataModel.Entity;
 using Wpf.DataModel.Repository;
 using Wpf.DataModel.Repository.Repositories;
+using Wpf.Exceptions;
+using ServicesLib;
+using Wpf.Properties;
 
 namespace Wpf.DataModel
 {
@@ -26,25 +29,49 @@ namespace Wpf.DataModel
         /// Регистрация нового пользователя
         /// </summary>
         /// <param name="user"></param>
-        public void RegistrationUser(string firstName, string lastyName, string email, string password)
+        public Users RegistrationUser(string firstName, string lastyName, string email, string password)
         {
-            Users newUser = new Users
+            SmtpMailer mailer = SmtpMailer.Instance();
+            if (!CheckEmail(email))
             {
-                FirstName = firstName,
-                LastName = lastyName,
-                Email=email,
-                PasswordHash=GetHashString(password)
-            };
+                Users newUser = new Users
+                {
+                    FirstName = firstName,
+                    LastName = lastyName,
+                    Email = email,
+                    PasswordHash = GetHashString(password)
+                };
 
-            UsersRepository users = new UsersRepository(_context);
-            users.Create(newUser);
-            users.Save();
+                UsersRepository users = new UsersRepository(_context);
+                users.Create(newUser);
+                users.Save();
+                mailer.SentRegisterNotification(email);
+                return newUser;
+            }
+            else
+                throw new CustomException(Resources.ExistEmailError);
         }
+
+        public bool CheckEmail(string email)
+        {
+            bool result = false;
+            UsersRepository users = new UsersRepository(_context);
+            try {
+                var user = users.GetList().First(e => e.Email.Equals(email));
+                result = true;
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+
+
+
 
         public Users LoginUser(string email, string password)
         {
-            //Users logUser = new Users();
-
             if (ValidationUser(email, password, ref _user))
             {
                 return _user;
@@ -78,7 +105,7 @@ namespace Wpf.DataModel
         }
 
         /// <summary>
-        /// получить проекты залогиненного юзера
+        /// при обновлении данных получить проекты залогиненного юзера
         /// или получить проекты которыми делился залогиненный юзер
         /// </summary>
         /// <param name="email"></param>

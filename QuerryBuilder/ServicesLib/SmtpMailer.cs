@@ -89,5 +89,10 @@ namespace ServicesLib
 
             return flagSend;
         }
+
+        public bool SentRegisterNotification(string email)
+        {
+            return SendMail(email, Resource.Subject, Resource.BodyMail, null);
+        }
     }
 }

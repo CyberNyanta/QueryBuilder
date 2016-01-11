@@ -108,7 +108,6 @@ namespace Wpf.DataModel
         /// при обновлении данных получить проекты залогиненного юзера
         /// или получить проекты которыми делился залогиненный юзер
         /// </summary>
-        /// <param name="email"></param>
         /// <returns></returns>
         public IEnumerable<Projects> GetUserProjects()
         {            

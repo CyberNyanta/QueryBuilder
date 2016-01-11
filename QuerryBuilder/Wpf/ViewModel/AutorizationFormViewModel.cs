@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Wpf.DataModel;
 using Wpf.View;
 
 
@@ -9,33 +11,42 @@ namespace Wpf.ViewModel
 {
     class AutorizationFormViewModel : IDataErrorInfo
     {
+        private EntityManager entityManager;
+
         public Action CloseAction { get; set; }
         public ICommand ClickSignInCommand { get; set; }
         public ICommand ClickRegisterCommand { get; set; }
 
         public AutorizationFormViewModel()
         {
+            entityManager = new EntityManager();
             ClickSignInCommand = new RelayCommand(arg => ClickSignInMethod());
             ClickRegisterCommand = new RelayCommand(arg => ClickRegisterMethod());
-
         }
 
-        /// <summary>
+       
+       /// <summary>
         /// Вызывает окно регистрации
         /// </summary>
         private void ClickRegisterMethod()
         {
             var windowRegistrationForm = new RegistrationForm();
             windowRegistrationForm.Show();
-
             CloseAction();
         }
 
         private void ClickSignInMethod()
         {
-            // Верификация аккаунта с базой данных. Вход в аккаунт
-
-        }
+            try
+            {
+                entityManager.LoginUser(Login, Password);
+                CloseAction();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(View.Resources.Resource.NotUserLogin);
+            }
+         }
 
         public string Login { get; set; }
         public string Password { get; set; }
@@ -57,7 +68,7 @@ namespace Wpf.ViewModel
                         {
                             error = "Enter your e-mail";
                         }
-                        else if (!DataModel.ValidationMethods.EmailValidation(Login))
+                        else if (!ValidationMethods.EmailValidation(Login))
                         {
                             error = "Enter correct e-mail";
                         }

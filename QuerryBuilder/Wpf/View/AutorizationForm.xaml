@@ -20,6 +20,7 @@
                         Value="{Binding RelativeSource={RelativeSource Self}, 
                   Path=(Validation.Errors)[0].ErrorContent}" />
                     <Setter Property="Foreground" Value="Red"/>
+                    
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -70,10 +71,11 @@
         	HorizontalAlignment="Center" VerticalAlignment="Center"
         	TextWrapping="Wrap"
             TextAlignment="Center"
-            Text="{DynamicResource AutorizationWindowTitle}"
         	Width="220"
         	FontSize="20"
-        	Height="40" Grid.RowSpan="2"/>
+        	Height="40" Grid.RowSpan="2"><Run Text="Autorization"/><InlineUIContainer>
+        		
+        	</InlineUIContainer></TextBlock>
         <Label x:Name="UserNameLabel" 
                Content="{DynamicResource UserLogin}" 
                Grid.Column="1" Grid.Row="1"

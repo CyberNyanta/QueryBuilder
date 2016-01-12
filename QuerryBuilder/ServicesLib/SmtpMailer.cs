@@ -92,9 +92,9 @@ namespace ServicesLib
 
         public bool SentRegisterNotification(string email)
         {
-            //Костыль для запуска проекта без файла русурса
-            //return SendMail(email, Resource.Subject, Resource.BodyMail, null);
-            return false;
+
+            return SendMail(email, Resource.Subject, Resource.MailBody, null);
         }
+            
     }
 }

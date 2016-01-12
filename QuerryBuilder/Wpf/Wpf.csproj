@@ -117,6 +117,7 @@
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
+    <Compile Include="ViewModel\PasswordHelper.cs" />
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\ConnectionDBForm.xaml.cs">

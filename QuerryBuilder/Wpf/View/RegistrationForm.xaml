@@ -178,17 +178,22 @@
             </TextBox.Text>
         </TextBox>
 
-        <PasswordBox x:Name="UserPasswordTextBox" 
+     <PasswordBox Name="PasswordControl" local:PasswordHelper.Attach="True" 
                  Grid.Column="1" Grid.Row="4"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
-                 Height="22" Width="120" Margin="0,5,0,10" 
-                     DataContext="{Binding}" />
+                 Height="22" Width="120" Margin="0,5,0,10">
+            <local:PasswordHelper.Password>
+                <Binding  Path="Password" Mode="TwoWay" UpdateSourceTrigger="LostFocus" NotifyOnValidationError="True" ValidatesOnDataErrors="True"/>
+            </local:PasswordHelper.Password>
+        </PasswordBox>
         
-
-        <PasswordBox x:Name="UserConfirmPasswordTextBox" 
-                 Grid.Column="1" Grid.Row="5"
-                 HorizontalAlignment="Right" VerticalAlignment="Center"
-                 Height="22" Width="120" Margin="0,12" DataContext="{Binding}"/>
+        <PasswordBox Name="PasswordConfirmControl" local:PasswordHelper.Attach="True" 
+                 Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                 Height="22" Width="120" Margin="0,12">
+            <local:PasswordHelper.Password>
+                <Binding  Path="ConfirmPassword" Mode="TwoWay" UpdateSourceTrigger="LostFocus" NotifyOnValidationError="True" ValidatesOnDataErrors="True"/>
+            </local:PasswordHelper.Password>
+        </PasswordBox>
 
         <Button x:Name="LogInButton" Content="{DynamicResource RegisterButton}" 
                 Grid.Column="1" Grid.Row="6"

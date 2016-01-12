@@ -6,7 +6,7 @@ CREATE TABLE [Users] (
 	Email nvarchar(255) NOT NULL,
 	PasswordHash uniqueidentifier NOT NULL,
 	Delflag integer NOT NULL DEFAULT '0',
-	FirsTName nvarchar(255) NOT NULL,
+	FirstName nvarchar(255) NOT NULL,
 	LastName nvarchar(255) NOt NULL,
   CONSTRAINT [PK_USERS] PRIMARY KEY CLUSTERED
   (

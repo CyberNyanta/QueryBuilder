@@ -6,7 +6,6 @@ namespace Wpf.ViewModel
 {
     class MainWindowFormViewModel
     {
-        public Action CloseAction { get; set; }
         public ICommand ClickAutorizationCommand { get; set; }
         public ICommand ClickAddConnectionCommand { get; set; }
         public ICommand ClickCloseCommand { get; set; }
@@ -15,13 +14,9 @@ namespace Wpf.ViewModel
         {
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
-            ClickCloseCommand = new RelayCommand(arg => ClickCloseMethod());
         }
 
-        private void ClickCloseMethod()
-        {
-            this.CloseAction();
-        }
+        
 
         private void ClickMethodAutorization()
         {

@@ -39,7 +39,7 @@ namespace Wpf.ViewModel
             try
             {
                
-               entityManager.RegistrationUser(FirstName, LastName, Email, Password);
+               entityManager.RegistrationUser(FirstName, LastName, Email, "ff");
                CloseAction();
             }
             catch (Exception)

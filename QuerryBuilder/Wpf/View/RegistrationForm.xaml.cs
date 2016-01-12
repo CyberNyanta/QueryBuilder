@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Wpf.DataModel.Entity;
 using Wpf.DataModel.Repository.Repositories;
+using Wpf.ViewModel;
 
 namespace Wpf.View
 {
@@ -24,7 +25,12 @@ namespace Wpf.View
     {
         public RegistrationForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            var vm = new RegistrationFormViewModel();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
-    }
+
+        }
 }

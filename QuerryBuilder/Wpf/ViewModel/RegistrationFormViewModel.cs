@@ -38,8 +38,12 @@ namespace Wpf.ViewModel
         { 
             try
             {
-               
-               entityManager.RegistrationUser(FirstName, LastName, Email, "ff");
+                if (Password != ConfirmPassword)
+                {
+                    MessageBox.Show(View.Resources.Resource.EqualsPasswords);
+                }
+               entityManager.RegistrationUser(FirstName, LastName, Email, ConfirmPassword);
+                entityManager.LoginUser(Email, Password);
                CloseAction();
             }
             catch (Exception)
@@ -92,7 +96,7 @@ namespace Wpf.ViewModel
                         }
                         break;
                     case "LastName":
-                        if (LastName == null)
+                        if (LastName == null | LastName == string.Empty)
                         {
                             error = "Enter your last name";
                         }
@@ -102,7 +106,18 @@ namespace Wpf.ViewModel
                         }
 
                         break;
-                    
+                    case "Password":
+                        if (LastName == null)
+                        {
+                            error = "Enter your last name";
+                        }
+                        else if (!ValidationMethods.NameValidation(LastName))
+                        {
+                            error = "Enter correct last name";
+                            MessageBox.Show("Wrong password");
+                        }
+
+                        break;
 
                 }
                 return error;

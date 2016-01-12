@@ -61,6 +61,15 @@ namespace Wpf.View.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password is not equals.
+        /// </summary>
+        internal static string EqualsPasswords {
+            get {
+                return ResourceManager.GetString("EqualsPasswords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This user is not find.
         /// </summary>
         internal static string NotUserLogin {

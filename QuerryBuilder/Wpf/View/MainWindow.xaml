@@ -45,7 +45,7 @@
                     </MenuItem>
                     <Separator HorizontalAlignment="Left" Height="1" Width="160"/>
                     <MenuItem Header="{DynamicResource SignIn}" Command="{Binding ClickAutorizationCommand}"/>
-                    <MenuItem Header="{DynamicResource Exit}" />
+                    <MenuItem Header="{DynamicResource Exit}" Command="{Binding ClickCloseCommand}"/>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Edit}" Name="Edit"/>
                 <MenuItem Header="{DynamicResource View}" Name="View"/>

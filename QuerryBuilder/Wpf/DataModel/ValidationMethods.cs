@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Wpf.DataModel
 {
@@ -17,6 +12,12 @@ namespace Wpf.DataModel
         public static bool PassValidation(string txt)
         {
             const string pass = @"^(?=.*\d)(?=.*[a-zA-Z0-9])(?=.*[A-Za-z0-9])(?!.*\s).*$";
+            return Regex.IsMatch(txt, pass);
+        }
+
+        public static bool NameValidation(string txt)
+        {
+            const string pass = @"^([a-zA-Z0-9])*$";
             return Regex.IsMatch(txt, pass);
         }
 

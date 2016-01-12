@@ -31,7 +31,7 @@ namespace Wpf.ViewModel
         private void ClickRegisterMethod()
         {
             var windowRegistrationForm = new RegistrationForm();
-            windowRegistrationForm.Show();
+            windowRegistrationForm.ShowDialog();
             CloseAction();
         }
 

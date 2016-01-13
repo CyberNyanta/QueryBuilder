@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML">
+      <HintPath>C:\Users\Zver\Desktop\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\sql_constructor\ApplicationDB\StartForm\bin\Debug\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -41,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTableToExcelExporter.cs" />
+    <Compile Include="DataTableToPdfExporter.cs" />
+    <Compile Include="IDataTableExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmtpMailer.cs" />
   </ItemGroup>

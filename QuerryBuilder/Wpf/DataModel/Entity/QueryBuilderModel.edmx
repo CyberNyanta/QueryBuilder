@@ -13,7 +13,7 @@
           <Property Name="ConnectionName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ServerName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="LoginDB" Type="nvarchar" MaxLength="255" />
-          <Property Name="PasswordDB" Type="nvarchar" MaxLength="255" />
+          <Property Name="PasswordDB" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ConnectionID" Type="int" Nullable="false" />
           <Property Name="DatabaseName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Delflag" Type="int" Nullable="false" />
@@ -161,7 +161,7 @@
           <Property Name="ConnectionName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ServerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoginDB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordDB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordDB" Type="Guid" Nullable="false" />
           <Property Name="ConnectionID" Type="Int32" Nullable="false" />
           <Property Name="DatabaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Delflag" Type="Int32" Nullable="false" />

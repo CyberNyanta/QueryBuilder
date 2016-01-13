@@ -24,7 +24,7 @@ namespace Wpf.DataModel.Entity
         public string ConnectionName { get; set; }
         public string ServerName { get; set; }
         public string LoginDB { get; set; }
-        public string PasswordDB { get; set; }
+        public System.Guid PasswordDB { get; set; }
         public int ConnectionID { get; set; }
         public string DatabaseName { get; set; }
         public int Delflag { get; set; }

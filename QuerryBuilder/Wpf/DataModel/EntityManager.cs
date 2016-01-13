@@ -39,13 +39,14 @@ namespace Wpf.DataModel
                     FirstName = firstName,
                     LastName = lastyName,
                     Email = email,
-                    PasswordHash = GetHashString(password)
+                    PasswordHash = Scrambler.GetPassHash(password)
                 };
 
                 UsersRepository users = new UsersRepository(_context);
                 users.Create(newUser);
                 users.Save();
                 mailer.SentRegisterNotification(email);
+                users.Dispose();
                 return newUser;
             }
             else
@@ -134,28 +135,38 @@ namespace Wpf.DataModel
 
                 if (logUser != null)
                     user = logUser;
-            return user.PasswordHash.Equals(GetHashString(password));
+
+            repository.Dispose();
+            return user.PasswordHash.Equals(Scrambler.GetPassHash(password));
         }
-        /// <summary>
-        /// шифрование пароля
-        /// </summary>
-        /// <param name="pass"></param>
-        /// <returns></returns>
 
-        public Guid GetHashString(string pass)
+        public bool SaveConnection(int projectID, int connectionID, string connectName, string dataBaseName,
+             string serverName, string loginDB, string passwordDB)
         {
+            bool result = false;
+            ConnectionDBRepository connectionRepo = new ConnectionDBRepository(_context);
 
-            byte[] bytes = Encoding.Unicode.GetBytes(pass);
-            MD5CryptoServiceProvider CSP = new MD5CryptoServiceProvider();
+            var connId = connectionRepo.GetList().Any(c=>c.ConnectionID.Equals(connectionID));
+                        
+            if (!connId)
+            { 
+               ConnectionDB newConnection = new ConnectionDB
+                    {
+                        ConnectionOwner = projectID,
+                        ConnectionID = connectionID,
+                        ConnectionName = connectName,
+                        DatabaseName = dataBaseName,
+                        ServerName = serverName,
+                        LoginDB = loginDB,
+                        PasswordDB = Scrambler.GetPassHash(passwordDB)
+                    };
+                connectionRepo.Create(newConnection);
+                connectionRepo.Save();
+                result = true;
+           }
+            connectionRepo.Dispose();
 
-            byte[] byteHash = CSP.ComputeHash(bytes);
-
-            string hash = string.Empty;
-
-            foreach (byte b in byteHash)
-                hash += string.Format("{0:x2}", b);
-
-            return new Guid(hash);
+            return result;
         }
     }
 }

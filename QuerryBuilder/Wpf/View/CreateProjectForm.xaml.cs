@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace Wpf.View
 {
     /// <summary>
-    /// Interaction logic for ConnectionDbForm.xaml
+    /// Interaction logic for CreateProjectForm.xaml
     /// </summary>
-    public partial class ConnectionDbForm : Window
+    public partial class CreateProjectForm : Window
     {
-        public ConnectionDbForm()
+        public CreateProjectForm()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
-
-       
     }
 }

@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\ConnectionDatabase.cs" />
     <Compile Include="DataModel\EntityManager.cs" />
     <Compile Include="DataModel\Entity\ConnectionDB.cs">
       <DependentUpon>QueryBuilderModel.tt</DependentUpon>
@@ -116,12 +117,16 @@
     <Compile Include="DataModel\ValidationMethods.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
+    <Compile Include="ViewModel\ConnectionDbFormViewModel.cs" />
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
     <Compile Include="ViewModel\PasswordHelper.cs" />
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
-    <Compile Include="View\ConnectionDBForm.xaml.cs">
-      <DependentUpon>ConnectionDBForm.xaml</DependentUpon>
+    <Compile Include="View\ConnectionDbForm.xaml.cs">
+      <DependentUpon>ConnectionDbForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreateProjectForm.xaml.cs">
+      <DependentUpon>CreateProjectForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
@@ -136,7 +141,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConnectionDBForm.xaml">
+    <Page Include="View\ConnectionDbForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateProjectForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

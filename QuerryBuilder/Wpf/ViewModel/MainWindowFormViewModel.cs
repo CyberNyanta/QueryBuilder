@@ -26,7 +26,7 @@ namespace Wpf.ViewModel
         }
         private void ClickMethodAddConection()
         {
-            var windowConnectionDbForm = new ConnectionDBForm();
+            var windowConnectionDbForm = new ConnectionDbForm();
             windowConnectionDbForm.Show();
         }
     }

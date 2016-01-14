@@ -32,7 +32,7 @@ CREATE TABLE [ConnectionDB] (
 	ConnectionName nvarchar(255) NOT NULL,
 	ServerName nvarchar(255) NOT NULL,
 	LoginDB nvarchar(255),
-	PasswordDB nvarchar(255),
+	PasswordDB uniqueidentifier,
 	ConnectionID integer NOT NULL,
 	DatabaseName nvarchar(255) NOT NULL,
 	Delflag integer NOT NULL DEFAULT '0',

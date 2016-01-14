@@ -43,7 +43,7 @@ namespace Wpf.ViewModel
                     MessageBox.Show(View.Resources.Resource.EqualsPasswords);
                 }
                entityManager.RegistrationUser(FirstName, LastName, Email, ConfirmPassword);
-                entityManager.LoginUser(Email, Password);
+               entityManager.LoginUser(Email, Password);
                CloseAction();
             }
             catch (Exception)

@@ -58,8 +58,8 @@ namespace Wpf.DataModel
             bool result = false;
             UsersRepository users = new UsersRepository(_context);
             try {
-                var user = users.GetList().First(e => e.Email.Equals(email));
-                result = true;
+                result = users.GetList().Any(e => e.Email.Equals(email));
+                //result = true;
             }
             catch
             {

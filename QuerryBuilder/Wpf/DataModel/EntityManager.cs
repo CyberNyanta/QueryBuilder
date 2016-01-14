@@ -19,10 +19,24 @@ namespace Wpf.DataModel
         private SqlConstructorDBEntities _context;
 
         private Users _user;
+
+        public Users User
+        {
+            get
+            {
+                return _user;
+            }
+
+            set
+            {
+                _user = value;
+            }
+        }
+
         public EntityManager()
         {
             _context = new SqlConstructorDBEntities();
-            _user = new Users();
+            User = new Users();
         }
 
         /// <summary>
@@ -57,14 +71,9 @@ namespace Wpf.DataModel
         {
             bool result = false;
             UsersRepository users = new UsersRepository(_context);
-            try {
-                result = users.GetList().Any(e => e.Email.Equals(email));
-                //result = true;
-            }
-            catch
-            {
-                result = false;
-            }
+
+            result = users.GetList().Where(e => e.Email.Equals(email)).Any();
+
             return result;
         }
 
@@ -90,7 +99,7 @@ namespace Wpf.DataModel
 
             ProjectsRepository projRepo = new ProjectsRepository(_context);
 
-            var proj = (from p in _user.Projects
+            var proj = (from p in User.Projects
                        where p.ProjectID.Equals(project.ProjectID) &&
                               p.ProjectName.Equals(project.ProjectName) &&
                               p.ProjectOwner.Equals(project.ProjectOwner)
@@ -112,7 +121,7 @@ namespace Wpf.DataModel
         /// <returns></returns>
         public IEnumerable<Projects> GetUserProjects()
         {            
-            return _user.Projects;
+            return User.Projects;
         }
 
         /// <summary>

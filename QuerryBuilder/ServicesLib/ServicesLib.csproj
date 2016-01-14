@@ -31,10 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML">
-      <HintPath>C:\Users\Zver\Desktop\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="itextsharp">
-      <HintPath>..\..\..\sql_constructor\ApplicationDB\StartForm\bin\Debug\itextsharp.dll</HintPath>
       <HintPath>.\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">

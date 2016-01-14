@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Windows.Input;
-using Wpf.DataModel;
 
 namespace Wpf.ViewModel
 {
@@ -41,7 +35,9 @@ namespace Wpf.ViewModel
         {
             if (!WindowsAutorizeted)
             {
-                return $"Data source = {Server}; Initial Catalog = {Database}; User ID = {User}; Password = {Password};";
+                return string.Format("Data source = {0}; Initial Catalog = {1}; " +
+                                     "User ID = {2}; Password = {3};",Server, Database, User, Password);
+                
             }
             
         else

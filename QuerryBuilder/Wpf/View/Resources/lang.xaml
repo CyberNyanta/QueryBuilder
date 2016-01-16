@@ -32,10 +32,24 @@
     <v:String x:Key="User">User:</v:String>
     <v:String x:Key="Password">Password:</v:String>
     <v:String x:Key="ConnectionDbWindowTitle">Connection settings</v:String>
-    <v:String x:Key="Test">Test connect</v:String>
-    <v:String x:Key="AddConnect">Add connect</v:String>
+    <v:String x:Key="Test">Test connection</v:String>
+    <v:String x:Key="AddConnect">Add connection</v:String>
     <v:String x:Key="WindowsAutorizatedCheckBox">Windows autorizated</v:String>
     <!--ConnectionDbWindow -->
+
+    <!--CreateProjectWindow -->
+    <v:String x:Key="CreateProjectTitle">Create New Project</v:String>
+    <v:String x:Key="NameProject">Project name:</v:String>
+    <v:String x:Key="SummaryProject">Summary project:</v:String>
+    <v:String x:Key="CreateNewConnection">New connection</v:String>
+    <v:String x:Key="YourConnections">Choose connections:</v:String>
+    <v:String x:Key="CreateProject">Create project</v:String>
+    <!--CreateProjectWindow -->
+
+
+
+
+
 
     <!--MainWindow -->
 

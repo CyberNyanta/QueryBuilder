@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interactivity;
 using Wpf.DataModel;
-using Wpf.View;
 
 namespace Wpf.ViewModel
 {
@@ -54,7 +47,7 @@ namespace Wpf.ViewModel
 
         private void ClickCloseMethod()
         {
-            this.CloseAction();
+            CloseAction();
         }
 
         /// <summary>

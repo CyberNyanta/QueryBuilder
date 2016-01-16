@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using BuilderBL;
 using System;
 using System.Collections.Generic;
@@ -6,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+﻿using System.Windows.Forms;
+>>>>>>> 20a3ceee84fe5ca952d0a1be541ede14d35593e0
 using System.Windows.Input;
-using Wpf.DataModel;
 
 namespace Wpf.ViewModel
 {
@@ -46,7 +48,9 @@ namespace Wpf.ViewModel
         {
             if (!WindowsAutorizeted)
             {
-                return $"Data source = {Server}; Initial Catalog = {Database}; User ID = {User}; Password = {Password};";
+                return string.Format("Data source = {0}; Initial Catalog = {1}; " +
+                                     "User ID = {2}; Password = {3};",Server, Database, User, Password);
+                
             }
             
         else

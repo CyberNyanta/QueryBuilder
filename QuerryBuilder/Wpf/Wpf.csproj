@@ -117,8 +117,10 @@
     <Compile Include="DataModel\Scrambler.cs" />
     <Compile Include="DataModel\ValidationMethods.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
     <Compile Include="ViewModel\ConnectionDbFormViewModel.cs" />
+    <Compile Include="ViewModel\CreateProjectFormViewModel.cs" />
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
     <Compile Include="ViewModel\Notifier\Notifier.cs" />
     <Compile Include="ViewModel\PasswordHelper.cs" />

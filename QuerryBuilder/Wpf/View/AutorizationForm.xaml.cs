@@ -11,7 +11,7 @@ namespace Wpf.View
     {
         public AutorizationForm()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             var vm = new AutorizationFormViewModel();
             this.DataContext = vm;
             if (vm.CloseAction == null)

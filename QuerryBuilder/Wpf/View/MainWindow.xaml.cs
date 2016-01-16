@@ -4,6 +4,7 @@ using System.Windows;
 using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 using Wpf.View;
+using Wpf.ViewModel;
 
 namespace Wpf
 {
@@ -15,12 +16,11 @@ namespace Wpf
         public MainWindow()
         {
             InitializeComponent();
-            //var ff = new AutorizationForm();
-            //var ss = new RegistrationForm();
-            //var dd = new ConnectionDbForm();
-            //dd.Show();
-            //ss.Show();
-            //ff.Show();
+            
+
+
+            
+
         }
     }
 }

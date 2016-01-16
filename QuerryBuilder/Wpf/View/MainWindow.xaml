@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Wpf.ViewModel"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+        mc:Ignorable="d"   
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}"
     Title="MainWindow" MinHeight="350" MinWidth="350"
+<<<<<<< HEAD
         WindowState="Maximized">
 
+=======
+        WindowState="Maximized" ShowInTaskbar="True">
+>>>>>>> 20a3ceee84fe5ca952d0a1be541ede14d35593e0
     <Window.DataContext>
         <local:MainWindowFormViewModel/>
     </Window.DataContext>

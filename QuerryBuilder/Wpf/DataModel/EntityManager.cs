@@ -109,7 +109,7 @@ namespace Wpf.DataModel
                        where p.ProjectID.Equals(project.ProjectID) &&
                               p.ProjectName.Equals(project.ProjectName) &&
                               p.ProjectOwner.Equals(project.ProjectOwner)
-                      select p).First();
+                      select p).FirstOrDefault();
 
 
             if (proj != null)
@@ -119,7 +119,7 @@ namespace Wpf.DataModel
             }
             else
             {
-                projRepo.Create(proj);
+                projRepo.Create(project);
                 projRepo.Save();
             }
         }
@@ -150,7 +150,7 @@ namespace Wpf.DataModel
         {
             UsersRepository repository = new UsersRepository(_context);
 
-            var logUser = repository.GetList().Where(e => e.Email.Equals(email)).First();
+            var logUser = repository.GetList().Where(e => e.Email.Equals(email)).FirstOrDefault();
 
                 if (logUser != null)
                     user = logUser;

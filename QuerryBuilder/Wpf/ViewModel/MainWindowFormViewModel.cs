@@ -1,12 +1,17 @@
-﻿using System;
+﻿using BuilderBL;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.View;
 
 namespace Wpf.ViewModel
 {
-    class MainWindowFormViewModel
+    class MainWindowFormViewModel:Notifier
     {
+        private static ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> _list;
+
         public ICommand ClickAutorizationCommand { get; set; }
         public ICommand ClickAddConnectionCommand { get; set; }
         public ICommand ClickCloseCommand { get; set; }
@@ -15,16 +20,13 @@ namespace Wpf.ViewModel
         {
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
-<<<<<<< HEAD
+            _list = new ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>>();
         }
 
-=======
-
-        }
         /// <summary>
         /// Метод команды, вызывающий форму авторизации
         /// </summary>
->>>>>>> 20a3ceee84fe5ca952d0a1be541ede14d35593e0
+
         private void ClickMethodAutorization()
         {
             var windowAutorizationForm = new AutorizationForm();
@@ -72,6 +74,26 @@ namespace Wpf.ViewModel
                 throw;
             }
 
+        }
+
+        public ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> List
+        {
+            get { return _list; }
+            set
+            {
+                _list = value;
+                OnPropertyChanged("List");
+            }
+        }
+
+        public static void UpdateTable(string connString, string dbName)
+        {
+            TreeViewHelper instance = new TreeViewHelper();
+            DbSchema temp = new DbSchema(connString);
+            instance.DictionaryTables = temp.GetTableEntities(temp);
+            instance._dictionaryCollection = new Dictionary<string, Dictionary<string, List<string>>>();
+            instance._dictionaryCollection.Add(dbName, instance.DictionaryTables);
+            _list.Add(instance._dictionaryCollection);
         }
     }
 }

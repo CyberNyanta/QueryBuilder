@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Wpf.ViewModel
 {
-    class TreeViewHelper:Notifier
+    class TreeViewHelper
     {
 
-        Dictionary<string, Dictionary<string, List<string>>> _dictionaryCollection;
+        public Dictionary<string, Dictionary<string, List<string>>> _dictionaryCollection;
 
         private ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> _list;
         
@@ -23,15 +23,6 @@ namespace Wpf.ViewModel
             _list = new ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>>();
         }
 
-        public ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> List
-        {
-            get { return _list; }
-            set
-            {
-                _list = value;
-                OnPropertyChanged("List");
-            }
-        }
 
         private string _connString;
 
@@ -57,17 +48,6 @@ namespace Wpf.ViewModel
 
             set{ _nameOfDB = value; }
         }
-
-        public void UpdateTable(string connString)
-        {
-            DbSchema temp = new DbSchema(connString);
-            DictionaryTables = temp.GetTableEntities(temp);
-            _dictionaryCollection = new Dictionary<string, Dictionary<string, List<string>>>();
-            _dictionaryCollection.Add(connString, DictionaryTables);
-            List.Add(_dictionaryCollection);
-        }
-
     }
-
 }
 

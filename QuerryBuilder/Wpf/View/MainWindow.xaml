@@ -8,12 +8,8 @@
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}"
     Title="MainWindow" MinHeight="350" MinWidth="350"
-<<<<<<< HEAD
-        WindowState="Maximized">
+    WindowState="Maximized" ShowInTaskbar="True">
 
-=======
-        WindowState="Maximized" ShowInTaskbar="True">
->>>>>>> 20a3ceee84fe5ca952d0a1be541ede14d35593e0
     <Window.DataContext>
         <local:MainWindowFormViewModel/>
     </Window.DataContext>
@@ -85,7 +81,8 @@
                           ShowsPreview="False" Grid.Row="2" />
 
             <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3" 
-                        DataContext="{}">
+                      DataContext="{Binding}"
+                        ItemsSource="{Binding List}">
                 <TreeView.ItemTemplate >
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Value}">
                     <TextBlock Text="{Binding Path=Key}" />                   

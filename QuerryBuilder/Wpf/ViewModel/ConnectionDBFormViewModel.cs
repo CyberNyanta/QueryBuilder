@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿using BuilderBL;
 using System;
 using System.Collections.Generic;
@@ -7,8 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-﻿using System.Windows.Forms;
->>>>>>> 20a3ceee84fe5ca952d0a1be541ede14d35593e0
+
 using System.Windows.Input;
 
 namespace Wpf.ViewModel
@@ -16,8 +14,8 @@ namespace Wpf.ViewModel
 
     class ConnectionDbFormViewModel 
     {
-        public string Database { get; set; }
-        public string Server { get; set; }
+        public string Database { get; set; } = "pubs";
+        public string Server { get; set; } = @"(localdb)\ProjectsV12";
         public string User { get; set; }
         public string Password { get; set; }
         public bool WindowsAutorizeted { get; set; }
@@ -36,6 +34,8 @@ namespace Wpf.ViewModel
         private void ClickMethodAddConection()
         {
             //Метод добавления подключения
+            MainWindowFormViewModel.UpdateTable(StringConnect(), Database);
+
             CloseAction();
         }
 

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Wpf.ViewModel;
 
 namespace Wpf.View
 {
@@ -22,6 +23,10 @@ namespace Wpf.View
         public ConnectionDbForm()
         {
             this.InitializeComponent();
+            var vm = new ConnectionDbFormViewModel();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
 
        

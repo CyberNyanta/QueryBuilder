@@ -9,6 +9,7 @@
             Style="{StaticResource WindowStyle}"
     Title="MainWindow" MinHeight="350" MinWidth="350"
         WindowState="Maximized">
+
     <Window.DataContext>
         <local:MainWindowFormViewModel/>
     </Window.DataContext>
@@ -80,7 +81,15 @@
                           ShowsPreview="False" Grid.Row="2" />
 
             <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3" 
-                      DataContext="{}"/>
+                        DataContext="{}">
+                <TreeView.ItemTemplate >
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Value}">
+                    <TextBlock Text="{Binding Path=Key}" />                   
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            </TreeView>
+
+
             <TextBox 
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"

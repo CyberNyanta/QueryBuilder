@@ -16,8 +16,6 @@ namespace Wpf.ViewModel
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
         }
 
-        
-
         private void ClickMethodAutorization()
         {
             var windowAutorizationForm = new AutorizationForm();

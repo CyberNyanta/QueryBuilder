@@ -12,9 +12,11 @@
         MaxWidth="300" MinWidth="300"
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <local:ConnectionDbFormViewModel x:Key="ConnectionDb"/>
+    </Window.Resources>
     
-    
-        <Window.DataContext>
+    <Window.DataContext>
         <local:ConnectionDbFormViewModel/>
     </Window.DataContext>
     
@@ -107,7 +109,7 @@
                Height="24"
                Width="100" Margin="0,8,0,9" />
 
-        <TextBox x:Name="ServerTextBox" 
+        <TextBox x:Name="ServerTextBox"
                  Grid.Column="1" Grid.Row="1"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" TextWrapping="Wrap" 
@@ -117,7 +119,7 @@
             </TextBox.Text>
         </TextBox>
 
-        <TextBox x:Name="DatabaseTextBox" 
+        <TextBox x:Name="DatabaseTextBox"
                  Grid.Column="1" Grid.Row="2"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
                  Height="22" TextWrapping="Wrap" 
@@ -168,7 +170,8 @@
                 HorizontalAlignment="Left"  VerticalAlignment="Center" 
                 Width="105" Height="30" BorderBrush="{DynamicResource WindowBorderBrush}" 
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" 
-                Margin="0,9,0,3" Command="{Binding ClickAddConnectionCommand}"/>
+                Margin="0,9,0,3"  
+                Command="{Binding ClickAddConnectionCommand}"/>
 
         <Button x:Name="Test" Content="{DynamicResource Test}" 
                 Grid.Column="1" Grid.Row="6"
@@ -182,7 +185,8 @@
                   HorizontalAlignment="Right" 
                   VerticalAlignment="Top" 
                   Grid.Row="5"
-                  Grid.Column="1" Height="21" Width="139" IsChecked="{Binding Path=WindowsAutorizeted}">
+                  Grid.Column="1" Height="21" Width="139"
+                  IsChecked="{Binding Path=WindowsAutorizeted}">
         </CheckBox>
     </Grid>
 

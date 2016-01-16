@@ -120,9 +120,11 @@
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
     <Compile Include="ViewModel\ConnectionDbFormViewModel.cs" />
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
+    <Compile Include="ViewModel\Notifier\Notifier.cs" />
     <Compile Include="ViewModel\PasswordHelper.cs" />
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\TreeViewHelper.cs" />
     <Compile Include="View\ConnectionDbForm.xaml.cs">
       <DependentUpon>ConnectionDbForm.xaml</DependentUpon>
     </Compile>
@@ -243,6 +245,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BuilderBL\BuilderBL.csproj">
+      <Project>{40a36584-5f82-4d90-a4b1-514a80c07ef1}</Project>
+      <Name>BuilderBL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServicesLib\ServicesLib.csproj">
       <Project>{840e534e-2c56-4a50-b7de-7122d12cabc2}</Project>
       <Name>ServicesLib</Name>

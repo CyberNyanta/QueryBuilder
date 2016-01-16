@@ -94,8 +94,14 @@ namespace Wpf.DataModel
         /// или обновить существующий
         /// </summary>
         /// <returns></returns>
-        public void SaveProject(Projects project)
+        public void SaveProject(int projectID, string projectName, string projectOwner)
         {
+            Projects project = new Projects
+            {
+                ProjectID = projectID,
+                ProjectName = projectName,
+                ProjectOwner = projectOwner
+            };
 
             ProjectsRepository projRepo = new ProjectsRepository(_context);
 
@@ -106,12 +112,16 @@ namespace Wpf.DataModel
                       select p).First();
 
 
-            if (proj != null) {
+            if (proj != null)
+            {
                 projRepo.Update(proj);
+                projRepo.Save();
             }
-            else 
+            else
+            {
                 projRepo.Create(proj);
-          
+                projRepo.Save();
+            }
         }
 
         /// <summary>

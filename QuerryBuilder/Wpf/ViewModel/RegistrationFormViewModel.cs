@@ -43,7 +43,6 @@ namespace Wpf.ViewModel
                     MessageBox.Show(View.Resources.Resource.EqualsPasswords);
                 }
                entityManager.RegistrationUser(FirstName, LastName, Email, ConfirmPassword);
-               entityManager.LoginUser(Email, Password);
                CloseAction();
             }
             catch (Exception)
@@ -57,8 +56,6 @@ namespace Wpf.ViewModel
         {
             this.CloseAction();
         }
-
-        
 
         /// <summary>
         /// Валидация и сообщения об ошибках
@@ -127,10 +124,6 @@ namespace Wpf.ViewModel
         {
             get { throw new NotImplementedException(); }
         }
-
-
-        
-
     }
 
     

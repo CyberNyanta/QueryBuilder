@@ -105,7 +105,11 @@
         <PasswordBox x:Name="UserPasswordTextBox" 
                  Grid.Column="1" Grid.Row="3"
                  HorizontalAlignment="Right" VerticalAlignment="Center"
-                 Height="23" Width="120" />
+                 Height="23" Width="120" >
+            <local:PasswordHelper.Password>
+                <Binding  Path="Password" Mode="TwoWay" UpdateSourceTrigger="LostFocus"/>
+            </local:PasswordHelper.Password>
+        </PasswordBox>
         <Button x:Name="LogInButton" Content="{DynamicResource LogIn}" 
                 Grid.Column="1" Grid.Row="4"
                 Command="{Binding ClickSignInCommand}"

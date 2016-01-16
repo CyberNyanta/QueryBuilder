@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf", "Wpf\Wpf.csproj", "{A85A441B-EAFF-42AA-8BAD-A398FDD2CE13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesLib", "ServicesLib\ServicesLib.csproj", "{840E534E-2C56-4A50-B7DE-7122D12CABC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderBL", "BuilderBL\BuilderBL.csproj", "{40A36584-5F82-4D90-A4B1-514A80C07EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{840E534E-2C56-4A50-B7DE-7122D12CABC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{840E534E-2C56-4A50-B7DE-7122D12CABC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{840E534E-2C56-4A50-B7DE-7122D12CABC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40A36584-5F82-4D90-A4B1-514A80C07EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40A36584-5F82-4D90-A4B1-514A80C07EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40A36584-5F82-4D90-A4B1-514A80C07EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40A36584-5F82-4D90-A4B1-514A80C07EF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

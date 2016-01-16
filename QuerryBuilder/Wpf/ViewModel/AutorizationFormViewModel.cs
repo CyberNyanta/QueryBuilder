@@ -24,7 +24,6 @@ namespace Wpf.ViewModel
             ClickRegisterCommand = new RelayCommand(arg => ClickRegisterMethod());
         }
 
-       
        /// <summary>
         /// Вызывает окно регистрации
         /// </summary>

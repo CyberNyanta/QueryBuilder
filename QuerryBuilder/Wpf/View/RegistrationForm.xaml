@@ -199,7 +199,7 @@
                 Grid.Column="1" Grid.Row="6"
                 HorizontalAlignment="Left"  VerticalAlignment="Center" 
                 Width="105" Height="30" BorderBrush="{DynamicResource WindowBorderBrush}" 
-                Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" 
+                Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
                 Command="{Binding ClickRegisterCommand}"/>
 
         <Button x:Name="CloseButton" Content="{DynamicResource Close}" 

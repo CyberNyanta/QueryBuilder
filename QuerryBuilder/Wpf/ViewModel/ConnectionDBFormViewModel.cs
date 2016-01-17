@@ -14,8 +14,8 @@ namespace Wpf.ViewModel
 
     class ConnectionDbFormViewModel 
     {
-        public string Database { get; set; } = "pubs";
-        public string Server { get; set; } = @"(localdb)\ProjectsV12";
+        public string Database { get; set; }
+        public string Server { get; set; }
         public string User { get; set; }
         public string Password { get; set; }
         public bool WindowsAutorizeted { get; set; }

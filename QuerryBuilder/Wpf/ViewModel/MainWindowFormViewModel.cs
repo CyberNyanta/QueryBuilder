@@ -10,7 +10,7 @@ namespace Wpf.ViewModel
 {
     class MainWindowFormViewModel:Notifier
     {
-        private static ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> _list;
+        private static ObservableCollection<Group> _list;
 
         public ICommand ClickAutorizationCommand { get; set; }
         public ICommand ClickAddConnectionCommand { get; set; }
@@ -20,7 +20,7 @@ namespace Wpf.ViewModel
         {
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
-            _list = new ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>>();
+            _list = new ObservableCollection<Group>();
         }
 
         /// <summary>
@@ -76,24 +76,34 @@ namespace Wpf.ViewModel
 
         }
 
-        public ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> List
+        public ObservableCollection<Group> List
         {
             get { return _list; }
             set
             {
                 _list = value;
-                OnPropertyChanged("List");
             }
         }
 
         public static void UpdateTable(string connString, string dbName)
         {
-            TreeViewHelper instance = new TreeViewHelper();
-            DbSchema temp = new DbSchema(connString);
-            instance.DictionaryTables = temp.GetTableEntities(temp);
-            instance._dictionaryCollection = new Dictionary<string, Dictionary<string, List<string>>>();
-            instance._dictionaryCollection.Add(dbName, instance.DictionaryTables);
-            _list.Add(instance._dictionaryCollection);
+            DbSchema _schema = new DbSchema(connString);
+            Group newGroup = new Group { Name =dbName , SubGroups = new List<Group>(), Entries = new List<Entry>() };
+
+            if (_schema != null)
+            {
+                foreach (var dt in _schema.GetTableEntities(_schema))
+                {
+                    Group temp = new Group { Name = dt.Key, SubGroups = new List<Group>(), Entries = new List<Entry>() };
+                    foreach (var entry in dt.Value)
+                    {
+                        temp.Entries.Add(new Entry() { Name = entry });
+                    }
+                    newGroup.SubGroups.Add(temp);
+                }
+                _list.Add(newGroup);
+
+            }
         }
     }
 }

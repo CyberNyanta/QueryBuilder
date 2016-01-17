@@ -9,45 +9,32 @@ using System.Threading.Tasks;
 
 namespace Wpf.ViewModel
 {
-    class TreeViewHelper
+    public class Entry
     {
-
-        public Dictionary<string, Dictionary<string, List<string>>> _dictionaryCollection;
-
-        private ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>> _list;
-        
-        private MainWindowFormViewModel MainWin { get; set; }
-
-        public TreeViewHelper()
+        public int Key { get; set; }
+        public string Name { get; set; }
+    }
+    public class Group
+    {
+        public IList<object> Items
         {
-            _list = new ObservableCollection<Dictionary<string, Dictionary<string, List<string>>>>();
+            get
+            {
+                IList<object> childNodes = new List<object>();
+                foreach (var group in this.SubGroups)
+                    childNodes.Add(group);
+                foreach (var entry in this.Entries)
+                    childNodes.Add(entry);
+
+                return childNodes;
+            }
         }
 
+        public int Key { get; set; }
+        public string Name { get; set; }
 
-        private string _connString;
-
-        public string ConnString
-        {
-            get{return _connString;}
-            set{ _connString = value;}
-        } 
-
-        private Dictionary<String, List<String>> _dictionaryTables;
-
-        public Dictionary<string, List<string>> DictionaryTables
-        {
-            get{ return _dictionaryTables;}
-            set{ _dictionaryTables = value;}
-        }
-
-        private string _nameOfDB;
-
-        public string NameOfDB
-        {
-            get{ return _nameOfDB; }
-
-            set{ _nameOfDB = value; }
-        }
+        public IList<Group> SubGroups { get; set; }
+        public IList<Entry> Entries { get; set; }
     }
 }
 

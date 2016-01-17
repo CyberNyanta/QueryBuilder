@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using Wpf.DataModel.Entity;
-using Wpf.DataModel.Repository;
 using Wpf.DataModel.Repository.Repositories;
 using Wpf.Exceptions;
 using ServicesLib;
@@ -186,6 +182,22 @@ namespace Wpf.DataModel
             connectionRepo.Dispose();
 
             return result;
+        }
+
+        public void SaveResultHistory(string resultName, string resultOwner, int connectionId, string resultBody)
+        {
+            var resultHistoryRepo = new ResultHistoryRepository(_context);
+
+            var newResultHistory = new ResultHistory
+            {
+                ResultName = resultName,
+                ResultOwner = resultOwner,
+                ConnectionID = connectionId,
+                ResultBody = resultBody
+            };
+            resultHistoryRepo.Create(newResultHistory);
+            resultHistoryRepo.Save();
+            resultHistoryRepo.Dispose();
         }
     }
 }

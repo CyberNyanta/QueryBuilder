@@ -7,30 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Wpf.DataModel.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class ConnectionDB
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class ConnectionDB
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public ConnectionDB()
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ConnectionDB()
-        {
-            this.ResultHistory = new HashSet<ResultHistory>();
-        }
-    
-        public int ConnectionOwner { get; set; }
-        public string ConnectionName { get; set; }
-        public string ServerName { get; set; }
-        public string LoginDB { get; set; }
-        public System.Guid PasswordDB { get; set; }
-        public int ConnectionID { get; set; }
-        public string DatabaseName { get; set; }
-        public int Delflag { get; set; }
-    
-        public virtual Projects Projects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ResultHistory> ResultHistory { get; set; }
+        this.ResultHistory = new HashSet<ResultHistory>();
     }
+
+    public int ConnectionOwner { get; set; }
+    public string ConnectionName { get; set; }
+    public string ServerName { get; set; }
+    public string LoginDB { get; set; }
+    public System.Guid PasswordDB { get; set; }
+    public int ConnectionID { get; set; }
+    public string DatabaseName { get; set; }
+    public int Delflag { get; set; }
+
+    public virtual Projects Projects { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<ResultHistory> ResultHistory { get; set; }
 }

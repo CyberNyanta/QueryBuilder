@@ -52,7 +52,6 @@ namespace Wpf.ViewModel
                                      "User ID = {2}; Password = {3};",Server, Database, User, Password);
                 
             }
-            
         else
             {
                return $"Data source = {Server}; Initial Catalog = {Database}; Integrated security = {"SSPI"}";

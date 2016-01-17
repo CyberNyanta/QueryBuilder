@@ -7,29 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Wpf.DataModel.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class Projects
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Projects
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Projects()
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Projects()
-        {
-            this.ConnectionDB = new HashSet<ConnectionDB>();
-            this.ProjectsShare = new HashSet<ProjectsShare>();
-        }
-    
-        public int ProjectID { get; set; }
-        public string ProjectName { get; set; }
-        public string ProjectOwner { get; set; }
-        public int Delflag { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ConnectionDB> ConnectionDB { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectsShare> ProjectsShare { get; set; }
-        public virtual Users Users { get; set; }
+        this.ConnectionDB = new HashSet<ConnectionDB>();
+        this.ProjectsShare = new HashSet<ProjectsShare>();
     }
+
+    public int ProjectID { get; set; }
+    public string ProjectName { get; set; }
+    public string ProjectOwner { get; set; }
+    public int Delflag { get; set; }
+    public string ProjectDescription { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<ConnectionDB> ConnectionDB { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<ProjectsShare> ProjectsShare { get; set; }
+    public virtual Users Users { get; set; }
 }

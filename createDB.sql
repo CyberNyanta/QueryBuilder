@@ -19,6 +19,7 @@ CREATE TABLE [Projects] (
 	ProjectID integer NOT NULL,
 	ProjectName nvarchar(255) NOT NULL,
 	ProjectOwner nvarchar(255) NOT NULL,
+	ProjectDescription nvarchar(255) NULL,
 	Delflag integer NOT NULL DEFAULT '0',
   CONSTRAINT [PK_PROJECTS] PRIMARY KEY CLUSTERED
   (

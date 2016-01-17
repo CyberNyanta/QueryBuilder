@@ -7,19 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Wpf.DataModel.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class ResultHistory
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class ResultHistory
-    {
-        public string ResultName { get; set; }
-        public string ResultOwner { get; set; }
-        public int ConnectionID { get; set; }
-        public string ResultBody { get; set; }
-        public int Delflag { get; set; }
-    
-        public virtual ConnectionDB ConnectionDB { get; set; }
-    }
+    public string ResultName { get; set; }
+    public string ResultOwner { get; set; }
+    public int ConnectionID { get; set; }
+    public string ResultBody { get; set; }
+    public int Delflag { get; set; }
+
+    public virtual ConnectionDB ConnectionDB { get; set; }
 }

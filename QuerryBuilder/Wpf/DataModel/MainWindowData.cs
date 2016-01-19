@@ -9,6 +9,6 @@ namespace Wpf.DataModel
     static class MainWindowData
     {
         public static string SqlQuerry { get; set; }
-
+        public static string StringConnect { get; set; }
     }
 }

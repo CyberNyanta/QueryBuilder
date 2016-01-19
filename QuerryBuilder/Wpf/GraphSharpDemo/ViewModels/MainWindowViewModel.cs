@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.SqlClient;
 using BuilderBL;
 using GraphSharp.Controls;
@@ -28,7 +29,8 @@ namespace GraphSharpDemo
             //Добавление сущностей
 
             #region Database
-            const string str = @"Data Source =  localhost; Initial Catalog = Northwind; Integrated Security = true;";
+
+            string str = Wpf.DataModel.MainWindowData.StringConnect;
             var _shema = new DbSchema(str);
             var existingVertices = (from item in _shema.GetTableEntities(_shema) let tempVertex = new Vertex() let tempList = item.Value.ToList() select tempVertex.AddToInstanse(item.Key, tempList)).ToList();
             Graph.AddVertexRange(existingVertices);

@@ -41,6 +41,8 @@ namespace Wpf.ViewModel
             _list = new ObservableCollection<Group>();
         }
 
+        //var win = new GraphSharpDemo.MainWindow();
+        //win.Show();
        private void ClickMethodChangeQuerry()
        {
            MainWindowData.SqlQuerry = SqlQuerry;

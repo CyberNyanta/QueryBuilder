@@ -48,13 +48,17 @@ namespace Wpf.ViewModel
         {
             if (!WindowsAutorizeted)
             {
-                return string.Format("Data source = {0}; Initial Catalog = {1}; " +
-                                     "User ID = {2}; Password = {3};",Server, Database, User, Password);
-                
+                string str = string.Format("Data source = {0}; Initial Catalog = {1}; " +
+                                     "User ID = {2}; Password = {3};", Server, Database, User, Password);
+                DataModel.MainWindowData.StringConnect = str;
+                return str;
+
             }
         else
             {
-               return $"Data source = {Server}; Initial Catalog = {Database}; Integrated security = {"SSPI"}";
+                string str = $"Data source = {Server}; Initial Catalog = {Database}; Integrated security = {"SSPI"}";
+                DataModel.MainWindowData.StringConnect = str;
+                return str;
             }
             
         }

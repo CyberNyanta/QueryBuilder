@@ -29,6 +29,9 @@ namespace ServicesLib
                 throw new FileNotFoundException("Incorrect file path.");
             }
 
+            if ((dataTable == null) || (dataTable.Rows.Count == 0))
+                throw new NullReferenceException("Empty data table.");
+
             var document = new Document();
             var writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
 

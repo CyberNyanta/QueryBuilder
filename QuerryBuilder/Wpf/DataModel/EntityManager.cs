@@ -59,8 +59,7 @@ namespace Wpf.DataModel
                 users.Dispose();
                 return newUser;
             }
-            else
-                throw new CustomException(Resources.ExistEmailError);
+            throw new CustomException(Resources.ExistEmailError);
         }
 
         public bool CheckEmail(string email)
@@ -208,5 +207,29 @@ namespace Wpf.DataModel
                                 select c;
             return dbConnections.ToList();
         }
+
+        public bool AddEmailToProjectsShare(int projectId, string email)
+        {
+            bool result = false;
+
+            var projectsShareRepo = new ProjectsShareRepository(_context);
+
+            var isProjectsShare = projectsShareRepo.GetList().Any(c => c.ProjectID == projectId && c.SharedEmail.Equals(email));
+            if (!isProjectsShare)
+            {
+                var newprojectsShare = new ProjectsShare
+                {
+                    ProjectID = projectId,
+                    SharedEmail = email
+                };
+                projectsShareRepo.Create(newprojectsShare);
+                projectsShareRepo.Save();
+                result = true;
+            }
+            projectsShareRepo.Dispose();
+
+            return result;
+        }
+
     }
 }

@@ -90,13 +90,14 @@ namespace Wpf.DataModel
         /// или обновить существующий
         /// </summary>
         /// <returns></returns>
-        public void SaveProject(int projectID, string projectName, string projectOwner)
+        public void SaveProject(int projectID, string projectName, string projectOwner, string projectDesription)
         {
             Projects project = new Projects
             {
                 ProjectID = projectID,
                 ProjectName = projectName,
-                ProjectOwner = projectOwner
+                ProjectOwner = projectOwner,
+                ProjectDescription=projectDesription
             };
 
             ProjectsRepository projRepo = new ProjectsRepository(_context);
@@ -198,6 +199,14 @@ namespace Wpf.DataModel
             resultHistoryRepo.Create(newResultHistory);
             resultHistoryRepo.Save();
             resultHistoryRepo.Dispose();
+        }
+
+        public List<ConnectionDB> GetUserConnections(Users currentUser)
+        {
+            var dbConnections = from u in currentUser.Projects
+                                from c in u.ConnectionDB
+                                select c;
+            return dbConnections.ToList();
         }
     }
 }

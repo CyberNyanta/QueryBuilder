@@ -21,6 +21,7 @@ namespace Wpf.ViewModel
 
         public EmailViewModel()
         {
+            SqlQuerry = MainWindowData.SqlQuerry;
             ClickSendMailCommand = new RelayCommand(arg => ClickMethodSendEmail());
         }
 

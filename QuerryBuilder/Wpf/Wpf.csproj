@@ -109,6 +109,7 @@
       <DependentUpon>QueryBuilderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\IRepository.cs" />
+    <Compile Include="DataModel\MainWindowData.cs" />
     <Compile Include="DataModel\Repository\Repositories\ConnectionDBRepository.cs" />
     <Compile Include="DataModel\Repository\Repositories\ProjectsRepository.cs" />
     <Compile Include="DataModel\Repository\Repositories\ProjectsShareRepository.cs" />

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 using Wpf.View;
@@ -17,8 +18,14 @@ namespace Wpf
     {
         public MainWindow()
         {
-            InitializeComponent();
-         }
-        
+            this.InitializeComponent();
+            var vm = new MainWindowFormViewModel();
+            this.DataContext = vm;
+        }
+
+        private void TextBoxSqlQuerry_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            MainWindowData.SqlQuerry = TextBoxSqlQuerry.Text;
+        }
     }
 }

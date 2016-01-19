@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using Wpf.DataModel;
 using Wpf.View;
 
 namespace Wpf.ViewModel
@@ -14,8 +15,8 @@ namespace Wpf.ViewModel
     {
         
         private static ObservableCollection<Group> _list;
-
-        public ICommand ClickAutorizationCommand { get; set; }
+       
+       public ICommand ClickAutorizationCommand { get; set; }
         public ICommand ClickAddConnectionCommand { get; set; }
         public ICommand ClickCloseCommand { get; set; }
         public ICommand ClickNewProjectCommand { get; set; }
@@ -24,10 +25,12 @@ namespace Wpf.ViewModel
         public ICommand ClickSavePdfCommand { get; set; }
         public ICommand ClickSendQuerryToEmailCommand { get; set; }
 
+        public ICommand ClickChangeQuerryCommand { get; set; }
         public string SqlQuerry { get; set; }
 
         public MainWindowFormViewModel()
         {
+            ClickChangeQuerryCommand = new RelayCommand(arg => ClickMethodChangeQuerry());
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
             ClickNewProjectCommand = new RelayCommand(arg => ClickMethodAddProject());
@@ -38,7 +41,12 @@ namespace Wpf.ViewModel
             _list = new ObservableCollection<Group>();
         }
 
-        private void ClickMethodSendQuerryToEmail()
+       private void ClickMethodChangeQuerry()
+       {
+           MainWindowData.SqlQuerry = SqlQuerry;
+       }
+
+       private void ClickMethodSendQuerryToEmail()
         {
            var SendMailWindow = new Email();
            SendMailWindow.ShowDialog();

@@ -202,12 +202,12 @@
                 </ToolBar>
                 </ToolBarTray>
 
-                <TextBox 
+                <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"
                 IsReadOnly="False" 
                 Grid.Row="5" 
-                Text="{Binding Path=SqlQuerry, Mode=TwoWay}"
+                Text="{Binding Path=SqlQuerry}"
                 TextWrapping="Wrap"/>
 
             <TextBlock 

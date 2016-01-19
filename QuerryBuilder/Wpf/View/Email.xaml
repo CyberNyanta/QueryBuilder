@@ -105,10 +105,6 @@
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
                 Command="{Binding ClickSendMailCommand}"/>
         </Grid>
-        <TextBox x:Name="textBox1" Grid.ColumnSpan="2" Grid.Column="1" Visibility="Hidden"
-                 HorizontalAlignment="Left" Height="23" Grid.Row="3" 
-                 TextWrapping="Wrap" Text="{Binding Path=SqlQuerry, Mode=TwoWay}" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"
-                 
-                 />
+        
     </Grid>
 </Window>

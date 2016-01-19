@@ -21,6 +21,7 @@ namespace Wpf
             this.InitializeComponent();
             var vm = new MainWindowFormViewModel();
             this.DataContext = vm;
+            
         }
 
         private void TextBoxSqlQuerry_OnTextChanged(object sender, TextChangedEventArgs e)

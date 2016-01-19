@@ -20,12 +20,16 @@
     <!--RegistrationWindow -->
     <v:String x:Key="UserFName">First name</v:String>
     <v:String x:Key="UserLName">Last name</v:String>
-    <v:String x:Key="Email">E-mail</v:String>
+    <v:String x:Key="Email">E-mail:</v:String>
+    <v:String x:Key="MailTitle">Title:</v:String> <!-- Тема сообщения письма при отправки запроса-->
     <v:String x:Key="UserConfirmPassword">Confirm password</v:String>
     <v:String x:Key="RegistrationWindowTitle">Registration</v:String>
     <v:String x:Key="RegisterButton">Register me</v:String>
     <!--RegistrationWindow -->
 
+    <v:String x:Key="SendQuerryToEmail">Send querry</v:String>
+    <v:String x:Key="SendEmail">Send querry to email</v:String>
+    
     <!--ConnectionDbWindow -->
     <v:String x:Key="Server">Server:</v:String>
     <v:String x:Key="Database">Database:</v:String>
@@ -68,10 +72,13 @@
     <v:String x:Key="Edit">Edit</v:String>
     <v:String x:Key="View">View</v:String>
     <v:String x:Key="Projects">Project</v:String>
-    
-
     <!--MainMenu -->
-
+    <v:String x:Key="SaveResultToPdf">Save results querry to PDF file</v:String>
+    <v:String x:Key="SaveResultToExcel">Save results querry to Excel file</v:String>
+    <v:String x:Key="SaveQuerryToTxt">Save querry to txt file</v:String>
+    <v:String x:Key="SendQuerryToMail">Send text querry to e-mail</v:String>
+    <v:String x:Key="RefreshQuerry">Refresh querry</v:String>
+    <v:String x:Key="RunQuerry">Run querry</v:String>
     <!--MainWindow -->
    
     

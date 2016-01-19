@@ -121,6 +121,7 @@
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
     <Compile Include="ViewModel\ConnectionDbFormViewModel.cs" />
     <Compile Include="ViewModel\CreateProjectFormViewModel.cs" />
+    <Compile Include="ViewModel\EmailViewModel.cs" />
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
     <Compile Include="ViewModel\Notifier\Notifier.cs" />
     <Compile Include="ViewModel\PasswordHelper.cs" />
@@ -132,6 +133,9 @@
     </Compile>
     <Compile Include="View\CreateProjectForm.xaml.cs">
       <DependentUpon>CreateProjectForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Email.xaml.cs">
+      <DependentUpon>Email.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
@@ -151,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateProjectForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Email.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

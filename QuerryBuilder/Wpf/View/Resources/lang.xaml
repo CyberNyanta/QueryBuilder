@@ -55,16 +55,19 @@
 
         <!--MainMenu -->
     <v:String x:Key="File">File</v:String>
-        <v:String x:Key="OpenProject">Open project...</v:String>
+    <v:String x:Key="CreateNewProject">Create project...</v:String>    
+    <v:String x:Key="OpenProject">Open project...</v:String>
         <v:String x:Key="SaveProject">Save project...</v:String>
         <v:String x:Key="SignIn">Sign in...</v:String>
+    <v:String x:Key="LogOut">Log out</v:String>
+    <v:String x:Key="LogOutUser">Log out</v:String>
         <v:String x:Key="Exit">Exit</v:String>
-        <v:String x:Key="Add">Add...</v:String>
+        <v:String x:Key="AddMenu">Add...</v:String>
             <v:String x:Key="AddConnection">Connection...</v:String>
         <v:String x:Key="CloseProject">Close project</v:String>
     <v:String x:Key="Edit">Edit</v:String>
     <v:String x:Key="View">View</v:String>
-    <v:String x:Key="Project">Project</v:String>
+    <v:String x:Key="Projects">Project</v:String>
     
 
     <!--MainMenu -->

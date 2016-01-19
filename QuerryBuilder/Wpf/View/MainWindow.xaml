@@ -9,7 +9,7 @@
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}"
     Title="MainWindow" MinHeight="350" MinWidth="350"
-    WindowState="Maximized" ShowInTaskbar="True">
+    WindowState="Maximized" ShowInTaskbar="True" >
 
     <Window.DataContext>
         <local:MainWindowFormViewModel/>
@@ -17,7 +17,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MaxWidth="350" MinWidth="100"/>
+            <ColumnDefinition Width="200" MaxWidth="350" MinWidth="100"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="241*"/>
         </Grid.ColumnDefinitions>
@@ -38,26 +38,71 @@
         <DockPanel Height="18" LastChildFill="True" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="1">
             <Menu x:Name="Mainmenu" Height="Auto" VerticalAlignment="Top">
                 <MenuItem Header="{DynamicResource File}" Name="File" >
-                    <MenuItem Header="{DynamicResource OpenProject}" />
-                    <MenuItem Header="{DynamicResource SaveProject}" />
-                    <MenuItem Header="{DynamicResource CloseProject}" />
+                    <MenuItem Header="{DynamicResource Projects}" Name="Project" >
+                        <MenuItem.Icon>
+                            <ContentControl Template="{StaticResource Project}" />
+                        </MenuItem.Icon>
+                        <MenuItem  Header="{DynamicResource CreateNewProject}" Command="{Binding ClickNewProjectCommand}">
+                            <MenuItem.Icon>
+                                <ContentControl Template="{StaticResource AddIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource OpenProject}" HorizontalAlignment="Left" Width="160"
+                                  ToolTip="{DynamicResource OpenProject}">
+                            <MenuItem.Icon>
+                                <ContentControl Template="{StaticResource Open}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource SaveProject}" />
+                        <MenuItem  Header="{DynamicResource CloseProject}" >
+                            <MenuItem.Icon>
+                                <ContentControl Template="{StaticResource CloseIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+
                     <Separator HorizontalAlignment="Left" Height="1" Width="160"/>
-                    <MenuItem Header="{DynamicResource Add}" >
-                        <MenuItem Header="{DynamicResource AddConnection}" Command="{Binding ClickAddConnectionCommand}" />
+                    <MenuItem Header="{DynamicResource AddMenu}" Name="Add" >
+                        <MenuItem.Icon>
+                            <ContentControl Template="{StaticResource AddIn}" />
+                        </MenuItem.Icon>
+                        <MenuItem  Header="{DynamicResource AddConnection}" Command="{Binding ClickAddConnectionCommand}" >
+                            <MenuItem.Icon>
+                                <ContentControl Template="{StaticResource IconDatabase}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
                     <Separator HorizontalAlignment="Left" Height="1" Width="160"/>
-                    <MenuItem Header="{DynamicResource SignIn}" Command="{Binding ClickAutorizationCommand}"/>
-                    <MenuItem Header="{DynamicResource Exit}" />
+                    <MenuItem  Header="{DynamicResource SignIn}" Command="{Binding ClickAutorizationCommand}">
+                        <MenuItem.Icon>
+                            <ContentControl Template="{StaticResource UserIcon}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem  Header="{DynamicResource LogOutUser}" Command="{Binding ClickAutorizationCommand}">
+                        <MenuItem.Icon>
+                            <ContentControl Template="{StaticResource LogOutIcon}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem  Header="{DynamicResource Exit}" Command="{Binding ClickCloseCommand}">
+                        <MenuItem.Icon>
+                            <ContentControl Template="{StaticResource CloseIcon}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Edit}" Name="Edit"/>
                 <MenuItem Header="{DynamicResource View}" Name="View"/>
-                <MenuItem Header="{DynamicResource Project}" Name="Project"/>
+
             </Menu>
         </DockPanel>
 
-        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Width="Auto">
+        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Width="Auto" >
             <ToolBar>
-                <Button Command="{Binding ClickAddConnectionCommand}">New connection</Button>
+                <Button Command="{Binding ClickAddConnectionCommand}" ToolTip="{StaticResource AddConnect}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Template="{StaticResource IconDatabase}" />
+                        <TextBlock Text="{StaticResource AddConnect}" VerticalAlignment="Center" Width="Auto"/>
+                    </StackPanel>
+                </Button>
                 <Button Command="Open">Open</Button>
                 <Button Command="Save">Save</Button>
             </ToolBar>
@@ -67,19 +112,48 @@
                 <Button Command="Paste">Paste</Button>
                 <Button Command="Cut">Cut</Button>
             </ToolBar>
+            <ToolBar Name="ToolBarProject" Header="Project">
+                <Button Command="{Binding ClickNewProjectCommand}" ToolTip="{StaticResource CreateProject}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Template="{StaticResource AddIcon}" />
+                        <TextBlock Text=" " VerticalAlignment="Center" Width="Auto"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding }" ToolTip="{StaticResource OpenProject}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Template="{StaticResource Open}" />
+                        <TextBlock Text="" VerticalAlignment="Center" Width="Auto"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding }" ToolTip="{StaticResource SaveProject}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Template="{StaticResource Saves}" />
+                        <TextBlock Text=" " VerticalAlignment="Center" Width="Auto"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding }" ToolTip="{StaticResource CloseProject}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Template="{StaticResource CloseIcon}" />
+                        <TextBlock Text="" VerticalAlignment="Center" Width="Auto"/>
+                    </StackPanel>
+                </Button>
+
+            </ToolBar>
         </ToolBarTray>
 
         <Grid ShowGridLines="False" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" MinHeight="150" MaxHeight="400" />
+                <RowDefinition Height="Auto" MinHeight="200" MaxHeight="400" />
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" MinHeight="150"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="127"/>
             </Grid.RowDefinitions>
-            <GridSplitter x:Name="GridSplitterTreeWithQuerry" Height="5"
+            <GridSplitter x:Name="GridSplitterTreeWithQuerry" Height="4"
                           HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                          ShowsPreview="False" Grid.Row="2" />
+                          ShowsPreview="False" Grid.Row="2" Margin="0,1" 
+                          Background="SkyBlue" ToolTip="Press and move for resize"/>
 
             <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3"
                 DataContext="{Binding}"
@@ -93,14 +167,47 @@
                     </DataTemplate>
                 </TreeView.Resources>
             </TreeView>
+            <ToolBarTray Grid.Row="4" Grid.Column="0" Width="Auto" >
+                <ToolBar>
+                    <Button Command="{Binding }" ToolTip="{StaticResource AddConnect}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource TestQuerry}" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource AddConnect}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource Refresh}" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource AddConnect}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource SendMail}" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource AddConnect}" Click="ButtonBase_OnClick">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource Pdf}" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource AddConnect}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource Excel}" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource AddConnect}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource FileTxt}" />
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+                </ToolBarTray>
 
-
-            <TextBox 
+                <TextBox 
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"
                 IsReadOnly="True" 
-                Grid.Row="4" 
-                Text="{}"
+                Grid.Row="5" 
+                Text="{Binding Path=SqlQuerry, Mode=TwoWay}"
                 TextWrapping="Wrap"/>
 
             <TextBlock 
@@ -135,7 +242,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 Foreground="DarkBlue"
-                Grid.Row="3" RenderTransformOrigin="0.5,0.5" Height="19">
+                Grid.Row="3" RenderTransformOrigin="0.5,0.5" Height="19" Margin="0,1">
                 <TextBlock.Background>
                     <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1" Opacity="0.5">
                         <LinearGradientBrush.RelativeTransform>
@@ -151,11 +258,14 @@
                     </LinearGradientBrush>
                 </TextBlock.Background>
             </TextBlock>
+
         </Grid>
         <GridSplitter x:Name="GridSplitter" 
                   Grid.Column="1" Grid.RowSpan="2" Grid.Row="2"
                    HorizontalAlignment="Center" VerticalAlignment="Stretch" 
-                     ShowsPreview="False" Width="5"/>
+                     ShowsPreview="False" Width="5"
+                      Background="SkyBlue" ToolTip="Press and move for resize"/>
+
         <StatusBar Height="24" VerticalAlignment="Bottom" Width="Auto" Grid.Row="4" Grid.ColumnSpan="3" Grid.Column="0">
             <TextBlock> Результат валидации или верификации данных</TextBlock>
             <StatusBarItem HorizontalAlignment="Right">

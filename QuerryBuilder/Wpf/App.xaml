@@ -10,6 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="View/Styles/WindowStyle/WindowStyle.xaml" />
                 <ResourceDictionary Source="View/Resources/lang.xaml" />
+                <ResourceDictionary Source="View/Styles/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--<Style TargetType="{x:Type FrameworkElement}" />-->

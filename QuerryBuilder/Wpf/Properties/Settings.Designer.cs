@@ -34,17 +34,5 @@ namespace Wpf.Properties {
                 this["DefaultLanguage"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
-        public global::System.Windows.Rect SaveWindow {
-            get {
-                return ((global::System.Windows.Rect)(this["SaveWindow"]));
-            }
-            set {
-                this["SaveWindow"] = value;
-            }
-        }
     }
 }

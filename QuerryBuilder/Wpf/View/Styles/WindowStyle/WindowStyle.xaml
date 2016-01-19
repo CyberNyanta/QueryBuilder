@@ -56,12 +56,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
-                   
+
                     <Border
                         x:Name="PART_Container"
                         Padding="7 7 7 5"
                         >
-                    <Grid
+                        <Grid
                         TextOptions.TextRenderingMode="ClearType"
                         TextOptions.TextFormattingMode="Display">
                             <Border
@@ -72,26 +72,26 @@
                             BorderBrush="{StaticResource WindowBorderBrush}"
                             BorderThickness="1"
                             Padding="0">
-                            <DockPanel
+                                <DockPanel
                                 HorizontalAlignment="Stretch"
                                 Background="Transparent"
                                 VerticalAlignment="Stretch"
                                 >
-                                <Border
+                                    <Border
                                     x:Name="TitleBar"
                                     DockPanel.Dock="Top"
                                     Background="{StaticResource TitleBarBackgroundBrush}"
                                     BorderThickness="0"
                                     >
-                                    <Grid Height="32">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="36"/>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="34"/>
-                                            <ColumnDefinition Width="34"/>
-                                            <ColumnDefinition Width="34"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image
+                                        <Grid Height="32">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="36"/>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="34"/>
+                                                <ColumnDefinition Width="34"/>
+                                                <ColumnDefinition Width="34"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image
                                             x:Name="Icon"
                                             Grid.Column="0"
                                             Source="{Binding Path=Icon, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
@@ -103,7 +103,7 @@
                                             MouseLeftButtonDown="IconMouseLeftButtonDown"
                                             WindowChrome.IsHitTestVisibleInChrome="True"
                                             />
-                                        <TextBlock
+                                            <TextBlock
                                             x:Name="Caption"
                                             Grid.Column="1"
                                             HorizontalAlignment="Left"
@@ -114,7 +114,7 @@
                                             Opacity="0.66"
                                             Text="{Binding Path=Title, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                             />
-                                        <Button
+                                            <Button
                                             x:Name="MinButton"
                                             Grid.Column="2"
                                             VerticalAlignment="Top"
@@ -124,17 +124,17 @@
                                             Click="MinButtonClick"
                                             WindowChrome.IsHitTestVisibleInChrome="True"
                                             >
-                                            <Grid MaxHeight="9" MaxWidth="9">
-                                                <Path
+                                                <Grid MaxHeight="9" MaxWidth="9">
+                                                    <Path
                                                     Stroke="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
                                                     StrokeThickness="1"
                                                     Stretch="None"
                                                     RenderOptions.EdgeMode="Aliased"
                                                     Data="M0,8 H8 M0,7 H8 M0,6 H8"
                                                     />
-                                            </Grid>
-                                        </Button>
-                                        <Button
+                                                </Grid>
+                                            </Button>
+                                            <Button
                                             Grid.Column="3"
                                             x:Name="MaxButton" 
                                             VerticalAlignment="Top"
@@ -144,8 +144,8 @@
                                             Click="MaxButtonClick"
                                             WindowChrome.IsHitTestVisibleInChrome="True"
                                             >
-                                            <Grid MaxHeight="9" MaxWidth="9">
-                                                <Path
+                                                <Grid MaxHeight="9" MaxWidth="9">
+                                                    <Path
                                                     x:Name="PART_MaxButton_Path"
                                                     Stroke="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
                                                     StrokeThickness="1"
@@ -153,9 +153,9 @@
                                                     RenderOptions.EdgeMode="Aliased"
                                                     Data="M0,0 H8 V8 H0 V0 M0,1 H8 M0,2 H8"
                                                     />
-                                            </Grid>
-                                        </Button>
-                                        <Button
+                                                </Grid>
+                                            </Button>
+                                            <Button
                                             Grid.Column="4"
                                             x:Name="CloseButton" 
                                             VerticalAlignment="Top"
@@ -165,21 +165,21 @@
                                             Click="CloseButtonClick"
                                             WindowChrome.IsHitTestVisibleInChrome="True"
                                             >
-                                            <Grid MaxHeight="9" MaxWidth="9">
-                                                <Path
+                                                <Grid MaxHeight="9" MaxWidth="9">
+                                                    <Path
                                                     Stroke="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
                                                     StrokeThickness="1.5"
                                                     Stretch="None"
                                                     Data="M0,0 L8,8 M0,8 L8,0"
                                                     />
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                                <ContentPresenter />
-                            </DockPanel>
-                        </Border>
-                    </Grid>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                    <ContentPresenter />
+                                </DockPanel>
+                            </Border>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="WindowState" Value="Maximized">

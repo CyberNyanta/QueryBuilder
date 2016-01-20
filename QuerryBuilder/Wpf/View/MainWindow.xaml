@@ -104,6 +104,8 @@
                 <ColumnDefinition Width="579*"/>
                 <ColumnDefinition Width="173*"/>
             </Grid.ColumnDefinitions>
+            
+            
             <ToolBarTray Grid.ColumnSpan="2" Grid.Column="0" Width="Auto" >
                 <ToolBar Name="DatabaseToolBar" >
                     <Button Command="{Binding ClickAddConnectionCommand}" ToolTip="{StaticResource AddConnect}">
@@ -146,11 +148,37 @@
                     </Button>
 
                 </ToolBar>
-
+                <ToolBar Name="UserControlView"  >
+                    <WrapPanel Orientation="Horizontal">
+                        <WrapPanel Orientation="Vertical">
+                        <ContentControl Template="{StaticResource AvatarIcon}" Width="35"/>
+                        <TextBlock Text="First Name" Margin="2,5,2,2"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Vertical">
+                            <Button Margin="2" Template="{StaticResource ListMyProjectIcon}" >
+                            </Button>
+                            <Button Margin="2" Template="{StaticResource UserSettingsIcon}" >
+                            </Button>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Vertical">
+                            <Button Margin="2" Template="{StaticResource UserLogInIconBar}" >
+                            </Button>
+                            <Button Margin="2" Template="{StaticResource LogOutIconBlue}" >
+                            </Button>
+                         </WrapPanel>
+                    </WrapPanel>
+                    
+                </ToolBar>
             </ToolBarTray>
-            <Grid Grid.Column="1" Grid.Row="0" MinWidth="170" HorizontalAlignment="Right">
-            <Button></Button>
-            </Grid>
+            
+            
+            <!--<Grid Grid.Column="1" Grid.Row="0" MinWidth="170" MaxWidth="170" HorizontalAlignment="Right">
+            <WrapPanel Background="SkyBlue" Height="50">
+                    <ContentControl Template="{StaticResource IconDatabase}" />
+                    <TextBlock Text="{DynamicResource AddConnect}" Margin="1"></TextBlock>
+                </WrapPanel>
+            </Grid>-->
+            
         </Grid>
         <Grid ShowGridLines="False" Grid.Row="2" Grid.Column="0" >
             <Grid.RowDefinitions>
@@ -164,7 +192,8 @@
             <GridSplitter x:Name="GridSplitterTreeWithQuerry" Height="4"
                           HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                           ShowsPreview="False" Grid.Row="2" Margin="0,1" 
-                          Background="SkyBlue" ToolTip="Press and move for resize"/>
+                          Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
+                          ToolTip="Press and move for resize"/>
 
             <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3"
                 DataContext="{Binding}"
@@ -275,7 +304,8 @@
                   Grid.Column="1" Grid.Row="2"
                    HorizontalAlignment="Center" VerticalAlignment="Stretch" 
                      ShowsPreview="False" Width="6"
-                      Background="SkyBlue" ToolTip="Press and move for resize" Margin="2,0"/>
+                      Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
+                      ToolTip="Press and move for resize" Margin="2,0"/>
 
         <StatusBar Height="24" VerticalAlignment="Bottom" Width="Auto" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
             <TextBlock> Результат валидации или верификации данных</TextBlock>
@@ -293,10 +323,13 @@
                 <ColumnDefinition Width="263*"/>
                 <ColumnDefinition Width="17"/>
             </Grid.ColumnDefinitions>
+            
             <GridSplitter x:Name="GridSplitterWithMainWorkflow" Height="4"
                           HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                           ShowsPreview="False" Grid.Row="1" Grid.ColumnSpan="2"
-                          Background="SkyBlue" ToolTip="Press and move for resize"/>
+                          Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
+                          ToolTip="Press and move for resize"/>
+            
             <ScrollBar x:Name="ScrollBar1" Grid.Column="1" Grid.Row="0" />
             <ScrollBar x:Name="ScrollBar2" Grid.Column="1" Grid.Row="2" />
             <DataGrid x:Name="DatabaseDataGrid" 

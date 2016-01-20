@@ -16,7 +16,7 @@ CREATE TABLE [Users] (
 )
 GO
 CREATE TABLE [Projects] (
-	ProjectID integer NOT NULL,
+	ProjectID integer IDENTITY(1,1) NOT NULL,
 	ProjectName nvarchar(255) NOT NULL,
 	ProjectOwner nvarchar(255) NOT NULL,
 	ProjectDescription nvarchar(255) NULL,

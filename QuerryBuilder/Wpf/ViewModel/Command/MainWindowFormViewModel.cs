@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.DataModel;
+using Wpf.DataModel.Entity;
 using Wpf.View;
 using Wpf.ViewModel.Command;
 

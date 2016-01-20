@@ -43,7 +43,14 @@ namespace Wpf.ViewModel.Command
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute();
+            bool result = true;
+
+            if (_canExecute != null)
+            {
+                result = _canExecute();
+                CommandManager.InvalidateRequerySuggested();
+            }
+            return result;
         }
 
         public void Execute(object parameter)
@@ -51,6 +58,7 @@ namespace Wpf.ViewModel.Command
             _execute?.Invoke(parameter);
         }
         #endregion
+       
         //class RelayCommand : ICommand
         //{
         //    public RelayCommand(Action<object> action)

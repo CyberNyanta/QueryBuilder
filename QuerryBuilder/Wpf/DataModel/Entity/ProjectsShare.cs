@@ -7,14 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class ProjectsShare
+namespace Wpf.DataModel.Entity
 {
-    public int ProjectID { get; set; }
-    public string SharedEmail { get; set; }
-    public int Delflag { get; set; }
-
-    public virtual Projects Projects { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class ProjectsShare
+    {
+        public int ProjectID { get; set; }
+        public string SharedEmail { get; set; }
+        public int Delflag { get; set; }
+    
+        public virtual Projects Projects { get; set; }
+    }
 }

@@ -151,6 +151,8 @@
     <Compile Include="GraphSharpDemo\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\AutorizationFormViewModel.cs" />
+    <Compile Include="ViewModel\Command\MainWindowFormViewModel.cs" />
+    <Compile Include="ViewModel\Command\RelayCommand.cs" />
     <Compile Include="ViewModel\ConnectionDbFormViewModel.cs" />
     <Compile Include="ViewModel\CreateProjectFormViewModel.cs" />
     <Compile Include="ViewModel\EmailViewModel.cs" />
@@ -158,7 +160,6 @@
     <Compile Include="ViewModel\Notifier\Notifier.cs" />
     <Compile Include="ViewModel\PasswordHelper.cs" />
     <Compile Include="ViewModel\RegistrationFormViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TreeViewHelper.cs" />
     <Compile Include="View\ConnectionDbForm.xaml.cs">
       <DependentUpon>ConnectionDbForm.xaml</DependentUpon>

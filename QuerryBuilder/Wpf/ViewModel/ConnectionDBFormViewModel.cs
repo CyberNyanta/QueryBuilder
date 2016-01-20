@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Windows.Input;
+using Wpf.ViewModel.Command;
 
 namespace Wpf.ViewModel
 {

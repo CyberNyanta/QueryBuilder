@@ -96,17 +96,18 @@
         </DockPanel>
 
         <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Width="Auto" >
-            <ToolBar Name="DatabaseToolBar" Header="{DynamicResource Database}">
+            <ToolBar Name="DatabaseToolBar" >
                 <Button Command="{Binding ClickAddConnectionCommand}" ToolTip="{StaticResource AddConnect}">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Vertical">
                         <ContentControl Template="{StaticResource IconDatabase}" />
-                        
-                    </StackPanel>
+                        <TextBlock Text="{DynamicResource AddConnect}" Margin="1">  </TextBlock>
+                    </WrapPanel>
                 </Button>
                 <Button Command="{Binding ClickBuildErModelCommand}" ToolTip="{StaticResource BuildErModelToolTip}">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Vertical">
                         <ContentControl Template="{StaticResource ErModelIcon}" />
-                        </StackPanel>
+                        <TextBlock Text="{DynamicResource BuildErModel}" Margin="1"></TextBlock>
+                    </WrapPanel>
                 </Button>
             </ToolBar>
             <ToolBar>
@@ -115,30 +116,30 @@
                 <Button Command="Paste">Paste</Button>
                 <Button Command="Cut">Cut</Button>
             </ToolBar>
-            <ToolBar Name="ToolBarProject" Header="Project">
+            <ToolBar Name="ToolBarProject" Header="">
                 <Button Command="{Binding ClickNewProjectCommand}" ToolTip="{StaticResource CreateProject}">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Vertical">
                         <ContentControl Template="{StaticResource AddIcon}" />
-                        <TextBlock Text=" " VerticalAlignment="Center" Width="Auto"/>
-                    </StackPanel>
+                        <TextBlock Text="{DynamicResource CreateNewProject}" Margin="1"></TextBlock>
+                    </WrapPanel>
                 </Button>
                 <Button Command="{Binding }" ToolTip="{StaticResource OpenProject}">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Vertical">
                         <ContentControl Template="{StaticResource Open}" />
-                        <TextBlock Text="" VerticalAlignment="Center" Width="Auto"/>
-                    </StackPanel>
+                        <TextBlock Text="{DynamicResource OpenProject}" Margin="1"></TextBlock>
+                    </WrapPanel>
                 </Button>
                 <Button Command="{Binding }" ToolTip="{StaticResource SaveProject}">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Vertical">
                         <ContentControl Template="{StaticResource Saves}" />
-                        <TextBlock Text=" " VerticalAlignment="Center" Width="Auto"/>
-                    </StackPanel>
+                        <TextBlock Text="{DynamicResource SaveProject}" Margin="1"></TextBlock>
+                    </WrapPanel>
                 </Button>
                 <Button Command="{Binding }" ToolTip="{StaticResource CloseProject}">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Vertical">
                         <ContentControl Template="{StaticResource CloseIcon}" />
-                        <TextBlock Text="" VerticalAlignment="Center" Width="Auto"/>
-                    </StackPanel>
+                        <TextBlock Text="{DynamicResource CloseProject}" Margin="1"></TextBlock>
+                    </WrapPanel>
                 </Button>
 
             </ToolBar>

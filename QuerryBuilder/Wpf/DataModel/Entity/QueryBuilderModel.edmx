@@ -13,7 +13,7 @@
           <Property Name="ConnectionName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ServerName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="LoginDB" Type="nvarchar" MaxLength="255" />
-          <Property Name="PasswordDB" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PasswordDB" Type="uniqueidentifier" />
           <Property Name="ConnectionID" Type="int" Nullable="false" />
           <Property Name="DatabaseName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Delflag" Type="int" Nullable="false" />
@@ -22,11 +22,11 @@
           <Key>
             <PropertyRef Name="ProjectID" />
           </Key>
-          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ProjectOwner" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Delflag" Type="int" Nullable="false" />
           <Property Name="ProjectDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="Delflag" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "SqlConstructorDB.dbo.ProjectsShare" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -66,9 +66,7 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <Association Name="ConnectionDB_fk0">
-          <End Role="Projects" Type="Self.Projects" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="ConnectionDB" Type="Self.ConnectionDB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Projects">
@@ -80,9 +78,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Projects_fk0">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -94,9 +90,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ProjectsShare_fk0">
-          <End Role="Projects" Type="Self.Projects" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="ProjectsShare" Type="Self.ProjectsShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Projects">
@@ -168,7 +162,7 @@
           <Property Name="ConnectionName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ServerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoginDB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordDB" Type="Guid" Nullable="false" />
+          <Property Name="PasswordDB" Type="Guid" />
           <Property Name="ConnectionID" Type="Int32" Nullable="false" />
           <Property Name="DatabaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Delflag" Type="Int32" Nullable="false" />

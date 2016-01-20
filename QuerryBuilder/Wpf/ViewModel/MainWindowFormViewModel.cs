@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.DataModel;
+using Wpf.DataModel.Entity;
 using Wpf.View;
 
 namespace Wpf.ViewModel

@@ -17,7 +17,11 @@ namespace Wpf.ViewModel
        
        public string SqlQuerry { get; set; }
 
+        private Users _currentUser;
+
+       public string FirstName { get; set; }
        
+
         public ObservableCollection<Group> List
         {
             get { return _list; }

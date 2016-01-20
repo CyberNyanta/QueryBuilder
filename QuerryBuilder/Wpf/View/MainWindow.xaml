@@ -72,6 +72,7 @@
             </Style.Triggers>
         </Style>
 
+       
     </Window.Resources>
     
 
@@ -214,8 +215,12 @@
                 <ToolBar Name="UserControlView"  >
                     <WrapPanel Orientation="Horizontal">
                         <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource AvatarIcon}" Width="35"/>
-                        <TextBlock Text="First Name" Margin="2,5,2,2"></TextBlock>
+                            <ContentControl x:Name="Avatar" Template="{StaticResource AvatarIcon}" Width="35">
+                                
+                                </ContentControl>
+                        <TextBlock x:Name="AvatarText" Text="{Binding FirstName}" Margin="2,5,2,2"></TextBlock>
+                            
+
                         </WrapPanel>
                         <WrapPanel Orientation="Vertical">
                             <Button Margin="2" Style="{StaticResource ChangeIconListProject}" >

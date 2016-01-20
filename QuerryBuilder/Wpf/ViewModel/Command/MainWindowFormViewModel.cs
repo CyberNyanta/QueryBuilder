@@ -29,7 +29,7 @@ namespace Wpf.ViewModel
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
 
-        private Users _currentUser;
+        
 
 
 
@@ -47,12 +47,15 @@ namespace Wpf.ViewModel
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
             _list = new ObservableCollection<Group>();
             _currentUser = new Users();
+            FirstName = "Not user";
+            
         }
 
         private void ClickMethodSaveProject()
         {
             EntityManager entityManager = new EntityManager();
-            //entityManager.SaveProject();
+            entityManager.SaveProject(MainWindowData.ProjectName, 
+                MainWindowData.ProjectOwner, MainWindowData.DescriptionProject);
         }
 
         private void ClickMethodBuildErModel()

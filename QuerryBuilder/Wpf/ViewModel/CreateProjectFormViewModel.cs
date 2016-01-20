@@ -34,7 +34,7 @@ namespace Wpf.ViewModel
 
         private void CreateProjectMethod()
         {
-            entityManager.SaveProject(entityManager.LastIdProjects, Name, entityManager.User.Email, Summary);
+            entityManager.SaveProject(Name, entityManager.User.Email, Summary);
         }
 
 

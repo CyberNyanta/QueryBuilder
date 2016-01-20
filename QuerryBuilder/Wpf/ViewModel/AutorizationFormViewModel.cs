@@ -38,7 +38,7 @@ namespace Wpf.ViewModel
         {
             try
             {
-                entityManager.LoginUser(Login, Password);
+                MainWindowData.CurrentUser=entityManager.LoginUser(Login, Password);
                 CloseAction();
             }
             catch (Exception)

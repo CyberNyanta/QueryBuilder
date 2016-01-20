@@ -123,4 +123,7 @@
   <data name="NotUserLogin" xml:space="preserve">
     <value>This user is not find</value>
   </data>
+  <data name="RegistrationComplete" xml:space="preserve">
+    <value>Thank you for registration {0}! We sent a message to you registered email. Now you can log in.</value>
+  </data>
 </root>

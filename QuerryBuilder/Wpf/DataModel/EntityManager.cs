@@ -6,6 +6,7 @@ using Wpf.DataModel.Repository.Repositories;
 using Wpf.Exceptions;
 using ServicesLib;
 using Wpf.Properties;
+using System.Diagnostics;
 
 namespace Wpf.DataModel
 {
@@ -123,11 +124,10 @@ namespace Wpf.DataModel
         /// или обновить существующий
         /// </summary>
         /// <returns></returns>
-        public void SaveProject(int projectID, string projectName, string projectOwner, string projectDesription)
+        public void SaveProject(string projectName, string projectOwner, string projectDesription)
         {
             Projects project = new Projects
             {
-                ProjectID = projectID,
                 ProjectName = projectName,
                 ProjectOwner = projectOwner,
                 ProjectDescription=projectDesription

@@ -102,12 +102,10 @@ namespace Wpf.DataModel
             bool result = false;
             UsersRepository users = new UsersRepository(_context);
 
-            result = users.GetList().Where(e => e.Email.Equals(email)).Any();
+            result = users.GetList().Any(e => e.Email.Equals(email) && e.Delflag == 0);
 
             return result;
         }
-
-
 
 
         public Users LoginUser(string email, string password)
@@ -138,8 +136,9 @@ namespace Wpf.DataModel
             var proj = (from p in User.Projects
                        where p.ProjectID.Equals(project.ProjectID) &&
                               p.ProjectName.Equals(project.ProjectName) &&
-                              p.ProjectOwner.Equals(project.ProjectOwner)
-                      select p).FirstOrDefault();
+                              p.ProjectOwner.Equals(project.ProjectOwner) &&
+                              p.Delflag == 0
+                        select p).FirstOrDefault();
 
 
             if (proj != null)
@@ -180,7 +179,7 @@ namespace Wpf.DataModel
         {
             UsersRepository repository = new UsersRepository(_context);
 
-            var logUser = repository.GetList().Where(e => e.Email.Equals(email)).FirstOrDefault();
+            var logUser = repository.GetList().FirstOrDefault(e => e.Email.Equals(email) && e.Delflag == 0);
 
                 if (logUser != null)
                     user = logUser;
@@ -195,7 +194,7 @@ namespace Wpf.DataModel
             bool result = false;
             ConnectionDBRepository connectionRepo = new ConnectionDBRepository(_context);
 
-            var connId = connectionRepo.GetList().Any(c=>c.ConnectionID.Equals(connectionID));
+            var connId = connectionRepo.GetList().Any(c=>c.ConnectionID.Equals(connectionID) && c.Delflag == 0);
                         
             if (!connId)
             { 
@@ -237,26 +236,36 @@ namespace Wpf.DataModel
         public List<ConnectionDB> GetUserConnections(Users currentUser)
         {
             var dbConnections = from u in currentUser.Projects
+                                where u.Delflag == 0
                                 from c in u.ConnectionDB
+                                where c.Delflag == 0
                                 select c;
             return dbConnections.ToList();
         }
 
-        public bool AddEmailToProjectsShare(int projectId, string email)
+        public bool SaveEmailToProjectsShare(int projectId, string email, bool delFlag)
         {
             bool result = false;
 
             var projectsShareRepo = new ProjectsShareRepository(_context);
 
-            var isProjectsShare = projectsShareRepo.GetList().Any(c => c.ProjectID == projectId && c.SharedEmail.Equals(email));
-            if (!isProjectsShare)
+            var projectsShare = projectsShareRepo.GetList().FirstOrDefault(c => c.ProjectID.Equals(projectId) && c.SharedEmail.Equals(email) && c.Delflag == 0);
+            if (projectsShare == null && !delFlag)
             {
                 var newprojectsShare = new ProjectsShare
                 {
                     ProjectID = projectId,
                     SharedEmail = email
                 };
+
                 projectsShareRepo.Create(newprojectsShare);
+                projectsShareRepo.Save();
+                result = true;
+            }
+            else if (projectsShare != null && delFlag)
+            {
+                projectsShare.Delflag = 1;
+                projectsShareRepo.Update(projectsShare);
                 projectsShareRepo.Save();
                 result = true;
             }

@@ -28,5 +28,7 @@ namespace Wpf
         {
             MainWindowData.SqlQuerry = TextBoxSqlQuerry.Text;
         }
+
+        
     }
 }

@@ -16,6 +16,7 @@ namespace Wpf.ViewModel
         public List<string> MyConnectionList { get; set; }
         public string Summary { get; set; }
         private EntityManager entityManager;
+        public List<string> UserConnection { get; set; }
         public ICommand AddConnectionCommand { get; set; }
         public ICommand CreateProjectCommand { get; set; }
 
@@ -24,12 +25,16 @@ namespace Wpf.ViewModel
             entityManager = new EntityManager();
             AddConnectionCommand = new RelayCommand(arg => AddConnectionMethod());
             CreateProjectCommand = new RelayCommand(arg => CreateProjectMethod());
-            
+            foreach (var p in entityManager.GetUserConnections(entityManager.User))
+            {
+                UserConnection.Add(p.DatabaseName);
+            }
+           
         }
 
         private void CreateProjectMethod()
         {
-            
+            entityManager.SaveProject(entityManager.LastIdProjects, Name, entityManager.User.Email, Summary);
         }
 
 

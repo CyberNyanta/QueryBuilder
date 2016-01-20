@@ -15,6 +15,66 @@
         <local:MainWindowFormViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <Style x:Key="ChangeIconLogOut" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template" Value="{StaticResource LogOutIconBlue}"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template" Value="{StaticResource LogOutIcon}"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Template" Value="{StaticResource LogOutIconRed}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ChangeIconUserSettings" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template" Value="{StaticResource UserSettingsIcon}"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template" Value="{StaticResource UserSettingsIconGreen}"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Template" Value="{StaticResource UserSettingsIconRed}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="ChangeIconAddUser" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template" Value="{StaticResource UserLogInIconBarBlue}"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template" Value="{StaticResource UserLogInIconBarGreen}"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Template" Value="{StaticResource UserLogInIconBarRed}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ChangeIconListProject" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template" Value="{StaticResource ListMyProjectIconBlue}"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template" Value="{StaticResource ListMyProjectIconGreen}"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Template" Value="{StaticResource ListMyProjectIconRed}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" MaxWidth="350" MinWidth="100"/>
@@ -34,6 +94,9 @@
             </LinearGradientBrush>
         </Grid.Background>
 
+        
+        
+        
         <DockPanel Height="18" LastChildFill="True" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="1">
             <Menu x:Name="Mainmenu" Height="Auto" VerticalAlignment="Top">
                 <MenuItem Header="{DynamicResource File}" Name="File" >
@@ -155,29 +218,21 @@
                         <TextBlock Text="First Name" Margin="2,5,2,2"></TextBlock>
                         </WrapPanel>
                         <WrapPanel Orientation="Vertical">
-                            <Button Margin="2" Template="{StaticResource ListMyProjectIcon}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconListProject}" >
                             </Button>
-                            <Button Margin="2" Template="{StaticResource UserSettingsIcon}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconUserSettings}" >
                             </Button>
                         </WrapPanel>
                         <WrapPanel Orientation="Vertical">
-                            <Button Margin="2" Template="{StaticResource UserLogInIconBar}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconAddUser}" >
                             </Button>
-                            <Button Margin="2" Template="{StaticResource LogOutIconBlue}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconLogOut}" >
                             </Button>
                          </WrapPanel>
                     </WrapPanel>
                     
                 </ToolBar>
             </ToolBarTray>
-            
-            
-            <!--<Grid Grid.Column="1" Grid.Row="0" MinWidth="170" MaxWidth="170" HorizontalAlignment="Right">
-            <WrapPanel Background="SkyBlue" Height="50">
-                    <ContentControl Template="{StaticResource IconDatabase}" />
-                    <TextBlock Text="{DynamicResource AddConnect}" Margin="1"></TextBlock>
-                </WrapPanel>
-            </Grid>-->
             
         </Grid>
         <Grid ShowGridLines="False" Grid.Row="2" Grid.Column="0" >
@@ -242,7 +297,7 @@
                 </ToolBar>
             </ToolBarTray>
 
-            <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"
+            <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"  
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"
                 IsReadOnly="False" 
@@ -337,6 +392,7 @@
                       Grid.Row="2" Grid.Column="0"
                       MinWidth="500" MinHeight="200"
                       Width="Auto" Height="Auto"/>
+            
         </Grid>
 
     </Grid>

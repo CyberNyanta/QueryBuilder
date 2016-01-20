@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.CodeDom;
+using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
@@ -23,9 +25,10 @@ namespace ServicesLib
         public void DataTableExport(DataTable dataTable, string filePath, string title)
         {
             if (string.IsNullOrWhiteSpace(filePath))
-            {
                 throw new FileNotFoundException("Incorrect file path.");
-            }
+
+            if ((dataTable == null) || (dataTable.Rows.Count == 0))
+                throw new NullReferenceException("Empty data table.");
 
             var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add(title);

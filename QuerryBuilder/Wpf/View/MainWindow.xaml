@@ -98,7 +98,10 @@
                 <MenuItem Header="{DynamicResource View}" Name="View"/>
 
             </Menu>
+            
         </DockPanel>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3">
+        
 
         <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Width="Auto" >
             <ToolBar Name="DatabaseToolBar" >
@@ -148,7 +151,7 @@
                 <Button Command="Cut">Cut</Button>
             </ToolBar>
         </ToolBarTray>
-
+        </WrapPanel>
         <Grid ShowGridLines="False" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

@@ -96,15 +96,18 @@
         </DockPanel>
 
         <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Width="Auto" >
-            <ToolBar>
+            <ToolBar Name="DatabaseToolBar" Header="{DynamicResource Database}">
                 <Button Command="{Binding ClickAddConnectionCommand}" ToolTip="{StaticResource AddConnect}">
                     <StackPanel Orientation="Horizontal">
                         <ContentControl Template="{StaticResource IconDatabase}" />
-                        <TextBlock Text="{StaticResource AddConnect}" VerticalAlignment="Center" Width="Auto"/>
+                        
                     </StackPanel>
                 </Button>
-                <Button Command="Open">Open</Button>
-                <Button Command="Save">Save</Button>
+                <Button Command="{Binding ClickBuildErModelCommand}" ToolTip="{StaticResource BuildErModelToolTip}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Template="{StaticResource ErModelIcon}" />
+                        </StackPanel>
+                </Button>
             </ToolBar>
             <ToolBar>
 

@@ -24,12 +24,13 @@ namespace Wpf.ViewModel
         public ICommand ClickSaveTxtCommand { get; set; }
         public ICommand ClickSavePdfCommand { get; set; }
         public ICommand ClickSendQuerryToEmailCommand { get; set; }
-
+        public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
         public string SqlQuerry { get; set; }
 
         public MainWindowFormViewModel()
         {
+            ClickBuildErModelCommand = new RelayCommand(arg => ClickMethodBuildErModel());
             ClickChangeQuerryCommand = new RelayCommand(arg => ClickMethodChangeQuerry());
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
@@ -41,9 +42,24 @@ namespace Wpf.ViewModel
             _list = new ObservableCollection<Group>();
         }
 
-        //var win = new GraphSharpDemo.MainWindow();
-        //win.Show();
-       private void ClickMethodChangeQuerry()
+       private void ClickMethodBuildErModel()
+       {
+           try
+           {
+                var win = new GraphSharpDemo.MainWindow();
+                win.Show();
+            }
+           catch (Exception)
+           {
+
+               MessageBox.Show("You don't have active connection to database");
+           }
+            
+        }
+
+
+
+        private void ClickMethodChangeQuerry()
        {
            MainWindowData.SqlQuerry = SqlQuerry;
        }

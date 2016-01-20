@@ -4,6 +4,9 @@
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
         xmlns:local="clr-namespace:GraphSharpDemo"
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"        
+        Icon="/View/Styles/WindowStyle/MainIcon.ico"
+        WindowState="Maximized" ShowInTaskbar="True"
+        Style="{StaticResource WindowStyle}"
         Title="GraphSharpDemo" Height="350" Width="525">
     <Window.Resources>
         <local:MainWindowViewModel x:Key="BindDictionary"/>

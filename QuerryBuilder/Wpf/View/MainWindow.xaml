@@ -24,8 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="18"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="113*"/>
-            <RowDefinition Height="135*"/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.Background>
@@ -98,61 +97,62 @@
                 <MenuItem Header="{DynamicResource View}" Name="View"/>
 
             </Menu>
-            
+
         </DockPanel>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3">
-        
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Height="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="579*"/>
+                <ColumnDefinition Width="173*"/>
+            </Grid.ColumnDefinitions>
+            <ToolBarTray Grid.ColumnSpan="2" Grid.Column="0" Width="Auto" >
+                <ToolBar Name="DatabaseToolBar" >
+                    <Button Command="{Binding ClickAddConnectionCommand}" ToolTip="{StaticResource AddConnect}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource IconDatabase}" />
+                            <TextBlock Text="{DynamicResource AddConnect}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Command="{Binding ClickBuildErModelCommand}" ToolTip="{StaticResource BuildErModelToolTip}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource ErModelIcon}" />
+                            <TextBlock Text="{DynamicResource BuildErModel}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
+                </ToolBar>
+                <ToolBar Name="ToolBarProject" Header="" >
+                    <Button Command="{Binding ClickNewProjectCommand}" ToolTip="{StaticResource CreateProject}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource AddIcon}" />
+                            <TextBlock Text="{DynamicResource CreateNewProject}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource OpenProject}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource Open}" />
+                            <TextBlock Text="{DynamicResource OpenProject}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource SaveProject}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource Saves}" />
+                            <TextBlock Text="{DynamicResource SaveProject}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Command="{Binding }" ToolTip="{StaticResource CloseProject}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource CloseIcon}" />
+                            <TextBlock Text="{DynamicResource CloseProject}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
 
-        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Width="Auto" >
-            <ToolBar Name="DatabaseToolBar" >
-                <Button Command="{Binding ClickAddConnectionCommand}" ToolTip="{StaticResource AddConnect}">
-                    <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource IconDatabase}" />
-                        <TextBlock Text="{DynamicResource AddConnect}" Margin="1">  </TextBlock>
-                    </WrapPanel>
-                </Button>
-                <Button Command="{Binding ClickBuildErModelCommand}" ToolTip="{StaticResource BuildErModelToolTip}">
-                    <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource ErModelIcon}" />
-                        <TextBlock Text="{DynamicResource BuildErModel}" Margin="1"></TextBlock>
-                    </WrapPanel>
-                </Button>
-            </ToolBar>
-            <ToolBar Name="ToolBarProject" Header="" >
-                <Button Command="{Binding ClickNewProjectCommand}" ToolTip="{StaticResource CreateProject}">
-                    <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource AddIcon}" />
-                        <TextBlock Text="{DynamicResource CreateNewProject}" Margin="1"></TextBlock>
-                    </WrapPanel>
-                </Button>
-                <Button Command="{Binding }" ToolTip="{StaticResource OpenProject}">
-                    <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource Open}" />
-                        <TextBlock Text="{DynamicResource OpenProject}" Margin="1"></TextBlock>
-                    </WrapPanel>
-                </Button>
-                <Button Command="{Binding }" ToolTip="{StaticResource SaveProject}">
-                    <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource Saves}" />
-                        <TextBlock Text="{DynamicResource SaveProject}" Margin="1"></TextBlock>
-                    </WrapPanel>
-                </Button>
-                <Button Command="{Binding }" ToolTip="{StaticResource CloseProject}">
-                    <WrapPanel Orientation="Vertical">
-                        <ContentControl Template="{StaticResource CloseIcon}" />
-                        <TextBlock Text="{DynamicResource CloseProject}" Margin="1"></TextBlock>
-                    </WrapPanel>
-                </Button>
+                </ToolBar>
 
-            </ToolBar>
-            <ToolBar >
-                <Button Command="Copy">Copy</Button>
-                <Button Command="Paste">Paste</Button>
-                <Button Command="Cut">Cut</Button>
-            </ToolBar>
-        </ToolBarTray>
-        </WrapPanel>
-        <Grid ShowGridLines="False" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" >
+            </ToolBarTray>
+            <Grid Grid.Column="1" Grid.Row="0" MinWidth="170" HorizontalAlignment="Right">
+            <Button></Button>
+            </Grid>
+        </Grid>
+        <Grid ShowGridLines="False" Grid.Row="2" Grid.Column="0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto" MinHeight="200" MaxHeight="400" />
@@ -211,9 +211,9 @@
                         </StackPanel>
                     </Button>
                 </ToolBar>
-                </ToolBarTray>
+            </ToolBarTray>
 
-                <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"
+            <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"
                 IsReadOnly="False" 
@@ -272,16 +272,39 @@
 
         </Grid>
         <GridSplitter x:Name="GridSplitter" 
-                  Grid.Column="1" Grid.RowSpan="2" Grid.Row="2"
+                  Grid.Column="1" Grid.Row="2"
                    HorizontalAlignment="Center" VerticalAlignment="Stretch" 
-                     ShowsPreview="False" Width="5"
-                      Background="SkyBlue" ToolTip="Press and move for resize"/>
+                     ShowsPreview="False" Width="6"
+                      Background="SkyBlue" ToolTip="Press and move for resize" Margin="2,0"/>
 
-        <StatusBar Height="24" VerticalAlignment="Bottom" Width="Auto" Grid.Row="4" Grid.ColumnSpan="3" Grid.Column="0">
+        <StatusBar Height="24" VerticalAlignment="Bottom" Width="Auto" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
             <TextBlock> Результат валидации или верификации данных</TextBlock>
             <StatusBarItem HorizontalAlignment="Right">
                 <ResizeGrip Opacity="0.75" />
             </StatusBarItem>
         </StatusBar>
+        <Grid Grid.Column="2" Grid.Row="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="195*" MinHeight="100"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="147*" MinHeight="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="263*"/>
+                <ColumnDefinition Width="17"/>
+            </Grid.ColumnDefinitions>
+            <GridSplitter x:Name="GridSplitterWithMainWorkflow" Height="4"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          ShowsPreview="False" Grid.Row="1" Grid.ColumnSpan="2"
+                          Background="SkyBlue" ToolTip="Press and move for resize"/>
+            <ScrollBar x:Name="ScrollBar1" Grid.Column="1" Grid.Row="0" />
+            <ScrollBar x:Name="ScrollBar2" Grid.Column="1" Grid.Row="2" />
+            <DataGrid x:Name="DatabaseDataGrid" 
+                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                      Grid.Row="2" Grid.Column="0"
+                      MinWidth="500" MinHeight="200"
+                      Width="Auto" Height="Auto"/>
+        </Grid>
+
     </Grid>
 </Window>

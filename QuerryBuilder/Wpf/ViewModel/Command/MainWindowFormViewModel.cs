@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,8 @@ namespace Wpf.ViewModel
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
 
+        private Users _currentUser;
+
 
 
         public MainWindowFormViewModel()
@@ -43,13 +46,13 @@ namespace Wpf.ViewModel
             ClickSavePdfCommand = new RelayCommand(arg => ClickMethodSavePdf());
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
             _list = new ObservableCollection<Group>();
+            _currentUser = new Users();
         }
 
         private void ClickMethodSaveProject()
         {
             EntityManager entityManager = new EntityManager();
-            //entityManager.SaveProject( );
-            
+            //entityManager.SaveProject();
         }
 
         private void ClickMethodBuildErModel()
@@ -158,7 +161,7 @@ namespace Wpf.ViewModel
         {
             var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.ShowDialog();
-
+            _currentUser = MainWindowData.CurrentUser;
         }
         /// <summary>
         /// Метод команды, вызывающий форму подключения к базе данных

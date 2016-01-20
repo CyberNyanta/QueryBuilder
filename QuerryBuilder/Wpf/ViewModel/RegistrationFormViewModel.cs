@@ -38,6 +38,7 @@ namespace Wpf.ViewModel
                 }
                entityManager.RegistrationUser(FirstName, LastName, Email, ConfirmPassword);
                CloseAction();
+                MessageBox.Show(String.Format(View.Resources.Resource.RegistrationComplete, FirstName),"Registration complete!", MessageBoxButton.OK);
             }
             catch (Exception)
             {

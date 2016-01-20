@@ -13,5 +13,7 @@ namespace Wpf.DataModel
         public static string ProjectName { get; set; }
         public static string DescriptionProject { get; set; }
         public static string ProjectOwner { get; set; }
+
+        public static Users CurrentUser { get; set; }
     }
 }

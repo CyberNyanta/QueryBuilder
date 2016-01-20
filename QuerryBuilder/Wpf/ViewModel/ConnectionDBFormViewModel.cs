@@ -36,7 +36,7 @@ namespace Wpf.ViewModel
         {
             //Метод добавления подключения
             MainWindowFormViewModel.UpdateTable(StringConnect(), Database);
-
+            DataModel.MainWindowData.StringConnect = StringConnect();
             CloseAction();
         }
 
@@ -49,17 +49,14 @@ namespace Wpf.ViewModel
         {
             if (!WindowsAutorizeted)
             {
-                string str = string.Format("Data source = {0}; Initial Catalog = {1}; " +
+                return string.Format("Data source = {0}; Initial Catalog = {1}; " +
                                      "User ID = {2}; Password = {3};", Server, Database, User, Password);
-                DataModel.MainWindowData.StringConnect = str;
-                return str;
+                
 
             }
         else
             {
-                string str = $"Data source = {Server}; Initial Catalog = {Database}; Integrated security = {"SSPI"}";
-                DataModel.MainWindowData.StringConnect = str;
-                return str;
+                return $"Data source = {Server}; Initial Catalog = {Database}; Integrated security = {"SSPI"}";
             }
             
         }

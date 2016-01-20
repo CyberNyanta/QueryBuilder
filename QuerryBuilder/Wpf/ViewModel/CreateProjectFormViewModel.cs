@@ -13,6 +13,7 @@ namespace Wpf.ViewModel
     class CreateProjectFormViewModel
     {
         public string Name { get; set; }
+        public List<string> MyConnectionList { get; set; }
         public string Summary { get; set; }
         private EntityManager entityManager;
         public ICommand AddConnectionCommand { get; set; }
@@ -23,11 +24,12 @@ namespace Wpf.ViewModel
             entityManager = new EntityManager();
             AddConnectionCommand = new RelayCommand(arg => AddConnectionMethod());
             CreateProjectCommand = new RelayCommand(arg => CreateProjectMethod());
+            
         }
 
         private void CreateProjectMethod()
         {
-            //entityManager.SaveProject();
+            
         }
 
 

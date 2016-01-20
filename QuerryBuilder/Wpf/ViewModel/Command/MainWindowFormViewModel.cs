@@ -49,6 +49,7 @@ namespace Wpf.ViewModel
         {
             EntityManager entityManager = new EntityManager();
             //entityManager.SaveProject( );
+            
         }
 
         private void ClickMethodBuildErModel()

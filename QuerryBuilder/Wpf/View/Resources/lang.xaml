@@ -79,6 +79,8 @@
     <v:String x:Key="SendQuerryToMail">Send text querry to e-mail</v:String>
     <v:String x:Key="RefreshQuerry">Refresh querry</v:String>
     <v:String x:Key="RunQuerry">Run querry</v:String>
+    <v:String x:Key="AddNewUsers">Users in project...</v:String>
+    <v:String x:Key="AddNewUsersToolTip">Sharing your project other user from email</v:String>
     <v:String x:Key="BuildErModel">Build ER-model</v:String>
     <v:String x:Key="BuildErModelToolTip">Build ER-model from database in new window</v:String>
     <!--MainWindow -->

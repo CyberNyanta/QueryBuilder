@@ -30,10 +30,8 @@ namespace Wpf.ViewModel
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
 
-        
 
-
-
+        #region ctor
         public MainWindowFormViewModel()
         {
             ClickBuildErModelCommand = new RelayCommand(arg => ClickMethodBuildErModel());
@@ -48,10 +46,9 @@ namespace Wpf.ViewModel
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
             _list = new ObservableCollection<Group>();
             _currentUser = new Users();
-            FirstName = "Not user";
-            
+            FirstName = "SignIn please";
         }
-
+        #endregion 
         private void ClickMethodSaveProject()
         {
             EntityManager entityManager = new EntityManager();
@@ -92,7 +89,7 @@ namespace Wpf.ViewModel
         /// </summary>
         private void ClickMethodSaveTxt()
         {
-            SaveTXT(SqlQuerry);
+            SaveTXT(MainWindowData.SqlQuerry);
         }
 
         public static void SaveTXT(string querry)
@@ -166,6 +163,9 @@ namespace Wpf.ViewModel
             var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.ShowDialog();
             _currentUser = MainWindowData.CurrentUser;
+            FirstName = _currentUser.FirstName;
+            OnPropertyChanged("FirstName");
+            
         }
         /// <summary>
         /// Метод команды, вызывающий форму подключения к базе данных

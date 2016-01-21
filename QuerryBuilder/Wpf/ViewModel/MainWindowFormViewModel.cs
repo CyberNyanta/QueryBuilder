@@ -1,14 +1,7 @@
 ﻿using BuilderBL;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.IO;
-using System.Windows;
-using System.Windows.Input;
-using Wpf.DataModel;
 using Wpf.DataModel.Entity;
-using Wpf.View;
 
 namespace Wpf.ViewModel
 {
@@ -19,8 +12,16 @@ namespace Wpf.ViewModel
        public string SqlQuerry { get; set; }
 
         private Users _currentUser;
+       private string _firstname;
 
-       public string FirstName { get; set; }
+       public string FirstName {
+            get { return _firstname; }
+            set
+            {
+                _firstname = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
        
 
         public ObservableCollection<Group> List

@@ -216,9 +216,12 @@
                     <WrapPanel Orientation="Horizontal">
                         <WrapPanel Orientation="Vertical">
                             <ContentControl x:Name="Avatar" Template="{StaticResource AvatarIcon}" Width="35">
-                                
-                                </ContentControl>
-                        <TextBlock x:Name="AvatarText" Text="{Binding FirstName}" Margin="2,5,2,2"></TextBlock>
+                            </ContentControl>
+                            <TextBlock x:Name="AvatarText" 
+                                       Text="{Binding FirstName}"
+                                       Margin="2,5,2,2" />
+                                       
+                                       
                             
 
                         </WrapPanel>
@@ -301,13 +304,14 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
-
+            
             <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"  
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"
                 IsReadOnly="False" 
                 Grid.Row="5" 
-                Text="{Binding Path=SqlQuerry}"
+                     Text="{Binding Path=SqlQuerry, Mode=TwoWay}"
+                
                 TextWrapping="Wrap"/>
 
             <TextBlock 

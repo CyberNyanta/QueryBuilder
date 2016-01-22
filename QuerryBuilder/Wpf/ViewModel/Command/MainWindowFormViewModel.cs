@@ -47,7 +47,8 @@ namespace Wpf.ViewModel
             _list = new ObservableCollection<Group>();
             _currentUser = new Users();
             FirstName = "SignIn please";
-            SqlQuerry = MainWindowData.SqlQuerry;
+            //SqlQuerry = MainWindowData.SqlQuerry;
+            MessageBox.Show("To use the full functionality of the application to register or sign-in");
         }
 
         private void ClickMethodAddUserInProject()

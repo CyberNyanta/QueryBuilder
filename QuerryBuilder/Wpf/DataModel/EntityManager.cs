@@ -248,18 +248,25 @@ namespace Wpf.DataModel
             return dbConnections.ToList();
         }
 
-        public bool SaveEmailToProjectsShare(int projectId, string email, bool delFlag)
+        public bool SaveEmailToProjectsShare(Projects project, string email, bool delFlag)
         {
             bool result = false;
 
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Empty email.");
+            }
+
             var projectsShareRepo = new ProjectsShareRepository(_context);
 
-            var projectsShare = projectsShareRepo.GetList().FirstOrDefault(c => c.ProjectID.Equals(projectId) && c.SharedEmail.Equals(email) && c.Delflag == 0);
+            var projectsShare = projectsShareRepo.GetList().FirstOrDefault(c => project != null && 
+                                    (c.ProjectID.Equals(project.ProjectID) && c.SharedEmail.Equals(email) && c.Delflag == 0));
+
             if (projectsShare == null && !delFlag)
             {
                 var newprojectsShare = new ProjectsShare
                 {
-                    ProjectID = projectId,
+                    ProjectID = project.ProjectID,
                     SharedEmail = email
                 };
 

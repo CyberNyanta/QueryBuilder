@@ -30,7 +30,7 @@ namespace ServicesLib
             }
 
             if ((dataTable == null) || (dataTable.Rows.Count == 0))
-                throw new NullReferenceException("Empty data table.");
+                throw new ArgumentException("Empty data table.");
 
             var document = new Document();
             var writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));

@@ -86,13 +86,17 @@ namespace Wpf.DataModel
                     Email = email,
                     PasswordHash = Scrambler.GetPassHash(password)
                 };
-
+                
                 UsersRepository users = new UsersRepository(_context);
                 users.Create(newUser);
                 users.Save();
                 mailer.SentRegisterNotification(email);
                 users.Dispose();
+
+                MainWindowData.CurrentUser = newUser;
+
                 return newUser;
+
             }
             throw new CustomException(Resources.ExistEmailError);
         }
@@ -112,7 +116,8 @@ namespace Wpf.DataModel
         {
             if (ValidationUser(email, password, ref _user))
             {
-                return _user;
+                MainWindowData.CurrentUser = User;
+                return User;
             }
             throw new ArgumentException();
         }

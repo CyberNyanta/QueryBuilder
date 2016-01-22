@@ -29,11 +29,11 @@ namespace Wpf.ViewModel
         public ICommand ClickSendQuerryToEmailCommand { get; set; }
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
-
-
+        public ICommand ClickAddUserInProjectCommand { get; set; }
         #region ctor
         public MainWindowFormViewModel()
         {
+            ClickAddUserInProjectCommand = new RelayCommand(arg => ClickMethodAddUserInProject());
             ClickBuildErModelCommand = new RelayCommand(arg => ClickMethodBuildErModel());
             ClickChangeQuerryCommand = new RelayCommand(arg => ClickMethodChangeQuerry());
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
@@ -47,7 +47,24 @@ namespace Wpf.ViewModel
             _list = new ObservableCollection<Group>();
             _currentUser = new Users();
             FirstName = "SignIn please";
+            SqlQuerry = MainWindowData.SqlQuerry;
         }
+
+        private void ClickMethodAddUserInProject()
+        {
+            if (MainWindowData.ProjectName != null)
+            {
+                var window = new AddUsersToEmailWindow();
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Create or open project");
+
+            }
+            
+        }
+
         #endregion 
         private void ClickMethodSaveProject()
         {
@@ -79,6 +96,7 @@ namespace Wpf.ViewModel
 
         private void ClickMethodSendQuerryToEmail()
         {
+            
             var SendMailWindow = new Email();
             SendMailWindow.ShowDialog();
 

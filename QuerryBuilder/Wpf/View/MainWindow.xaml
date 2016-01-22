@@ -134,7 +134,7 @@
                                 <ContentControl Template="{StaticResource IconDatabase}" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem  Header="{DynamicResource AddNewUsers}" Command="{Binding }" >
+                        <MenuItem  Header="{DynamicResource AddNewUsers}" Command="{Binding ClickAddUserInProjectCommand}" >
                             <MenuItem.Icon>
                                 <ContentControl Template="{StaticResource AddUsersInProjectIcon}" />
                             </MenuItem.Icon>
@@ -198,7 +198,7 @@
                             <TextBlock Text="{DynamicResource OpenProject}" Margin="1"></TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Command="{Binding }" ToolTip="{StaticResource SaveProject}">
+                    <Button Command="{Binding ClickSaveProjectCommand}" ToolTip="{StaticResource SaveProject}">
                         <WrapPanel Orientation="Vertical">
                             <ContentControl Template="{StaticResource Saves}" />
                             <TextBlock Text="{DynamicResource SaveProject}" Margin="1"></TextBlock>
@@ -210,7 +210,12 @@
                             <TextBlock Text="{DynamicResource CloseProject}" Margin="1"></TextBlock>
                         </WrapPanel>
                     </Button>
-
+                    <Button Command="{Binding ClickAddUserInProjectCommand}" ToolTip="{StaticResource AddNewUsersToolTip}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource AddUsersInProjectIcon}" />
+                            <TextBlock Text="{DynamicResource AddNewUsers}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
                 </ToolBar>
                 <ToolBar Name="UserControlView"  >
                     <WrapPanel Orientation="Horizontal">
@@ -232,7 +237,7 @@
                             </Button>
                         </WrapPanel>
                         <WrapPanel Orientation="Vertical">
-                            <Button Margin="2" Style="{StaticResource ChangeIconAddUser}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconAddUser}" Command="{Binding ClickAutorizationCommand}" >
                             </Button>
                             <Button Margin="2" Style="{StaticResource ChangeIconLogOut}" >
                             </Button>

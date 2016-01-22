@@ -11,19 +11,31 @@ using Wpf.ViewModel.Command;
 
 namespace Wpf.ViewModel
 {
-    class EmailViewModel : IDataErrorInfo
+    class AddUsersToEmailWindowViewModel : Notifier, IDataErrorInfo
     {
+        private string _projectName;
         public string Email { get; set; }
         public string Title { get; set; }
-        public string SqlQuerry { get; set; }
+
+        public string ProjectName
+        {
+            get { return _projectName; }
+            set
+            {
+                _projectName = value;
+                OnPropertyChanged("ProjectName");
+            }
+        }
 
         public ICommand ClickSendMailCommand { get; set; }
         public Action CloseAction { get; set; }
 
-        public EmailViewModel()
+        public AddUsersToEmailWindowViewModel()
         {
-            SqlQuerry = MainWindowData.SqlQuerry;
             ClickSendMailCommand = new RelayCommand(arg => ClickMethodSendEmail());
+            ProjectName = MainWindowData.ProjectName;
+            OnPropertyChanged("ProjectName");
+            
         }
 
         private void ClickMethodSendEmail()
@@ -31,12 +43,11 @@ namespace Wpf.ViewModel
             try
             {
                 var mail = ServicesLib.SmtpMailer.Instance();
-                mail.SendMail(Email, Title, SqlQuerry);
-                this.CloseAction();
+                mail.SendMail(Email, Title, ProjectName);
                 MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show("Mail sent", "", button, icon);
-                
+                this.CloseAction();
             }
             catch (Exception)
             {
@@ -45,7 +56,7 @@ namespace Wpf.ViewModel
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show("Mail didn't send", "", button, icon);
             }
-                        
+
         }
 
         public string this[string columnName]
@@ -68,7 +79,7 @@ namespace Wpf.ViewModel
                         }
 
                         break;
-                   }
+                }
                 return error;
             }
         }
@@ -78,4 +89,3 @@ namespace Wpf.ViewModel
         }
     }
 }
-

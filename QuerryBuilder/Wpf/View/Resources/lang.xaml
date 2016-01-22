@@ -29,7 +29,8 @@
 
     <v:String x:Key="SendQuerryToEmail">Send querry</v:String>
     <v:String x:Key="SendEmail">Send querry to email</v:String>
-    
+    <v:String x:Key="InviteUserToProject">Invite a user to the project</v:String>
+    <v:String x:Key="SendInvite">Send invite to email</v:String>
     <!--ConnectionDbWindow -->
     <v:String x:Key="Server">Server:</v:String>
     <v:String x:Key="Database">Database:</v:String>

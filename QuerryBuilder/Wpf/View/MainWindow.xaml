@@ -192,6 +192,7 @@
                             <TextBlock Text="{DynamicResource CreateNewProject}" Margin="1"></TextBlock>
                         </WrapPanel>
                     </Button>
+                    <Button Command="{Binding}" ToolTip="{StaticResource OpenProject}">
                         <WrapPanel Orientation="Vertical">
                             <ContentControl Template="{StaticResource Open}" />
                             <TextBlock Text="{DynamicResource OpenProject}" Margin="1"></TextBlock>

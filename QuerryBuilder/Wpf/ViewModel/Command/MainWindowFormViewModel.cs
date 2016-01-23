@@ -35,8 +35,6 @@ namespace Wpf.ViewModel
         public ICommand ClickSendQuerryToEmailCommand { get; set; }
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
-<<<<<<< HEAD
-
 
         #endregion
 
@@ -82,14 +80,8 @@ namespace Wpf.ViewModel
             }
         }
 
-
         #endregion
 
-
-
-
-
-=======
         public ICommand ClickAddUserInProjectCommand { get; set; }
         #region ctor
         public MainWindowFormViewModel()
@@ -104,16 +96,11 @@ namespace Wpf.ViewModel
             ClickSavePdfCommand = new RelayCommand(arg => ClickMethodSavePdf());
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
             _list = new ObservableCollection<Group>();
-<<<<<<< HEAD
-            CurrentUser = new Users();
-            FirstName = "Not user";
             CanExecute = false;
-
-=======
             _currentUser = new Users();
             FirstName = "SignIn please";
             //SqlQuerry = MainWindowData.SqlQuerry;
-            MessageBox.Show("To use the full functionality of the application to register or sign-in");
+            MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
         }
 
         private void ClickMethodAddUserInProject()
@@ -128,8 +115,6 @@ namespace Wpf.ViewModel
                 MessageBox.Show("Create or open project");
 
             }
-            
->>>>>>> c02a5f93e328c3b085d11c7fb9f952d80c7f17d6
         }
 
         #endregion 
@@ -247,14 +232,12 @@ namespace Wpf.ViewModel
         {
             var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.ShowDialog();
-<<<<<<< HEAD
             CurrentUser = MainWindowData.CurrentUser;
-=======
+
             _currentUser = MainWindowData.CurrentUser;
             FirstName = _currentUser.FirstName;
             OnPropertyChanged("FirstName");
-            
->>>>>>> c02a5f93e328c3b085d11c7fb9f952d80c7f17d6
+
         }
         /// <summary>
         /// Метод команды, вызывающий форму подключения к базе данных

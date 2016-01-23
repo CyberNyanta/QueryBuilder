@@ -1,7 +1,7 @@
 ﻿using BuilderBL;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+<<<<<<< HEAD
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -11,6 +11,9 @@ using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 using Wpf.View;
 using Wpf.ViewModel.Command;
+=======
+using Wpf.DataModel.Entity;
+>>>>>>> c02a5f93e328c3b085d11c7fb9f952d80c7f17d6
 
 namespace Wpf.ViewModel
 {
@@ -20,11 +23,23 @@ namespace Wpf.ViewModel
        
        public string SqlQuerry { get; set; }
 
+<<<<<<< HEAD
        private Users _currentUser;
 
        private bool _canExecute=false;
+=======
+        private Users _currentUser;
+       private string _firstname;
+>>>>>>> c02a5f93e328c3b085d11c7fb9f952d80c7f17d6
 
-       public string FirstName { get; set; }
+       public string FirstName {
+            get { return _firstname; }
+            set
+            {
+                _firstname = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
        
 
         public ObservableCollection<Group> List

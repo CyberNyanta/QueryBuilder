@@ -1,13 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Wpf.DataModel;
-using Wpf.DataModel.Entity;
-using Wpf.View;
 using Wpf.ViewModel;
 
 namespace Wpf
@@ -29,6 +22,7 @@ namespace Wpf
         {
             MainWindowData.SqlQuerry = TextBoxSqlQuerry.Text;
         }
+
         
-     }
+    }
 }

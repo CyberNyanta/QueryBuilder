@@ -134,7 +134,7 @@
                                 <ContentControl Template="{StaticResource IconDatabase}" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem  Header="{DynamicResource AddNewUsers}" Command="{Binding }" >
+                        <MenuItem  Header="{DynamicResource AddNewUsers}" Command="{Binding ClickAddUserInProjectCommand}" >
                             <MenuItem.Icon>
                                 <ContentControl Template="{StaticResource AddUsersInProjectIcon}" />
                             </MenuItem.Icon>
@@ -209,15 +209,23 @@
                             <TextBlock Text="{DynamicResource CloseProject}" Margin="1"></TextBlock>
                         </WrapPanel>
                     </Button>
-
+                    <Button Command="{Binding ClickAddUserInProjectCommand}" ToolTip="{StaticResource AddNewUsersToolTip}">
+                        <WrapPanel Orientation="Vertical">
+                            <ContentControl Template="{StaticResource AddUsersInProjectIcon}" />
+                            <TextBlock Text="{DynamicResource AddNewUsers}" Margin="1"></TextBlock>
+                        </WrapPanel>
+                    </Button>
                 </ToolBar>
                 <ToolBar Name="UserControlView"  >
                     <WrapPanel Orientation="Horizontal">
                         <WrapPanel Orientation="Vertical">
                             <ContentControl x:Name="Avatar" Template="{StaticResource AvatarIcon}" Width="35">
-                                
-                                </ContentControl>
-                        <TextBlock x:Name="AvatarText" Text="{Binding FirstName}" Margin="2,5,2,2"></TextBlock>
+                            </ContentControl>
+                            <TextBlock x:Name="AvatarText" 
+                                       Text="{Binding FirstName}"
+                                       Margin="2,5,2,2" />
+                                       
+                                       
                             
 
                         </WrapPanel>
@@ -228,7 +236,7 @@
                             </Button>
                         </WrapPanel>
                         <WrapPanel Orientation="Vertical">
-                            <Button Margin="2" Style="{StaticResource ChangeIconAddUser}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconAddUser}" Command="{Binding ClickAutorizationCommand}" >
                             </Button>
                             <Button Margin="2" Style="{StaticResource ChangeIconLogOut}" >
                             </Button>
@@ -300,13 +308,14 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
-
+            
             <TextBox TextChanged="TextBoxSqlQuerry_OnTextChanged"  
                 x:Name="TextBoxSqlQuerry" 
                 Margin="3"
                 IsReadOnly="False" 
                 Grid.Row="5" 
-                Text="{Binding Path=SqlQuerry}"
+                     Text="{Binding Path=SqlQuerry, Mode=TwoWay}"
+                
                 TextWrapping="Wrap"/>
 
             <TextBlock 

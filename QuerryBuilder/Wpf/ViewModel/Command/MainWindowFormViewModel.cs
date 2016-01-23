@@ -35,6 +35,7 @@ namespace Wpf.ViewModel
         public ICommand ClickSendQuerryToEmailCommand { get; set; }
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
+<<<<<<< HEAD
 
 
         #endregion
@@ -88,8 +89,12 @@ namespace Wpf.ViewModel
 
 
 
+=======
+        public ICommand ClickAddUserInProjectCommand { get; set; }
+        #region ctor
         public MainWindowFormViewModel()
         {
+            ClickAddUserInProjectCommand = new RelayCommand(arg => ClickMethodAddUserInProject());
             ClickBuildErModelCommand = new RelayCommand(arg => ClickMethodBuildErModel());
             ClickChangeQuerryCommand = new RelayCommand(arg => ClickMethodChangeQuerry());
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
@@ -99,12 +104,35 @@ namespace Wpf.ViewModel
             ClickSavePdfCommand = new RelayCommand(arg => ClickMethodSavePdf());
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
             _list = new ObservableCollection<Group>();
+<<<<<<< HEAD
             CurrentUser = new Users();
             FirstName = "Not user";
             CanExecute = false;
 
+=======
+            _currentUser = new Users();
+            FirstName = "SignIn please";
+            //SqlQuerry = MainWindowData.SqlQuerry;
+            MessageBox.Show("To use the full functionality of the application to register or sign-in");
         }
 
+        private void ClickMethodAddUserInProject()
+        {
+            if (MainWindowData.ProjectName != null)
+            {
+                var window = new AddUsersToEmailWindow();
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Create or open project");
+
+            }
+            
+>>>>>>> c02a5f93e328c3b085d11c7fb9f952d80c7f17d6
+        }
+
+        #endregion 
         private void ClickMethodSaveProject()
         {
             EntityManager entityManager = new EntityManager();
@@ -135,6 +163,7 @@ namespace Wpf.ViewModel
 
         private void ClickMethodSendQuerryToEmail()
         {
+            
             var SendMailWindow = new Email();
             SendMailWindow.ShowDialog();
 
@@ -145,7 +174,7 @@ namespace Wpf.ViewModel
         /// </summary>
         private void ClickMethodSaveTxt()
         {
-            SaveTXT(SqlQuerry);
+            SaveTXT(MainWindowData.SqlQuerry);
         }
 
         public static void SaveTXT(string querry)
@@ -218,7 +247,14 @@ namespace Wpf.ViewModel
         {
             var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.ShowDialog();
+<<<<<<< HEAD
             CurrentUser = MainWindowData.CurrentUser;
+=======
+            _currentUser = MainWindowData.CurrentUser;
+            FirstName = _currentUser.FirstName;
+            OnPropertyChanged("FirstName");
+            
+>>>>>>> c02a5f93e328c3b085d11c7fb9f952d80c7f17d6
         }
         /// <summary>
         /// Метод команды, вызывающий форму подключения к базе данных

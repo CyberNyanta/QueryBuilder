@@ -157,7 +157,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Edit}" Name="Edit"/>
+                <MenuItem Header="{DynamicResource Edit}" Name="Edit" Command="{Binding EditButton}"/>
                 <MenuItem Header="{DynamicResource View}" Name="View"/>
 
             </Menu>
@@ -192,13 +192,12 @@
                             <TextBlock Text="{DynamicResource CreateNewProject}" Margin="1"></TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Command="{Binding }" ToolTip="{StaticResource OpenProject}">
                         <WrapPanel Orientation="Vertical">
                             <ContentControl Template="{StaticResource Open}" />
                             <TextBlock Text="{DynamicResource OpenProject}" Margin="1"></TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Command="{Binding }" ToolTip="{StaticResource SaveProject}">
+                    <Button Command="{Binding ClickSaveProjectCommand}" ToolTip="{StaticResource SaveProject}">
                         <WrapPanel Orientation="Vertical">
                             <ContentControl Template="{StaticResource Saves}" />
                             <TextBlock Text="{DynamicResource SaveProject}" Margin="1"></TextBlock>

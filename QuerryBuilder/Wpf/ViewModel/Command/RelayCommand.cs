@@ -8,21 +8,18 @@ namespace Wpf.ViewModel.Command
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Predicate<object> _canExecute;
 
         public RelayCommand(Action<object> execute) : this(execute, null)
         {
         }
 
-        public RelayCommand(Action<object> execute, Func<bool> canExecute)
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
             _execute = execute;
-            if (canExecute == null)
-                _canExecute = () => true;
-            else
-                _canExecute = canExecute;
+            _canExecute = canExecute;
         }
 
         #region Члены ICommand
@@ -47,7 +44,7 @@ namespace Wpf.ViewModel.Command
 
             if (_canExecute != null)
             {
-                result = _canExecute();
+                result = _canExecute(parameter);
                 CommandManager.InvalidateRequerySuggested();
             }
             return result;
@@ -58,30 +55,5 @@ namespace Wpf.ViewModel.Command
             _execute?.Invoke(parameter);
         }
         #endregion
-       
-        //class RelayCommand : ICommand
-        //{
-        //    public RelayCommand(Action<object> action)
-        //    {
-        //        ExecuteDelegate = action;
-        //    }
-        //    public Predicate<object> CanExecuteDelegate { get; set; }
-        //    public Action<object> ExecuteDelegate { get; set; }
-
-        //    public bool CanExecute(object parameter)
-        //    {
-        //        return CanExecuteDelegate == null || CanExecuteDelegate(parameter);
-        //    }
-
-        //    public event EventHandler CanExecuteChanged
-        //    {
-        //        add { CommandManager.RequerySuggested += value; }
-        //        remove { CommandManager.RequerySuggested -= value; }
-        //    }
-        //    public void Execute(object parameter)
-        //    {
-        //        ExecuteDelegate?.Invoke(parameter);
-        //    }
-        //}
     }
 }

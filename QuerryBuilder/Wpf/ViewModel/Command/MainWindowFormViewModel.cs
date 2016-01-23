@@ -18,11 +18,17 @@ namespace Wpf.ViewModel
 {
     partial class MainWindowFormViewModel
     {
-        public ICommand ClickAutorizationCommand { get; set; }
+        #region ICommand fields
+        private ICommand _clickNewProjectCommand;
+        private ICommand _clickSaveProjectCommand;
+        private ICommand _editButton;
+
+        #endregion ICommand fields
+
+        #region ICommand independt properties
+        public ICommand ClickAutorizationCommand{ get; set; }
         public ICommand ClickAddConnectionCommand { get; set; }
         public ICommand ClickCloseCommand { get; set; }
-        public ICommand ClickNewProjectCommand { get; set; }
-        public ICommand ClickSaveProjectCommand { get; set; }
         public ICommand ClickSaveExcelCommand { get; set; }
         public ICommand ClickSaveTxtCommand { get; set; }
         public ICommand ClickSavePdfCommand { get; set; }
@@ -30,7 +36,55 @@ namespace Wpf.ViewModel
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
 
-        
+
+        #endregion
+
+        #region ICommand depenency properties
+        public ICommand ClickNewProjectCommand
+        {
+            get
+            {
+                if (_clickNewProjectCommand == null)
+                    _clickNewProjectCommand = new RelayCommand(arg => ClickMethodAddProject(), exec => CanExecute);
+                return _clickNewProjectCommand;
+            }
+            set
+            {
+                _clickNewProjectCommand = value;
+            }
+        }
+        public ICommand ClickSaveProjectCommand
+        {
+            get
+            {
+                if (_clickSaveProjectCommand == null)
+                    _clickSaveProjectCommand = new RelayCommand(arg => ClickMethodSaveProject(), exec => CanExecute);
+                return _clickSaveProjectCommand;
+            }
+            set
+            {
+                _clickNewProjectCommand = value;
+            }
+        }
+        public ICommand EditButton
+        {
+            get
+            {
+                if (_editButton == null)
+                    _editButton = new RelayCommand(arg => EditProject_CommandExecute(), exec => CanExecute);
+                return _editButton;
+            }
+
+            set
+            {
+                _editButton = value;
+            }
+        }
+
+
+        #endregion
+
+
 
 
 
@@ -40,16 +94,15 @@ namespace Wpf.ViewModel
             ClickChangeQuerryCommand = new RelayCommand(arg => ClickMethodChangeQuerry());
             ClickAutorizationCommand = new RelayCommand(arg => ClickMethodAutorization());
             ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
-            ClickNewProjectCommand = new RelayCommand(arg => ClickMethodAddProject());
-            ClickSaveProjectCommand = new RelayCommand(arg => ClickMethodSaveProject());
             ClickSaveExcelCommand = new RelayCommand(arg => ClickMethodSaveExcel());
             ClickSaveTxtCommand = new RelayCommand(arg => ClickMethodSaveTxt());
             ClickSavePdfCommand = new RelayCommand(arg => ClickMethodSavePdf());
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
             _list = new ObservableCollection<Group>();
-            _currentUser = new Users();
+            CurrentUser = new Users();
             FirstName = "Not user";
-            
+            CanExecute = false;
+
         }
 
         private void ClickMethodSaveProject()
@@ -165,7 +218,7 @@ namespace Wpf.ViewModel
         {
             var windowAutorizationForm = new AutorizationForm();
             windowAutorizationForm.ShowDialog();
-            _currentUser = MainWindowData.CurrentUser;
+            CurrentUser = MainWindowData.CurrentUser;
         }
         /// <summary>
         /// Метод команды, вызывающий форму подключения к базе данных

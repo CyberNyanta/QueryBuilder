@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 using Wpf.View;
+using Wpf.ViewModel.Command;
 
 namespace Wpf.ViewModel
 {
@@ -18,7 +20,9 @@ namespace Wpf.ViewModel
        
        public string SqlQuerry { get; set; }
 
-        private Users _currentUser;
+       private Users _currentUser;
+
+       private bool _canExecute=false;
 
        public string FirstName { get; set; }
        
@@ -29,6 +33,7 @@ namespace Wpf.ViewModel
             set
             {
                 _list = value;
+                OnPropertyChanged("List");
             }
         }
 
@@ -52,5 +57,40 @@ namespace Wpf.ViewModel
 
             }
         }
+
+        #region ICommand members
+
+
+        public Users CurrentUser
+        {
+            get
+            {
+                return _currentUser;
+            }
+
+            set
+            {
+                _currentUser = value;
+                CanExecute = true;
+            }
+        }
+
+        public bool CanExecute
+        {
+            get
+            {
+                return _canExecute;
+            }
+
+            set
+            {
+                _canExecute = value;
+            }
+        }
+
+        private void EditProject_CommandExecute()
+        {
+        }
+        #endregion
     }
 }

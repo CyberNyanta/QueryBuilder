@@ -54,8 +54,10 @@ CREATE TABLE [ResultHistory] (
 	ResultName nvarchar(255),
 	ResultOwner nvarchar(255) NOT NULL,
 	ConnectionID integer NOT NULL,
-	ResultBody text NOT NULL,
-	Delflag integer NOT NULL DEFAULT '0'
+	ResultBody VARCHAR(MAX) NOT NULL,
+	Delflag integer NOT NULL DEFAULT '0',
+	ResultDate datetime NOT NULL,
+	ResultFile VARBINARY(MAX) NULL
 )
 GO
 

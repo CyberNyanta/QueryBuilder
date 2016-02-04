@@ -15,20 +15,66 @@ namespace Wpf.ViewModel
 
     class ConnectionDbFormViewModel 
     {
+        public ICommand _clickAddConnectionCommand;
+
+        public bool _canExecute;
+        
+
         public string Database { get; set; }
         public string Server { get; set; }
         public string User { get; set; }
         public string Password { get; set; }
         public bool WindowsAutorizeted { get; set; }
         public ICommand ClickTestConnectionCommand { get; set; }
-        public ICommand ClickAddConnectionCommand { get; set; }
+        //public ICommand ClickAddConnectionCommand { get; set; }
+
+        public ICommand ClickAddConnectionCommand
+        {
+            get
+            {
+                if (_clickAddConnectionCommand == null)
+                    _clickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection(), exe => CanExecute);
+                return _clickAddConnectionCommand;
+            }
+
+            set
+            {
+                _clickAddConnectionCommand = value;
+            }
+
+        }
+
+        private bool CanExecute
+        {
+            get
+            {
+                _canExecute = false;
+                if (WindowsAutorizeted)
+                {
+                    if (!string.IsNullOrEmpty(Database)&&!string.IsNullOrEmpty(Server))
+                        _canExecute = true;
+                    else _canExecute = false;
+                }
+                if (!WindowsAutorizeted)
+                {
+                    if (!string.IsNullOrEmpty(Database)&& !string.IsNullOrEmpty(Server)&& !string.IsNullOrEmpty(User)&& !string.IsNullOrEmpty(Password))
+                        _canExecute = true;
+                    else _canExecute = false;
+                }
+                return _canExecute;
+            }
+            set
+            {
+                _canExecute = value;
+            }
+        }
 
         public Action CloseAction { get; set; }
 
         public ConnectionDbFormViewModel()
         {
             ClickTestConnectionCommand = new RelayCommand(arg => ClickMethodTestConection());
-            ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
+           // ClickAddConnectionCommand = new RelayCommand(arg => ClickMethodAddConection());
             
         }
 
@@ -54,7 +100,7 @@ namespace Wpf.ViewModel
                 
 
             }
-        else
+            else
             {
                 return $"Data source = {Server}; Initial Catalog = {Database}; Integrated security = {"SSPI"}";
             }

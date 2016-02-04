@@ -9,6 +9,10 @@ namespace Wpf.ViewModel
 {
    class RegistrationFormViewModel : IDataErrorInfo
     {
+        public ICommand _clickRegister;
+        public bool _canExecute;
+
+
         public Action CloseAction { get; set; }
 
         private EntityManager entityManager;
@@ -19,13 +23,50 @@ namespace Wpf.ViewModel
         public string LastName { get; set; }
 
         public ICommand ClickCloseCommand { get; set; }
-        public ICommand ClickRegisterCommand { get; set; }
+        public ICommand ClickRegisterCommand
+        {
+            get
+            {
+                if (_clickRegister == null)
+                    _clickRegister = new RelayCommand(arg => ClickRegisterMethod(), exe => CanExecute);
+                return _clickRegister;
+            }
+
+            set
+            {
+                _clickRegister = value;
+            }
+        }
+        private bool CanExecute
+        {
+            get
+            {
+                _canExecute = false;
+
+                if (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(FirstName)&&
+                    !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(Password)&&
+                    !string.IsNullOrEmpty(ConfirmPassword))
+                {
+                    if(Password==ConfirmPassword)
+                       _canExecute = true;
+
+                    else _canExecute = false;
+                }
+                else _canExecute = false;
+                return _canExecute;
+            }
+            set
+            {
+                _canExecute = value;
+            }
+        }
+
+
 
         public RegistrationFormViewModel()
         {
             entityManager = new EntityManager();
             ClickCloseCommand = new RelayCommand(arg => ClickCloseMethod());
-            ClickRegisterCommand = new RelayCommand(arg => ClickRegisterMethod());
         }
 
         private void ClickRegisterMethod()

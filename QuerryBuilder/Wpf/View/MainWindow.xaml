@@ -263,8 +263,8 @@
                           Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
                           ToolTip="Press and move for resize"/>
 
-            <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3"
-                DataContext="{Binding}"
+            <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      DataContext="{Binding}"
                       ItemsSource="{Binding List}">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:Group}" ItemsSource="{Binding Items}">

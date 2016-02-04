@@ -100,7 +100,7 @@ namespace Wpf.ViewModel
             _currentUser = new Users();
             FirstName = "SignIn please";
             //SqlQuerry = MainWindowData.SqlQuerry;
-            MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
+            //MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
         }
 
         private void ClickMethodAddUserInProject()

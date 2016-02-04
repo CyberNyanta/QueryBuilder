@@ -28,7 +28,5 @@ namespace Wpf.View
             if (vm.CloseAction == null)
                 vm.CloseAction = new Action(this.Close);
         }
-
-       
     }
 }

@@ -85,8 +85,17 @@
                 Width="105" Height="30" BorderBrush="{DynamicResource WindowBorderBrush}" 
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" 
                 Command="{Binding AddConnectionCommand}" Margin="17,0"/>
-        <ListBox x:Name="ConnectionListBox" Grid.Column="2" Height="104" Grid.Row="4" VerticalAlignment="Top"
-                 DataContext="{Binding Path=UserConnection}"/>
+        <ListBox x:Name="ConnectionListBox" Grid.Column="2" Height="104"
+                 Grid.Row="4" VerticalAlignment="Top"
+                 ItemsSource="{Binding List}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label x:Name="YourConnectLabel" 
         	Content="{DynamicResource YourConnections}" 
         	Grid.Column="1" Grid.Row="4"

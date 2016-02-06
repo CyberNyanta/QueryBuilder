@@ -16,9 +16,7 @@ using Wpf.ViewModel.Command;
 namespace Wpf.ViewModel
 {
    partial class MainWindowFormViewModel:Notifier
-    {
-       private static ObservableCollection<Group> _list;
-       
+    {      
        public string SqlQuerry { get; set; }
 
        private bool _canExecute=false;
@@ -38,11 +36,10 @@ namespace Wpf.ViewModel
 
         public ObservableCollection<Group> List
         {
-            get { return _list; }
+            get { return MainWindowData.UserConnections; }
             set
             {
-                _list = value;
-                OnPropertyChanged("List");
+                MainWindowData.UserConnections = value;
             }
         }
 
@@ -62,8 +59,7 @@ namespace Wpf.ViewModel
                     }
                     newGroup.SubGroups.Add(temp);
                 }
-                _list.Add(newGroup);
-
+                MainWindowData.UserConnections.Add(newGroup);
             }
         }
 

@@ -95,12 +95,12 @@ namespace Wpf.ViewModel
             ClickSaveTxtCommand = new RelayCommand(arg => ClickMethodSaveTxt());
             ClickSavePdfCommand = new RelayCommand(arg => ClickMethodSavePdf());
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
-            _list = new ObservableCollection<Group>();
+            MainWindowData.UserConnections = new ObservableCollection<Group>();
             CanExecute = false;
             _currentUser = new Users();
             FirstName = "SignIn please";
             //SqlQuerry = MainWindowData.SqlQuerry;
-            //MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
+            MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
         }
 
         private void ClickMethodAddUserInProject()

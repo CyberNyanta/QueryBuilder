@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wpf.DataModel.Entity;
+using Wpf.ViewModel;
 
 namespace Wpf.DataModel
 {
@@ -16,5 +18,7 @@ namespace Wpf.DataModel
         public static string ProjectOwner { get; set; }
 
         public static Users CurrentUser { get; set; }
+
+        public static ObservableCollection<Group> UserConnections { get; set; }
     }
 }

@@ -262,7 +262,7 @@
                           ShowsPreview="False" Grid.Row="2" Margin="0,1" 
                           Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"
                           ToolTip="Press and move for resize"/>
-
+            
             <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3" ScrollViewer.VerticalScrollBarVisibility="Visible"
                       DataContext="{Binding}"
                       ItemsSource="{Binding List}">

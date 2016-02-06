@@ -39,7 +39,6 @@ namespace Wpf.ViewModel
             try
             {
                 MainWindowData.CurrentUser=entityManager.LoginUser(Login, Password);
-                //MainWindowFormViewModel.FirstName = MainWindowData.CurrentUser.FirstName;
                 CloseAction();
             }
             catch (Exception)

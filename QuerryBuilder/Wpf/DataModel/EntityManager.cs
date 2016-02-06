@@ -238,15 +238,15 @@ namespace Wpf.DataModel
             resultHistoryRepo.Dispose();
         }
 
-        public List<ConnectionDB> GetUserConnections(Users currentUser)
-        {
-            var dbConnections = from u in currentUser.Projects
-                                where u.Delflag == 0
-                                from c in u.ConnectionDB
-                                where c.Delflag == 0
-                                select c;
-            return dbConnections.ToList();
-        }
+        //public List<ConnectionDB> GetUserConnections(Users currentUser)
+        //{
+        //    var dbConnections = from u in currentUser.Projects
+        //                        where u.Delflag == 0
+        //                        from c in u.ConnectionDB
+        //                        where c.Delflag == 0
+        //                        select c;
+        //    return dbConnections.ToList();
+        //}
 
         public bool SaveEmailToProjectsShare(Projects project, string email, bool delFlag)
         {

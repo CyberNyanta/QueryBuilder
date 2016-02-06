@@ -48,12 +48,15 @@
             <PropertyRef Name="ConnectionID" />
             <PropertyRef Name="ResultBody" />
             <PropertyRef Name="Delflag" />
+            <PropertyRef Name="ResultDate" />
           </Key>
           <Property Name="ResultName" Type="nvarchar" MaxLength="255" />
           <Property Name="ResultOwner" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ConnectionID" Type="int" Nullable="false" />
-          <Property Name="ResultBody" Type="text" Nullable="false" />
+          <Property Name="ResultBody" Type="varchar(max)" Nullable="false" />
           <Property Name="Delflag" Type="int" Nullable="false" />
+          <Property Name="ResultDate" Type="datetime" Nullable="false" />
+          <Property Name="ResultFile" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -130,7 +133,9 @@
     [ResultHistory].[ResultOwner] AS [ResultOwner], 
     [ResultHistory].[ConnectionID] AS [ConnectionID], 
     [ResultHistory].[ResultBody] AS [ResultBody], 
-    [ResultHistory].[Delflag] AS [Delflag]
+    [ResultHistory].[Delflag] AS [Delflag], 
+    [ResultHistory].[ResultDate] AS [ResultDate], 
+    [ResultHistory].[ResultFile] AS [ResultFile]
     FROM [dbo].[ResultHistory] AS [ResultHistory]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="ConnectionDB_fk0" Association="Self.ConnectionDB_fk0">
@@ -199,6 +204,7 @@
             <PropertyRef Name="ConnectionID" />
             <PropertyRef Name="ResultBody" />
             <PropertyRef Name="Delflag" />
+            <PropertyRef Name="ResultDate" />
           </Key>
           <Property Name="ResultName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ResultOwner" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
@@ -206,6 +212,8 @@
           <Property Name="ResultBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Delflag" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ConnectionDB" Relationship="Self.ResultHistory_fk1" FromRole="ResultHistory" ToRole="ConnectionDB" />
+          <Property Name="ResultDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ResultFile" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="ConnectionDB_fk0">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
@@ -335,6 +343,8 @@
           <EntitySetMapping Name="ResultHistory">
             <EntityTypeMapping TypeName="SqlConstructorDBModel.ResultHistory">
               <MappingFragment StoreEntitySet="ResultHistory">
+                <ScalarProperty Name="ResultFile" ColumnName="ResultFile" />
+                <ScalarProperty Name="ResultDate" ColumnName="ResultDate" />
                 <ScalarProperty Name="ResultName" ColumnName="ResultName" />
                 <ScalarProperty Name="ResultOwner" ColumnName="ResultOwner" />
                 <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />

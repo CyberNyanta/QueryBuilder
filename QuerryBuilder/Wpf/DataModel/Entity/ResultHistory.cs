@@ -19,6 +19,8 @@ namespace Wpf.DataModel.Entity
         public int ConnectionID { get; set; }
         public string ResultBody { get; set; }
         public int Delflag { get; set; }
+        public System.DateTime ResultDate { get; set; }
+        public byte[] ResultFile { get; set; }
     
         public virtual ConnectionDB ConnectionDB { get; set; }
     }

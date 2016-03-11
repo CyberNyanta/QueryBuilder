@@ -9,8 +9,8 @@ namespace Wpf.ViewModel
 {
    class RegistrationFormViewModel : IDataErrorInfo
     {
-        public ICommand _clickRegister;
-        public bool _canExecute;
+        private ICommand _clickRegister;
+        private bool _canExecute;
 
 
         public Action CloseAction { get; set; }

@@ -21,7 +21,10 @@ namespace Wpf.ViewModel
         #region ICommand fields
         private ICommand _clickNewProjectCommand;
         private ICommand _clickSaveProjectCommand;
+        private ICommand _clickOpenProjectCommand;
         private ICommand _editButton;
+        private EntityManager entityManager;
+
 
         #endregion ICommand fields
 
@@ -52,6 +55,21 @@ namespace Wpf.ViewModel
                 _clickNewProjectCommand = value;
             }
         }
+
+        public ICommand ClickOpenProjectCommand
+        {
+            get
+            {
+                if (_clickOpenProjectCommand == null)
+                    _clickOpenProjectCommand = new RelayCommand(arg => ClickMethodOpenProject(), exec => CanExecute);
+                return _clickOpenProjectCommand;
+            }
+            set
+            {
+                _clickOpenProjectCommand = value;
+            }
+        }
+
         public ICommand ClickSaveProjectCommand
         {
             get
@@ -100,7 +118,7 @@ namespace Wpf.ViewModel
             _currentUser = new Users();
             FirstName = "SignIn please";
             //SqlQuerry = MainWindowData.SqlQuerry;
-            MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
+            //MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
         }
 
         private void ClickMethodAddUserInProject()
@@ -120,10 +138,15 @@ namespace Wpf.ViewModel
         #endregion 
         private void ClickMethodSaveProject()
         {
-            EntityManager entityManager = new EntityManager();
             entityManager.SaveProject(MainWindowData.ProjectName, 
                 MainWindowData.ProjectOwner, MainWindowData.DescriptionProject);
         }
+
+        private void ClickMethodOpenProject()
+        {
+            entityManager.GetUserProjects();
+        }
+
 
         private void ClickMethodBuildErModel()
         {
@@ -223,6 +246,7 @@ namespace Wpf.ViewModel
             var windowProject = new CreateProjectForm();
             windowProject.ShowDialog();
         }
+       
 
         /// <summary>
         /// Метод команды, вызывающий форму авторизации

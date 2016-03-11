@@ -33,6 +33,7 @@ namespace Wpf.ViewModel
             entityManager.SaveProject(Name, DataModel.MainWindowData.CurrentUser.Email, Summary);
         }
 
+        
 
         private void AddConnectionMethod()
         {

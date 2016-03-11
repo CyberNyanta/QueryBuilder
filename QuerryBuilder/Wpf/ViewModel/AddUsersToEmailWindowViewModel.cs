@@ -16,7 +16,7 @@ namespace Wpf.ViewModel
         private string _projectName;
         public string Email { get; set; }
         public string Title { get; set; }
-        private EntityManager entityManger;
+        //private EntityManager entityManger;
         public string ProjectName
         {
             get { return _projectName; }

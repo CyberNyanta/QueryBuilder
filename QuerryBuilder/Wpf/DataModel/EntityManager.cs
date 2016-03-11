@@ -87,11 +87,11 @@ namespace Wpf.DataModel
                     PasswordHash = Scrambler.GetPassHash(password)
                 };
                 
-                UsersRepository users = new UsersRepository(_context);
-                users.Create(newUser);
-                users.Save();
+                UsersRepository user = new UsersRepository(_context);
+                user.Create(newUser);
+                user.Save();
                 mailer.SentRegisterNotification(email);
-                users.Dispose();
+                user.Dispose();
 
                 MainWindowData.CurrentUser = newUser;
 

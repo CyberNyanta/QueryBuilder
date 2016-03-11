@@ -235,8 +235,11 @@ namespace Wpf.ViewModel
             CurrentUser = MainWindowData.CurrentUser;
 
             _currentUser = MainWindowData.CurrentUser;
-            FirstName = DataModel.MainWindowData.CurrentUser.FirstName;
-            OnPropertyChanged("FirstName");
+            if (DataModel.MainWindowData.CurrentUser != null)
+            {
+                FirstName = DataModel.MainWindowData.CurrentUser.FirstName;
+                OnPropertyChanged("FirstName");
+            }
 
         }
         /// <summary>

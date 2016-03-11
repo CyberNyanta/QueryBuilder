@@ -30,7 +30,7 @@ namespace Wpf.ViewModel
 
         private void CreateProjectMethod()
         {
-            entityManager.SaveProject(Name, entityManager.User.Email, Summary);
+            entityManager.SaveProject(Name, DataModel.MainWindowData.CurrentUser.Email, Summary);
         }
 
 

@@ -44,7 +44,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLDesigner\Enums\Aggregate.cs" />
+    <Compile Include="SQLDesigner\Enums\Sort - Copy.cs" />
+    <Compile Include="SQLDesigner\Enums\Sort.cs" />
+    <Compile Include="SQLDesigner\Enums\TableType.cs" />
+    <Compile Include="SQLDesigner\QueryBuilder.cs" />
+    <Compile Include="SQLDesigner\QueryField.cs" />
+    <Compile Include="SQLDesigner\QueryFieldCollection.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

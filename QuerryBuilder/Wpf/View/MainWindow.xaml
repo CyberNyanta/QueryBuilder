@@ -265,7 +265,12 @@
             
             <TreeView x:Name="TreeDataBase" Grid.Row="1" Margin="3" ScrollViewer.VerticalScrollBarVisibility="Visible"
                       DataContext="{Binding}"
-                      ItemsSource="{Binding List}">
+                      ItemsSource="{Binding List}"
+                      >
+                <TreeViewItem MouseDoubleClick="TreeViewItem_MouseDoubleClick">
+                    
+                </TreeViewItem>
+               
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:Group}" ItemsSource="{Binding Items}">
                         <TextBlock Text="{Binding Path=Name}" />

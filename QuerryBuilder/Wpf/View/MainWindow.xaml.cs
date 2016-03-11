@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Wpf.DataModel;
 using Wpf.ViewModel;
+using System.Windows.Input;
 
 namespace Wpf
 {
@@ -22,6 +23,9 @@ namespace Wpf
             MainWindowData.SqlQuerry = TextBoxSqlQuerry.Text;
         }
 
-        
+        private void TreeViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

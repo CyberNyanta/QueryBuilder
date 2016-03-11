@@ -51,13 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IGenericDataRepository.cs" />
     <Compile Include="DTO\ConnectionDB.cs" />
     <Compile Include="DTO\Project.cs" />
     <Compile Include="DTO\ProjectsShare.cs" />
-    <Compile Include="Contexts\QueryBuilderEntity.cs" />
+    <Compile Include="Contexts\QueryBuilderContext.cs" />
     <Compile Include="DTO\Query.cs" />
     <Compile Include="DTO\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericDataRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

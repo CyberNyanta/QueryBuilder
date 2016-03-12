@@ -23,9 +23,18 @@ namespace Wpf
             MainWindowData.SqlQuerry = TextBoxSqlQuerry.Text;
         }
 
-        private void TreeViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
 
-        }
+        private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
+        {
+            if (sender is TreeViewItem)
+            {
+                if (((TreeViewItem)sender).IsSelected)
+                {
+                    ((dynamic)DataContext).AddField(((TreeViewItem)sender).Header);
+                }
+
+            }
+
+    }
     }
 }

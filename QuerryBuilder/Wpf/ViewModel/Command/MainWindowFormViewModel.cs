@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BuilderBL;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -101,6 +102,8 @@ namespace Wpf.ViewModel
         #endregion
 
         public ICommand ClickAddUserInProjectCommand { get; set; }
+
+        
         #region ctor
         public MainWindowFormViewModel()
         {
@@ -117,6 +120,7 @@ namespace Wpf.ViewModel
             CanExecute = false;
             _currentUser = new Users();
             FirstName = "SignIn please";
+            //_builder = new BuilderBL.SQLDesigner.QueryBuilder(new DbSchema());
             //SqlQuerry = MainWindowData.SqlQuerry;
             //MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
         }
@@ -258,17 +262,12 @@ namespace Wpf.ViewModel
             windowAutorizationForm.ShowDialog();
             CurrentUser = MainWindowData.CurrentUser;
 
-            _currentUser = MainWindowData.CurrentUser;
-<<<<<<< HEAD
-            FirstName = MainWindowData.CurrentUser.FirstName;
-            OnPropertyChanged("FirstName");
-=======
             if (DataModel.MainWindowData.CurrentUser != null)
             {
                 FirstName = DataModel.MainWindowData.CurrentUser.FirstName;
                 OnPropertyChanged("FirstName");
             }
->>>>>>> 39062f55a4ec31c10ded337b8b29bdc1474455fc
+
 
         }
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BuilderBL.SQLDesigner.Enums;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -10,13 +11,6 @@ using System.Threading.Tasks;
 
 namespace BuilderBL
 {
-    public enum TableType
-    {
-        Table,
-        View,
-        Procedure
-    };
-
     public class DbSchema : DataSet
     {
         static string _connString = string.Empty;
@@ -213,7 +207,7 @@ namespace BuilderBL
                     var select = GetSelectStatement(table);
                     var da = new SqlDataAdapter(select, conn);
                     da.FillSchema(table, SchemaType.Mapped);
-                    Tables.Add(table);
+                    Tables.Add(table);                    
                 }
                 catch { }
             }

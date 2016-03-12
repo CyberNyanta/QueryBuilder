@@ -13,6 +13,8 @@ namespace Wpf.ViewModel
     {
         public int Key { get; set; }
         public string Name { get; set; }
+
+        public string Parent { get; set; }
     }
     public class Group
     {

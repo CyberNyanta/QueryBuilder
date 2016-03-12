@@ -157,7 +157,6 @@
     <Compile Include="ViewModel\ConnectionDbFormViewModel.cs" />
     <Compile Include="ViewModel\CreateProjectFormViewModel.cs" />
     <Compile Include="ViewModel\EmailViewModel.cs" />
-    <Compile Include="ViewModel\MainWindowBuilder.cs" />
     <Compile Include="ViewModel\MainWindowFormViewModel.cs" />
     <Compile Include="ViewModel\Notifier\Notifier.cs" />
     <Compile Include="ViewModel\PasswordHelper.cs" />

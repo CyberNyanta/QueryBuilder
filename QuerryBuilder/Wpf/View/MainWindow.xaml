@@ -116,8 +116,8 @@
                                 <ContentControl Template="{StaticResource Open}" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{DynamicResource SaveProject}" />
-                        <MenuItem  Header="{DynamicResource CloseProject}" >
+                        <MenuItem Header="{DynamicResource SaveProject}" Command="{Binding ClickSaveProjectCommand}"/>
+                        <MenuItem  Header="{DynamicResource CloseProject}" Command="{Binding ClickCloseCommand}">
                             <MenuItem.Icon>
                                 <ContentControl Template="{StaticResource CloseIcon}" />
                             </MenuItem.Icon>
@@ -239,7 +239,7 @@
                         <WrapPanel Orientation="Vertical">
                             <Button Margin="2" Style="{StaticResource ChangeIconAddUser}" Command="{Binding ClickAutorizationCommand}" >
                             </Button>
-                            <Button Margin="2" Style="{StaticResource ChangeIconLogOut}" >
+                            <Button Margin="2" Style="{StaticResource ChangeIconLogOut}" Command="{Binding ClickAutorizationCommand}" ToolTip="{StaticResource LogOut}">
                             </Button>
                          </WrapPanel>
                     </WrapPanel>

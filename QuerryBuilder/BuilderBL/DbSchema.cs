@@ -171,10 +171,10 @@ namespace BuilderBL
 
             using (var conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                GetTables(conn);
-                conn.Close();
-            }
+				conn.Open();      // SqlExseption 
+				GetTables(conn);
+				conn.Close();
+			}
         }
         /// <summary>
         /// Парсит схему таблиц для структурированного представления

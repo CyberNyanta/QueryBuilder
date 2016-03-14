@@ -45,7 +45,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLDesigner\Enums\Aggregate.cs" />
-    <Compile Include="SQLDesigner\Enums\Sort - Copy.cs" />
+    <Compile Include="SQLDesigner\Enums\GroupByExtension.cs" />
     <Compile Include="SQLDesigner\Enums\Sort.cs" />
     <Compile Include="SQLDesigner\Enums\TableType.cs" />
     <Compile Include="SQLDesigner\QueryBuilder.cs" />

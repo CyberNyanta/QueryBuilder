@@ -39,11 +39,12 @@ namespace Wpf.ViewModel
         public ICommand ClickSendQuerryToEmailCommand { get; set; }
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
+		public ICommand ClickRefreshQuerryCommand { get; set; }
+		public ICommand ClickDeleteRowCommand { get; set; }
+		#endregion
 
-        #endregion
-
-        #region ICommand depenency properties
-        public ICommand ClickNewProjectCommand
+		#region ICommand depenency properties
+		public ICommand ClickNewProjectCommand
         {
             get
             {
@@ -116,10 +117,14 @@ namespace Wpf.ViewModel
             ClickSaveTxtCommand = new RelayCommand(arg => ClickMethodSaveTxt());
             ClickSavePdfCommand = new RelayCommand(arg => ClickMethodSavePdf());
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
-            MainWindowData.UserConnections = new ObservableCollection<Group>();
+			ClickRefreshQuerryCommand = new RelayCommand(arg => ClickMethodRefreshQuerryCommand());
+			ClickDeleteRowCommand = new RelayCommand(arg => ClickMethodDeleteRowCommand());
+
+			MainWindowData.UserConnections = new ObservableCollection<Group>();
             CanExecute = false;
             _currentUser = new Users();
             FirstName = "SignIn please";
+
             //_builder = new BuilderBL.SQLDesigner.QueryBuilder(new DbSchema());
             //SqlQuerry = MainWindowData.SqlQuerry;
             //MessageBox.Show("For using  all functionality of the application, you have to register or sign-in");
@@ -181,10 +186,21 @@ namespace Wpf.ViewModel
 
         }
 
-        /// <summary>
-        /// Метод команды, сохраняющий запрос в TXT
-        /// </summary>
-        private void ClickMethodSaveTxt()
+		private void ClickMethodRefreshQuerryCommand()
+		{
+			OnPropertyChanged("SqlQuerry");
+		}
+		private void ClickMethodDeleteRowCommand()
+		{
+			QueryList.RemoveAt(QueryListSelectedIndexyList);
+			OnPropertyChanged("QueryList");
+			OnPropertyChanged("SqlQuerry");
+		}
+
+		/// <summary>
+		/// Метод команды, сохраняющий запрос в TXT
+		/// </summary>
+		private void ClickMethodSaveTxt()
         {
             SaveTXT(MainWindowData.SqlQuerry);
         }

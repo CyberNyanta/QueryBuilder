@@ -21,13 +21,13 @@ namespace BuilderBL.SQLDesigner
 		//----------------------------------------------------------------
 		#region Properties
 
-		string		_column;	// column name (or expression)
-		string		_alias;		// alias for this field (optional)
-		DataTable	_table;		// source table
-		bool		_output;	// include in SELECT clause
-		Aggregate	_groupBy;	// GROUP BY clause
-		Sort		_sort;		// ORDER BY clause
-		string		_filter;	// WHERE clause
+		private string		_column;    // column name (or expression)
+        private string _alias;      // alias for this field (optional)
+        private DataTable _table;       // source table
+        private bool _output;   // include in SELECT clause
+        private Aggregate _groupBy; // GROUP BY clause
+        private Sort _sort;     // ORDER BY clause
+        private string _filter;	// WHERE clause
 
         // for parsing filter statements
         static Regex _rx1 = new Regex(@"^([^<>=]*)\s*(<|>|=|<>|<=|>=)\s*([^<>=]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);

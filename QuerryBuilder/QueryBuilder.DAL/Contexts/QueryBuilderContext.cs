@@ -4,10 +4,10 @@ namespace QueryBuilder.DAL.Contexts
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using QueryBuilder.DAL.DTO;
+    using DAL.Models;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
-    public partial class QueryBuilderContext : DbContext
+    public class QueryBuilderContext : DbContext
     {
         public QueryBuilderContext()
             : base("name=QueryBuilderDB")

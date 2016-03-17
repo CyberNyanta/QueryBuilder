@@ -1,17 +1,14 @@
-namespace QueryBuilder.DAL.DTO
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace QueryBuilder.DAL.Models
+{
     [Table("Queries")]
-    public partial class Query
+    public class Query
     {
         [Key]
         public int QueryID { get; set; }
-
 
         [StringLength(255)]
         public string QueryName { get; set; }
@@ -22,9 +19,12 @@ namespace QueryBuilder.DAL.DTO
         [Required]
         public int ConnectionID { get; set; }
 
-        [StringLength(255)]
-        public string ResultBody { get; set; }
+        public string QueryBody { get; set; }
 
+        [DataType(DataType.DateTime), Required]
+        public DateTime QueryDate { get; set; }
+
+        public byte[] QueryResult { get; set; }
 
         public int Delflag { get; set; }
 

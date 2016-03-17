@@ -16,19 +16,18 @@ namespace BuilderBL.SQLDesigner
     /// </summary>
     public class QueryBuilder
     {
-        //----------------------------------------------------------------
-        #region ** fields
+		//----------------------------------------------------------------
+		#region ** fields
 
-        public ObservableCollection<QueryField> _queryFields;   // used to build query
-        DbSchema _schema;       // used to build query
-        string _sql;            // generated sql
-        int _tableCount;    // number of tables used
-        bool _missingJoins; // not all tables joined
-        bool _groupBy;      // add GROUP BY clause
-        int _top;           // top N records
-        bool _distinct;     // distinct records
-        GroupByExtension _gbExtension;	// cube/rollup/all
-        bool _sqlIsDirty;    // SQL needs to be regenerated
+		private ObservableCollection<QueryField> _queryFields;   // used to build query
+		private DbSchema _schema;       // used to build query
+		private string _sql;            // generated sql
+		private int _tableCount;    // number of tables used
+		private bool _missingJoins; // not all tables joined
+		private bool _groupBy;      // add GROUP BY clause
+		private int _top;           // top N records
+		private bool _distinct;     // distinct records
+		private GroupByExtension _gbExtension;  // cube/rollup/all
 
         #endregion
 
@@ -138,10 +137,9 @@ namespace BuilderBL.SQLDesigner
         {
             get
             {
-                if (_sql == null || _sqlIsDirty)
+                if (_sql == null)
                 {
-                    _sqlIsDirty = false;
-                    _sql = BuildSqlStatement();
+                    BuildSqlStatement();
                 }
                 return _sql;
             }
@@ -174,18 +172,19 @@ namespace BuilderBL.SQLDesigner
         // field list has changed, need to re-gen the SQL
         void _queryFields_ListChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            _sqlIsDirty = true;
-        }
+			BuildSqlStatement();
+		}
 
-        // build the SQL statement from the QueryFields collection.
-		string BuildSqlStatement()
+		// build the SQL statement from the QueryFields collection.
+		void BuildSqlStatement()
 		{
 			// sanity
 			if (QueryFields.Count == 0 || _schema == null)
 			{
 				_tableCount = 0;
 				_missingJoins = false;
-				return string.Empty;
+				_sql = string.Empty;
+				return;
 			}
 
 			// prepare to build sql statement
@@ -242,7 +241,7 @@ namespace BuilderBL.SQLDesigner
 
 			// done
 			sb.Append(';');
-			return sb.ToString();
+			_sql = sb.ToString();
 		}
         
         // build the SELECT clause
@@ -335,7 +334,7 @@ namespace BuilderBL.SQLDesigner
                 }
 				sb.AppendFormat("({0} INNER JOIN", DbSchema.GetFullTableName(dt));
 			}
-			sb.AppendFormat(" {0}", DbSchema.GetFullTableName(qTables[qTables.Count-1]));
+			sb.AppendFormat(" {0}", DbSchema.GetFullTableName(qTables[qTables.Count-1])); //System.ArgumentOutOfRangeException
 			for (int i = qJoins.Count-1; i >= 0; i--)
 			{
 				string join = qJoins[i] as string;

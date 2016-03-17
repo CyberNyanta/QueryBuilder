@@ -4,6 +4,7 @@
         xmlns:v="clr-namespace:System;assembly=mscorlib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Wpf.ViewModel"
+		 xmlns:enums="clr-namespace:BuilderBL.SQLDesigner.Enums;assembly=BuilderBL"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"   
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
@@ -16,7 +17,18 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <Style x:Key="ChangeIconLogOut" TargetType="{x:Type Button}">
+		<ObjectDataProvider x:Key="Aggregate" MethodName="GetValues" ObjectType="{x:Type v:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type Type="enums:Aggregate"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+		<ObjectDataProvider x:Key="Sort" MethodName="GetValues" ObjectType="{x:Type v:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type Type="enums:Sort"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+
+		<Style x:Key="ChangeIconLogOut" TargetType="{x:Type Button}">
             <Style.Setters>
                 <Setter Property="Template" Value="{StaticResource LogOutIconBlue}"/>
             </Style.Setters>
@@ -290,7 +302,7 @@
                             <ContentControl Template="{StaticResource TestQuerry}" />
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding }" ToolTip="{StaticResource RefreshQuerry}">
+					<Button Command="{Binding ClickRefreshQuerryCommand}" ToolTip="{StaticResource RefreshQuerry}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource Refresh}" />
                         </StackPanel>
@@ -352,7 +364,7 @@
                 </TextBlock.Background>
             </TextBlock>
             <TextBlock 
-                x:Name="TextBoxSQLQuerry" 
+                x:Name="TextBlockSQLQuerry" 
                 TextWrapping="Wrap"
                 Text="SQL querry"
                 TextAlignment="Center"
@@ -416,18 +428,36 @@
                       MinWidth="500" MinHeight="200"
                       Width="Auto" Height="Auto"
                       ColumnWidth="*"
-                      DataContext="{Binding}"
+					  DataContext ="{Binding}"
+					  SelectedIndex="{Binding QueryListSelectedIndexyList}"
                       ItemsSource ="{Binding QueryList}"
+					  AutoGenerateColumns="False"
+
                      >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Column" Binding="{Binding Column}"/>
-                    <DataGridTextColumn Header="Alias" Binding="{Binding Alias}"/>
-                    <DataGridTextColumn Header="Table" Binding="{Binding Table.TableName}"/>
-                    <DataGridTextColumn Header="Output" Binding="{Binding Output}"/>
-                    <DataGridTextColumn Header="Sort" Binding="{Binding Sort}"/>
-                    <DataGridTextColumn Header="Filter" Binding="{Binding Filter}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+
+				<!--<DataGrid.Style>
+					<Style TargetType="{x: }"
+				</DataGrid.Style>-->
+				<DataGrid.Columns>
+
+					<DataGridTextColumn Header="Column" IsReadOnly="True" Binding="{Binding Column, Mode=OneTime}"/>
+					<DataGridTextColumn Header="Table" IsReadOnly="True" Binding="{Binding Table, Mode=OneTime}"/>
+					<DataGridTextColumn Header="Alias" Binding="{Binding Alias}"/>
+					<DataGridTextColumn Header="Output" Binding="{Binding Output}"/>
+					<DataGridComboBoxColumn Header="Sort" SelectedItemBinding="{Binding Sort, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding Source={StaticResource Sort }}"/>
+					<DataGridComboBoxColumn Header="GroupBy" SelectedItemBinding="{Binding GroupBy, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding Source={StaticResource Aggregate}}"/>
+					<DataGridTextColumn Header="Filter" Binding="{Binding Filter}"/>
+					<DataGridTemplateColumn>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<Button Content="delete" Command="{Binding Path=DataContext.ClickDeleteRowCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+								</StackPanel>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
 
             <DataGrid x:Name="DatabaseDataGrid" 
                       HorizontalAlignment="Left" VerticalAlignment="Top"

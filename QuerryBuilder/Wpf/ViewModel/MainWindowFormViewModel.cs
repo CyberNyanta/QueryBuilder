@@ -12,28 +12,45 @@ namespace Wpf.ViewModel
 {
     partial class MainWindowFormViewModel : Notifier
     {
-        public string SqlQuerry {
-            get { return _builder?.Sql; }
-            
-        }
 
         private bool _canExecute = false;
 
         private Users _currentUser;
         private string _firstname;
 
-        #region QueryBuilder
-        static QueryBuilder _builder;
+		#region QueryBuilder
+		private static QueryBuilder _builder;
+		private int _queryListSelectedIndex;
 
-        public ObservableCollection<QueryField> QueryList
+
+		public string SqlQuerry
+		{
+			get
+			{
+				return _builder?.Sql;
+			}
+		}
+
+		public ObservableCollection<QueryField> QueryList
         {
-            get { return _builder?.QueryFields; }
+            get {
+				return _builder?.QueryFields;
+			}
         }
 
+		public int QueryListSelectedIndexyList
+		{
+			get { return _queryListSelectedIndex; } 
+			set
+			{
+				_queryListSelectedIndex = value;
+				OnPropertyChanged("QueryListSelectedIndexyList");
+			}
+		}
 
-        public void AddField(object item)
+
+		public void AddField(object item)
         {
-
             var dataColumn = item as Entry;
             if (dataColumn != null)
             {
@@ -50,16 +67,16 @@ namespace Wpf.ViewModel
             var field = new QueryField(dataTable);
             _builder.QueryFields.Add(field);
             OnPropertyChanged("QueryList");
-            OnPropertyChanged("SqlQuerry");
-        }
+			OnPropertyChanged("SqlQuerry");
+		}
 
         void AddColumn(DataColumn dc)
         {
             var field = new QueryField(dc);
             _builder.QueryFields.Add(field);
             OnPropertyChanged("QueryList");
-            OnPropertyChanged("SqlQuerry");
-        }
+			OnPropertyChanged("SqlQuerry");
+		}
 
 
         #endregion
@@ -87,7 +104,8 @@ namespace Wpf.ViewModel
         {
             var schema = new DbSchema(connString);
             _builder = new QueryBuilder(schema);
-            var newGroup = new Group { Name = dbName, SubGroups = new List<Group>(), Entries = new List<Entry>() };
+
+			var newGroup = new Group { Name = dbName, SubGroups = new List<Group>(), Entries = new List<Entry>() };
 
             if (schema != null)
             {

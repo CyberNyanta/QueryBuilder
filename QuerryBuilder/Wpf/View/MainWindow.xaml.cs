@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Wpf.DataModel;
 using Wpf.ViewModel;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace Wpf
 {

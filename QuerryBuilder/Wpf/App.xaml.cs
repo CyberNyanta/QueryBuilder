@@ -6,6 +6,8 @@ using System.Windows;
 
 namespace Wpf
 {
+
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

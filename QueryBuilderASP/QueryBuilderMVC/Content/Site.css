@@ -1,0 +1,149 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+/* FOOTER */
+footer {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+footer span {
+  font-style: italic;
+}
+.social{
+    display: table-cell; 
+    width:100%; 
+    padding:10px;
+}
+.social > p{
+    margin-top:40px;
+}
+.social .title {
+  min-width: 220px;
+  font-size: 22px;
+  line-height: 37px;
+  font-weight: 700;
+}
+.social-sharing {
+  margin-top: 20px;
+  padding: 0;
+}
+.social-sharing li {
+  float: left;
+  margin: 0 21px 0 0;
+}
+.social-sharing a {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #0067b2;
+  color: #ececec;
+  overflow: hidden;
+  text-decoration: none;
+}
+.social-sharing a:before {
+  margin: 0;
+  width: 100%;
+  font-size: 18px;
+  line-height: 38px;
+}
+.social-sharing a.icon-twitter:before {
+  font-size: 19px;
+}
+.social-sharing a.icon-xing:before {
+  font-size: 23px;
+  text-indent: -2px;
+}
+.social-sharing a.icon-linkedin:before {
+  font-size: 20px;
+  line-height: 35px;
+}
+.social-sharing a.icon-gplus:before {
+  line-height: 36px;
+}
+.social-sharing a:hover {
+  background: #015c9e;
+}
+ address {
+  font-style: normal;
+}
+address a {
+  color: inherit;
+}
+.address {
+  font-weight: 400;
+}
+#FooterContact
+{
+    display: table-cell; vertical-align:central; background-color:#54AEF3;
+     padding: 10px; border-radius:6px;
+}
+
+
+/* Social Icons */
+@font-face {
+  font-family: 'Icons';
+  src: url('http://www.datapine.com/fonts/icons.eot');
+  src: url('http://www.datapine.com/fonts/icons.eot#iefix') format('embedded-opentype'), url('http://www.datapine.com/fonts/icons.woff') format('woff'), url('http://www.datapine.com/fonts/icons.ttf') format('truetype'), url('http://www.datapine.com/fonts/icons.svg#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class*="icon-"] {
+  vertical-align: top;
+  text-rendering: auto;
+}
+[class*="icon-"]:before {
+  font-family: "Icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: inherit;
+  text-indent: 0;
+}
+.icon-facebook:before {
+  content: '\e800';
+}
+.icon-twitter:before {
+  content: '\e801';
+}
+.icon-linkedin:before {
+  content: '\e802';
+}
+.icon-gplus:before {
+  content: '\e803';
+}
+.icon-xing:before {
+  content: '\e804';
+}
+.icon-lock:before {
+  content: '\e805';
+}

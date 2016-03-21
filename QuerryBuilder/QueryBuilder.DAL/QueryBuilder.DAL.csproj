@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QueryBuilder.DAL</RootNamespace>
     <AssemblyName>QueryBuilder.DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -51,6 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConnectionDBConfiguration.cs" />
+    <Compile Include="Configuration\ProjectConfiguration.cs" />
+    <Compile Include="Configuration\ProjectsShareConfiguration.cs" />
+    <Compile Include="Configuration\QueryConfiguration.cs" />
+    <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="Contracts\IDatabaseFactory.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />

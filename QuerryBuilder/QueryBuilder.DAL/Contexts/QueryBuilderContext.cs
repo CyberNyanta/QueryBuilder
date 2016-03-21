@@ -1,12 +1,10 @@
+using QueryBuilder.DAL.Configuration;
+using System.Data.Entity;
+using QueryBuilder.DAL.Models;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
 namespace QueryBuilder.DAL.Contexts
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using DAL.Models;
-    using System.Data.Entity.ModelConfiguration.Conventions;
-
     public class QueryBuilderContext : DbContext
     {
         public QueryBuilderContext()
@@ -24,6 +22,12 @@ namespace QueryBuilder.DAL.Contexts
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            modelBuilder.Configurations.Add(new ConnectionDbConfiguration());
+            modelBuilder.Configurations.Add(new ProjectConfiguration());
+            modelBuilder.Configurations.Add(new QueryConfiguration());
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new ProjectsShareConfiguration());
             //modelBuilder.Entity<ConnectionDB>()
             //    .HasMany(e => e.ResultHistories)
             //    .WithRequired(e => e.ConnectionDB)

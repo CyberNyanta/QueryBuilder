@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using QueryBuilder.DAL.Contexts;
 using QueryBuilder.DAL.Contracts;
 
@@ -28,6 +29,11 @@ namespace QueryBuilder.DAL.Infrastructure
         public virtual IEnumerable<T> GetAll()
         {
             return _dbSet.ToList();
+        }
+
+        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
+        {
+            return _dbSet.Where(where).ToList();
         }
 
         public virtual T GetById(int id)

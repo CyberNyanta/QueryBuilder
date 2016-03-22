@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.DAL", "QueryBu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryDesignerSample", "..\..\..\..\Downloads\QueryDesignerSource\QueryDesignerSample.csproj", "{CE0805A3-52A5-429D-9D41-91BACF9DBA8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Services", "QueryBuilder.Services\QueryBuilder.Services.csproj", "{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{CE0805A3-52A5-429D-9D41-91BACF9DBA8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE0805A3-52A5-429D-9D41-91BACF9DBA8B}.Release|x86.ActiveCfg = Release|Any CPU
 		{CE0805A3-52A5-429D-9D41-91BACF9DBA8B}.Release|x86.Build.0 = Release|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

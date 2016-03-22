@@ -30,40 +30,6 @@ namespace Wpf.DataModel
             }
         }
 
-        public int LastIdProjects
-        {
-            get
-            {
-                var lastIdProjects = 0;
-                var projectsRepository = new ProjectsRepository(_context);
-                var lastProject = projectsRepository.GetList().OrderByDescending(u => u.ProjectID).FirstOrDefault();
-
-                if (lastProject != null)
-                    lastIdProjects = lastProject.ProjectID;
-
-                projectsRepository.Dispose();
-
-                return lastIdProjects;
-            }
-        }
-
-        public int LastIdConnection
-        {
-            get
-            {
-                var lastIdConnection = 0;
-                var connectionRepo = new ConnectionDBRepository(_context);
-                var lastConnection = connectionRepo.GetList().OrderByDescending(u => u.ConnectionID).FirstOrDefault();
-
-                if (lastConnection != null)
-                    lastIdConnection = lastConnection.ConnectionID;
-
-                connectionRepo.Dispose();
-
-                return lastIdConnection;
-            }
-        }
-
         public EntityManager()
         {
             _context = new SqlConstructorDBEntities();

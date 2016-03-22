@@ -61,10 +61,12 @@
     <Compile Include="Contracts\IDatabaseFactory.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
+    <Compile Include="Contracts\IUnitOfWorkFactory.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWorkFactory.cs" />
     <Compile Include="Migrations\201603160801525_AddDefaultValueDeflag.cs" />
     <Compile Include="Migrations\201603160801525_AddDefaultValueDeflag.Designer.cs">
       <DependentUpon>201603160801525_AddDefaultValueDeflag.cs</DependentUpon>

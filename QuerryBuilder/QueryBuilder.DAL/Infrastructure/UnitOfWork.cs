@@ -22,7 +22,7 @@ namespace QueryBuilder.DAL.Infrastructure
             get { return _context ?? (_context = _databaseFactory.Get()); }
         }
 
-        protected UnitOfWork(IDatabaseFactory databaseFactory)
+        public UnitOfWork(IDatabaseFactory databaseFactory)
         {
             _databaseFactory = databaseFactory;
         }

@@ -24,7 +24,7 @@ textarea {
 }
 /* FOOTER */
 footer {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 22px;
 }
 
@@ -41,7 +41,7 @@ footer span {
 }
 .social .title {
   min-width: 220px;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 37px;
   font-weight: 700;
 }
@@ -93,7 +93,8 @@ address a {
   color: inherit;
 }
 .address {
-  font-weight: 400;
+  font-size: 15px;
+
 }
 #FooterContact
 {

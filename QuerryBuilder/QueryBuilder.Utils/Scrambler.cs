@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Wpf.DataModel
+namespace QueryBuilder.Utils
 {
-    class Scrambler
+    public class Scrambler
     {
         public static Guid GetPassHash(string pass)
         {

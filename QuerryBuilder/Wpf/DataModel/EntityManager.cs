@@ -7,6 +7,8 @@ using Wpf.Exceptions;
 using ServicesLib;
 using Wpf.Properties;
 using System.Diagnostics;
+using QueryBuilder.Services.DbServices;
+using QueryBuilder.Utils;
 
 namespace Wpf.DataModel
 {
@@ -36,57 +38,6 @@ namespace Wpf.DataModel
             User = new Users();
         }
 
-        /// <summary>
-        /// Регистрация нового пользователя
-        /// </summary>
-        /// <param name="user"></param>
-        public Users RegistrationUser(string firstName, string lastyName, string email, string password)
-        {
-            SmtpMailer mailer = SmtpMailer.Instance();
-            if (!CheckEmail(email))
-            {
-                Users newUser = new Users
-                {
-                    FirstName = firstName,
-                    LastName = lastyName,
-                    Email = email,
-                    PasswordHash = Scrambler.GetPassHash(password)
-                };
-                
-                UsersRepository user = new UsersRepository(_context);
-                user.Create(newUser);
-                user.Save();
-                mailer.SentRegisterNotification(email);
-                user.Dispose();
-
-                MainWindowData.CurrentUser = newUser;
-
-                return newUser;
-
-            }
-            throw new CustomException(Resources.ExistEmailError);
-        }
-
-        public bool CheckEmail(string email)
-        {
-            bool result = false;
-            UsersRepository users = new UsersRepository(_context);
-
-            result = users.GetList().Any(e => e.Email.Equals(email) && e.Delflag == 0);
-
-            return result;
-        }
-
-
-        public Users LoginUser(string email, string password)
-        {
-            if (ValidationUser(email, password, ref _user))
-            {
-                MainWindowData.CurrentUser = User;
-                return User;
-            }
-            throw new ArgumentException();
-        }
 
         /// <summary>
         /// сохранить проект в бд
@@ -122,41 +73,6 @@ namespace Wpf.DataModel
                 projRepo.Create(project);
                 projRepo.Save();
             }
-        }
-
-        /// <summary>
-        /// при обновлении данных получить проекты залогиненного юзера
-        /// или получить проекты которыми делился залогиненный юзер
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Projects> GetUserProjects()
-        {            
-            return User.Projects;
-        }
-
-        /// <summary>
-        /// параметр id-ConnectionOwner
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        private ConnectionDB GetConnectionByProjectID(int id)
-        {
-            ConnectionDBRepository connectionRepo = new ConnectionDBRepository(_context);
-
-            return connectionRepo.GetItemById(id);
-        }
-
-        private bool ValidationUser(string email, string password, ref Users user)
-        {
-            UsersRepository repository = new UsersRepository(_context);
-
-            var logUser = repository.GetList().FirstOrDefault(e => e.Email.Equals(email) && e.Delflag == 0);
-
-                if (logUser != null)
-                    user = logUser;
-
-            repository.Dispose();
-            return user.PasswordHash.Equals(Scrambler.GetPassHash(password));
         }
 
         public bool SaveConnection(int projectID, int connectionID, string connectName, string dataBaseName,

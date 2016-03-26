@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Wpf.DataModel
+namespace QueryBuilder.Utils
 {
-    class ValidationMethods
+    public class ValidationMethods
     {
         /// <summary>
         /// Метод валидации пароля. 

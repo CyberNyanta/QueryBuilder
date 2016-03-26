@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.DAL.Models;
+using QueryBuilder.Services.Contracts;
 
 namespace QueryBuilder.Services.DbServices
 {
-    public class ProjectService
+    public class ProjectService: IProjectService
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 

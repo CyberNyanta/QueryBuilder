@@ -3,6 +3,7 @@ using BuilderBL.SQLDesigner;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using QueryBuilder.DAL.Models;
 using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 
@@ -15,11 +16,11 @@ namespace Wpf.ViewModel
 
         private bool _canExecute = false;
 
-        private Users _currentUser;
+        private User _currentUser;
         private string _firstname;
 
 		#region QueryBuilder
-		private static QueryBuilder _builder;
+		private static BuilderBL.SQLDesigner.QueryBuilder _builder;
 		private int _queryListSelectedIndex;
 
 
@@ -103,7 +104,7 @@ namespace Wpf.ViewModel
         public static void UpdateTable(string connString, string dbName)
         {
             var schema = new DbSchema(connString);
-            _builder = new QueryBuilder(schema);
+            _builder = new BuilderBL.SQLDesigner.QueryBuilder(schema);
 
 			var newGroup = new Group { Name = dbName, SubGroups = new List<Group>(), Entries = new List<Entry>() };
 
@@ -125,7 +126,7 @@ namespace Wpf.ViewModel
         #region ICommand members
 
 
-        public Users CurrentUser
+        public User CurrentUser
         {
             get
             {

@@ -139,8 +139,6 @@
     <Compile Include="DataModel\Repository\Repositories\ProjectsShareRepository.cs" />
     <Compile Include="DataModel\Repository\Repositories\ResultHistoryRepository.cs" />
     <Compile Include="DataModel\Repository\Repositories\UsersRepository.cs" />
-    <Compile Include="DataModel\Scrambler.cs" />
-    <Compile Include="DataModel\ValidationMethods.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="GraphSharpDemo\GrapfBits\Edge.cs" />
     <Compile Include="GraphSharpDemo\GrapfBits\Graph.cs" />
@@ -313,6 +311,18 @@
     <ProjectReference Include="..\BuilderBL\BuilderBL.csproj">
       <Project>{40a36584-5f82-4d90-a4b1-514a80c07ef1}</Project>
       <Name>BuilderBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.DAL\QueryBuilder.DAL.csproj">
+      <Project>{919e2f0a-7941-443d-93cd-8cdb5bd9c3df}</Project>
+      <Name>QueryBuilder.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.Services\QueryBuilder.Services.csproj">
+      <Project>{fc317fa6-9bbe-4fe8-996c-0db80d6c604d}</Project>
+      <Name>QueryBuilder.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.Utils\QueryBuilder.Utils.csproj">
+      <Project>{f0e68d32-c9e0-47e3-87bc-cd16904e7e76}</Project>
+      <Name>QueryBuilder.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServicesLib\ServicesLib.csproj">
       <Project>{840e534e-2c56-4a50-b7de-7122d12cabc2}</Project>

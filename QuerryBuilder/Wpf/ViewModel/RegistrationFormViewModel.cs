@@ -2,7 +2,15 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using QueryBuilder.DAL.Models;
+using QueryBuilder.Services.Contracts;
+using QueryBuilder.Services.DbServices;
+using QueryBuilder.Utils;
+using ServicesLib;
 using Wpf.DataModel;
+using Wpf.DataModel.Entity;
+using Wpf.Exceptions;
+using Wpf.Properties;
 using Wpf.ViewModel.Command;
 
 namespace Wpf.ViewModel
@@ -12,10 +20,10 @@ namespace Wpf.ViewModel
         private ICommand _clickRegister;
         private bool _canExecute;
 
-
         public Action CloseAction { get; set; }
 
-        private EntityManager entityManager;
+        private readonly IUserService _userService;
+
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
@@ -47,7 +55,7 @@ namespace Wpf.ViewModel
                     !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(Password)&&
                     !string.IsNullOrEmpty(ConfirmPassword))
                 {
-                    if(Password==ConfirmPassword)
+                    if(Password == ConfirmPassword)
                        _canExecute = true;
 
                     else _canExecute = false;
@@ -61,12 +69,12 @@ namespace Wpf.ViewModel
             }
         }
 
-
-
         public RegistrationFormViewModel()
         {
-            entityManager = new EntityManager();
             ClickCloseCommand = new RelayCommand(arg => ClickCloseMethod());
+
+            var servicesFactory = new ServicesFactory();
+            _userService = servicesFactory.GetUserService();
         }
 
         private void ClickRegisterMethod()
@@ -77,15 +85,38 @@ namespace Wpf.ViewModel
                 {
                     MessageBox.Show(View.Resources.Resource.EqualsPasswords);
                 }
-               entityManager.RegistrationUser(FirstName, LastName, Email, ConfirmPassword);
-               CloseAction();
-                MessageBox.Show(String.Format(View.Resources.Resource.RegistrationComplete, FirstName),"Registration complete!", MessageBoxButton.OK);
+                RegistrationUser(FirstName, LastName, Email, ConfirmPassword);
+                CloseAction();
+                MessageBox.Show(string.Format(View.Resources.Resource.RegistrationComplete, FirstName),"Registration complete!", MessageBoxButton.OK);
             }
             catch (Exception)
             {
                 MessageBox.Show(View.Resources.Resource.NotUserLogin);
             }
             
+        }
+
+        public User RegistrationUser(string firstName, string lastName, string email, string password)
+        {
+            SmtpMailer mailer = SmtpMailer.Instance();
+            if (_userService.GetUserByEmail(email) != null)
+            {
+                User newUser = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    PasswordHash = Scrambler.GetPassHash(password)
+                };
+
+                _userService.CreateUser(newUser);
+                mailer.SentRegisterNotification(email);
+
+                MainWindowData.CurrentUser = newUser;
+
+                return newUser;
+            }
+            throw new CustomException(Resources.ExistEmailError);
         }
 
         private void ClickCloseMethod()

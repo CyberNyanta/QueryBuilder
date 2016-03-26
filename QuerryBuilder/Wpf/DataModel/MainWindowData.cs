@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QueryBuilder.DAL.Models;
 using Wpf.DataModel.Entity;
 using Wpf.ViewModel;
 
@@ -17,7 +18,7 @@ namespace Wpf.DataModel
         public static string DescriptionProject { get; set; }
         public static string ProjectOwner { get; set; }
 
-        public static Users CurrentUser { get; set; }
+        public static User CurrentUser { get; set; }
 
         public static ObservableCollection<Group> UserConnections { get; set; }
     }

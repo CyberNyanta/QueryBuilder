@@ -2,6 +2,10 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using QueryBuilder.DAL.Models;
+using QueryBuilder.Services.Contracts;
+using QueryBuilder.Services.DbServices;
+using QueryBuilder.Utils;
 using Wpf.DataModel;
 using Wpf.View;
 using Wpf.ViewModel.Command;
@@ -11,41 +15,11 @@ namespace Wpf.ViewModel
 {
     class AutorizationFormViewModel : IDataErrorInfo
     {
-        private EntityManager entityManager;
+        private readonly IUserService _userService;
 
         public Action CloseAction { get; set; }
         public ICommand ClickSignInCommand { get; set; }
         public ICommand ClickRegisterCommand { get; set; }
-
-        public AutorizationFormViewModel()
-        {
-            entityManager = new EntityManager();
-            ClickSignInCommand = new RelayCommand(arg => ClickSignInMethod());
-            ClickRegisterCommand = new RelayCommand(arg => ClickRegisterMethod());
-        }
-
-       /// <summary>
-        /// Вызывает окно регистрации
-        /// </summary>
-        private void ClickRegisterMethod()
-        {
-            var windowRegistrationForm = new RegistrationForm();
-            windowRegistrationForm.ShowDialog();
-            CloseAction();
-        }
-
-        private void ClickSignInMethod()
-        {
-            try
-            {
-                MainWindowData.CurrentUser=entityManager.LoginUser(Login, Password);
-                CloseAction();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(View.Resources.Resource.NotUserLogin);
-            }
-         }
 
         public string Login { get; set; }
         public string Password { get; set; }
@@ -84,6 +58,51 @@ namespace Wpf.ViewModel
         public string Error
         {
             get { throw new NotImplementedException(); }
+        }
+
+        public AutorizationFormViewModel()
+        {
+            ClickSignInCommand = new RelayCommand(arg => ClickSignInMethod());
+            ClickRegisterCommand = new RelayCommand(arg => ClickRegisterMethod());
+
+            var servicesFactory = new ServicesFactory();
+            _userService = servicesFactory.GetUserService();
+        }
+
+       /// <summary>
+        /// Вызывает окно регистрации
+        /// </summary>
+        private void ClickRegisterMethod()
+        {
+            var windowRegistrationForm = new RegistrationForm();
+            windowRegistrationForm.ShowDialog();
+            CloseAction();
+        }
+
+        private void ClickSignInMethod()
+        {
+            try
+            {
+                LoginUser(Login, Password);
+                CloseAction();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(View.Resources.Resource.NotUserLogin);
+            }
+         }
+
+        public void LoginUser(string email, string password)
+        {
+            if (!ValidationUser(email, password)) throw new ArgumentException();
+        }
+
+        private bool ValidationUser(string email, string password)
+        {
+            var logUser = _userService.GetUserByEmail(email);
+            if (logUser != null) MainWindowData.CurrentUser = logUser;
+
+            return MainWindowData.CurrentUser.PasswordHash.Equals(Scrambler.GetPassHash(password));
         }
 
     }

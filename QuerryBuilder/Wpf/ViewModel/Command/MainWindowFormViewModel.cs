@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using QueryBuilder.DAL.Models;
+using QueryBuilder.Services.Contracts;
+using QueryBuilder.Services.DbServices;
 using Wpf.DataModel;
 using Wpf.DataModel.Entity;
 using Wpf.View;
@@ -25,6 +28,8 @@ namespace Wpf.ViewModel
         private ICommand _clickOpenProjectCommand;
         private ICommand _editButton;
         private EntityManager entityManager;
+
+        private readonly IProjectService _projectService;
 
 
         #endregion ICommand fields
@@ -122,8 +127,11 @@ namespace Wpf.ViewModel
 
 			MainWindowData.UserConnections = new ObservableCollection<Group>();
             CanExecute = false;
-            _currentUser = new Users();
+            _currentUser = new User();
             FirstName = "SignIn please";
+
+            var servicesFactory = new ServicesFactory();
+            _projectService = servicesFactory.GetProjectService();
 
             //_builder = new BuilderBL.SQLDesigner.QueryBuilder(new DbSchema());
             //SqlQuerry = MainWindowData.SqlQuerry;
@@ -153,7 +161,7 @@ namespace Wpf.ViewModel
 
         private void ClickMethodOpenProject()
         {
-            entityManager.GetUserProjects();
+            _projectService.GetUserProjects(MainWindowData.CurrentUser);
         }
 
 
@@ -278,9 +286,9 @@ namespace Wpf.ViewModel
             windowAutorizationForm.ShowDialog();
             CurrentUser = MainWindowData.CurrentUser;
 
-            if (DataModel.MainWindowData.CurrentUser != null)
+            if (MainWindowData.CurrentUser != null)
             {
-                FirstName = DataModel.MainWindowData.CurrentUser.FirstName;
+                FirstName = MainWindowData.CurrentUser.FirstName;
                 OnPropertyChanged("FirstName");
             }
 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using QueryBuilder.Utils;
 using Wpf.DataModel;
 using Wpf.ViewModel.Command;
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}</ProjectGuid>
+    <ProjectGuid>{F0E68D32-C9E0-47E3-87BC-CD16904E7E76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QueryBuilder.Services</RootNamespace>
-    <AssemblyName>QueryBuilder.Services</AssemblyName>
+    <RootNamespace>QueryBuilder.Utils</RootNamespace>
+    <AssemblyName>QueryBuilder.Utils</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,25 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IConnectionDbService.cs" />
-    <Compile Include="Contracts\IProjectService.cs" />
-    <Compile Include="Contracts\IProjectsShareService.cs" />
-    <Compile Include="Contracts\IQueryService.cs" />
-    <Compile Include="Contracts\IServicesFactory.cs" />
-    <Compile Include="Contracts\IUserService.cs" />
-    <Compile Include="DbServices\ConnectionDbService.cs" />
-    <Compile Include="DbServices\ProjectService.cs" />
-    <Compile Include="DbServices\ProjectsShareService.cs" />
-    <Compile Include="DbServices\QueryService.cs" />
-    <Compile Include="DbServices\ServicesFactory.cs" />
-    <Compile Include="DbServices\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QueryBuilder.DAL\QueryBuilder.DAL.csproj">
-      <Project>{919e2f0a-7941-443d-93cd-8cdb5bd9c3df}</Project>
-      <Name>QueryBuilder.DAL</Name>
-    </ProjectReference>
+    <Compile Include="Scrambler.cs" />
+    <Compile Include="ValidationMethods.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

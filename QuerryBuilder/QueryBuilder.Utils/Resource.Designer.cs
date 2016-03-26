@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ServicesLib {
+namespace QueryBuilder.Utils
+{
     using System;
     
     

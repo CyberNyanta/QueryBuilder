@@ -1,10 +1,9 @@
 ﻿using System;
-using System.CodeDom;
 using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
-namespace ServicesLib
+namespace QueryBuilder.Utils.Exporters
 {
     public class DataTableToExcelExporter : IDataTableExporter
     {

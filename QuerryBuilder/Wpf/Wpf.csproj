@@ -324,10 +324,6 @@
       <Project>{f0e68d32-c9e0-47e3-87bc-cd16904e7e76}</Project>
       <Name>QueryBuilder.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServicesLib\ServicesLib.csproj">
-      <Project>{840e534e-2c56-4a50-b7de-7122d12cabc2}</Project>
-      <Name>ServicesLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

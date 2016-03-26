@@ -4,11 +4,10 @@ using System.Linq;
 using Wpf.DataModel.Entity;
 using Wpf.DataModel.Repository.Repositories;
 using Wpf.Exceptions;
-using ServicesLib;
+using QueryBuilder.Utils;
 using Wpf.Properties;
 using System.Diagnostics;
 using QueryBuilder.Services.DbServices;
-using QueryBuilder.Utils;
 
 namespace Wpf.DataModel
 {

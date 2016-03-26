@@ -21,7 +21,7 @@
     <v:String x:Key="UserFName">First name</v:String>
     <v:String x:Key="UserLName">Last name</v:String>
     <v:String x:Key="Email">E-mail:</v:String>
-    <v:String x:Key="MailTitle">Title:</v:String> <!-- Тема сообщения письма при отправки запроса-->
+    <v:String x:Key="MailTitle">title:</v:String> <!-- Тема сообщения письма при отправки запроса-->
     <v:String x:Key="UserConfirmPassword">Confirm password</v:String>
     <v:String x:Key="RegistrationWindowTitle">Registration</v:String>
     <v:String x:Key="RegisterButton">Register me</v:String>

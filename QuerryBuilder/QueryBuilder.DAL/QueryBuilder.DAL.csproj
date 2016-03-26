@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201603160801525_AddDefaultValueDeflag.Designer.cs">
       <DependentUpon>201603160801525_AddDefaultValueDeflag.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603262144398_MinorUpdate.cs" />
+    <Compile Include="Migrations\201603262144398_MinorUpdate.Designer.cs">
+      <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\QueriesRepository.cs" />
     <Compile Include="Repositories\ProjectsRepository.cs" />
     <Compile Include="Migrations\201603132217116_Initial.cs" />
@@ -106,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603160801525_AddDefaultValueDeflag.resx">
       <DependentUpon>201603160801525_AddDefaultValueDeflag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603262144398_MinorUpdate.resx">
+      <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

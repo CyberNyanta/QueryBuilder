@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using QueryBuilder.Utils;
+using QueryBuilder.Utils.Mailers;
 using Wpf.DataModel;
 using Wpf.ViewModel.Command;
 
 namespace Wpf.ViewModel
 {
-    class AddUsersToEmailWindowViewModel : Notifier, IDataErrorInfo
+    sealed class AddUsersToEmailWindowViewModel : Notifier, IDataErrorInfo
     {
         private string _projectName;
         public string Email { get; set; }
@@ -43,12 +40,12 @@ namespace Wpf.ViewModel
         {
             try
             {
-                var mail = ServicesLib.SmtpMailer.Instance();
+                var mail = SmtpMailer.Instance();
                 mail.SendMail(Email, Title, ProjectName);
                 MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show("Mail sent", "", button, icon);
-                this.CloseAction();
+                CloseAction();
             }
             catch (Exception)
             {

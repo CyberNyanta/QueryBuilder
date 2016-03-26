@@ -127,12 +127,12 @@ namespace QueryBuilder.DAL.Infrastructure
                 _queriesRepository = null;
                 _usersRepository = null;
             }
-            _context.Dispose();
+            QueryBuilderContext.Dispose();
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            QueryBuilderContext.SaveChanges();
         }
     }
 }

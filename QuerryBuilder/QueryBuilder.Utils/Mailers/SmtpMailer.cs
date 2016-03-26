@@ -5,7 +5,7 @@ using System.Net.Configuration;
 using System.Net.Mail;
 using System.Net.Mime;
 
-namespace ServicesLib
+namespace QueryBuilder.Utils.Mailers
 {
     public class SmtpMailer
     {

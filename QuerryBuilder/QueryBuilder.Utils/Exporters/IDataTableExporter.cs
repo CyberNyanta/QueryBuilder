@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace ServicesLib
+namespace QueryBuilder.Utils.Exporters
 {
     public interface IDataTableExporter
     {

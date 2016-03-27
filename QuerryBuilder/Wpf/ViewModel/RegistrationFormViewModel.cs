@@ -6,12 +6,11 @@ using QueryBuilder.DAL.Models;
 using QueryBuilder.Services.Contracts;
 using QueryBuilder.Services.DbServices;
 using QueryBuilder.Utils;
-using ServicesLib;
 using Wpf.DataModel;
-using Wpf.DataModel.Entity;
 using Wpf.Exceptions;
 using Wpf.Properties;
 using Wpf.ViewModel.Command;
+using QueryBuilder.Utils.Mailers;
 
 namespace Wpf.ViewModel
 {
@@ -99,7 +98,7 @@ namespace Wpf.ViewModel
         public User RegistrationUser(string firstName, string lastName, string email, string password)
         {
             SmtpMailer mailer = SmtpMailer.Instance();
-            if (_userService.GetUserByEmail(email) != null)
+            if (_userService.GetUserByEmail(email) == null)
             {
                 User newUser = new User
                 {

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using QueryBuilder.DAL.Models;
+using QueryBuilder.Services.Contracts;
+using QueryBuilder.Services.DbServices;
 using Wpf.DataModel;
-using Wpf.DataModel.Entity;
 using Wpf.View;
 using Wpf.ViewModel.Command;
 
@@ -17,20 +15,29 @@ namespace Wpf.ViewModel
         public string Name { get; set; }
         public List<string> MyConnectionList { get; set; }
         public string Summary { get; set; }
-        private EntityManager entityManager;
         public ICommand AddConnectionCommand { get; set; }
         public ICommand CreateProjectCommand { get; set; }
 
+        private readonly IProjectService _projectService;
+
         public CreateProjectFormViewModel()
         {
-            entityManager = new EntityManager();
             AddConnectionCommand = new RelayCommand(arg => AddConnectionMethod());
             CreateProjectCommand = new RelayCommand(arg => CreateProjectMethod());
+
+            var servicesFactory = new ServicesFactory();
+            _projectService = servicesFactory.GetProjectService();
         }
 
         private void CreateProjectMethod()
         {
-            entityManager.SaveProject(Name, DataModel.MainWindowData.CurrentUser.Email, Summary);
+            var project = new Project
+            {
+                ProjectName = Name,
+                ProjectOwner = MainWindowData.CurrentUser.Email,
+                ProjectDescription = Summary
+            };
+            _projectService.SaveProject(project);
         }
 
         

@@ -101,44 +101,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\ConnectionDatabase.cs" />
-    <Compile Include="DataModel\EntityManager.cs" />
-    <Compile Include="DataModel\Entity\ConnectionDB.cs">
-      <DependentUpon>QueryBuilderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\Projects.cs">
-      <DependentUpon>QueryBuilderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\ProjectsShare.cs">
-      <DependentUpon>QueryBuilderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\QueryBuilderModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QueryBuilderModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\QueryBuilderModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QueryBuilderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\QueryBuilderModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QueryBuilderModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\ResultHistory.cs">
-      <DependentUpon>QueryBuilderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Entity\Users.cs">
-      <DependentUpon>QueryBuilderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\IRepository.cs" />
     <Compile Include="DataModel\MainWindowData.cs" />
-    <Compile Include="DataModel\Repository\Repositories\ConnectionDBRepository.cs" />
-    <Compile Include="DataModel\Repository\Repositories\ProjectsRepository.cs" />
-    <Compile Include="DataModel\Repository\Repositories\ProjectsShareRepository.cs" />
-    <Compile Include="DataModel\Repository\Repositories\ResultHistoryRepository.cs" />
-    <Compile Include="DataModel\Repository\Repositories\UsersRepository.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="GraphSharpDemo\GrapfBits\Edge.cs" />
     <Compile Include="GraphSharpDemo\GrapfBits\Graph.cs" />
@@ -263,13 +226,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataModel\Entity\QueryBuilderModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QueryBuilderModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataModel\Entity\QueryBuilderModel.edmx.diagram">
-      <DependentUpon>QueryBuilderModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -284,16 +240,6 @@
     <SplashScreen Include="View\SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\Entity\QueryBuilderModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QueryBuilderModel.edmx</DependentUpon>
-      <LastGenOutput>QueryBuilderModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\Entity\QueryBuilderModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QueryBuilderModel.edmx</DependentUpon>
-      <LastGenOutput>QueryBuilderModel.cs</LastGenOutput>
-    </Content>
     <Content Include="GraphSharpDemo\Lib\GraphSharp.Contracts.dll" />
     <Content Include="GraphSharpDemo\Lib\GraphSharp.Controls.dll" />
     <Content Include="GraphSharpDemo\Lib\GraphSharp.dll" />
@@ -323,10 +269,6 @@
     <ProjectReference Include="..\QueryBuilder.Utils\QueryBuilder.Utils.csproj">
       <Project>{f0e68d32-c9e0-47e3-87bc-cd16904e7e76}</Project>
       <Name>QueryBuilder.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServicesLib\ServicesLib.csproj">
-      <Project>{840e534e-2c56-4a50-b7de-7122d12cabc2}</Project>
-      <Name>ServicesLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

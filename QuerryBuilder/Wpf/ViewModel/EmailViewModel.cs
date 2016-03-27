@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using QueryBuilder.Utils;
+using QueryBuilder.Utils.Mailers;
 using Wpf.DataModel;
 using Wpf.ViewModel.Command;
 
@@ -31,7 +32,7 @@ namespace Wpf.ViewModel
         {
             try
             {
-                var mail = ServicesLib.SmtpMailer.Instance();
+                var mail = SmtpMailer.Instance();
                 mail.SendMail(Email, Title, SqlQuerry);
                 this.CloseAction();
                 MessageBoxImage icon = MessageBoxImage.Information;

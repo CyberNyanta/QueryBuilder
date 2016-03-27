@@ -1,20 +1,14 @@
-﻿using BuilderBL;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using QueryBuilder.DAL.Models;
 using QueryBuilder.Services.Contracts;
 using QueryBuilder.Services.DbServices;
+using QueryBuilder.Utils.Exporters;
 using Wpf.DataModel;
-using Wpf.DataModel.Entity;
 using Wpf.View;
 using Wpf.ViewModel.Command;
 
@@ -27,7 +21,6 @@ namespace Wpf.ViewModel
         private ICommand _clickSaveProjectCommand;
         private ICommand _clickOpenProjectCommand;
         private ICommand _editButton;
-        private EntityManager entityManager;
 
         private readonly IProjectService _projectService;
 
@@ -155,8 +148,14 @@ namespace Wpf.ViewModel
         #endregion 
         private void ClickMethodSaveProject()
         {
-            entityManager.SaveProject(MainWindowData.ProjectName, 
-                MainWindowData.ProjectOwner, MainWindowData.DescriptionProject);
+            var project = new Project
+            {
+                ProjectName = MainWindowData.ProjectName,
+                ProjectOwner = MainWindowData.ProjectOwner,
+                ProjectDescription = MainWindowData.DescriptionProject
+            };
+            _projectService.SaveProject(project);
+
         }
 
         private void ClickMethodOpenProject()
@@ -189,8 +188,8 @@ namespace Wpf.ViewModel
         private void ClickMethodSendQuerryToEmail()
         {
             
-            var SendMailWindow = new Email();
-            SendMailWindow.ShowDialog();
+            var sendMailWindow = new Email();
+            sendMailWindow.ShowDialog();
 
         }
 
@@ -222,7 +221,7 @@ namespace Wpf.ViewModel
             dlg.Filter = "Text documents |*.txt"; // Filter files by extension
 
             // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
             // Process save file dialog box results
             if (result == true)
@@ -257,14 +256,14 @@ namespace Wpf.ViewModel
             dlg.Filter = "Text documents |*.pdf"; // Filter files by extension
 
             // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
             // Process save file dialog box results
             if (result == true)
             {
                 // Save document
                 string filename = dlg.FileName;
-                var file = ServicesLib.DataTableToPdfExporter.CreateInstance();
+                var file = DataTableToPdfExporter.CreateInstance();
                 file.DataTableExport(table, filename, title);
             }
         }
@@ -315,8 +314,8 @@ namespace Wpf.ViewModel
         /// Вызывает диалоговое окно сохранения в файл
         /// </summary>
         /// <param name="table"></param>
-        /// <param name="Title"></param>
-        public static void SaveExcel(DataTable table, string Title)
+        /// <param name="title"></param>
+        public static void SaveExcel(DataTable table, string title)
         {
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -325,15 +324,15 @@ namespace Wpf.ViewModel
             dlg.Filter = "Text documents |*.xlsx"; // Filter files by extension
 
             // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
             // Process save file dialog box results
             if (result == true)
             {
                 // Save document
                 string filename = dlg.FileName;
-                var file = ServicesLib.DataTableToExcelExporter.CreateInstance();
-                file.DataTableExport(table, filename, Title);
+                var file = DataTableToExcelExporter.CreateInstance();
+                file.DataTableExport(table, filename, title);
             }
         }
     }

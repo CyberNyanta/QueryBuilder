@@ -4,7 +4,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
-namespace ServicesLib
+namespace QueryBuilder.Utils.Exporters
 {
     public class DataTableToPdfExporter : IDataTableExporter
     {

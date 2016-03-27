@@ -55,6 +55,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QueryBuilder.Constants\QueryBuilder.Constants.csproj">
+      <Project>{ea846c4e-22ef-4810-b297-fee38d51db9d}</Project>
+      <Name>QueryBuilder.Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QueryBuilder.DAL\QueryBuilder.DAL.csproj">
       <Project>{919e2f0a-7941-443d-93cd-8cdb5bd9c3df}</Project>
       <Name>QueryBuilder.DAL</Name>

@@ -5,9 +5,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using QueryBuilder.DAL.Models;
 using Wpf.DataModel;
-using Wpf.DataModel.Entity;
-
-
 
 namespace Wpf.ViewModel
 {

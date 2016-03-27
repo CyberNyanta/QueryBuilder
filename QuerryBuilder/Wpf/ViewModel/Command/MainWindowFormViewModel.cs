@@ -21,7 +21,6 @@ namespace Wpf.ViewModel
         private ICommand _clickSaveProjectCommand;
         private ICommand _clickOpenProjectCommand;
         private ICommand _editButton;
-        private EntityManager entityManager;
 
         private readonly IProjectService _projectService;
 
@@ -149,8 +148,14 @@ namespace Wpf.ViewModel
         #endregion 
         private void ClickMethodSaveProject()
         {
-            entityManager.SaveProject(MainWindowData.ProjectName, 
-                MainWindowData.ProjectOwner, MainWindowData.DescriptionProject);
+            var project = new Project
+            {
+                ProjectName = MainWindowData.ProjectName,
+                ProjectOwner = MainWindowData.ProjectOwner,
+                ProjectDescription = MainWindowData.DescriptionProject
+            };
+            _projectService.SaveProject(project);
+
         }
 
         private void ClickMethodOpenProject()

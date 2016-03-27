@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.DAL.Models;
@@ -33,6 +34,11 @@ namespace QueryBuilder.Services.DbServices
 
         public void CreateUser(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
                 unitOfWork.Users.Create(user);

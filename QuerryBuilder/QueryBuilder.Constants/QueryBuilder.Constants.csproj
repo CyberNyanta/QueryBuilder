@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}</ProjectGuid>
+    <ProjectGuid>{EA846C4E-22EF-4810-B297-FEE38D51DB9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QueryBuilder.Services</RootNamespace>
-    <AssemblyName>QueryBuilder.Services</AssemblyName>
+    <RootNamespace>QueryBuilder.Constants</RootNamespace>
+    <AssemblyName>QueryBuilder.Constants</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,29 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IConnectionDbService.cs" />
-    <Compile Include="Contracts\IProjectService.cs" />
-    <Compile Include="Contracts\IProjectsShareService.cs" />
-    <Compile Include="Contracts\IQueryService.cs" />
-    <Compile Include="Contracts\IServicesFactory.cs" />
-    <Compile Include="Contracts\IUserService.cs" />
-    <Compile Include="DbServices\ConnectionDbService.cs" />
-    <Compile Include="DbServices\ProjectService.cs" />
-    <Compile Include="DbServices\ProjectsShareService.cs" />
-    <Compile Include="DbServices\QueryService.cs" />
-    <Compile Include="DbServices\ServicesFactory.cs" />
-    <Compile Include="DbServices\UserService.cs" />
+    <Compile Include="DbConstants\DbLengthString.cs" />
+    <Compile Include="DbConstants\DbTablesNames.cs" />
+    <Compile Include="DelflagConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QueryBuilder.Constants\QueryBuilder.Constants.csproj">
-      <Project>{ea846c4e-22ef-4810-b297-fee38d51db9d}</Project>
-      <Name>QueryBuilder.Constants</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QueryBuilder.DAL\QueryBuilder.DAL.csproj">
-      <Project>{919e2f0a-7941-443d-93cd-8cdb5bd9c3df}</Project>
-      <Name>QueryBuilder.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

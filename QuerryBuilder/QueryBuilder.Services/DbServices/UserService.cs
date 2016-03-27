@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using QueryBuilder.Constants;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.DAL.Models;
 using QueryBuilder.Services.Contracts;
@@ -20,7 +21,7 @@ namespace QueryBuilder.Services.DbServices
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                return unitOfWork.Users.GetAll().FirstOrDefault(e => e.Email.Equals(email) && e.Delflag == 0);
+                return unitOfWork.Users.GetAll().FirstOrDefault(e => e.Email.Equals(email) && e.Delflag == DelflagConstants.ActiveSet);
             }
         }
 
@@ -28,7 +29,7 @@ namespace QueryBuilder.Services.DbServices
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                return unitOfWork.Users.GetMany(p => p.Delflag == 0);
+                return unitOfWork.Users.GetMany(p => p.Delflag == DelflagConstants.ActiveSet);
             }
         }
 

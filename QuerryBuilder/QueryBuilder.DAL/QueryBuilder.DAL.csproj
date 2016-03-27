@@ -115,7 +115,12 @@
       <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QueryBuilder.Constants\QueryBuilder.Constants.csproj">
+      <Project>{ea846c4e-22ef-4810-b297-fee38d51db9d}</Project>
+      <Name>QueryBuilder.Constants</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

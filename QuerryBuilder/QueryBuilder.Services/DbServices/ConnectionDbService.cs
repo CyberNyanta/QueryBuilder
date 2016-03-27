@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using QueryBuilder.Constants;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.DAL.Models;
 using QueryBuilder.Services.Contracts;
@@ -19,7 +20,7 @@ namespace QueryBuilder.Services.DbServices
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                return unitOfWork.ConnectionDBs.GetMany(p => p.Delflag == 0);
+                return unitOfWork.ConnectionDBs.GetMany(p => p.Delflag == DelflagConstants.ActiveSet);
             }
         }
 

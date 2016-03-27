@@ -54,15 +54,15 @@ namespace QueryBuilderMVC
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1694104010860815",
+               appSecret: "1b9dd6fbf509dea835a4868d29050180");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1075031831337-80ammi0etniob9k050o5f7m20d688nsd.apps.googleusercontent.com",
+                ClientSecret = "L8ndi6ap1ohmcfFL9s2-Aa1L"
+            });
         }
     }
 }

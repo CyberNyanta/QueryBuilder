@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using QueryBuilder.DAL.Models;
+//using QueryBuilder.DAL.Contexts;
 using QueryBuilderMVC.Models;
 
 namespace QueryBuilderMVC

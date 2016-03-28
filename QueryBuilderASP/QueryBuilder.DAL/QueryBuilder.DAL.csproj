@@ -81,9 +81,6 @@
     <Compile Include="Configuration\ProjectsShareConfiguration.cs" />
     <Compile Include="Configuration\QueryConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
-    <Compile Include="Constants\DbLengthString.cs" />
-    <Compile Include="Constants\DbTablesNames.cs" />
-    <Compile Include="Constants\DelflagConstants.cs" />
     <Compile Include="Contracts\IDatabaseFactory.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
@@ -100,6 +97,10 @@
     <Compile Include="Migrations\201603262144398_MinorUpdate.cs" />
     <Compile Include="Migrations\201603262144398_MinorUpdate.Designer.cs">
       <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603282032403_AddIdentity.cs" />
+    <Compile Include="Migrations\201603282032403_AddIdentity.Designer.cs">
+      <DependentUpon>201603282032403_AddIdentity.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -144,6 +145,15 @@
     <EmbeddedResource Include="Migrations\201603262144398_MinorUpdate.resx">
       <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603282032403_AddIdentity.resx">
+      <DependentUpon>201603282032403_AddIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\QuerryBuilder\QueryBuilder.Constants\QueryBuilder.Constants.csproj">
+      <Project>{ea846c4e-22ef-4810-b297-fee38d51db9d}</Project>
+      <Name>QueryBuilder.Constants</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

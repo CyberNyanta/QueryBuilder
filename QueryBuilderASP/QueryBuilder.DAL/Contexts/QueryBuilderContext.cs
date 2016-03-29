@@ -16,18 +16,18 @@ namespace QueryBuilder.DAL.Contexts
             //Configuration.LazyLoadingEnabled = false;
         }
 
-        public DbSet<ConnectionDB> ConnectionDBs { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectsShare> ProjectsShares { get; set; }
+        //public DbSet<ConnectionDB> ConnectionDBs { get; set; }
+        //public DbSet<Project> Projects { get; set; }
+        //public DbSet<ProjectsShare> ProjectsShares { get; set; }
         //public DbSet<ApplicationUser> Users { get; set; }
-        public DbSet<Query> Queries { get; set; }
+        //public DbSet<Query> Queries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
-            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
-            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+            //modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            //modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
 

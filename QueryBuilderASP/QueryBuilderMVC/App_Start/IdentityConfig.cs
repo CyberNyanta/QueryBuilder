@@ -11,8 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using QueryBuilder.DAL.Models;
-//using QueryBuilder.DAL.Contexts;
-using QueryBuilderMVC.Models;
+using QueryBuilder.DAL.Contexts;
+//using QueryBuilderMVC.Models;
 
 namespace QueryBuilderMVC
 {
@@ -44,7 +44,7 @@ namespace QueryBuilderMVC
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<QueryBuilderContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

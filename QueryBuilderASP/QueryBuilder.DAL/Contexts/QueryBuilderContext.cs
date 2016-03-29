@@ -6,20 +6,20 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace QueryBuilder.DAL.Contexts
 {
-    public class QueryBuilderContext : DbContext
+    public class QueryBuilderContext : IdentityDbContext<ApplicationUser>
     {
         public QueryBuilderContext()
-            : base("name=DefaultConnection")
+            : base("name=DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer<QueryBuilderContext>(null);
-            Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
+            //Database.SetInitializer<QueryBuilderContext>(null);
+            //Configuration.ProxyCreationEnabled = false;
+            //Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<ConnectionDB> ConnectionDBs { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectsShare> ProjectsShares { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        //public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Query> Queries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace QueryBuilder.DAL.Contexts
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

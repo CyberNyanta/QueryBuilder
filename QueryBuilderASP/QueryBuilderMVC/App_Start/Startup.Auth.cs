@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using QueryBuilderMVC.Models;
-//using QueryBuilder.DAL.Contexts;
-//using QueryBuilder.DAL.Models;
+//using QueryBuilderMVC.Models;
+using QueryBuilder.DAL.Contexts;
+using QueryBuilder.DAL.Models;
 
 namespace QueryBuilderMVC
 {
@@ -18,7 +18,7 @@ namespace QueryBuilderMVC
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(QueryBuilder.DAL.Contexts.QueryBuilderContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 

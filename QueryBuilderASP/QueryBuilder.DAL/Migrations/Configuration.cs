@@ -9,7 +9,7 @@ namespace QueryBuilder.DAL.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(QueryBuilder.DAL.Contexts.QueryBuilderContext context)

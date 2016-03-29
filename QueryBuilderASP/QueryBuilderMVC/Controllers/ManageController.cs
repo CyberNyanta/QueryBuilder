@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using QueryBuilder.DAL.Models;
+//using QueryBuilder.DAL.Models;
 using QueryBuilderMVC.Models;
 
 namespace QueryBuilderMVC.Controllers

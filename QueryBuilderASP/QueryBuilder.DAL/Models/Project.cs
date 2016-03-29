@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace QueryBuilder.DAL.Models
 {
     public class Project
     {
+        [Key]
         public int ProjectID { get; set; }
 
         public string ProjectName { get; set; }

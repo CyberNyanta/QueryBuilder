@@ -59,6 +59,10 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="QueryBuilder.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\QueryBuilder.DAL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -90,31 +94,9 @@
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWorkFactory.cs" />
-    <Compile Include="Migrations\201603160801525_AddDefaultValueDeflag.cs" />
-    <Compile Include="Migrations\201603160801525_AddDefaultValueDeflag.Designer.cs">
-      <DependentUpon>201603160801525_AddDefaultValueDeflag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603262144398_MinorUpdate.cs" />
-    <Compile Include="Migrations\201603262144398_MinorUpdate.Designer.cs">
-      <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603282032403_AddIdentity.cs" />
-    <Compile Include="Migrations\201603282032403_AddIdentity.Designer.cs">
-      <DependentUpon>201603282032403_AddIdentity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Repositories\QueriesRepository.cs" />
     <Compile Include="Repositories\ProjectsRepository.cs" />
-    <Compile Include="Migrations\201603132217116_Initial.cs" />
-    <Compile Include="Migrations\201603132217116_Initial.Designer.cs">
-      <DependentUpon>201603132217116_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603132230018_ModifiedTableQueries.cs" />
-    <Compile Include="Migrations\201603132230018_ModifiedTableQueries.Designer.cs">
-      <DependentUpon>201603132230018_ModifiedTableQueries.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\Project.cs" />
@@ -131,23 +113,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603132217116_Initial.resx">
-      <DependentUpon>201603132217116_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603132230018_ModifiedTableQueries.resx">
-      <DependentUpon>201603132230018_ModifiedTableQueries.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603160801525_AddDefaultValueDeflag.resx">
-      <DependentUpon>201603160801525_AddDefaultValueDeflag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603262144398_MinorUpdate.resx">
-      <DependentUpon>201603262144398_MinorUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603282032403_AddIdentity.resx">
-      <DependentUpon>201603282032403_AddIdentity.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\QuerryBuilder\QueryBuilder.Constants\QueryBuilder.Constants.csproj">

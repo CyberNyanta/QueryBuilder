@@ -24,6 +24,18 @@ namespace QueryBuilder.Services.DbServices
                 return unitOfWork.Users.GetAll().FirstOrDefault(e => e.Email.Equals(email) && e.Delflag == DelflagConstants.ActiveSet);
             }
         }
+        /// <summary>
+        /// Method return ApplicationUser, get UserID to string
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ApplicationUser GetUserByID(string id)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.Users.GetAll().FirstOrDefault(e => e.Id.Equals(id) && e.Delflag == DelflagConstants.ActiveSet);
+            }
+        }
 
         public IEnumerable<ApplicationUser> GetUsers()
         {

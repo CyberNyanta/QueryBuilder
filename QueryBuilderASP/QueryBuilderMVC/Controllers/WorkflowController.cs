@@ -18,6 +18,9 @@ namespace QueryBuilderMVC.Controllers
         // GET: Workflow
 
         private IUnitOfWorkFactory repository;
+        private ApplicationUser CurrentUser;
+        private ProjectService serviceProject;
+        private UserService serviceUser;
 
         public int PageSize = 3;
         // GET: Product
@@ -28,14 +31,15 @@ namespace QueryBuilderMVC.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            ProjectService service = new ProjectService(repository);
-            UserService serviceUser = new UserService(repository);
+            serviceProject = new ProjectService(repository);
+            serviceUser = new UserService(repository);
+            CurrentUser = serviceUser.GetUserByID(User.Identity.GetUserId());
 
             var s = repository.GetUnitOfWork();
                var model = new ProjectViewModel
                 {
                    
-                    Projects = s.Projects.GetAll().Where(x => x.ProjectOwner == User.Identity.Name)
+                    Projects = serviceProject.GetUserProjects(CurrentUser)
 
                 };
                 return View(model);
@@ -49,14 +53,14 @@ namespace QueryBuilderMVC.Controllers
 
             if (ModelState.IsValid)
             {
-
-                s.Projects.Create(new Project { ProjectName = _project.Name, ProjectOwner = User.Identity.Name, ProjectDescription = _project.Description });
-                s.Save();
+                serviceProject.SaveProject(new Project { ProjectName = _project.Name, ProjectOwner = User.Identity.Name, ProjectDescription = _project.Description });
+                //s.Projects.Create(new Project { ProjectName = _project.Name, ProjectOwner = User.Identity.Name, ProjectDescription = _project.Description });
+                //s.Save();
                
             }
             ProjectViewModel model = new ProjectViewModel
             {
-                Projects = s.Projects.GetAll()
+                Projects = serviceProject.GetUserProjects(CurrentUser)
 
             };
             return View("List", model);

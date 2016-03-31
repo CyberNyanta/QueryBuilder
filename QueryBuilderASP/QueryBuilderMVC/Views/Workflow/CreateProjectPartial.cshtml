@@ -1,0 +1,10 @@
+﻿@model QueryBuilderMVC.Models.ProjectViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+    <p>Your project name: @Html.TextBoxFor(x => x.Name, new { @class=""  })</p>
+    <p>Project description: @Html.TextBoxFor(x => x.Description)</p>
+    
+        <input type="submit" value="Create new project" />
+}

@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilderMVC", "QueryBui
 	ProjectSection(ProjectDependencies) = postProject
 		{919E2F0A-7941-443D-93CD-8CDB5BD9C3DF} = {919E2F0A-7941-443D-93CD-8CDB5BD9C3DF}
 		{EA846C4E-22EF-4810-B297-FEE38D51DB9D} = {EA846C4E-22EF-4810-B297-FEE38D51DB9D}
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D} = {FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilderMVC.Tests", "QueryBuilderMVC.Tests\QueryBuilderMVC.Tests.csproj", "{71709F8A-50A3-4276-971F-DF29C2B8302B}"
@@ -18,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.DAL", "QueryBuilder.DAL\QueryBuilder.DAL.csproj", "{919E2F0A-7941-443D-93CD-8CDB5BD9C3DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Constants", "..\QuerryBuilder\QueryBuilder.Constants\QueryBuilder.Constants.csproj", "{EA846C4E-22EF-4810-B297-FEE38D51DB9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Services", "QueryBuilder.Services\QueryBuilder.Services.csproj", "{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +44,10 @@ Global
 		{EA846C4E-22EF-4810-B297-FEE38D51DB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA846C4E-22EF-4810-B297-FEE38D51DB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA846C4E-22EF-4810-B297-FEE38D51DB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC317FA6-9BBE-4FE8-996C-0DB80D6C604D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -325,6 +325,7 @@
     <Content Include="Views\Shared\_Workflow.cshtml" />
     <Content Include="Views\Workflow\ListProjectPartial.cshtml" />
     <Content Include="Views\Workflow\List.cshtml" />
+    <Content Include="Views\Workflow\CreateProjectPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +341,10 @@
     <ProjectReference Include="..\QueryBuilder.DAL\QueryBuilder.DAL.csproj">
       <Project>{919e2f0a-7941-443d-93cd-8cdb5bd9c3df}</Project>
       <Name>QueryBuilder.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.Services\QueryBuilder.Services.csproj">
+      <Project>{fc317fa6-9bbe-4fe8-996c-0db80d6c604d}</Project>
+      <Name>QueryBuilder.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -28,7 +28,8 @@ namespace QueryBuilderMVC
                       "~/Content/site.css"));
 
 			bundles.Add(new ScriptBundle("~/bundles/go").Include(
-					  "~/Scripts/go.js"));
+					  "~/Scripts/go.js",
+					  "~/Scripts/goJsLayer.js"));
 		}
     }
 }

@@ -1,4 +1,10 @@
-﻿
+﻿/*
+ * GoJS v1.6.2 JavaScript Library for HTML Diagrams
+ * Northwoods Software, http://www.nwoods.com/
+ * GoJS and Northwoods Software are registered trademarks of Northwoods Software Corporation.
+ * Copyright (C) 1998-2016 by Northwoods Software Corporation.  All Rights Reserved.
+ * THIS SOFTWARE IS LICENSED.  THE LICENSE AGREEMENT IS AT: http://gojs.net/1.6.2/doc/license.html.
+ */
 (function(window) { var g,ea={};if(!window.document||void 0===window.document.createElement("canvas").getContext)throw window.console&&window.console.log("The HTML Canvas element is not supported in this browser,or this browser is in Compatibility mode."),Error("The HTML Canvas element is not supported in this browser,or this browser is in Compatibility mode.");if(!Object.defineProperty)throw Error("GoJS requires a newer version of JavaScript");
 Function.prototype.bind||(Function.prototype.bind=function(a){function b(){return f.apply(a,e.concat(d.call(arguments)))}function c(){}var d=Array.prototype.slice,e=d.call(arguments,1),f=this;c.prototype=this.prototype;b.prototype=new c;return b});
 (function(){for(var a=0,b=["ms","moz","webkit","o"],c=0;c<b.length&&!window.requestAnimationFrame;++c)window.requestAnimationFrame=window[b[c]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[b[c]+"CancelAnimationFrame"]||window[b[c]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(b){var c=(new Date).getTime(),f=Math.max(8,16-(c-a)),h=window.setTimeout(function(){b(c+f)},f);a=c+f;return h});window.cancelAnimationFrame||(window.cancelAnimationFrame=

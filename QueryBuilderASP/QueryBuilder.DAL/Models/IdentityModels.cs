@@ -19,6 +19,9 @@ namespace QueryBuilder.DAL.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public int Delflag { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public ICollection<Project> Projects { get; set; }
 
         public ApplicationUser():base()

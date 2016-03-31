@@ -4,16 +4,11 @@
     Layout = "~/Views/Shared/_Workflow.cshtml";
 }
 
-<p>Hello world!</p>
 @if (Request.IsAuthenticated)
 {
-using (Html.BeginForm())
-{
-    @Html.ValidationSummary();
-    <p>Your project name: @Html.TextBoxFor(x => x.Name)</p>
-        <p>Your project description: @Html.TextBoxFor(x => x.Description)</p>
-
-
-        <input type="submit" value="Create new project" />
+    
 }
+else
+{
+<p>Autorized please</p>
 }

@@ -9,6 +9,7 @@ using QueryBuilderMVC.Models;
 using QueryBuilder.DAL.Repositories;
 using QueryBuilder.DAL.Contracts;
 using Microsoft.AspNet.Identity;
+using QueryBuilder.Services.DbServices;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -27,10 +28,13 @@ namespace QueryBuilderMVC.Controllers
         [HttpGet]
         public ActionResult List()
         {
+            ProjectService service = new ProjectService(repository);
+            UserService serviceUser = new UserService(repository);
 
-                var s = repository.GetUnitOfWork();
+            var s = repository.GetUnitOfWork();
                var model = new ProjectViewModel
                 {
+                   
                     Projects = s.Projects.GetAll().Where(x => x.ProjectOwner == User.Identity.Name)
 
                 };

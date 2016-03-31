@@ -1,0 +1,24 @@
+﻿@model QueryBuilderMVC.Models.ProjectViewModel
+
+
+
+    
+        @foreach (var item in Model.Projects)
+            {
+            <ul class="gn-submenu">
+
+                
+            </ul>
+            <ul class="gn-submenu">
+                <li>
+                    <a class="gn-icon" href="#" style="font-size: 12px; margin-left: 15px;">
+                        @item.ProjectName @item.ProjectDescription
+                    </a>
+                </li>
+
+            </ul>
+
+
+        }
+         
+

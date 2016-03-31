@@ -5,6 +5,8 @@ using QueryBuilder.DAL.Repositories;
 
 namespace QueryBuilder.DAL.Infrastructure
 {
+#pragma warning disable 0436
+
     public class UnitOfWork : Disposable, IUnitOfWork
     {
         private QueryBuilderContext _context;

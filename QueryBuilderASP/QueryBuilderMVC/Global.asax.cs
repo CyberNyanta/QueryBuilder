@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QueryBuilder.DAL.Infrastructure;
+using QueryBuilderMVC.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,9 @@ namespace QueryBuilderMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+
         }
     }
 }

@@ -5,7 +5,8 @@ namespace QueryBuilder.DAL.Models
 {
     public class Project
     {
-        [Key]
+#pragma warning disable 0436
+
         public int ProjectID { get; set; }
 
         public string ProjectName { get; set; }

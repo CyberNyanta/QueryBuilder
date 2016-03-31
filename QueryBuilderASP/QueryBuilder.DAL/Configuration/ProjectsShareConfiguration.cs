@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration;
 using QueryBuilder.Constants.DbConstants;
 using QueryBuilder.DAL.Models;
+#pragma warning disable 0436
 
 namespace QueryBuilder.DAL.Configuration
 {

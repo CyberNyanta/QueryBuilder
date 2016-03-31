@@ -1,9 +1,11 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using QueryBuilder.Constants.DbConstants;
-//using QueryBuilder.DAL.Models;
+using QueryBuilder.DAL.Models;
 
 namespace QueryBuilder.DAL.Configuration
 {
+#pragma warning disable 0436
+
     public class UserConfiguration : EntityTypeConfiguration<Models.ApplicationUser>
     {
         public UserConfiguration()

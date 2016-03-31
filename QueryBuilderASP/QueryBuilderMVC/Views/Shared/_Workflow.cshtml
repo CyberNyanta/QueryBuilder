@@ -29,14 +29,19 @@
 
                             </li>
                             <li><a class="gn-icon gn-icon-cog">Settings</a></li>
-                           
+
                         </ul>
                     </div><!-- /gn-scroller -->
                 </nav>
             </li>
             <li>@Html.ActionLink("Landing page", "Index", "Home")</li>
             <li><a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/HeaderEffects/"><span>Previous Demo</span></a></li>
-            <li><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=16030"><span>Back to the Codrops Article</span></a></li>
+            <li class="codrops-icon">
+                <span>
+                    @Html.Partial("_LoginPartial")
+                </span>
+
+            </li>
         </ul>
         <header>
             <div>

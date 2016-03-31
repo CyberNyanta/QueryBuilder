@@ -27,21 +27,15 @@ namespace QueryBuilderMVC.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            
-            var s = repository.GetUnitOfWork();
-           
 
-            //s.Projects.Create(new Project { ProjectName = "name", ProjectDescription = "Description", ProjectOwner = User.Identity.Name });
-            //s.Save();
+                var s = repository.GetUnitOfWork();
+               var model = new ProjectViewModel
+                {
+                    Projects = s.Projects.GetAll().Where(x => x.ProjectOwner == User.Identity.Name)
 
-            ProjectViewModel model = new ProjectViewModel
-            {
-                Projects = s.Projects.GetAll()
+                };
+                return View(model);
 
-            };
-
-         
-            return View(model);
         }
 
         [HttpPost]

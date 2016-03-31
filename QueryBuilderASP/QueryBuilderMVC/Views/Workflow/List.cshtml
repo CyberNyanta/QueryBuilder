@@ -5,12 +5,15 @@
 }
 
 <p>Hello world!</p>
-@using (Html.BeginForm())
+@if (Request.IsAuthenticated)
+{
+using (Html.BeginForm())
 {
     @Html.ValidationSummary();
     <p>Your project name: @Html.TextBoxFor(x => x.Name)</p>
         <p>Your project description: @Html.TextBoxFor(x => x.Description)</p>
-       
+
 
         <input type="submit" value="Create new project" />
+}
 }

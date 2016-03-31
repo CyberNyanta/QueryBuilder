@@ -5,6 +5,7 @@ using QueryBuilder.DAL.Models;
 
 namespace QueryBuilder.DAL.Configuration
 {
+#pragma warning disable 0436
     public class ConnectionDbConfiguration : EntityTypeConfiguration<ConnectionDB>
     {
         public ConnectionDbConfiguration()

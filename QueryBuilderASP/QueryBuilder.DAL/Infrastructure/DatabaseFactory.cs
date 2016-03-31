@@ -3,6 +3,8 @@ using QueryBuilder.DAL.Contracts;
 
 namespace QueryBuilder.DAL.Infrastructure
 {
+#pragma warning disable 0436
+
     public class DatabaseFactory: Disposable, IDatabaseFactory
     {
         private QueryBuilderContext _context;

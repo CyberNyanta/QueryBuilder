@@ -2,6 +2,8 @@ using System;
 
 namespace QueryBuilder.DAL.Models
 {
+#pragma warning disable 0436
+
     public class Query
     {
         public int QueryID { get; set; }

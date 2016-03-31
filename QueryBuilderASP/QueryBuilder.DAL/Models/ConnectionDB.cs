@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace QueryBuilder.DAL.Models
 {
+#pragma warning disable 0436
+
     public class ConnectionDB
     {
         [Key]

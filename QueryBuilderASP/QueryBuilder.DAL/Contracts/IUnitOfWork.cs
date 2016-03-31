@@ -1,5 +1,6 @@
 ﻿using System;
 using QueryBuilder.DAL.Repositories;
+#pragma warning disable 0436
 
 namespace QueryBuilder.DAL.Contracts
 {

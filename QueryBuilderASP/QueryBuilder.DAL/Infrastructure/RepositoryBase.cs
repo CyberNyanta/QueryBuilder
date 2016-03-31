@@ -5,9 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using QueryBuilder.DAL.Contexts;
 using QueryBuilder.DAL.Contracts;
+using QueryBuilder.DAL.Models;
 
 namespace QueryBuilder.DAL.Infrastructure
 {
+#pragma warning disable 0436
+
     public abstract class RepositoryBase<T> where T: class 
     {
         private QueryBuilderContext _context;

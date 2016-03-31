@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace QueryBuilder.DAL.Contexts
 {
+#pragma warning disable 0436
+
     public class QueryBuilderContext : IdentityDbContext<ApplicationUser>
     {
         public QueryBuilderContext()
@@ -16,11 +18,11 @@ namespace QueryBuilder.DAL.Contexts
             //Configuration.LazyLoadingEnabled = false;
         }
 
-        //public DbSet<ConnectionDB> ConnectionDBs { get; set; }
-        //public DbSet<Project> Projects { get; set; }
-        //public DbSet<ProjectsShare> ProjectsShares { get; set; }
+        public DbSet<ConnectionDB> ConnectionDBs { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectsShare> ProjectsShares { get; set; }
         //public DbSet<ApplicationUser> Users { get; set; }
-        //public DbSet<Query> Queries { get; set; }
+        public DbSet<Query> Queries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -29,7 +31,7 @@ namespace QueryBuilder.DAL.Contexts
             //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             //modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
+ 
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();

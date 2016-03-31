@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Scripts/js")
+    <link rel="stylesheet" type="text/css" href="~/Content/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/component.css" />
+    <script src="~/Scripts/modernizr.custom.js"></script>
+   
+</head>
+<body>
+    <div class="container">
+
+
+        <ul id="gn-menu" class="gn-menu-main">
+            <li class="gn-trigger">
+                <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                <nav class="gn-menu-wrapper">
+                    <div class="gn-scroller">
+                        <ul class="gn-menu">
+                            <li>
+                                <a class="gn-icon gn-icon-download">My projects</a>
+                                @Html.Partial("ListProjectPartial")
+
+
+                            </li>
+                            <li><a class="gn-icon gn-icon-cog">Settings</a></li>
+                           
+                        </ul>
+                    </div><!-- /gn-scroller -->
+                </nav>
+            </li>
+            <li>@Html.ActionLink("Landing page", "Index", "Home")</li>
+            <li><a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/HeaderEffects/"><span>Previous Demo</span></a></li>
+            <li><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=16030"><span>Back to the Codrops Article</span></a></li>
+        </ul>
+        <header>
+            <div>
+                @RenderBody()
+            </div>
+        </header>
+    </div><!-- /container -->
+    <script src="~/Scripts/classie.js"></script>
+    <script src="~/Scripts/gnmenu.js"></script>
+    <script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+    </script>
+
+</body>
+</html>

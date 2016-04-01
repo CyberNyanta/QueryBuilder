@@ -106,8 +106,8 @@ address a {
 /* Social Icons */
 @font-face {
   font-family: 'Icons';
-  src: url('http://www.datapine.com/fonts/icons.eot');
-  src: url('http://www.datapine.com/fonts/icons.eot#iefix') format('embedded-opentype'), url('http://www.datapine.com/fonts/icons.woff') format('woff'), url('http://www.datapine.com/fonts/icons.ttf') format('truetype'), url('http://www.datapine.com/fonts/icons.svg#icons') format('svg');
+  src: url('/fonts/icons.woff') format('woff'), 
+      url('/fonts/icons.ttf') format('truetype'); 
   font-weight: normal;
   font-style: normal;
 }

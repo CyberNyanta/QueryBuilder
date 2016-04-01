@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/Scripts/js")
+    @*@Scripts.Render("~/Scripts/js")*@
     <link rel="stylesheet" type="text/css" href="~/Content/normalize.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/demo.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/component.css" />
@@ -23,11 +23,18 @@
                     <div class="gn-scroller">
                         <ul class="gn-menu">
                                 @if (Request.IsAuthenticated)
-                                    {
+                                {
+                                    <div class="demo">
+                                        <input type="checkbox" id="hd-1" class="hide" />
+                                        <label for="hd-1">Create new project (Press me)</label>
+                                        <div>
+                                            @Html.Partial("CreateProjectPartial")
+                                        </div>
+                                    </div>
                                          @Html.Partial("ListProjectPartial")
                                         }
 
-                            <li><a class="gn-icon gn-icon-cog">Settings</a></li>
+                            <li><a class="gn-icon">Settings</a></li>
 
                         </ul>
                     </div><!-- /gn-scroller -->
@@ -45,6 +52,7 @@
         <header>
             <div>
                 @RenderBody()
+               
             </div>
         </header>
     </div><!-- /container -->

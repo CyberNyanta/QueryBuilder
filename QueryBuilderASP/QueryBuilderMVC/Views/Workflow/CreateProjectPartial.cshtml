@@ -3,8 +3,8 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary();
-    <p>Your project name: @Html.TextBoxFor(x => x.Name, new { @class=""  })</p>
-    <p>Project description: @Html.TextBoxFor(x => x.Description)</p>
+    <p class="TextField">Your project name: @Html.TextBoxFor(x => x.Name)</p>
+    <p class="TextField">Project description: @Html.TextBoxFor(x => x.Description@*, new { @class = "TextField" }*@)</p>
     
         <input type="submit" value="Create new project" />
 }

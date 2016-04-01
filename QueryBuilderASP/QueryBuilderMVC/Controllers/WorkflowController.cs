@@ -78,7 +78,7 @@ namespace QueryBuilderMVC.Controllers
                     var newConnection = new ConnectionDB
                     {
                         ConnectionName = _model.ConnectionDb.ConnectionName,
-                        //ConnectionOwner = User.Identity.GetUserId,
+                        //ConnectionOwner = 
 
                     };
 

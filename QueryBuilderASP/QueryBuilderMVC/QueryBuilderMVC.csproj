@@ -331,6 +331,7 @@
     <Content Include="Views\Workflow\List.cshtml" />
     <Content Include="Views\Workflow\CreateProjectPartial.cshtml" />
     <Content Include="Views\Workflow\CreateConnectionPartial.cshtml" />
+    <Content Include="Views\Workflow\UpdateProjectPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

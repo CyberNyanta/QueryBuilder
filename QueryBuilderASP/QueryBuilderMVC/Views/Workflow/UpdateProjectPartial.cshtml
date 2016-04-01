@@ -1,0 +1,15 @@
+﻿@model QueryBuilderMVC.Models.ProjectViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+    <p class="TextField">
+        Project id:
+        <input type="text" value="@Model.idCurrentProject" name="idCurrentProject" disabled />
+    </p>
+    <p class="TextField">Name project: @Html.TextBoxFor(x => x.Name, new { placeholder = Model.Name }) </p>
+    <p class="TextField">Project description: @Html.TextBoxFor(x => x.Description, new { placeholder = Model.Description })</p>
+
+    <input type="submit" name="action" value="Update project" />
+}
+

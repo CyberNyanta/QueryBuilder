@@ -40,7 +40,9 @@ namespace QueryBuilderMVC.Controllers
             if (id != null)
             {
                 model.idCurrentProject = Convert.ToInt32(id);
-
+                Project currentProject = serviceProject.GetProjects().First(a => a.ProjectID == model.idCurrentProject);
+                model.Name = currentProject.ProjectName;
+                model.Description = currentProject.ProjectDescription;
             }
 
             model.Projects = serviceProject.GetUserProjects(CurrentUser);
@@ -102,6 +104,28 @@ namespace QueryBuilderMVC.Controllers
 
                 return View("List", model);
             }
+
+
+            else if (action == "Update project")
+            {
+
+                
+                    var newProject = new Project
+                    {
+                        ProjectName = _model.Name,
+                        ProjectID = _model.idCurrentProject,
+                        ProjectOwner = User.Identity.Name,
+                        ProjectDescription = _model.Description
+                    };
+                    serviceProject.SaveProject(newProject);
+                
+
+                model.Projects = serviceProject.GetUserProjects(CurrentUser);
+
+                return View("List", model);
+            }
+
+
             else
             {
                 ProjectViewModel model = new ProjectViewModel

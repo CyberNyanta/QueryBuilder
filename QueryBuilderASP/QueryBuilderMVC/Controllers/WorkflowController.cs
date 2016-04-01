@@ -1,15 +1,12 @@
 ﻿using QueryBuilder.DAL.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using QueryBuilder.DAL.Models;
 using QueryBuilderMVC.Models;
-using QueryBuilder.DAL.Repositories;
 using QueryBuilder.DAL.Contracts;
 using Microsoft.AspNet.Identity;
 using QueryBuilder.Services.DbServices;
+using QueryBuilder.Utils;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -90,7 +87,7 @@ namespace QueryBuilderMVC.Controllers
                         ConnectionOwner = _model.idCurrentProject,
                         DatabaseName = _model.ConnectionDb.DatabaseName,
                         LoginDB = _model.ConnectionDb.LoginDB,
-                        //PasswordDB = _model.ConnectionDb.PasswordDB,
+                        PasswordDB = Scrambler.GetPassHash(_model.ConnectionDb.PasswordDB),
                         ServerName = _model.ConnectionDb.ServerName,
 
                     };

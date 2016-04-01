@@ -6,7 +6,7 @@
     <p class="TextField" style="color:black;">Name:     @Html.TextBoxFor(x => x.ConnectionDb.ConnectionName)</p>
     <p class="TextField" style="color:black;">Server:   @Html.TextBoxFor(x => x.ConnectionDb.ServerName)</p>
     <p class="TextField" style="color:black;">Login:    @Html.TextBoxFor(x => x.ConnectionDb.LoginDB)</p>
-    <p class="TextField" style="color:black;">Password: @Html.TextBoxFor(x => x.ConnectionDb.PasswordDB)</p>
+    <p class="TextField" style="color:black;">Password: @Html.PasswordFor(x => x.ConnectionDb.PasswordDB)</p>
     <p class="TextField" style="color:black;">Database: @Html.TextBoxFor(x => x.ConnectionDb.DatabaseName)</p>
     <input type="hidden" value="@Model.idCurrentProject" name="idCurrentProject" />
     <p style="display:none">@Html.TextBox(@Model.idCurrentProject.ToString())   </p>

@@ -8,20 +8,22 @@ namespace QueryBuilderMVC.Models
 {
     public class ConnectionViewModel
     {
-        [Required(ErrorMessage = "Please enter connection name")]
+        [Required(ErrorMessage = @"Please enter connection name")]
         public string ConnectionName { get; set; }
-        [Required(ErrorMessage = "Please enter server name")]
+
+        [Required(ErrorMessage = @"Please enter server name")]
         public string ServerName { get; set; }
-        [Required(ErrorMessage = "Please enter login")]
+
+        [Required(ErrorMessage = @"Please enter login")]
         public string LoginDB { get; set; }
-        [Required(ErrorMessage = "Please enter password")]
-        ////
-        //// Attention
-        ////  password type STRING
-        ////
+
+        [Required(ErrorMessage = @"Please enter password")]
+        [DataType(DataType.Password)]
         public string PasswordDB { get; set; }
-        [Required(ErrorMessage = "Please enter database name")]
+
+        [Required(ErrorMessage = @"Please enter database name")]
         public string DatabaseName { get; set; }
+
         public int ConnectionOwner { get; set; }
 
     }

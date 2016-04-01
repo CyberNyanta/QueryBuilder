@@ -218,6 +218,7 @@
     </Compile>
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ConnectionViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Views\Workflow\ListProjectPartial.cshtml" />
     <Content Include="Views\Workflow\List.cshtml" />
     <Content Include="Views\Workflow\CreateProjectPartial.cshtml" />
+    <Content Include="Views\Workflow\CreateConnectionPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -45,33 +45,65 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [HttpPost]
-        public ViewResult List(ProjectViewModel _project)
+        public ActionResult List(ProjectViewModel _model, string action)
         {
-            //var s = repository.GetUnitOfWork();
             serviceProject = new ProjectService(repository);
             serviceUser = new UserService(repository);
             CurrentUser = serviceUser.GetUserByID(User.Identity.GetUserId());
 
-            if (ModelState.IsValid)
+            if (action == "Create new project")
             {
-                var newProject = new Project
+                if (ModelState.IsValid)
                 {
-                    ProjectName = _project.Name,
-                    ProjectOwner = User.Identity.Name,
-                    ProjectDescription = _project.Description
-                };
-                serviceProject.SaveProject(newProject);
-                //s.Projects.Create(new Project { ProjectName = _project.Name, ProjectOwner = User.Identity.Name, ProjectDescription = _project.Description });
-                //s.Save();
+                    var newProject = new Project
+                    {
+                        ProjectName = _model.Name,
+                        ProjectOwner = User.Identity.Name,
+                        ProjectDescription = _model.Description
+                    };
+                    serviceProject.SaveProject(newProject);
+                }
 
+                ProjectViewModel model = new ProjectViewModel
+                {
+                    Projects = serviceProject.GetUserProjects(CurrentUser)
+
+                };
+                return View("List", model);
+            }
+            else if(action== "Create new connection")
+            {
+                if (ModelState.IsValid)
+                {
+                    var newConnection = new ConnectionDB
+                    {
+                        ConnectionName = _model.ConnectionDb.ConnectionName,
+                        //ConnectionOwner = User.Identity.GetUserId,
+
+                    };
+
+                }
+                ProjectViewModel model = new ProjectViewModel
+                {
+                    Projects = serviceProject.GetUserProjects(CurrentUser)
+
+                };
+                return View("List", model);
+            }
+            else
+            {
+                ProjectViewModel model = new ProjectViewModel
+                {
+                    Projects = serviceProject.GetUserProjects(CurrentUser)
+
+                };
+
+                return View("List", model);
             }
 
-            ProjectViewModel model = new ProjectViewModel
-            {
-                Projects = serviceProject.GetUserProjects(CurrentUser)
 
-            };
-            return View("List", model);
+
+
 
 
         }

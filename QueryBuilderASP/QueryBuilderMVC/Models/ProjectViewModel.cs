@@ -17,7 +17,6 @@ namespace QueryBuilderMVC.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "Enter description")]
         public string Description { get; set; }
-     
-
+        public ConnectionViewModel ConnectionDb { get; set; }
     }
 }

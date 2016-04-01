@@ -1,0 +1,13 @@
+﻿@model QueryBuilderMVC.Models.ProjectViewModel
+
+@using (Html.BeginForm("List", "Workflow", "Create new connection" ))
+{
+    @Html.ValidationSummary();
+    <p class="TextField">Name:     @Html.TextBoxFor(x => x.ConnectionDb.ConnectionName)</p>
+    <p class="TextField">Server:   @Html.TextBoxFor(x => x.ConnectionDb.ServerName)</p>
+    <p class="TextField">Login:    @Html.TextBoxFor(x => x.ConnectionDb.LoginDB)</p>
+    <p class="TextField">Password: @Html.PasswordFor(x => x.ConnectionDb.PasswordDB)</p>
+    <p class="TextField">Database: @Html.TextBoxFor(x => x.ConnectionDb.DatabaseName)</p>
+
+    <input type="submit" name="action" value="Create new connection" />
+}

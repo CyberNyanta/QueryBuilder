@@ -351,6 +351,10 @@
       <Project>{fc317fa6-9bbe-4fe8-996c-0db80d6c604d}</Project>
       <Name>QueryBuilder.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.Utils\QueryBuilder.Utils.csproj">
+      <Project>{f0e68d32-c9e0-47e3-87bc-cd16904e7e76}</Project>
+      <Name>QueryBuilder.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

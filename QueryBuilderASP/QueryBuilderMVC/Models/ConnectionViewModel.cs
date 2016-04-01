@@ -15,8 +15,14 @@ namespace QueryBuilderMVC.Models
         [Required(ErrorMessage = "Please enter login")]
         public string LoginDB { get; set; }
         [Required(ErrorMessage = "Please enter password")]
-        public Guid? PasswordDB { get; set; }
+        ////
+        //// Attention
+        ////  password type STRING
+        ////
+        public string PasswordDB { get; set; }
         [Required(ErrorMessage = "Please enter database name")]
         public string DatabaseName { get; set; }
+        public int ConnectionOwner { get; set; }
+
     }
 }

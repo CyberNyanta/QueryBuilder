@@ -2,29 +2,45 @@
 
 
 <li class="gn-icon">
- 
+
 </li>
 
 <li class="gn-icon">
-    
+
     <p> Your projects:</p>
     @foreach (var item in Model.Projects)
     {
 
 
         <ul class="gn-submenu"></ul>
-                <ul class="gn-submenu">
-                    <li>
-                        <a class="gn-icon" href="#" style="font-size: 12px; margin-left: 15px;">
-                            @item.ProjectName @item.ProjectDescription
-                        </a>
-                    </li>
+        <ul class="gn-submenu">
+            <li>
+                <a class="gn-icon project" href="/Workflow/List/@item.ProjectID" style="font-size: 12px; margin-left: 15px;"> @item.ProjectName @item.ProjectDescription</a>
+            </li>
 
-                </ul>
+        </ul>
 
 
 
     }
+    @*<script>
+        // при нажатии по элементу <p> выведем текст, содержащий координаты клика
+        $(".project").bind("click", function(event){
+          //var str = "( " + event.pageX + ", " + event.pageY + " )";
+            //$("span").text(str);
+            alert("hello world!");
+        });
 
+        //// при двойном нажатии по элементу <p> выведем название тега нажатого элемента
+        //$("p").bind("dblclick", function(){
+        //  $("span").text(this.nodeName);
+        //});
+
+        //// при наведении и отведении курсора от элемента <p> будем "переключать" наличие класса over
+        //$("p").bind("mouseenter mouseleave", function(){
+        //  $(this).toggleClass("over");
+        //});
+
+        </script>*@
 
 </li>

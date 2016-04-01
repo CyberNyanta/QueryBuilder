@@ -26,7 +26,7 @@ namespace QueryBuilder.Services.DbServices
 
         public IEnumerable<Project> GetUserProjects(ApplicationUser user)
         {
-            
+
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));

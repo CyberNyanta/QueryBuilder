@@ -47,10 +47,10 @@ namespace QueryBuilder.Services.DbServices
 
         public void CreateUser(ApplicationUser user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            //if (user == null)
+            //{
+            //    throw new ArgumentNullException(nameof(user));
+            //}
 
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {

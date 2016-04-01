@@ -21,8 +21,6 @@ namespace QueryBuilderMVC.Controllers
         private ApplicationUser CurrentUser;
         private ProjectService serviceProject;
         private UserService serviceUser;
-
-        public int PageSize = 3;
         // GET: Product
         public WorkflowController(IUnitOfWorkFactory Repository)
         {
@@ -49,15 +47,25 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ViewResult List(ProjectViewModel _project)
         {
-            var s = repository.GetUnitOfWork();
+            //var s = repository.GetUnitOfWork();
+            serviceProject = new ProjectService(repository);
+            serviceUser = new UserService(repository);
+            CurrentUser = serviceUser.GetUserByID(User.Identity.GetUserId());
 
             if (ModelState.IsValid)
             {
-                serviceProject.SaveProject(new Project { ProjectName = _project.Name, ProjectOwner = User.Identity.Name, ProjectDescription = _project.Description });
+                var newProject = new Project
+                {
+                    ProjectName = _project.Name,
+                    ProjectOwner = User.Identity.Name,
+                    ProjectDescription = _project.Description
+                };
+                serviceProject.SaveProject(newProject);
                 //s.Projects.Create(new Project { ProjectName = _project.Name, ProjectOwner = User.Identity.Name, ProjectDescription = _project.Description });
                 //s.Save();
-               
+
             }
+
             ProjectViewModel model = new ProjectViewModel
             {
                 Projects = serviceProject.GetUserProjects(CurrentUser)

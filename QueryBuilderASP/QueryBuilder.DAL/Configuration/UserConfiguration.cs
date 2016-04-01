@@ -12,8 +12,8 @@ namespace QueryBuilder.DAL.Configuration
         {
             HasKey(p => p.Email);
             Property(p => p.Email).HasMaxLength(DbLengthString.LongString);
-            Property(p => p.FirstName).IsRequired().HasMaxLength(DbLengthString.LongString);
-            Property(p => p.LastName).IsRequired().HasMaxLength(DbLengthString.LongString);
+            //Property(p => p.FirstName).IsRequired().HasMaxLength(DbLengthString.LongString);
+            //Property(p => p.LastName).IsRequired().HasMaxLength(DbLengthString.LongString);
         }
     }
 }

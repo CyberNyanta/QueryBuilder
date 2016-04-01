@@ -48,18 +48,20 @@
 
             </li>
         </ul>
-        <header>
-            <div>
-                @RenderBody()
-               
-            </div>
-        </header>
+        <div class="body-content">
+            @RenderBody()
+
+        </div>
+        @*<header>
+            
+        </header>*@
+        
     </div><!-- /container -->
     <script src="~/Scripts/classie.js"></script>
     <script src="~/Scripts/gnmenu.js"></script>
     <script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
-
+    
 </body>
 </html>

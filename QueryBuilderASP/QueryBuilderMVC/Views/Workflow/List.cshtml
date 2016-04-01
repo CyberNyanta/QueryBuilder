@@ -6,13 +6,48 @@
 
 @if (Request.IsAuthenticated)
 {
-    <div style="text-align: right">
-        @Html.Partial("CreateConnectionPartial")
 
+
+
+    <div class="row" style="clear:right;">
+        <div class="col-md-6">
+
+            <h3>Project setting:</h3>
+            <div >
+                <div class="demo" style="display:inline-block; vertical-align:top">
+                    <input type="checkbox" id="hd-2" class="hide" />
+                    <label for="hd-2">Setting project: (Press me)</label>
+                    <div style="text-align: right;">
+                        @Html.Partial("CreateProjectPartial")
+                    </div>
+                </div>
+                <div class="demo" style="display:inline-block;">
+                    <input type="checkbox" id="hd-3" class="hide" />
+                    <label for="hd-3">Create connection (Press me)</label>
+                    <div style="text-align: right;">
+                        @Html.Partial("CreateConnectionPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Shared project:</h3>
+           
+
+        </div>
 
     </div>
+    <div class="row" style="clear:right;">
+       
+        <div class="col-md-6">
+            <h3>My queries:</h3>
 
+        </div>
+        <div class="col-md-6">
+            <h3>Statistics:</h3>
 
+        </div>
+    </div>
 
 
 
@@ -24,5 +59,5 @@
 }
 else
 {
-<p>Autorized please</p>
+    <p>Autorized please</p>
 }

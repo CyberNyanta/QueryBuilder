@@ -197,10 +197,10 @@ namespace BuilderBL
                 var table = new DataTable(name);
                 table.ExtendedProperties[TABLE_TYPE] = type;
 
-                foreach (DataColumn col in dt.Columns)
-                {
-                    table.ExtendedProperties[col.ColumnName] = dr[col];
-                }
+                //foreach (DataColumn col in dt.Columns)
+                //{
+                //    table.ExtendedProperties[col.ColumnName] = dr[col];
+                //}
 
                 try
                 {

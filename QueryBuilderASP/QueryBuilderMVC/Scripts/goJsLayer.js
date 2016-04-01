@@ -1,6 +1,13 @@
 ﻿	function init() {
 		var $ = go.GraphObject.make;
-		var myDiagram = $(go.Diagram, "myDiagramDiv");
+		var myDiagram = $(go.Diagram, "erModel", {
+			initialContentAlignment: go.Spot.Center,
+			allowDelete: false,
+			allowCopy: false,
+			allowResize: false,
+			layout: $(go.ForceDirectedLayout),
+			"undoManager.isEnabled": true
+		});
 		// define several shared Brushes
 		var bluegrad = $(go.Brush, "Linear", { 0: "rgb(150, 150, 250)", 0.5: "rgb(86, 86, 186)", 1: "rgb(86, 86, 186)" });
 		var greengrad = $(go.Brush, "Linear", { 0: "rgb(158, 209, 159)", 1: "rgb(67, 101, 56)" });
@@ -10,10 +17,10 @@
 		//// the template for each attribute in a node's array of item data
 		var itemTempl =
 		  $(go.Panel, "Horizontal",
-			$(go.Shape,
-			  { desiredSize: new go.Size(10, 10) },
-			  new go.Binding("figure", "figure"),
-			  new go.Binding("fill", "color")),
+			//$(go.Shape,
+			//  { desiredSize: new go.Size(100, 100) },
+			//  new go.Binding("figure", "figure"),
+			//  new go.Binding("fill", "color")),
 			$(go.TextBlock,
 			  {
 			  	stroke: "#333333",
@@ -66,58 +73,59 @@
 			)  // end Table Panel
 		  );  // end Node
 		//// define the Link template, representing a relationship
-		myDiagram.linkTemplate =
-		  $(go.Link,  // the whole link panel
-			{
-				selectionAdorned: true,
-				layerName: "Foreground",
-				reshapable: true,
-				routing: go.Link.AvoidsNodes,
-				corner: 5,
-				curve: go.Link.JumpOver
-			},
-			$(go.Shape,  // the link shape
-			  { stroke: "#303B45", strokeWidth: 2.5 }),
-			$(go.TextBlock,  // the "from" label
-			  {
-			  	textAlign: "center",
-			  	font: "bold 14px sans-serif",
-			  	stroke: "#1967B3",
-			  	segmentIndex: 0,
-			  	segmentOffset: new go.Point(NaN, NaN),
-			  	segmentOrientation: go.Link.OrientUpright
-			  },
-			  new go.Binding("text", "text")),
-			$(go.TextBlock,  // the "to" label
-			  {
-			  	textAlign: "center",
-			  	font: "bold 14px sans-serif",
-			  	stroke: "#1967B3",
-			  	segmentIndex: -1,
-			  	segmentOffset: new go.Point(NaN, NaN),
-			  	segmentOrientation: go.Link.OrientUpright
-			  },
-			  new go.Binding("text", "toText"))
-		  );
+		//myDiagram.linkTemplate =
+		//  $(go.Link,  // the whole link panel
+		//	{
+		//		selectionAdorned: true,
+		//		layerName: "Foreground",
+		//		reshapable: true,
+		//		routing: go.Link.AvoidsNodes,
+		//		corner: 5,
+		//		curve: go.Link.JumpOver
+		//	},
+		//	$(go.Shape,  // the link shape
+		//	  { stroke: "#303B45", strokeWidth: 2.5 }),
+		//	$(go.TextBlock,  // the "from" label
+		//	  {
+		//	  	textAlign: "center",
+		//	  	font: "bold 14px sans-serif",
+		//	  	stroke: "#1967B3",
+		//	  	segmentIndex: 0,
+		//	  	segmentOffset: new go.Point(NaN, NaN),
+		//	  	segmentOrientation: go.Link.OrientUpright
+		//	  },
+		//	  new go.Binding("text", "text")),
+		//	$(go.TextBlock,  // the "to" label
+		//	  {
+		//	  	textAlign: "center",
+		//	  	font: "bold 14px sans-serif",
+		//	  	stroke: "#1967B3",
+		//	  	segmentIndex: -1,
+		//	  	segmentOffset: new go.Point(NaN, NaN),
+		//	  	segmentOrientation: go.Link.OrientUpright
+		//	  },
+		//	  new go.Binding("text", "toText"))
+		//  );
 		//// create the model for the E-R diagram
 		var nodeDataArray = [
 		  {
 		  	key: "Products",
 		  	items: [{ name: "ProductID", iskey: true },
-					 { name: "ProductName", iskey: false },
-					 { name: "SupplierID", iskey: false },
-					 { name: "CategoryID", iskey: false}]
+					 { name: "ProductName"},
+					 { name: "SupplierID" },
+					 { name: "CategoryID"}]
 		  },
 		  {
 		  	key: "Suppliers",
-		  	items: [{ name: "SupplierID", iskey: true },
-					 { name: "CompanyName", iskey: false },
-					 { name: "ContactName", iskey: false},
-					 { name: "Address", iskey: false}]
+		  	items: [{ name: "SupplierID"},
+					 { name: "CompanyName"},
+					 { name: "ContactName"},
+					 { name: "Address"}]
 		  },
 		];
 		var linkDataArray = [
-		  { from: "Products", to: "Suppliers", text: "0..N", toText: "1" }		
+		  { from: "Products", to: "Suppliers" },
+		   { from: "Suppliers", to: "Suppliers" }
 		];
 		myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 	}

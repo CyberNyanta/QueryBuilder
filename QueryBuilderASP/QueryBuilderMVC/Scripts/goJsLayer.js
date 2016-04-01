@@ -43,7 +43,7 @@
 			new go.Binding("location", "location").makeTwoWay(),
 			// define the node's outer shape, which will surround the Table
 			$(go.Shape, "Rectangle",
-			  { fill: lightgrad, stroke: "#756875", strokeWidth: 3 }),
+			  { fill: greengrad, stroke: "#756875", strokeWidth: 3 }),
 			$(go.Panel, "Table",
 			  { margin: 8, stretch: go.GraphObject.Fill },
 			  $(go.RowColumnDefinition, { row: 0, sizing: go.RowColumnDefinition.None }),
@@ -108,44 +108,54 @@
 		//  );
 		//// create the model for the E-R diagram
 		var nodeDataArray = data[0];
-		//	[
-		//  {
-		//  	key: "Products",
-		//  	items: [{ name: "ProductID", iskey: true },
-		//			 { name: "ProductName"},
-		//			 { name: "SupplierID" },
-		//			 { name: "CategoryID"}]
-		//  },
-		//  {
-		//  	key: "Suppliers",
-		//  	items: [{ name: "SupplierID"},
-		//			 { name: "CompanyName"},
-		//			 { name: "ContactName"},
-		//			 { name: "Address"}]
-		//  },
-		//];
 		var linkDataArray = data[1];
-		//	[
-		//  { from: "Products", to: "Suppliers" },
-		//   { from: "Suppliers", to: "Suppliers" }
-		//];
+
 		myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+
+		var c = document.getElementsByTagName("canvas");
+		var ctx = c[0].getContext("2d");
+		
+		ctx.clearRect(20, 20, 100, 50);
 	}
 
 	function Test(){
 
     //
+		var $ = go.GraphObject.make;
+		var diagram = $(go.Diagram, "erModel");
 
-		var $ = go.GraphObject.make;  // for conciseness in defining templates
-		myDiagram =
-		  $(go.Diagram, "myDiagramDiv", // must name or refer to the DIV HTML element
-			{
-				initialContentAlignment: go.Spot.Center,
-				allowDelete: false,
-				allowCopy: false,
-				layout: $(go.ForceDirectedLayout),
-				"undoManager.isEnabled": true
-			}); //fuck
+		// the node template describes how each Node should be constructed
+		diagram.nodeTemplate =
+		  $(go.Node, "Auto",  // the Shape automatically fits around the TextBlock
+			$(go.Shape, "RoundedRectangle",  // use this kind of figure for the Shape
+			  // bind Shape.fill to Node.data.color
+			  new go.Binding("fill", "color")),
+			$(go.TextBlock,
+			  { margin: 3 },  // some room around the text
+			  // bind TextBlock.text to Node.data.key
+			  new go.Binding("text", "key"))
+		  );
+
+		// the Model holds only the essential information describing the diagram
+		diagram.model = new go.GraphLinksModel(
+		[ // a JavaScript Array of JavaScript objects, one per node;
+		  // the "color" property is added specifically for this app
+		  { key: "Alpha", color: "lightblue" },
+		  { key: "Beta", color: "orange" },
+		  { key: "Gamma", color: "lightgreen" },
+		  { key: "Delta", color: "pink" }
+		],
+		[ // a JavaScript Array of JavaScript objects, one per link
+		  { from: "Alpha", to: "Beta" },
+		  { from: "Alpha", to: "Gamma" },
+		  { from: "Beta", to: "Beta" },
+		  { from: "Gamma", to: "Delta" },
+		  { from: "Delta", to: "Alpha" }
+		]);
+
+		diagram.initialContentAlignment = go.Spot.Center;
+		// enable Ctrl-Z to undo and Ctrl-Y to redo
+		diagram.undoManager.isEnabled = true;
     console.log("goooooooood");
 	}
 

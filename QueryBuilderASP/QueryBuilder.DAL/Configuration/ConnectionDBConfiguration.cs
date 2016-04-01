@@ -12,7 +12,7 @@ namespace QueryBuilder.DAL.Configuration
         {
             ToTable(DbTablesNames.ConnectionDb);
             HasKey(p => p.ConnectionID);
-            Property(p => p.ConnectionID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            //Property(p => p.ConnectionID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.ConnectionOwner).IsRequired();
             Property(p => p.ConnectionName).IsRequired().HasMaxLength(DbLengthString.LongString);
             Property(p => p.ServerName).IsRequired().HasMaxLength(DbLengthString.LongString);

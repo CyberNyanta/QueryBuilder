@@ -1,15 +1,13 @@
 ﻿using QueryBuilder.DAL.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using QueryBuilder.DAL.Models;
 using QueryBuilderMVC.Models;
-using QueryBuilder.DAL.Repositories;
 using QueryBuilder.DAL.Contracts;
 using Microsoft.AspNet.Identity;
 using QueryBuilder.Services.DbServices;
+using QueryBuilder.Utils;
+using System.Linq;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -32,10 +30,11 @@ namespace QueryBuilderMVC.Controllers
         [HttpGet]
         public ActionResult List(string id = null)
         {
-            //ProjectViewModel model = new ProjectViewModel();
-
+            ProjectViewModel model = new ProjectViewModel();
+            serviceConnection = new ConnectionDbService(repository);
             serviceProject = new ProjectService(repository);
             serviceUser = new UserService(repository);
+            var conn = new ConnectionViewModel();
             CurrentUser = serviceUser.GetUserByID(User.Identity.GetUserId());
             if (id != null)
             {
@@ -43,8 +42,19 @@ namespace QueryBuilderMVC.Controllers
                 Project currentProject = serviceProject.GetProjects().First(a => a.ProjectID == model.idCurrentProject);
                 model.Name = currentProject.ProjectName;
                 model.Description = currentProject.ProjectDescription;
-            }
+                var connection = serviceConnection.GetConnectionDB(model.idCurrentProject).FirstOrDefault();
+                if (connection != null)
+                {
+                    
+                    conn.DatabaseName = connection.DatabaseName;
+                    conn.LoginDB = connection.LoginDB;
+                    conn.ServerName = connection.ServerName;
+                   conn.ConnectionName = connection.ConnectionName;
+                    conn.ConnectionOwner = connection.ConnectionOwner;
 
+                }
+            }
+            model.ConnectionDb = conn;
             model.Projects = serviceProject.GetUserProjects(CurrentUser);
 
             return View(model);
@@ -78,7 +88,7 @@ namespace QueryBuilderMVC.Controllers
 
                 return View("List", model);
             }
-            else if (action == "Create new connection")
+            else if (action == "Save connection")
             {
                 ///
                 /// ПОКА так :(
@@ -92,7 +102,7 @@ namespace QueryBuilderMVC.Controllers
                         ConnectionOwner = _model.idCurrentProject,
                         DatabaseName = _model.ConnectionDb.DatabaseName,
                         LoginDB = _model.ConnectionDb.LoginDB,
-                        //PasswordDB = _model.ConnectionDb.PasswordDB,
+                        PasswordDB = Scrambler.GetPassHash(_model.ConnectionDb.PasswordDB),
                         ServerName = _model.ConnectionDb.ServerName,
 
                     };

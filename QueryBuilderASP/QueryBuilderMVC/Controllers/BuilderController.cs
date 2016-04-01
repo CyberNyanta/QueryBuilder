@@ -13,5 +13,15 @@ namespace QueryBuilderMVC.Controllers
         {
             return View();
         }
+
+		public JsonResult GetDBModel(string connectionString)
+		{
+			var movies = new List<object>();
+
+			
+
+			return Json(movies, JsonRequestBehavior.AllowGet);
+
+		}
     }
 }

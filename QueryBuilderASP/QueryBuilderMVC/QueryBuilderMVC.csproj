@@ -265,6 +265,7 @@
     <Content Include="Scripts\classie.js" />
     <Content Include="Scripts\gnmenu.js" />
     <Content Include="Scripts\go.js" />
+    <Content Include="Scripts\goJsLayer.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />

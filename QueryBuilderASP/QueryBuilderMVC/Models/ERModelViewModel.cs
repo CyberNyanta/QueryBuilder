@@ -10,11 +10,15 @@ namespace QueryBuilderMVC.Models
 {
 	public class ERModelViewModel
 	{
-		private readonly SqlConnection conectionString;
+
 		public ERModelViewModel(SqlConnection conectionString)
 		{
-			this.conectionString = conectionString;
-			JsonERModel.GetERModel(conectionString);
+			ERModel = JsonERModel.GetERModel(conectionString);
+		}
+
+		public string ERModel
+		{
+			get; set;
 		}
 	}
 

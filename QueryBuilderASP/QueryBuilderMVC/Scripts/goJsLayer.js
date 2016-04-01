@@ -1,4 +1,4 @@
-﻿	function init() {
+﻿	function init(data) {
 		var $ = go.GraphObject.make;
 		var myDiagram = $(go.Diagram, "erModel", {
 			initialContentAlignment: go.Spot.Center,
@@ -107,26 +107,28 @@
 		//	  new go.Binding("text", "toText"))
 		//  );
 		//// create the model for the E-R diagram
-		var nodeDataArray = [
-		  {
-		  	key: "Products",
-		  	items: [{ name: "ProductID", iskey: true },
-					 { name: "ProductName"},
-					 { name: "SupplierID" },
-					 { name: "CategoryID"}]
-		  },
-		  {
-		  	key: "Suppliers",
-		  	items: [{ name: "SupplierID"},
-					 { name: "CompanyName"},
-					 { name: "ContactName"},
-					 { name: "Address"}]
-		  },
-		];
-		var linkDataArray = [
-		  { from: "Products", to: "Suppliers" },
-		   { from: "Suppliers", to: "Suppliers" }
-		];
+		var nodeDataArray = data[0];
+		//	[
+		//  {
+		//  	key: "Products",
+		//  	items: [{ name: "ProductID", iskey: true },
+		//			 { name: "ProductName"},
+		//			 { name: "SupplierID" },
+		//			 { name: "CategoryID"}]
+		//  },
+		//  {
+		//  	key: "Suppliers",
+		//  	items: [{ name: "SupplierID"},
+		//			 { name: "CompanyName"},
+		//			 { name: "ContactName"},
+		//			 { name: "Address"}]
+		//  },
+		//];
+		var linkDataArray = data[1];
+		//	[
+		//  { from: "Products", to: "Suppliers" },
+		//   { from: "Suppliers", to: "Suppliers" }
+		//];
 		myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 	}
 

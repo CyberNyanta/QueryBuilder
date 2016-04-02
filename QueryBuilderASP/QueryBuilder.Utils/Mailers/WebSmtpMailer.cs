@@ -1,42 +1,31 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Net.Configuration;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Threading.Tasks;
+using System.Web.Configuration;
 
 namespace QueryBuilder.Utils.Mailers
 {
-    public class SmtpMailer
+    public class WebSmtpMailer
     {
-        private static SmtpMailer _instance;
+        private static WebSmtpMailer _instance;
         private static MailSettingsSectionGroup _mailSettings;
 
-        protected SmtpMailer()
+        protected WebSmtpMailer()
         {
-            _mailSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).GetSectionGroup("system.net/mailSettings")
-                            as MailSettingsSectionGroup;
+            _mailSettings = WebConfigurationManager.OpenWebConfiguration("~/web.config").GetSectionGroup("system.net/mailSettings")
+                    as MailSettingsSectionGroup;
         }
 
-        public static SmtpMailer Instance()
+        public static WebSmtpMailer Instance()
         {
-            return _instance ?? (_instance = new SmtpMailer());
+            return _instance ?? (_instance = new WebSmtpMailer());
         }
 
-        /// <summary>
-        /// Method for send mail
-        /// Multiple e-mail addresses must be separated with a comma character (",").
-        /// Mail settings get from app.config
-        /// </summary>
-        /// <param name="addressesTo"></param>
-        /// <param name="subjectMail"></param>
-        /// <param name="bodyMail"></param>
-        /// <param name="filesPathes">Array pathes files for send</param>
-        /// <returns></returns>
-        public bool SendMail(string addressesTo, string subjectMail, string bodyMail, string[] filesPathes = null)
+        public Task SendMailAsync(string addressesTo, string subjectMail, string bodyMail, string[] filesPathes = null)
         {
-            bool flagSend;
-
             if (string.IsNullOrWhiteSpace(addressesTo))
             {
                 throw new ArgumentException("Incorrect e-mail address (To). ");
@@ -47,12 +36,10 @@ namespace QueryBuilder.Utils.Mailers
             {
                 using (var mailClient = new SmtpClient())
                 {
-                    using (var message = new MailMessage())
+                    using (var message = new MailMessage(_mailSettings.Smtp.Network.UserName, addressesTo))
                     {
                         try
                         {
-                            message.From = new MailAddress(_mailSettings.Smtp.Network.UserName, "AltexSoftLab");
-                            message.To.Add(addressesTo);
                             message.Subject = subjectMail;
                             message.Body = bodyMail;
 
@@ -71,9 +58,8 @@ namespace QueryBuilder.Utils.Mailers
                                 }
                             }
 
-                            mailClient.Send(message);
+                            return mailClient.SendMailAsync(message);
 
-                            flagSend = true;
                         }
                         catch (SmtpException e)
                         {
@@ -86,13 +72,11 @@ namespace QueryBuilder.Utils.Mailers
             {
                 throw new Exception("Empty mail settings.");
             }
-
-            return flagSend;
         }
 
-        public bool SentRegisterNotification(string email)
+        public Task SendAsyncRegisterNotification(string email)
         {
-            return SendMail(email, Resource.Subject, Resource.MailBody, null);
+            return SendMailAsync(email, "AltexSoft M2T2", "Thank you for registering!", null);
         }
 
     }

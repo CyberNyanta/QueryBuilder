@@ -8,41 +8,45 @@ using Microsoft.AspNet.Identity;
 using QueryBuilder.Services.DbServices;
 using QueryBuilder.Utils;
 using System.Linq;
+using QueryBuilder.Services.Contracts;
 
 namespace QueryBuilderMVC.Controllers
 {
     public class WorkflowController : Controller
     {
-        // GET: Workflow
-        private IUnitOfWorkFactory repository = new UnitOfWorkFactory();
-        private ApplicationUser CurrentUser;
-        private ProjectService serviceProject;
-        private UserService serviceUser;
+        private IUnitOfWorkFactory _repository;
+        private IProjectService _serviceProject;
+        private IUserService _serviceUser;
+        private IConnectionDbService _serviceConnection;
+
         private ProjectViewModel model = new ProjectViewModel();
-        private ConnectionDbService serviceConnection;
+        private ApplicationUser _currentUser;
+
 
         // GET: Product
-        public WorkflowController(IUnitOfWorkFactory Repository)
+        public WorkflowController(IUnitOfWorkFactory repository, IProjectService serviceProject, IUserService serviceUser, 
+            IProjectsShareService serviceProjectShare, IConnectionDbService serviceConnection)
         {
-            this.repository = Repository;
+            _repository = repository;
+            _serviceProject = serviceProject;
+            _serviceUser = serviceUser;
+            _serviceConnection = serviceConnection;
         }
 
         [HttpGet]
         public ActionResult List(string id = null)
         {
             ProjectViewModel model = new ProjectViewModel();
-            serviceConnection = new ConnectionDbService(repository);
-            serviceProject = new ProjectService(repository);
-            serviceUser = new UserService(repository);
+          
             var conn = new ConnectionViewModel();
-            CurrentUser = serviceUser.GetUserByID(User.Identity.GetUserId());
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             if (id != null)
             {
                 model.idCurrentProject = Convert.ToInt32(id);
-                Project currentProject = serviceProject.GetProjects().First(a => a.ProjectID == model.idCurrentProject);
+                Project currentProject = _serviceProject.GetProjects().First(a => a.ProjectID == model.idCurrentProject);
                 model.Name = currentProject.ProjectName;
                 model.Description = currentProject.ProjectDescription;
-                var connection = serviceConnection.GetConnectionDB(model.idCurrentProject).FirstOrDefault();
+                var connection = _serviceConnection.GetConnectionDB(model.idCurrentProject).FirstOrDefault();
                 if (connection != null)
                 {
                     
@@ -55,7 +59,7 @@ namespace QueryBuilderMVC.Controllers
                 }
             }
             model.ConnectionDb = conn;
-            model.Projects = serviceProject.GetUserProjects(CurrentUser);
+            model.Projects = _serviceProject.GetUserProjects(_currentUser);
 
             return View(model);
 
@@ -65,10 +69,9 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult List(ProjectViewModel _model, string action)
         {
-            serviceProject = new ProjectService(repository);
-            serviceUser = new UserService(repository);
-            serviceConnection = new ConnectionDbService(repository);
-            CurrentUser = serviceUser.GetUserByID(User.Identity.GetUserId());
+           _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            var conn = new ConnectionViewModel();
+
 
 
             if (action == "Create new project")
@@ -81,10 +84,11 @@ namespace QueryBuilderMVC.Controllers
                         ProjectOwner = User.Identity.Name,
                         ProjectDescription = _model.Description
                     };
-                    serviceProject.SaveProject(newProject);
+                    _serviceProject.SaveProject(newProject);
                 }
+                model.ConnectionDb = conn;
 
-                model.Projects = serviceProject.GetUserProjects(CurrentUser);
+                model.Projects = _serviceProject.GetUserProjects(_currentUser);
 
                 return View("List", model);
             }
@@ -106,11 +110,11 @@ namespace QueryBuilderMVC.Controllers
                         ServerName = _model.ConnectionDb.ServerName,
 
                     };
-                    serviceConnection.SaveConnection(newConnection);
+                    _serviceConnection.SaveConnection(newConnection);
 
                     ;
                 }
-                model.Projects = serviceProject.GetUserProjects(CurrentUser);
+                model.Projects = _serviceProject.GetUserProjects(_currentUser);
 
                 return View("List", model);
             }
@@ -127,10 +131,10 @@ namespace QueryBuilderMVC.Controllers
                         ProjectOwner = User.Identity.Name,
                         ProjectDescription = _model.Description
                     };
-                    serviceProject.SaveProject(newProject);
+                    _serviceProject.SaveProject(newProject);
                 
 
-                model.Projects = serviceProject.GetUserProjects(CurrentUser);
+                model.Projects = _serviceProject.GetUserProjects(_currentUser);
 
                 return View("List", model);
             }
@@ -140,8 +144,8 @@ namespace QueryBuilderMVC.Controllers
             {
                 ProjectViewModel model = new ProjectViewModel
                 {
-                    Projects = serviceProject.GetUserProjects(CurrentUser),
-                    _ConnectionDb = serviceConnection.GetConnectionDB(_model.idCurrentProject)
+                    Projects = _serviceProject.GetUserProjects(_currentUser),
+                    _ConnectionDb = _serviceConnection.GetConnectionDB(_model.idCurrentProject)
 
                 };
 

@@ -4,7 +4,7 @@
 {
     @Html.ValidationSummary();
     <p class="TextField">Your project name: @Html.TextBoxFor(x => x.Name)</p>
-    <p class="TextField">Project description: @Html.TextBoxFor(x => x.Description@*, new { @class = "TextField" }*@)</p>
+    <p class="TextField">Project description: @Html.TextBoxFor(x => x.Description)</p>
     
         <input type="submit" name="action" value="Create new project" />
 }

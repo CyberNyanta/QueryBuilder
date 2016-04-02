@@ -8,6 +8,8 @@ using System.Web.Routing;
 using QueryBuilder.DAL.Repositories;
 using QueryBuilder.DAL.Infrastructure;
 using QueryBuilder.DAL.Contracts;
+using QueryBuilder.Services.Contracts;
+using QueryBuilder.Services.DbServices;
 
 namespace QueryBuilderMVC.Infrastructure
 {
@@ -30,6 +32,13 @@ namespace QueryBuilderMVC.Infrastructure
         private void AddBinding()
         {
            ninjectKernel.Bind<IUnitOfWorkFactory>().To<UnitOfWorkFactory>();
+            ninjectKernel.Bind<IConnectionDbService>().To<ConnectionDbService>();
+            ninjectKernel.Bind<IProjectService>().To<ProjectService>();
+            ninjectKernel.Bind<IUserService>().To<UserService>();
+            ninjectKernel.Bind<IProjectsShareService>().To<ProjectsShareService>();
+            ninjectKernel.Bind<IQueryService>().To<QueryService>();
+
+
         }
     }
 }

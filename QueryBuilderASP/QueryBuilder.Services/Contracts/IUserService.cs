@@ -10,5 +10,7 @@ namespace QueryBuilder.Services.Contracts
         ApplicationUser GetUserByEmail(string email);
 
         void CreateUser(ApplicationUser user);
+        ApplicationUser GetUserByID(string id);
+
     }
 }

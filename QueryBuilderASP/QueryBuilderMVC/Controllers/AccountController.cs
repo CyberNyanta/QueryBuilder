@@ -1,13 +1,13 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using QueryBuilder.Constants;
 using QueryBuilderMVC.Models;
 using QueryBuilder.DAL.Models;
 using QueryBuilder.Utils.Mailers;
@@ -158,12 +158,13 @@ namespace QueryBuilderMVC.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await WebSmtpMailer.Instance().SendAsyncRegisterNotification(user.Email);
+                    //await SmtpMailer.Instance(ConfigurationManagerConstant.WebConfiguration).SendAsyncRegisterNotification(user.Email);
+                    SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendRegisterNotification(user.Email);
 
                     return RedirectToAction("Index", "Home");
                 }

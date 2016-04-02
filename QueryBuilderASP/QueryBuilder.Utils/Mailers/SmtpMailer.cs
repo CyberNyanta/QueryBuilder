@@ -4,22 +4,22 @@ using System.IO;
 using System.Net.Configuration;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Threading.Tasks;
 
 namespace QueryBuilder.Utils.Mailers
-{
+{ 
     public class SmtpMailer
     {
         private static SmtpMailer _instance;
         private static MailSettingsSectionGroup _mailSettings;
 
         protected SmtpMailer()
-        {
-            _mailSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).GetSectionGroup("system.net/mailSettings")
-                            as MailSettingsSectionGroup;
+        {            
         }
 
-        public static SmtpMailer Instance()
+        public static SmtpMailer Instance(Configuration configuration)
         {
+            _mailSettings = configuration.GetSectionGroup("system.net/mailSettings") as MailSettingsSectionGroup;
             return _instance ?? (_instance = new SmtpMailer());
         }
 
@@ -90,9 +90,64 @@ namespace QueryBuilder.Utils.Mailers
             return flagSend;
         }
 
-        public bool SentRegisterNotification(string email)
+        public bool SendRegisterNotification(string email)
         {
-            return SendMail(email, Resource.Subject, Resource.MailBody, null);
+            return SendMail(email, "AltexSoft M2T2", "Thank you for registering!", null);
+        }
+
+        public Task SendMailAsync(string addressesTo, string subjectMail, string bodyMail, string[] filesPathes = null)
+        {
+            if (string.IsNullOrWhiteSpace(addressesTo))
+            {
+                throw new ArgumentException("Incorrect e-mail address (To). ");
+            }
+
+            // Verify mail settings
+            if (_mailSettings != null)
+            {
+                using (var mailClient = new SmtpClient())
+                {
+                    using (var message = new MailMessage(_mailSettings.Smtp.Network.UserName, addressesTo))
+                    {
+                        try
+                        {
+                            message.Subject = subjectMail;
+                            message.Body = bodyMail;
+
+                            if (filesPathes != null)
+                            {
+                                foreach (var filePath in filesPathes)
+                                {
+                                    if (File.Exists(filePath))
+                                    {
+                                        // Create  the file attachment for this e-mail message.
+                                        var data = new Attachment(filePath, MediaTypeNames.Application.Octet);
+
+                                        // Add the file attachment to this e-mail message.
+                                        message.Attachments.Add(data);
+                                    }
+                                }
+                            }
+
+                            return mailClient.SendMailAsync(message);
+
+                        }
+                        catch (SmtpException e)
+                        {
+                            throw new SmtpException("Mail.Send: " + e.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Empty mail settings.");
+            }
+        }
+
+        public Task SendAsyncRegisterNotification(string email)
+        {
+            return SendMailAsync(email, "AltexSoft M2T2", "Thank you for registering!", null);
         }
 
     }

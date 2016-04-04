@@ -30,99 +30,80 @@ namespace QueryBuilderMVC.Controllers
             _serviceConnection = serviceConnection;
         }
 
-        [HttpGet]
-        public ActionResult List(string id = null)
+        public ActionResult List()
         {
-            ProjectViewModel model = new ProjectViewModel();
-          
-            var conn = new ConnectionViewModel();
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            if (id != null)
-            {
-                model.IdCurrentProject = Convert.ToInt32(id);
-                Project currentProject = _serviceProject.GetProjects().First(a => a.ProjectID == model.IdCurrentProject);
-                model.Name = currentProject.ProjectName;
-                model.Description = currentProject.ProjectDescription;
-                var connection = _serviceConnection.GetConnectionDB(model.IdCurrentProject).FirstOrDefault();
-                if (connection != null)
-                {                   
-                    conn.DatabaseName = connection.DatabaseName;
-                    conn.LoginDB = connection.LoginDB;
-                    conn.ServerName = connection.ServerName;
-                    conn.ConnectionName = connection.ConnectionName;
-                    conn.ConnectionOwner = connection.ConnectionOwner;
-                }
-            }
-            model.ConnectionDb = conn;
             model.Projects = _serviceProject.GetUserProjects(_currentUser);
-
             return View(model);
         }
 
+        public ActionResult CreateProjectPartial()
+        {
+            return PartialView("CreateProjectPartial");
+        }
 
         [HttpPost]
-        public ActionResult List(ProjectViewModel projectModel, string action)
+        public ActionResult CreateProjectPartial(ProjectViewModel projectModel)
         {
-           _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             var conn = new ConnectionViewModel();
-
-            if (action == "Create new project")
-            {
-                if (ModelState.IsValid)
-                {
-                    var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
-                    newProject.ProjectOwner = User.Identity.Name;
-                    _serviceProject.SaveProject(newProject);
-                }
-                model.ConnectionDb = conn;
-
-                model.Projects = _serviceProject.GetUserProjects(_currentUser);
-
-                return View("List", model);
-            }
-            else if (action == "Save connection")
-            {
-                ///
-                /// ПОКА так :(
-                ///
-                if (projectModel.ConnectionDb.DatabaseName != null && projectModel.ConnectionDb.ConnectionName != null &&
-                    projectModel.ConnectionDb.LoginDB != null && projectModel.ConnectionDb.ServerName != null)
-                {
-                    var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(projectModel.ConnectionDb);
-                    newConnection.ConnectionOwner = projectModel.IdCurrentProject;
-                   
-                    _serviceConnection.SaveConnection(newConnection);
-                }
-                model.Projects = _serviceProject.GetUserProjects(_currentUser);
-
-                return View("List", model);
-            }
-
-            else if (action == "Update project")
+            if (ModelState.IsValid)
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
                 newProject.ProjectOwner = User.Identity.Name;
-
                 _serviceProject.SaveProject(newProject);
-                
-                model.Projects = _serviceProject.GetUserProjects(_currentUser);
-
-                return View("List", model);
             }
-
-            else
-            {
-                ProjectViewModel model = new ProjectViewModel
-                {
-                    Projects = _serviceProject.GetUserProjects(_currentUser),
-                    _ConnectionDb = _serviceConnection.GetConnectionDB(projectModel.IdCurrentProject)
-
-                };
-
-                return View("List", model);
-            }
-
+            model.ConnectionDb = conn;
+            model.Projects = _serviceProject.GetUserProjects(_currentUser);
+            return RedirectToAction("List");
         }
 
+        public ActionResult UpdateProjectPartial(int id)
+        {
+            model.IdCurrentProject = Convert.ToInt32(id);
+            Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == model.IdCurrentProject);
+            var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            if (newProject != null)
+            {
+                return PartialView("UpdateProjectPartial", newProject);
+            }
+            return View("List");
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult UpdateProjectPartial(ProjectViewModel project)
+        {
+            var newProject = Mapper.Map<ProjectViewModel, Project>(project);
+            newProject.ProjectOwner = User.Identity.Name;
+            _serviceProject.SaveProject(newProject);
+            return RedirectToAction("List");
+        }
+
+
+        public ActionResult DeleteProjectPartial(int id)
+        {
+            model.IdCurrentProject = Convert.ToInt32(id);
+            Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == model.IdCurrentProject);
+            var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            if (newProject != null)
+            {
+                return PartialView("DeleteProjectPartial", newProject);
+            }
+            return View("List");
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteProjectPartial(ProjectViewModel project)
+        {
+            var newProject = Mapper.Map<ProjectViewModel, Project>(project);
+            newProject.ProjectOwner = User.Identity.Name;
+            newProject.Delflag = 1;
+            _serviceProject.SaveProject(newProject);
+            return RedirectToAction("List");
+        }
+
+        
     }
 }

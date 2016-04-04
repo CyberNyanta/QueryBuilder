@@ -55,5 +55,17 @@ namespace QueryBuilder.Services.DbServices
                 unitOfWork.Save();
             }
         }
+
+        public void DeleteProject(int id)
+        {
+          
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                unitOfWork.Projects.Delete(id);
+
+                unitOfWork.Save();
+            }
+        }
+
     }
 }

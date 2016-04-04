@@ -14,8 +14,11 @@ namespace QueryBuilderMVC.Mappings
         protected override void Configure()
         {
             Mapper.CreateMap<ConnectionDB,ConnectionViewModel>();
-            Mapper.CreateMap<Project, ProjectViewModel>();
-
+            
+            Mapper.CreateMap<Project, ProjectViewModel>()
+               .ForMember("IdCurrentProject", opt => opt.MapFrom(src => src.ProjectID))
+               .ForMember("Name", opt => opt.MapFrom(src => src.ProjectName))
+               .ForMember("Description", opt => opt.MapFrom(src => src.ProjectDescription));
         }
     }
 }

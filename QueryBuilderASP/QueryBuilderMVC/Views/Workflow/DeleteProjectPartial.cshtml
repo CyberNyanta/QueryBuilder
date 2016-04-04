@@ -1,0 +1,19 @@
+﻿@model QueryBuilderMVC.Models.ProjectViewModel
+
+
+<h5>Do you want delete this project?</h5>
+<div>
+    <p>Id: @Html.DisplayFor(m => m.IdCurrentProject)</p>
+    <p>Name: @Html.DisplayFor(m => m.Name)</p>
+    <p>Description: @Html.DisplayFor(m => m.Description)</p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <p class="TextField" style="display:none;">Name project: @Html.TextBoxFor(x => x.IdCurrentProject, new { placeholder = Model.IdCurrentProject }) </p>
+        <p class="TextField" style="display:none;">Name project: @Html.TextBoxFor(x => x.Name, new { placeholder = Model.Name }) </p>
+
+        <input type="submit" value="Delete" />
+    }
+</div>
+

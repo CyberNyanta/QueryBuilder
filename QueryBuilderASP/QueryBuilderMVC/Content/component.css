@@ -269,9 +269,9 @@ input.gn-search:focus {
 
 @media screen and (max-width: 422px) { 
 	.gn-menu-wrapper.gn-open-all {
-			-webkit-transform: translateX(0px);
-			-moz-transform: translateX(0px);
-			transform: translateX(0px);
+			-webkit-transform: translateX(0);
+			-moz-transform: translateX(0);
+			transform: translateX(0);
 			width: 100%;
 	}
 
@@ -281,8 +281,8 @@ input.gn-search:focus {
 }
 
 .TextField{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 10px;
    line-height: 25px;
 
 }
@@ -312,5 +312,27 @@ input.gn-search:focus {
 }
 
 .demo {
-    margin-left: 15px;
+    margin-left: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

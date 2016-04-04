@@ -10,5 +10,6 @@ namespace QueryBuilder.Services.Contracts
         IEnumerable<Project> GetUserProjects(ApplicationUser user);
 
         void SaveProject(Project project);
+        void DeleteProject(int id);
     }
 }

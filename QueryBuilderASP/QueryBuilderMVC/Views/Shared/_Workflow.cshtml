@@ -6,13 +6,17 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @*@Scripts.Render("~/Scripts/js")*@
+    <link rel="stylesheet" type="text/css" href="~/Content/Workflow.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/normalize.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/demo.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/component.css" />
     <script src="~/Scripts/modernizr.custom.js"></script>
+    <script src="~/Scripts/jquery-2.2.1.js"></script>
+    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
    
 </head>
 <body>
+   
     <div class="container">
 
 
@@ -24,15 +28,28 @@
                         <ul class="gn-menu">
                                 @if (Request.IsAuthenticated)
                                 {
-                                    <div class="demo">
-                                        <input type="checkbox" id="hd-1" class="hide" />
-                                        <label for="hd-1">Create new project (Press me)</label>
-                                        <div>
-                                            @Html.Partial("CreateProjectPartial")
+                                    
+                                        <div class="demo " style="line-height:50px;">
+                                            <input type="checkbox" id="hd-1" class="hide " />
+                                            <label for="hd-1">Your projects:</label>
+                                            <div>
+                                                <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
+
+                                                <div class="IconMenuAdd">
+                                                    @Html.ActionLink("Create new project ", "CreateProjectPartial", "Workflow",
+                                               new
+                                               {
+                                                   @class = "viewDialog ",
+                                                   @id = "IconMenuAdd",
+                                                   data_dialog_title = "Create new project"
+                                               })
+                                                    @Html.Partial("ListProjectPartial")
+                                                </div>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                         @Html.Partial("ListProjectPartial")
-                                        }
+                                    
+                                }
 
                             <li><a class="gn-icon">Settings</a></li>
 
@@ -51,6 +68,9 @@
         <div class="body-content">
             @RenderBody()
 
+
+    
+
         </div>
         @*<header>
             
@@ -62,6 +82,31 @@
     <script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
-    
+    <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>*@
+    <script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $(".viewDialog").on("click", function (e) {
+            e.preventDefault();
+            
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
+    </script>
 </body>
 </html>

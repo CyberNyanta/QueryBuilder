@@ -1,0 +1,61 @@
+﻿body {
+}
+#IconEdit
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/Edit2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 25px;
+}
+#IconEdit:hover
+{
+    background: url(../Images/Icon/Edit.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 30px;
+}
+#IconDelete
+{
+    background-repeat: no-repeat;
+    margin-right:10px;
+    background: url(../Images/Icon/Delete2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 25px;
+}
+#IconDelete:hover
+{
+    background: url(../Images/Icon/Delete.png);
+    background-repeat: no-repeat;
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 30px;
+}
+
+.IconMenu
+{
+    display:inline-table; float:right; margin-right:10px; margin-top:20px;
+}
+#IconMenuAdd
+{
+    padding-left: 10px;
+    background-image: url(../Images/Icon/add2.png);
+    background-repeat: no-repeat;
+    background-size: 30px 28px;
+    background-position-x: 300px;
+    background-position-y: center;
+    
+}
+#IconMenuAdd:hover
+{
+        background-image: url(../Images/Icon/add.png);
+}
+.YourProjects
+{
+    padding-left: 60px;
+}

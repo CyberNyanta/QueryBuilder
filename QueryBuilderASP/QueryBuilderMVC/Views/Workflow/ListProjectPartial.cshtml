@@ -7,15 +7,46 @@
 
 <li class="gn-icon">
 
-    <p> Your projects:</p>
+
     @foreach (var item in Model.Projects)
     {
 
 
         <ul class="gn-submenu"></ul>
-        <ul class="gn-submenu">
+        <ul class="gn-submenu" style="line-height:normal;">
             <li>
-                <a class="gn-icon project" href="/Workflow/List/@item.ProjectID" style="font-size: 12px; margin-left: 15px;"> @item.ProjectName @item.ProjectDescription</a>
+                <div style="display: inline-table; line-height:normal; margin-top:10px; margin-left:10px;">
+                    <div style="display:block;">
+                        <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
+                    </div>
+                    <div style="display:block;">
+                        <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
+                    </div>
+
+                </div>
+
+                <div class="IconMenu" >
+                    @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
+                   new
+                   {
+                       id = item.ProjectID
+                   },
+                 new
+                 {
+                     @class = "viewDialog ",
+                     @id = "IconDelete",
+                     data_dialog_title = "Delete project"
+                 })
+                </div>
+                <div class="IconMenu">
+                    @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = item.ProjectID },
+                                new
+                                {
+                                    @class = "viewDialog ",
+                                    @id = "IconEdit",
+                                    data_dialog_title = "Edit project"
+                                })
+                </div>
             </li>
 
         </ul>
@@ -23,24 +54,6 @@
 
 
     }
-    @*<script>
-        // при нажатии по элементу <p> выведем текст, содержащий координаты клика
-        $(".project").bind("click", function(event){
-          //var str = "( " + event.pageX + ", " + event.pageY + " )";
-            //$("span").text(str);
-            alert("hello world!");
-        });
 
-        //// при двойном нажатии по элементу <p> выведем название тега нажатого элемента
-        //$("p").bind("dblclick", function(){
-        //  $("span").text(this.nodeName);
-        //});
-
-        //// при наведении и отведении курсора от элемента <p> будем "переключать" наличие класса over
-        //$("p").bind("mouseenter mouseleave", function(){
-        //  $(this).toggleClass("over");
-        //});
-
-        </script>*@
 
 </li>

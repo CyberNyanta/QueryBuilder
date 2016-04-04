@@ -1,23 +1,23 @@
 ﻿using QueryBuilder.DAL.Models;
-using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity;
 
 namespace QueryBuilderMVC.Models
 {
     public class ProjectViewModel
     {
         public IEnumerable<Project> Projects { get; set; }
-        public int idCurrentProject { get; set; }
-        [Required(ErrorMessage = "Please enter project name")]
+
+        public int IdCurrentProject { get; set; }
+
+        [Required(ErrorMessage = @"Please enter project name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Enter description")]
+
+        [Required(ErrorMessage = @"Enter description")]
         public string Description { get; set; }
+
         public ConnectionViewModel ConnectionDb { get; set; }
+
         public IEnumerable<ConnectionDB> _ConnectionDb { get; set; }
     }
 }

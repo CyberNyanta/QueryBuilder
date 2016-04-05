@@ -6,6 +6,20 @@
 
 @if (Request.IsAuthenticated)
 {
+    <p></p>
+    <p></p>
+            <p></p>
+            <p></p><p></p><p></p>
+            <p></p>
+
+
+
+    @Html.ActionLink(" Create new connection ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                                new
+                                {
+                                    @class = "CreateConnection",
+                                    data_dialog_title = "Create new connection"
+                                })
 
 
 

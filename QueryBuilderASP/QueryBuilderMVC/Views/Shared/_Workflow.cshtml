@@ -69,8 +69,8 @@
         </ul>
         <div class="body-content">
             @RenderBody()
-
-
+            
+           
     
 
         </div>
@@ -85,30 +85,7 @@
 			new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
-    @*<script>
-    $(document).ready(function () {
 
-        $.ajaxSetup({ cache: false });
-
-        $(".viewDialog").on("click", function (e) {
-            e.preventDefault();
-            
-            $("<div></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true
-                })
-                .load(this.href);
-        });
-        $(".close").on("click", function (e) {
-            e.preventDefault();
-            $(this).closest(".dialog").dialog("close");
-        });
-    });
-    </script>*@
     <script>
     $(document).ready(function () {
 
@@ -166,6 +143,32 @@
         }
     });
         });
+        $(".CreateConnection").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Create new connection": function () {
+                            $.ajax({
+                                url: "@Url.Action("CreateConnectionPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+    });
         $(".IconEdit").on("click", function (e) {
             e.preventDefault();
 

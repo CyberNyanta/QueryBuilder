@@ -1,17 +1,64 @@
-﻿@model QueryBuilderMVC.Models.ProjectViewModel
+﻿@model QueryBuilderMVC.Models.ConnectionViewModel
 
-@using (Html.BeginForm("List", "Workflow", "Create new connection"))
+@*@using (Html.BeginForm("List", "Workflow", "Create new connection"))*@
+
+
+@using (Html.BeginForm())
 {
     @Html.ValidationSummary();
-    <p class="TextField" style="color:black;">Name:     @Html.TextBoxFor(x => x.ConnectionDb.ConnectionName, new {placeholder = Model.ConnectionDb.ConnectionName })</p>
-    <p class="TextField" style="color:black;">Server:   @Html.TextBoxFor(x => x.ConnectionDb.ServerName, new { placeholder = Model.ConnectionDb.ServerName })</p>
-    <p class="TextField" style="color:black;">Login:    @Html.TextBoxFor(x => x.ConnectionDb.LoginDB, new { placeholder = Model.ConnectionDb.LoginDB })</p>
-    <p class="TextField" style="color:black;">Password: @Html.PasswordFor(x => x.ConnectionDb.PasswordDB)</p>
-    <p class="TextField" style="color:black;">Database: @Html.TextBoxFor(x => x.ConnectionDb.DatabaseName, new { placeholder = Model.ConnectionDb.DatabaseName })</p>
-    <input type="hidden" value="@Model.IdCurrentProject" name="IdCurrentProject" />
-    <p style="display:none">@Html.TextBox(@Model.IdCurrentProject.ToString())   </p>
-   
-     <p><input type="submit" name="action" value="Save connection" style="color:black;"/></p>
+
+    <div>
+        @Html.LabelFor(model => model.ConnectionName)
+        <div>
+            @Html.EditorFor(x => x.ConnectionName)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ServerName)
+        <div>
+            @Html.EditorFor(x => x.ServerName)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.LoginDB)
+        <div>
+            @Html.EditorFor(x => x.LoginDB)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.PasswordDB)
+        <div>
+            @Html.EditorFor(x => x.PasswordDB)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.DatabaseName)
+        <div>
+            @Html.EditorFor(x => x.DatabaseName)
+        </div>
+    </div>
+    <p class="TextField" style="color:black; display:none;">
+        Database: @Html.TextBoxFor(x => x.ConnectionOwner,
+       new { placeholder = Model.ConnectionOwner })
+    </p>
+
+                                                                    @*< p class="TextField" style="color:black;">Name:  </p>*@
+                                                                    @*@Html.LabelFor(model => model.Name)
+                                                                        @Html.TextBoxFor(x => x.ConnectionName)
+                                                                        <p class="TextField" style="color:black;">Server:</p>
+                                                                         <p class="TextField"></p>@Html.TextBoxFor(x => x.ServerName)
+                                                                        <p class="TextField" style="color:black;">Login:</p>
+                                                                        @Html.TextBoxFor(x => x.LoginDB)
+                                                                        <p class="TextField" style="color:black;">Password:</p>
+                                                                        @Html.PasswordFor(x => x.PasswordDB)
+                                                                        <p class="TextField" style="color:black;">Database: </p>
+                                                                        @Html.TextBoxFor(x => x.DatabaseName)
+                                                                        <p class="TextField" style="color:black; display:none;">Database: @Html.TextBoxFor(x => x.ConnectionOwner, new { placeholder = Model.ConnectionOwner
+                                                                        })</p>*@
+
+                                                                    @*<input type = "hidden" value="@Model." name="IdCurrentProject" />*@
+
+                                                                    @*<p><input type = "submit" name="action" value="Save connection" style="color:black;"/></p>*@
 
 
 

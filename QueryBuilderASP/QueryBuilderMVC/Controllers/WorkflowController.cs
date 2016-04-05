@@ -18,7 +18,9 @@ namespace QueryBuilderMVC.Controllers
         private readonly IUserService _serviceUser;
         private readonly IConnectionDbService _serviceConnection;
 
-        private readonly ProjectViewModel model = new ProjectViewModel();
+        private readonly ProjectViewModel projectModel = new ProjectViewModel();
+        private readonly ConnectionViewModel connectionModel = new ConnectionViewModel();
+
         private ApplicationUser _currentUser;
 
 
@@ -43,8 +45,8 @@ namespace QueryBuilderMVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-                model.Projects = _serviceProject.GetUserProjects(_currentUser);
-                model.IdCurrentProject = Convert.ToInt32(id);
+                projectModel.Projects = _serviceProject.GetUserProjects(_currentUser);
+                projectModel.IdCurrentProject = Convert.ToInt32(id);
             }
             else
             {
@@ -55,13 +57,13 @@ namespace QueryBuilderMVC.Controllers
                     ProjectName = "Example",
                     ProjectDescription = "This project for demonstration service"
                 });
-                model.IdCurrentProject = proj[0].ProjectID;
+                projectModel.IdCurrentProject = proj[0].ProjectID;
                 
-                model.Projects = proj;                    
+                projectModel.Projects = proj;                    
                 
             }
 
-            return View(model);
+            return View(projectModel);
         }
 
         [Authorize]
@@ -87,8 +89,8 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult UpdateProjectPartial(int id)
         {
-            model.IdCurrentProject = Convert.ToInt32(id);
-            Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == model.IdCurrentProject);
+            projectModel.IdCurrentProject = Convert.ToInt32(id);
+            Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == projectModel.IdCurrentProject);
             var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
             if (newProject != null)
             {
@@ -114,8 +116,8 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult DeleteProjectPartial(int id)
         {
-            model.IdCurrentProject = Convert.ToInt32(id);
-            Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == model.IdCurrentProject);
+            projectModel.IdCurrentProject = Convert.ToInt32(id);
+            Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == projectModel.IdCurrentProject);
             var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
             if (newProject != null)
             {
@@ -134,6 +136,27 @@ namespace QueryBuilderMVC.Controllers
             return PartialView("Success");
         }
 
+        [Authorize]
+        public ActionResult CreateConnectionPartial(int id)
+        {
+            connectionModel.ConnectionOwner = id;
+
+            return PartialView("CreateConnectionPartial", connectionModel);
+
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateConnectionPartial(ConnectionViewModel connection)
+        {
+            if (ModelState.IsValid)
+            {
+                var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+                _serviceConnection.SaveConnection(newConnection);
+                return PartialView("Success");
+
+            }
+            return PartialView("CreateConnectionPartial",connection);
+        }
 
     }
 }

@@ -309,6 +309,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\0000113_multi_user_license__300.jpeg" />
     <Content Include="Images\Icon\add.png" />
+    <Content Include="Images\Icon\add2.png" />
     <Content Include="Images\Icon\db.png" />
     <Content Include="Images\Icon\Delete.png" />
     <Content Include="Images\Icon\Delete2.png" />
@@ -415,6 +416,7 @@
     <Content Include="Views\Workflow\CreateConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\UpdateProjectPartial.cshtml" />
     <Content Include="Views\Workflow\DeleteProjectPartial.cshtml" />
+    <Content Include="Views\Workflow\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

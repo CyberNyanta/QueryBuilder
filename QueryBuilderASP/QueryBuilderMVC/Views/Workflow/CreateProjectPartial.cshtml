@@ -2,9 +2,29 @@
 
 @using (Html.BeginForm())
 {
-    @*@Html.ValidationSummary();*@
-    <p class="TextField">Your project name: @Html.TextBoxFor(x => x.Name)</p>
+    @Html.ValidationSummary();
+    <div>
+        @Html.LabelFor(model => model.Name)
+        <div>
+            @Html.EditorFor(x => x.Name)
+            @*@Html.ValidationMessageFor(model => model.Name, "")*@
+
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Description)
+        <div>
+            @Html.EditorFor(x => x.Description)
+            @*@Html.ValidationMessageFor(model => model.Description, "")*@
+        </div>
+    </div>
+
+
+
+
+
+    @*<p class="TextField">Your project name: @Html.TextBoxFor(x => x.Name)</p>
     <p class="TextField">Project description: @Html.TextAreaFor(x => x.Description)</p>
-    <br />
-        <input type="submit" name="action" value="Create new project" />
+    <br />*@
+        @*<input type="submit" name="action" value="Create new project" />*@
 }

@@ -46,16 +46,14 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult CreateProjectPartial(ProjectViewModel projectModel)
         {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            var conn = new ConnectionViewModel();
             if (ModelState.IsValid)
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
                 newProject.ProjectOwner = User.Identity.Name;
                 _serviceProject.SaveProject(newProject);
+                return PartialView("Success");
             }
-            model.ConnectionDb = conn;
-            model.Projects = _serviceProject.GetUserProjects(_currentUser);
-            return RedirectToAction("List");
+            return PartialView("CreateProjectPartial");
         }
 
         public ActionResult UpdateProjectPartial(int id)
@@ -71,13 +69,16 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult UpdateProjectPartial(ProjectViewModel project)
         {
-            var newProject = Mapper.Map<ProjectViewModel, Project>(project);
-            newProject.ProjectOwner = User.Identity.Name;
-            _serviceProject.SaveProject(newProject);
-            return RedirectToAction("List");
+            if (ModelState.IsValid)
+            {
+                var newProject = Mapper.Map<ProjectViewModel, Project>(project);
+                newProject.ProjectOwner = User.Identity.Name;
+                _serviceProject.SaveProject(newProject);
+                return PartialView("Success");
+            }
+            return PartialView("UpdateProjectPartial", project);
         }
 
 
@@ -94,16 +95,15 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult DeleteProjectPartial(ProjectViewModel project)
         {
             var newProject = Mapper.Map<ProjectViewModel, Project>(project);
             newProject.ProjectOwner = User.Identity.Name;
             newProject.Delflag = 1;
             _serviceProject.SaveProject(newProject);
-            return RedirectToAction("List");
+            return PartialView("Success");
         }
 
-        
+
     }
 }

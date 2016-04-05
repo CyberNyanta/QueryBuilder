@@ -11,12 +11,14 @@ namespace QueryBuilderMVC.Models
         public int IdCurrentProject { get; set; }
 
         [Required(ErrorMessage = @"Please enter project name")]
+        [MaxLength(16, ErrorMessage = "Limit length string for 16 letters")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = @"Enter description")]
+        [MaxLength(150, ErrorMessage = "Limit length string for 150 symbols")]
         public string Description { get; set; }
 
-        public ConnectionViewModel ConnectionDb { get; set; }
+        //public ConnectionViewModel ConnectionDb { get; set; }
 
         public IEnumerable<ConnectionDB> _ConnectionDb { get; set; }
     }

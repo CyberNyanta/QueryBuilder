@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="~/Content/normalize.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/demo.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/component.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui.theme.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui." />
     <script src="~/Scripts/modernizr.custom.js"></script>
     <script src="~/Scripts/jquery-2.2.1.js"></script>
     <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
@@ -39,7 +41,6 @@
                                                     @Html.ActionLink("Create new project ", "CreateProjectPartial", "Workflow",
                                                new
                                                {
-                                                   @class = "viewDialog ",
                                                    @id = "IconMenuAdd",
                                                    data_dialog_title = "Create new project"
                                                })
@@ -83,8 +84,7 @@
 			new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
-    @*<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>*@
-    <script>
+    @*<script>
     $(document).ready(function () {
 
         $.ajaxSetup({ cache: false });
@@ -102,6 +102,95 @@
                 })
                 .load(this.href);
         });
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
+    </script>*@
+    <script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $("#IconMenuAdd").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Create new project": function () {
+                            $.ajax({
+                             url: "@Url.Action("CreateProjectPartial", "Workflow")",
+                             type: "POST",
+                             data: $('form').serialize(),
+                             datatype: "json",
+                             success: function (result) {
+                                 $("#dialogContent").html(result);
+                                }
+                            });
+                        }
+                    }
+                });
+        });
+        $(".IconDelete").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Delete": function () {
+                            $.ajax({
+                                url: "@Url.Action("DeleteProjectPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+        });
+        $(".IconEdit").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Update": function () {
+                            $.ajax({
+                                url: "@Url.Action("UpdateProjectPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+    });
         $(".close").on("click", function (e) {
             e.preventDefault();
             $(this).closest(".dialog").dialog("close");

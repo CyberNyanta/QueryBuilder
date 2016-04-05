@@ -47,6 +47,19 @@ namespace QueryBuilderMVC.Controllers
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 projectModel.Projects = _serviceProject.GetUserProjects(_currentUser);
                 projectModel.IdCurrentProject = Convert.ToInt32(id);
+                if (id != "0")
+                {
+                    Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == projectModel.IdCurrentProject);
+                    ViewBag.name = currentProject.ProjectName;
+                    ViewBag.desk = currentProject.ProjectDescription;
+                }
+                else
+                {
+                    ViewBag.name = "choose project";
+                    ViewBag.desk = "No description";
+                }
+              
+
             }
             else
             {

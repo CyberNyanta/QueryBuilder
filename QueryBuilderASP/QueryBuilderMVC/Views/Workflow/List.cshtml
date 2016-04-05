@@ -6,15 +6,17 @@
 
 @if (Request.IsAuthenticated)
 {
-    <p></p>
-    <p></p>
-            <p></p>
-            <p></p><p></p><p></p>
-            <p></p>
+
+    <div class="col-sm-2" style="background-color: red;">
+        <div class="">
+            <h4> @ViewBag.name </h4>
+            <p>@ViewBag.desk</p>
+        </div>
+     </div>
 
 
 
-    @Html.ActionLink(" Create new connection ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                @Html.ActionLink(" Create new connection ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
                                     @class = "CreateConnection",
@@ -23,45 +25,45 @@
 
 
 
-    @*<div class="row" style="clear:right;">
-        <div class="col-md-6">
+                @*<div class="row" style="clear:right;">
+                        <div class="col-md-6">
 
-            <h3>Project setting:</h3>
-            <div >
-                <div class="demo" style="display:inline-block; vertical-align:top">
-                    <input type="checkbox" id="hd-2" class="hide" />
-                    <label for="hd-2">Setting project: (Press me)</label>
-                    <div style="text-align: right;">
-                        @Html.Partial("UpdateProjectPartial")
+                            <h3>Project setting:</h3>
+                            <div >
+                                <div class="demo" style="display:inline-block; vertical-align:top">
+                                    <input type="checkbox" id="hd-2" class="hide" />
+                                    <label for="hd-2">Setting project: (Press me)</label>
+                                    <div style="text-align: right;">
+                                        @Html.Partial("UpdateProjectPartial")
+                                    </div>
+                                </div>
+                                <div class="demo" style="display:inline-block;">
+                                    <input type="checkbox" id="hd-3" class="hide" />
+                                    <label for="hd-3">Create connection (Press me)</label>
+                                    <div style="text-align: right;">
+                                        @Html.Partial("CreateConnectionPartial")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Shared project:</h3>
+
+
+                        </div>
+
                     </div>
-                </div>
-                <div class="demo" style="display:inline-block;">
-                    <input type="checkbox" id="hd-3" class="hide" />
-                    <label for="hd-3">Create connection (Press me)</label>
-                    <div style="text-align: right;">
-                        @Html.Partial("CreateConnectionPartial")
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h3>Shared project:</h3>
-           
+                    <div class="row" style="clear:right;">
 
-        </div>
+                        <div class="col-md-6">
+                            <h3>My queries:</h3>
 
-    </div>
-    <div class="row" style="clear:right;">
-       
-        <div class="col-md-6">
-            <h3>My queries:</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Statistics:</h3>
 
-        </div>
-        <div class="col-md-6">
-            <h3>Statistics:</h3>
-
-        </div>
-    </div>*@
+                        </div>
+                    </div>*@
 
 
 
@@ -70,9 +72,9 @@
 
 
 
-}
-else
-{
+                }
+                else
+                {
 
-    <h1 class="col-lg-6">Autorized please</h1>
-}
+                <h1 class="col-lg-6">Autorized please</h1>
+                }

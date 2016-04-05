@@ -16,16 +16,39 @@
         <ul class="gn-submenu" style="line-height:normal;">
             <li>
                 <div style="display: inline-table; line-height:normal; margin-top:10px; margin-left:10px;">
-                    <div style="display:block;">
-                        <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
-                    </div>
-                    <div style="display:block;">
-                        <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
-                    </div>
+                    
+                    <a href="/Workflow/List/@item.ProjectID">
+                        @if (Model.IdCurrentProject == @item.ProjectID)
+	                                {
+		                                 <div style="color: dodgerblue">
+                                           <div style="display:block;">
+                                               <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
+                                           </div>
+
+
+                                           <div style="display:block;">
+                                               <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
+                                           </div>
+                                         </div>
+                        }
+                        else
+                        {
+                            <div style="display:block;">
+                                <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
+                            </div>
+
+
+                            <div style="display:block;">
+                                <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
+                            </div>
+                        }
+                        
+                    </a>
+                       
 
                 </div>
 
-                <div class="IconMenu" >
+                <div class="IconMenu">
                     @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
                    new
                    {

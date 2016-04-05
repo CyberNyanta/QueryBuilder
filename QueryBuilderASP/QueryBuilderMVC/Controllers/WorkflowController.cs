@@ -36,6 +36,15 @@ namespace QueryBuilderMVC.Controllers
             model.Projects = _serviceProject.GetUserProjects(_currentUser);
             return View(model);
         }
+        [HttpGet]
+        public ActionResult List(string id)
+        {
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            model.Projects = _serviceProject.GetUserProjects(_currentUser);
+            model.IdCurrentProject = Convert.ToInt32(id);
+            return View(model);
+        }
+
 
         public ActionResult CreateProjectPartial()
         {

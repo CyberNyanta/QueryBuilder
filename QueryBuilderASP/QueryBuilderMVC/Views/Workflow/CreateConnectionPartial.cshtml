@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("List", "Workflow", "Create new connection"))
 {
-    @*@Html.ValidationSummary();*@
+    @Html.ValidationSummary();
     <p class="TextField" style="color:black;">Name:     @Html.TextBoxFor(x => x.ConnectionDb.ConnectionName, new {placeholder = Model.ConnectionDb.ConnectionName })</p>
     <p class="TextField" style="color:black;">Server:   @Html.TextBoxFor(x => x.ConnectionDb.ServerName, new { placeholder = Model.ConnectionDb.ServerName })</p>
     <p class="TextField" style="color:black;">Login:    @Html.TextBoxFor(x => x.ConnectionDb.LoginDB, new { placeholder = Model.ConnectionDb.LoginDB })</p>

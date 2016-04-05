@@ -8,6 +8,7 @@ using QueryBuilder.Utils;
 using System.Linq;
 using AutoMapper;
 using QueryBuilder.Services.Contracts;
+using System.Collections.Generic;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -30,28 +31,47 @@ namespace QueryBuilderMVC.Controllers
             _serviceConnection = serviceConnection;
         }
 
-        public ActionResult List()
-        {
-            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            model.Projects = _serviceProject.GetUserProjects(_currentUser);
-            return View(model);
-        }
+        //public ActionResult List()
+        //{
+        //    _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+        //    model.Projects = _serviceProject.GetUserProjects(_currentUser);
+        //    return View(model);
+        //}
         [HttpGet]
-        public ActionResult List(string id)
+        public ActionResult List(string id="0")
         {
-            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            model.Projects = _serviceProject.GetUserProjects(_currentUser);
-            model.IdCurrentProject = Convert.ToInt32(id);
+            if (User.Identity.IsAuthenticated)
+            {
+                _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+                model.Projects = _serviceProject.GetUserProjects(_currentUser);
+                model.IdCurrentProject = Convert.ToInt32(id);
+            }
+            else
+            {
+                var proj = new List<Project>();
+                proj.Add(new Project
+                {
+                    ProjectID = 1,
+                    ProjectName = "Example",
+                    ProjectDescription = "This project for demonstration service"
+                });
+                model.IdCurrentProject = proj[0].ProjectID;
+                
+                model.Projects = proj;                    
+                
+            }
+
             return View(model);
         }
 
-
+        [Authorize]
         public ActionResult CreateProjectPartial()
         {
             return PartialView("CreateProjectPartial");
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult CreateProjectPartial(ProjectViewModel projectModel)
         {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
@@ -64,7 +84,7 @@ namespace QueryBuilderMVC.Controllers
             }
             return PartialView("CreateProjectPartial");
         }
-
+        [Authorize]
         public ActionResult UpdateProjectPartial(int id)
         {
             model.IdCurrentProject = Convert.ToInt32(id);
@@ -78,6 +98,7 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult UpdateProjectPartial(ProjectViewModel project)
         {
             if (ModelState.IsValid)
@@ -90,7 +111,7 @@ namespace QueryBuilderMVC.Controllers
             return PartialView("UpdateProjectPartial", project);
         }
 
-
+        [Authorize]
         public ActionResult DeleteProjectPartial(int id)
         {
             model.IdCurrentProject = Convert.ToInt32(id);
@@ -102,7 +123,7 @@ namespace QueryBuilderMVC.Controllers
             }
             return View("List");
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult DeleteProjectPartial(ProjectViewModel project)
         {

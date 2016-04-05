@@ -47,9 +47,10 @@
                        
 
                 </div>
-
-                <div class="IconMenu">
-                    @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="IconMenu">
+                        @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
                    new
                    {
                        id = item.ProjectID
@@ -60,16 +61,18 @@
                      @id = "IconDelete",
                      data_dialog_title = "Delete project"
                  })
-                </div>
-                <div class="IconMenu">
-                    @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = item.ProjectID },
+                    </div>
+                    <div class="IconMenu">
+                        @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = item.ProjectID },
                                 new
                                 {
                                     @class = "viewDialog IconEdit",
                                     @id = "IconEdit",
                                     data_dialog_title = "Edit project"
                                 })
-                </div>
+                    </div>
+                }
+               
             </li>
 
         </ul>

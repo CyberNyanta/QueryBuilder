@@ -4,14 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-   
+    <link href="~/Content/parallax-slider/style-responsive.css" rel="stylesheet" />
+    <script src="~/Scripts/respond.min.js"></script>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
 
-    <script>
+    @*<script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '1694104010860815',
@@ -27,7 +29,7 @@
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script>*@
 
     <div class="navbar navbar-inverse navbar-fixed-top" id="tt">
         <div class="container">
@@ -49,16 +51,19 @@
             </div>
         </div>
     </div>
+
+    @RenderBody()
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <div class="panel panel-default">
-            @Html.Partial("_FooterPartial")
-        </div>
-        
+       
+
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @Html.Partial("_FooterPartial")
+
+
+
+
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

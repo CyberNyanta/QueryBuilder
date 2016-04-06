@@ -240,6 +240,7 @@
     <Content Include="Content\component.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\normalize.css" />
+    <Content Include="Content\parallax-slider\parallax-slider.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -364,6 +365,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\modernizr.custom.js" />
+    <Content Include="Scripts\parallax-slider\jquery.cslider.js" />
+    <Content Include="Scripts\parallax-slider\modernizr.custom.28468.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

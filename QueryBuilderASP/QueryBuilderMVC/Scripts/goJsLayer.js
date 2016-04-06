@@ -1,27 +1,38 @@
-﻿	function init(data) {
-		var $ = go.GraphObject.make;
-		var myDiagram = $(go.Diagram, "erModel", {
+﻿
+function init(data, setting) {
+	var goGraph = go.GraphObject.make;
+
+	var defaultSettings = {
+		layout:"ForceDirectedLayout"
+	}
+
+	var object = $.extend(defaultSettings, setting);
+	//console.log(defaultSettings);
+
+		var myDiagram = goGraph(go.Diagram, "erModel", {
 			initialContentAlignment: go.Spot.Center,
 			allowDelete: false,
 			allowCopy: false,
 			allowResize: false,
-			layout: $(go.ForceDirectedLayout),
+			layout: goGraph(go[defaultSettings.layout]),
 			"undoManager.isEnabled": true
 		});
+		
+
 		// define several shared Brushes
-		var bluegrad = $(go.Brush, "Linear", { 0: "rgb(150, 150, 250)", 0.5: "rgb(86, 86, 186)", 1: "rgb(86, 86, 186)" });
-		var greengrad = $(go.Brush, "Linear", { 0: "rgb(158, 209, 159)", 1: "rgb(67, 101, 56)" });
-		var redgrad = $(go.Brush, "Linear", { 0: "rgb(206, 106, 100)", 1: "rgb(180, 56, 50)" });
-		var yellowgrad = $(go.Brush, "Linear", { 0: "rgb(254, 221, 50)", 1: "rgb(254, 182, 50)" });
-		var lightgrad = $(go.Brush, "Linear", { 1: "#E6E6FA", 0: "#FFFAF0" });
+		var bluegrad = goGraph(go.Brush, "Linear", { 0: "rgb(150, 150, 250)", 0.5: "rgb(86, 86, 186)", 1: "rgb(86, 86, 186)" });
+		var greengrad = goGraph(go.Brush, "Linear", { 0: "rgb(158, 209, 159)", 1: "rgb(67, 101, 56)" });
+		var redgrad = goGraph(go.Brush, "Linear", { 0: "rgb(206, 106, 100)", 1: "rgb(180, 56, 50)" });
+		var yellowgrad = goGraph(go.Brush, "Linear", { 0: "rgb(254, 221, 50)", 1: "rgb(254, 182, 50)" });
+		var lightgrad = goGraph(go.Brush, "Linear", { 1: "#E6E6FA", 0: "#FFFAF0" });
 		//// the template for each attribute in a node's array of item data
 		var itemTempl =
-		  $(go.Panel, "Horizontal",
-			//$(go.Shape,
+		  goGraph(go.Panel, "Horizontal",
+			//goGraph(go.Shape,
 			//  { desiredSize: new go.Size(100, 100) },
 			//  new go.Binding("figure", "figure"),
 			//  new go.Binding("fill", "color")),
-			$(go.TextBlock,
+			goGraph(go.TextBlock,
 			  {
 			  	stroke: "#333333",
 			  	font: "bold 14px sans-serif"
@@ -30,7 +41,7 @@
 		  );
 		//// define the Node template, representing an entity
 		myDiagram.nodeTemplate =
-		  $(go.Node, "Auto",  // the whole node panel
+		  goGraph(go.Node, "Auto",  // the whole node panel
 			{
 				selectionAdorned: true,
 				resizable: true,
@@ -42,13 +53,13 @@
 			},
 			new go.Binding("location", "location").makeTwoWay(),
 			// define the node's outer shape, which will surround the Table
-			$(go.Shape, "Rectangle",
+			goGraph(go.Shape, "Rectangle",
 			  { fill: greengrad, stroke: "#756875", strokeWidth: 3 }),
-			$(go.Panel, "Table",
+			goGraph(go.Panel, "Table",
 			  { margin: 8, stretch: go.GraphObject.Fill },
-			  $(go.RowColumnDefinition, { row: 0, sizing: go.RowColumnDefinition.None }),
+			  goGraph(go.RowColumnDefinition, { row: 0, sizing: go.RowColumnDefinition.None }),
 			  // the table header
-			  $(go.TextBlock,
+			  goGraph(go.TextBlock,
 				{
 					row: 0, alignment: go.Spot.Center,
 					margin: new go.Margin(0, 14, 0, 2),  // leave room for Button
@@ -56,10 +67,10 @@
 				},
 				new go.Binding("text", "key")),
 			  // the collapse/expand button
-			  $("PanelExpanderButton", "LIST",  // the name of the element whose visibility this button toggles
+			  goGraph("PanelExpanderButton", "LIST",  // the name of the element whose visibility this button toggles
 				{ row: 0, alignment: go.Spot.TopRight }),
 			  // the list of Panels, each showing an attribute
-			  $(go.Panel, "Vertical",
+			  goGraph(go.Panel, "Vertical",
 				{
 					name: "LIST",
 					row: 1,
@@ -72,9 +83,9 @@
 				new go.Binding("itemArray", "items"))
 			)  // end Table Panel
 		  );  // end Node
-		//// define the Link template, representing a relationship
+		/*//// define the Link template, representing a relationship
 		//myDiagram.linkTemplate =
-		//  $(go.Link,  // the whole link panel
+		//  goGraph(go.Link,  // the whole link panel
 		//	{
 		//		selectionAdorned: true,
 		//		layerName: "Foreground",
@@ -83,9 +94,9 @@
 		//		corner: 5,
 		//		curve: go.Link.JumpOver
 		//	},
-		//	$(go.Shape,  // the link shape
+		//	goGraph(go.Shape,  // the link shape
 		//	  { stroke: "#303B45", strokeWidth: 2.5 }),
-		//	$(go.TextBlock,  // the "from" label
+		//	goGraph(go.TextBlock,  // the "from" label
 		//	  {
 		//	  	textAlign: "center",
 		//	  	font: "bold 14px sans-serif",
@@ -95,7 +106,7 @@
 		//	  	segmentOrientation: go.Link.OrientUpright
 		//	  },
 		//	  new go.Binding("text", "text")),
-		//	$(go.TextBlock,  // the "to" label
+		//	goGraph(go.TextBlock,  // the "to" label
 		//	  {
 		//	  	textAlign: "center",
 		//	  	font: "bold 14px sans-serif",
@@ -106,58 +117,11 @@
 		//	  },
 		//	  new go.Binding("text", "toText"))
 		//  );
-		//// create the model for the E-R diagram
+		//// create the model for the E-R diagram*/
 		var nodeDataArray = data[0];
 		var linkDataArray = data[1];
 
 		myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-
-		var c = document.getElementsByTagName("canvas");
-		var ctx = c[0].getContext("2d");
-		
-		ctx.clearRect(20, 20, 100, 50);
 	}
-
-	function Test(){
-
-    //
-		var $ = go.GraphObject.make;
-		var diagram = $(go.Diagram, "erModel");
-
-		// the node template describes how each Node should be constructed
-		diagram.nodeTemplate =
-		  $(go.Node, "Auto",  // the Shape automatically fits around the TextBlock
-			$(go.Shape, "RoundedRectangle",  // use this kind of figure for the Shape
-			  // bind Shape.fill to Node.data.color
-			  new go.Binding("fill", "color")),
-			$(go.TextBlock,
-			  { margin: 3 },  // some room around the text
-			  // bind TextBlock.text to Node.data.key
-			  new go.Binding("text", "key"))
-		  );
-
-		// the Model holds only the essential information describing the diagram
-		diagram.model = new go.GraphLinksModel(
-		[ // a JavaScript Array of JavaScript objects, one per node;
-		  // the "color" property is added specifically for this app
-		  { key: "Alpha", color: "lightblue" },
-		  { key: "Beta", color: "orange" },
-		  { key: "Gamma", color: "lightgreen" },
-		  { key: "Delta", color: "pink" }
-		],
-		[ // a JavaScript Array of JavaScript objects, one per link
-		  { from: "Alpha", to: "Beta" },
-		  { from: "Alpha", to: "Gamma" },
-		  { from: "Beta", to: "Beta" },
-		  { from: "Gamma", to: "Delta" },
-		  { from: "Delta", to: "Alpha" }
-		]);
-
-		diagram.initialContentAlignment = go.Spot.Center;
-		// enable Ctrl-Z to undo and Ctrl-Y to redo
-		diagram.undoManager.isEnabled = true;
-    console.log("goooooooood");
-	}
-
 
 	

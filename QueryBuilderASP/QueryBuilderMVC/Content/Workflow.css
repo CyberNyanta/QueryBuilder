@@ -9,6 +9,8 @@
     height: 28px;
     background-size: 25px;
 }
+
+
 #IconEdit:hover
 {
     background: url(../Images/Icon/Edit.png);

@@ -25,6 +25,8 @@ namespace QueryBuilderMVC.Models
         public string DatabaseName { get; set; }
 
         public int ConnectionOwner { get; set; }
+        public int ConnectionID { get; set; }
+
 
     }
 }

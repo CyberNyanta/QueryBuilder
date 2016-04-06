@@ -119,7 +119,7 @@
                     }
                 });
         });
-        $(".IconDelete").on("click", function (e) {
+        $(".IconModalDelete").on("click", function (e) {
             e.preventDefault();
 
             $("<div id='dialogContent'></div>")
@@ -145,33 +145,8 @@
         }
     });
         });
-        $(".CreateConnection").on("click", function (e) {
-            e.preventDefault();
 
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Create new connection": function () {
-                            $.ajax({
-                                url: "@Url.Action("CreateConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-    });
-        $(".IconEdit").on("click", function (e) {
+        $(".IconModalEdit").on("click", function (e) {
             e.preventDefault();
 
             $("<div id='dialogContent'></div>")
@@ -196,7 +171,90 @@
         }
         }
     });
+        });
+        $(".UpdateConnection").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Update": function () {
+                            $.ajax({
+                                url: "@Url.Action("UpdateConnectionPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
     });
+        });
+        $(".CreateConnection").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Create": function () {
+                            $.ajax({
+                                url: "@Url.Action("CreateConnectionPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+        });
+        $(".DeleteConnection").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Delete": function () {
+                            $.ajax({
+                                url: "@Url.Action("DeleteConnectionPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+    });
+
+
+
+
+
         $(".close").on("click", function (e) {
             e.preventDefault();
             $(this).closest(".dialog").dialog("close");

@@ -1,4 +1,5 @@
-﻿@model QueryBuilderMVC.Models.ConnectionViewModel
+﻿
+@model QueryBuilderMVC.Models.ConnectionViewModel
 
 @using (Html.BeginForm())
 {
@@ -7,7 +8,7 @@
     <div>
         @Html.LabelFor(model => model.ConnectionName)
         <div>
-            @Html.EditorFor(x => x.ConnectionName)
+            @Html.EditorFor(x => x.ConnectionName )
         </div>
     </div>
     <div>
@@ -34,9 +35,12 @@
             @Html.EditorFor(x => x.DatabaseName)
         </div>
     </div>
-    <p class="TextField" style="color:black; display:none;">
+    <p class="TextField" style="display:none;">
         Database: @Html.TextBoxFor(x => x.ConnectionOwner,
        new { placeholder = Model.ConnectionOwner })
     </p>
-    
+    <p class="TextField" style="display:none;">
+        Database: @Html.TextBoxFor(x => x.ConnectionID,
+       new { placeholder = Model.ConnectionID })
+    </p>
 }

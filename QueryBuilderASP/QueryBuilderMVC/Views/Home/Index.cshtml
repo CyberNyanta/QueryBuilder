@@ -2,79 +2,245 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <img style="float:right; align-content:center; width:400px;" src="../../Images/bg-call-to-action-03.png" />
-    <h2>SQL QUERY BUILDER – <br />BUILD SQL QUERIES WITHIN SECONDS <br /> ANY SQL KNOWLEDGE</h2>
-    <ul>
-        <li>Run your own SQL queries using our easy-to-use and intuitive drag-and-drop interface    </li>
-        <li>Create charts, tables and dashboards with only a few clicks</li>
-        <li>Connect datapine to your database in less than 10 minutes</li>
-    </ul>
-    <p><a href="/Workflow/List" class="btn btn-primary btn-lg">START FREE</a></p>
 
+
+
+<link rel="stylesheet" type="text/css" href="../../Content/parallax-slider/parallax-slider.css" />
+<link rel="stylesheet" type="text/css" href="../../Content/parallax-slider/flexslider.css" />
+
+
+<script type="text/javascript" src="~/Scripts/modernizr.custom.28468.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.cslider.js"></script>
+
+
+<!-- Sequence Modern Slider -->
+<div id="da-slider" class="da-slider">
+
+    <div class="da-slide">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        <i>ER-MODEL</i>
+                        <br>
+                        <i>YOUR</i>
+                        <br>
+                        <i>DATABASE</i>
+                    </h2>
+                    <p>
+                        <i>You have the opportunity to see </i>
+                        <br />
+                        <i>a detailed ER-model of your database.</i>
+                    </p>
+                    @Html.ActionLink("Start FREE", "List", "Workflow", new { area = "" }, new { @class = "btn btn-info btn-lg da-link" })
+                    <div class="da-img">
+                        <img src="../../Images/parallax-slider/images/2.png" alt="image01" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="da-slide">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        <i>EXPORT DATA</i>
+                        <br />
+                        <i>to PDF</i>
+                        <br />
+                        <i>AND EXCEL</i>
+                    </h2>
+                    <p>
+                        <i>Your data will be save to popular format </i>
+                        <br />
+                        <i>files on your PC or send to e-mail.</i>
+                    </p>
+                    @Html.ActionLink("Start FREE", "List", "Workflow", new { area = "" }, new { @class = "btn btn-info btn-lg da-link" })
+                    <div class="da-img">
+                        <img src="../../Images/parallax-slider/images/3.png" alt="image01" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="da-slide">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        <i>SHARED</i>
+                        </br>
+                        <i>PROJECT</i>
+                       
+                    </h2>
+                    <p>
+                        <i>You have the ability to share your project with </i>
+                        <br />
+                        <i>colleagues and build queries together or just give </i>
+                        <br />
+                        <i>someone access requests in your project.</i>
+                    </p>
+                    @Html.ActionLink("Start FREE", "List", "Workflow", new { area = "" }, new { @class = "btn btn-info btn-lg da-link" })
+                    <div class="da-img">
+                        <img src="../../Images/parallax-slider/images/1.png" alt="image01" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="da-arrows">
+        <span class="da-arrows-prev">
+        </span>
+        <span class="da-arrows-next">
+        </span>
+    </nav>
 </div>
 
-<div class="row" style="clear:right;">
-    <div class="col-md-4">
 
-        <h2>Getting started</h2>
-        <img style="float:left; width:80px; margin-right: 10px" src="../../Images/NO-registration-required.png" />
 
-        <p>
-            Query Builder can use without registration. For use just press "START FREE".
-            Query Builder without registration have features such us:
-           
-        </p>
-        <p><a class="btn btn-default" href="Features/NoRegistration">More &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Build query </h2>
-        <img style="float:left; width:100px;" src="../../Images/MousePC.jpg" />
+<script src="~/Scripts/jquery-1.8.3.min.js">
+</script>
 
-        <p>
-            The ability to build your requests only with the mouse. You do not need to know the SQL to build your query and get results.
-            For this will be enough to use our intuitive graphical interface.
-        </p>
-        <p><a class="btn btn-default" href="Features/BuildQuery">More &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>ER-model your database</h2>
-        <img style="float:left; width:100px; margin-right: 10px" src="../../Images/ER-Model.jpg" />
 
-        <p>
-            You have the opportunity to see a detailed ER-model of your database.
-            The ER-model will help you to trace all the connections and relationships of tables, as well as the available fields.
-        </p>
-        <p><a class="btn btn-default" href="Features/ER_Model">More &raquo;</a></p>
+
+
+
+
+<script type="text/javascript" src="~/Scripts/jquery.cslider.js">
+</script>
+<script type="text/javascript">
+    $(function () {
+
+        $('#da-slider').cslider({
+            autoplay: true,
+            bgincrement: 100
+        });
+
+    });
+</script>
+
+
+
+<div class="container">
+    <div class="row mar-b-50">
+        <div class="col-md-12">
+            <div class="text-center feature-head wow fadeInDown">
+                <h1 class="">
+                    Welcome to SQLQueryBuilder
+                </h1>
+
+            </div>
+
+
+            <div class="feature-box">
+                <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+                    <div class="feature-box-heading">
+                        <em>
+                            <img src="~/Images/tag.png" alt="Quick start" width="100" height="100">
+
+                        </em>
+                        <h4>
+                            <b>Getting started</b>
+                        </h4>
+                    </div>
+                    <p class="text-center">
+                        Query Builder can use without registration. For use just press "START FREE". Query Builder without registration have features such us:
+                    </p>
+                    @Html.ActionLink("More »", "NoRegistration", "Features", new { area = "" }, new { @class = "btn btn-default" })
+
+
+                </div>
+                <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+                    <div class="feature-box-heading">
+                        <em>
+                            <img src="~/Images/quickoffice32.png" alt="Build query" width="100" height="100">
+                        </em>
+                        <h4>
+                            <b>Build query</b>
+                        </h4>
+                    </div>
+                    <p class="text-center">
+                        The ability to build your requests only with the mouse. You do not need to know the SQL to build your query and get results. For this will be enough to use our intuitive graphical interface.
+                    </p>
+                    @Html.ActionLink("More »", "BuildQuery", "Features", new { area = "" }, new { @class = "btn btn-default" })
+
+                </div>
+                <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+                    <div class="feature-box-heading">
+                        <em>
+                            <img src="~/Images/analytics16.png" alt="ER-model your database" width="100" height="100">
+                        </em>
+                        <h4>
+                            <b>ER-model your database</b>
+                        </h4>
+                    </div>
+                    <p class="text-center">
+                        You have the opportunity to see a detailed ER-model of your database. The ER-model will help you to trace all the connections and relationships of tables, as well as the available fields.
+                    </p>
+                    @Html.ActionLink("More »", "ER_Model", "Features", new { area = "" }, new { @class = "btn btn-default" })
+
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+                <div class="feature-box-heading">
+                    <em>
+                        <img src="~/Images/acrobat.png" alt="Export data" width="100" height="100">
+
+                    </em>
+                    <h4>
+                        <b>Export data</b>
+                    </h4>
+                </div>
+                <p class="text-center">
+                    Opportunity to export result for your query in *.XLS and *.PDF. Your data will be save to popular format files on your PC or send to e-mail.
+                </p>
+                @Html.ActionLink("More »", "ExportData", "Features", new { area = "" }, new { @class = "btn btn-default" })
+
+            </div>
+            <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+                <div class="feature-box-heading">
+                    <em>
+                        <img src="~/Images/groups16.png" alt="Shared project" width="100" height="100">
+                    </em>
+                    <h4>
+                        <b>Shared project </b>
+                    </h4>
+                </div>
+                <p class="text-center">
+                    You have the ability to share your project with colleagues and build queries together or just give someone access requests in your project.
+                </p>
+                @Html.ActionLink("More »", "SharedProject", "Features", new { area = "" }, new { @class = "btn btn-default" })
+            </div>
+            <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+                <div class="feature-box-heading">
+                    <em>
+                        <img src="~/Images/compute.png" alt="Queries" width="100" height="100">
+                    </em>
+                    <h4>
+                        <b>Different types of queries</b>
+                    </h4>
+                </div>
+                <p class="text-center">
+                    The ability to build various types of queries, requests and combine to make nested queries.Complex queries are now easy to build.
+                </p>
+                @Html.ActionLink("More »", "TypesQuery", "Features", new { area = "" }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+
+
+        <!--feature end-->
     </div>
 </div>
-<div class="row" style="clear:right;">
-    <div class="col-md-4">
 
-        <h2>Export data</h2>
-        <img style="float:left; width:100px; margin-right: 10px; " src="../../Images/Export.jpg" />
 
-        <p>
-            Opportunity to export result for your query in *.XLS and *.PDF. Your data will be save to popular format files on your PC or send to e-mail.
-        </p>
-        <p><a class="btn btn-default" href="Features/ExportData">More &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Shared project </h2>
-        <img style="float:left; width:80px; margin-right: 10px; " src="../../Images/SharedProject.png" />
 
-        <p>
-            You have the ability to share your project with colleagues and build queries together or just give someone access requests in your project.
-        </p>
-        <p><a class="btn btn-default" href="Features/SharedProject">More &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Different types of queries</h2>
-        <img style="float:left; width:80px; margin-right: 10px; " src="../../Images/Query.jpeg" />
 
-        <p>
-            The ability to build various types of queries, requests and combine to make nested queries.Complex queries are now easy to build.
-        </p>
-        <p><a class="btn btn-default" href="Features/TypesQuery">More &raquo;</a></p>
-    </div>
-</div>
+
+

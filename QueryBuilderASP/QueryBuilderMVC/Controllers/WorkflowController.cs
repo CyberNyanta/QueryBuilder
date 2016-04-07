@@ -33,12 +33,6 @@ namespace QueryBuilderMVC.Controllers
             _serviceConnection = serviceConnection;
         }
 
-        //public ActionResult List()
-        //{
-        //    _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-        //    model.Projects = _serviceProject.GetUserProjects(_currentUser);
-        //    return View(model);
-        //}
         [HttpGet]
         public ActionResult List(string id="0")
         {
@@ -52,11 +46,30 @@ namespace QueryBuilderMVC.Controllers
                     Project currentProject = _serviceProject.GetProjects().FirstOrDefault(a => a.ProjectID == projectModel.IdCurrentProject);
                     ViewBag.name = currentProject.ProjectName;
                     ViewBag.desk = currentProject.ProjectDescription;
+                    var connections = _serviceConnection.GetConnectionDBs().FirstOrDefault(a => a.ConnectionID == projectModel.IdCurrentProject);
+
+                    if (connections != null)
+                    {
+                        ViewBag.ConnectionName = connections.ConnectionName;
+                        ViewBag.DatabaseName = connections.DatabaseName;
+                        ViewBag.ServerName = connections.ServerName;
+                        ViewBag.ConnectionOwner = connections.ConnectionOwner;
+                    }
+                    else
+                    {
+                        ViewBag.ConnectionName = "ConnectionName";
+                        ViewBag.DatabaseName = "connections.DatabaseName";
+                        ViewBag.ServerName = "ServerName";
+                    }
+                   
                 }
                 else
                 {
                     ViewBag.name = "choose project";
                     ViewBag.desk = "No description";
+                    ViewBag.ConnectionName = "ConnectionName";
+                    ViewBag.DatabaseName = "DatabaseName";
+                    ViewBag.ServerName = "ServerName";
                 }
               
 
@@ -171,5 +184,51 @@ namespace QueryBuilderMVC.Controllers
             return PartialView("CreateConnectionPartial",connection);
         }
 
+        [Authorize]
+        public ActionResult UpdateConnectionPartial(int id)
+        {
+
+            var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(x => x.ConnectionID == id);
+            var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
+
+            return PartialView("UpdateConnectionPartial", newConnection);
+
+
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateConnectionPartial(ConnectionViewModel connection)
+        {
+            if (ModelState.IsValid)
+            {
+                var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+                _serviceConnection.SaveConnection(newConnection);
+                return PartialView("Success");
+
+            }
+            return PartialView("UpdateConnectionPartial", connection);
+        }
+
+        [Authorize]
+        public ActionResult DeleteConnectionPartial(int id)
+        { 
+            var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(a => a.ConnectionID == id);
+            var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
+            if (newConnection != null)
+            {
+                return PartialView("DeleteConnectionPartial", newConnection);
+            }
+            return View("List");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteConnectionPartial(ConnectionViewModel connection)
+        {
+            var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+            newConnection.Delflag = 1;
+            _serviceConnection.SaveConnection(newConnection);
+            return PartialView("Success");
+        }
     }
 }

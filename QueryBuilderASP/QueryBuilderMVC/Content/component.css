@@ -88,20 +88,23 @@
 }
 
 .gn-menu-wrapper {
-		position: fixed;
-		top: 60px;
-		bottom: 0;
-		left: 0;
-		overflow: hidden;
-		width: 60px;
-		border-top: 1px solid #c6d0da;
-		background: white;
-		-webkit-transform: translateX(-60px);
-		-moz-transform: translateX(-60px);
-		transform: translateX(-60px);
-		-webkit-transition: -webkit-transform 0.3s, width 0.3s;
-		-moz-transition: -moz-transform 0.3s, width 0.3s;
-		transition: transform 0.3s, width 0.3s;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    width: 60px;
+    border-top: 1px solid #c6d0da;
+    background: white;
+    -webkit-transform: translateX(-60px);
+    -moz-transform: translateX(-60px);
+    -ms-transform: translateX(-60px);
+    -o-transform: translateX(-60px);
+    transform: translateX(-60px);
+    -webkit-transition: -webkit-transform 0.3s, width 0.3s;
+    -moz-transition: -moz-transform 0.3s, width 0.3s;
+    -o-transition: transform 0.3s, width 0.3s;
+    transition: transform 0.3s, width 0.3s;
 }
 
 .gn-scroller {
@@ -123,11 +126,12 @@
 }
 
 .gn-submenu li {
-		overflow: hidden;
-		height: 0;
-		-webkit-transition: height 0.3s;
-		-moz-transition: height 0.3s;
-		transition: height 0.3s;
+    overflow: hidden;
+    height: 0;
+    -webkit-transition: height 0.3s;
+    -moz-transition: height 0.3s;
+    -o-transition: height 0.3s;
+    transition: height 0.3s;
 }
 
 .gn-submenu li a {
@@ -254,9 +258,11 @@ input.gn-search:focus {
 
 .gn-menu-wrapper.gn-open-all,
 .gn-menu-wrapper.gn-open-part {
-		-webkit-transform: translateX(0px);
-		-moz-transform: translateX(0px);
-		transform: translateX(0px);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
 }
 
 .gn-menu-wrapper.gn-open-all {
@@ -267,13 +273,15 @@ input.gn-search:focus {
 		height: 60px
 }
 
-@media screen and (max-width: 422px) { 
-	.gn-menu-wrapper.gn-open-all {
-			-webkit-transform: translateX(0);
-			-moz-transform: translateX(0);
-			transform: translateX(0);
-			width: 100%;
-	}
+@media screen and (max-width: 422px) {
+    .gn-menu-wrapper.gn-open-all {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+        width: 100%;
+    }
 
 	.gn-menu-wrapper.gn-open-all .gn-scroller {
 			width: 130%

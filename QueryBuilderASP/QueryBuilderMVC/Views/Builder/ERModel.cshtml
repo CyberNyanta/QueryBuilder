@@ -9,9 +9,9 @@
 
 <div id="sample">
 	<div  style="padding:10px 0;  width:100%; height:50px; border: solid 1px black; border-bottom:none; font-size:20px">
-		<select id="layoutSelect" onchange="refresh()"   style="margin:0 10px; height:30px; ">
-			<option value="TreeLayout">TreeLayout</option>
+		<select id="layoutSelect" onchange="changeLayout(value)" style="margin:0 10px; height:30px; ">
 			<option value="ForceDirectedLayout">ForceDirectedLayout</option>
+			<option value="TreeLayout">TreeLayout</option>
 			<option value="LayeredDigraphLayout">LayeredDigraphLayout</option>
 			<option value="CircularLayout">CircularLayout</option>
 			<option value="GridLayout">GridLayout</option>
@@ -27,23 +27,10 @@
 
 <script>
 	var data = 	@Html.Raw(Model.ERModel);
-	var refresh = function(){
 
+	var str = "";
 
-		$( "#erModel" ).empty();
-
-		console.log("erModel empty");
-		console.log($( "#erModel" ));
-		var setting = {
-			layout:"CircularLayout"
-		}
-		var str = "";
-		$( "select.layoutSelect option:selected" ).each(function() {
-			setting.layout = $( this ).text();});
-		console.log(setting);
-		init(data,setting);
-	}
-	refresh();
+	init(data);
 
 	
 </script>

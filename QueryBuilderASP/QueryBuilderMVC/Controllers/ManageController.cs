@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-//using QueryBuilder.DAL.Models;
+using QueryBuilder.DAL.Models;
 using QueryBuilderMVC.Models;
 
 namespace QueryBuilderMVC.Controllers
@@ -245,6 +245,44 @@ namespace QueryBuilderMVC.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Manage/UserEditProfile
+        public async Task<ActionResult> EditProfile()
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            EditProfileViewModel editVM = new EditProfileViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            };
+            return View(editVM);
+        }
+
+        //
+        // POST: /Manage/UserEditProfile
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.Email = model.Email;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.UserName = model.Email;
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                AddErrors(result);
+            }
+            return RedirectToAction("Index", "Manage");
+        }
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()

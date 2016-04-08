@@ -57,8 +57,7 @@ namespace QueryBuilder.Services.DbServices
         }
 
         public void DeleteProject(int id)
-        {
-          
+        {         
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
                 unitOfWork.Projects.Delete(id);
@@ -67,5 +66,12 @@ namespace QueryBuilder.Services.DbServices
             }
         }
 
+        public Project GetProject(int id)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.Projects.GetById(id);
+            }
+        }
     }
 }

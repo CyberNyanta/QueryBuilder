@@ -23,6 +23,7 @@ namespace QueryBuilderMVC.Controllers
 
         private ApplicationUser _currentUser;
 
+     
 
         // GET: Product
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser, 

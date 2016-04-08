@@ -40,7 +40,7 @@ namespace QueryBuilderMVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-                _projectModel.Projects = _serviceProject.GetUserProjects(_currentUser);
+                _projectModel.Projects = _serviceProject.GetTop10UserProjects(_currentUser);
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
                 {

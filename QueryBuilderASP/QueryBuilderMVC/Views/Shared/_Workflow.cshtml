@@ -28,30 +28,30 @@
                 <nav class="gn-menu-wrapper">
                     <div class="gn-scroller">
                         <ul class="gn-menu">
-                               
-                                        <div class="demo " style="line-height:50px;">
-                                            <input type="checkbox" id="hd-1" class="hide " />
-                                            <label for="hd-1">Your projects:</label>
-                                            <div>
-                                                <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
-                                                @if (Request.IsAuthenticated)
-                                                {
-                                                    <div class="IconMenuAdd">
-                                                        @Html.ActionLink("Create new project ", "CreateProjectPartial", "Workflow",
+
+                            <div class="demo " style="line-height:50px;">
+                                <input type="checkbox" id="hd-1" class="hide " />
+                                <label for="hd-1">Your projects:</label>
+                                <div>
+                                    <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <div class="IconMenuAdd">
+                                            @Html.ActionLink("Create new project ", "CreateProjectPartial", "Workflow",
                                                        new
                                                        {
                                                            @id = "IconMenuAdd",
                                                            data_dialog_title = "Create new project"
                                                        })
-                                                    </div>
-                                                }
-                                              
-                                                @Html.Partial("ListProjectPartial")
-
-                                            </div>
                                         </div>
-                                    
-                                
+                                    }
+
+                                    @Html.Partial("ListProjectPartial")
+
+                                </div>
+                            </div>
+
+
 
                             <li><a class="gn-icon">Settings</a></li>
 
@@ -59,7 +59,9 @@
                     </div><!-- /gn-scroller -->
                 </nav>
             </li>
-            <li><a class="codrops-icon codrops-icon-prev" href="/builder/ERModel"><span>DEMO ER-MODEL</span></a></li>
+            <li>
+                <a class="codrops-icon codrops-icon-prev" href="/builder/ERModel"><span>DEMO ER-MODEL</span></a>
+            </li>
             <li>@Html.Partial("_LoginPartial")</li>
             <li class="codrops-icon">
                 <span>
@@ -67,6 +69,8 @@
 
             </li>
         </ul>
+
+
       
         @*<header>
             

@@ -252,8 +252,8 @@ namespace QueryBuilderMVC.Controllers
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             EditProfileViewModel editVM = new EditProfileViewModel
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                //FirstName = user.FirstName,
+                //LastName = user.LastName,
                 Email = user.Email
             };
             return View(editVM);
@@ -272,8 +272,8 @@ namespace QueryBuilderMVC.Controllers
 
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             user.Email = model.Email;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
+            //user.FirstName = model.FirstName;
+            //user.LastName = model.LastName;
             user.UserName = model.Email;
             var result = await UserManager.UpdateAsync(user);
 

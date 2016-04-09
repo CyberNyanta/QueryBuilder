@@ -6,10 +6,10 @@
 
 <div style="padding-top: 20px; ">
 
-    <div class="column col-xs-12 col-lg-3 col-md-3 col-sm-3" \>
+    <div class="column column_left col-xs-12 col-lg-3 col-md-3 col-sm-3" \>
 
-        <div class="portlet">
-            <div class="portlet-header">
+        <div class="portlet" id="id_1">
+            <div class="portlet-header ">
                 <div style="display:inline-block;">
                     @ViewBag.name
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
@@ -47,24 +47,24 @@
             </div>
         </div>
 
-        <div class="portlet">
+        <div class="portlet " id="id_2">
             <div class="portlet-header">
-                
+
                 <div style="display:inline-block;">
                     Connection
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
-                       <div>
-                           @if (ViewBag.ConnectionName != "ConnectionName")
-                           {
-                               <div>
-                                   @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                        <div>
+                            @if (ViewBag.ConnectionName != "ConnectionName")
+                            {
+                                <div>
+                                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
                                         @class = "UpdateConnection",
                                         data_dialog_title = "Update connection"
                                     })
-                               </div>
+                                </div>
                                 <div>
                                     @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
@@ -73,25 +73,25 @@
                                         data_dialog_title = "Delete connection"
                                     })
                                 </div>
-                           }
-                           else
-                           {
+                            }
+                            else
+                            {
                                 @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
                                         @class = "CreateConnection",
                                         data_dialog_title = "Create connection"
                                     })
-                           }
-                           
+                            }
 
-                       </div>
+
+                        </div>
 
                     }
-                   
+
                 </div>
-                
-                
+
+
             </div>
             <div class="portlet-content">
                 <p>@ViewBag.ConnectionOwner</p>
@@ -103,7 +103,7 @@
         </div>
 
     </div>
-    <div class=" col-xs-12 col-lg-6 col-md-6 col-sm-6">
+    <div class="col-xs-12 col-lg-6 col-md-6 col-sm-6">
 
         <div class="nonSortable">
             <div class="portlet-header">QueryBuilder</div>
@@ -116,16 +116,23 @@
     </div>
 
 
-    <div class="column col-xs-12 col-lg-3 col-md-3 col-sm-3">
+    <div class="column column_right col-xs-12 col-lg-3 col-md-3 col-sm-3">
 
-        <div class="portlet">
+        <div class="portlet" id="id_3">
             <div class="portlet-header">Links</div>
             <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
         </div>
 
-        <div class="portlet">
+        <div class="portlet" id="id_4">
             <div class="portlet-header">Images</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            <div class="portlet-content">
+                <ul class="sorted">
+                    <li id="sort_1">111</li>
+                    <li id="sort_2">222</li>
+                    <li id="sort_3">333</li>
+                    <li id="sort_4">444</li>
+                </ul>
+            </div>
         </div>
 
     </div>
@@ -155,10 +162,9 @@ else
         float: left;
         padding-bottom: 100px;
     }
-    
-    .nonSortable
-    {
-         margin: 0 1em 1em 0;
+
+    .nonSortable {
+        margin: 0 1em 1em 0;
         padding: 0.3em;
     }
 
@@ -216,18 +222,19 @@ else
         background-image: url(../../Images/Icon/edit2.png);
         margin-top: -13px;
     }
+
     .iconHeaderCreate {
         background-image: url(../../Images/Icon/add2.png);
         margin-top: -13px;
     }
 
-     .iconHeaderCreate:hover {
+        .iconHeaderCreate:hover {
             background-image: url(../../Images/Icon/add.png);
         }
 
-        .iconHeaderEdit:hover {
-            background-image: url(../../Images/Icon/edit.png);
-        }
+    .iconHeaderEdit:hover {
+        background-image: url(../../Images/Icon/edit.png);
+    }
 
     .iconHeaderDelete {
         background-image: url(../../Images/Icon/Delete2.png);
@@ -239,14 +246,86 @@ else
         }
 </style>
 
+
 <script>
+
+
+
+
+
+
     $(function () {
-        $(".column").sortable({
-            connectWith: ".column",
-            handle: ".portlet-header",
-            cancel: ".portlet-toggle",
-            placeholder: "portlet-placeholder ui-corner-all"
-        });
+        $(".column").sortable(
+            {
+                connectWith: ".column",
+                handle: ".portlet-header",
+                cancel: ".portlet-toggle",
+                placeholder: "portlet-placeholder ui-corner-all",
+                update: function (event, ui) {
+                    var sort_right = $('.column_right').sortable('serialize', { key: 'id' });
+                    var sort_left = $('.column').sortable('serialize', { key: 'id' });
+                    document.cookie = "sort_right"+@Model.IdCurrentProject+"= " + sort_right;
+                    document.cookie = "sort_left"+@Model.IdCurrentProject+"= " + sort_left;
+                }
+
+            });
+
+        var x = get_cookie("sort_left"+@Model.IdCurrentProject);
+        console.log("Cookie  "+x);
+
+        //$(function sss ()
+        //{
+        //    $(".column_left").append($(set_blocks()));
+        //});
+        //$(".column_left").append($(set_blocks()));
+        set_blocks();
+
+        function set_blocks()
+        {
+            var right = get_cookie("sort_right"+@Model.IdCurrentProject);
+            var left = get_cookie("sort_left"+@Model.IdCurrentProject);
+            var pattern = /(id=[0-9])/gmi;
+            while ((array = pattern.exec(left)) != null)
+            {
+                var result = array[0];
+                result += pattern.lastIndex;
+                var s = "#"+array[0];
+                console.log(s);
+                var ss = s.replace(/=/,"_")
+                console.log(ss);
+                $(".column_left").append($(ss));
+
+            }
+            while ((array = pattern.exec(right)) != null)
+            {
+                var result = array[0];
+                result += pattern.lastIndex;
+                var s = "#"+array[0];
+                console.log(s);
+                var ss = s.replace(/=/,"_")
+                console.log(ss);
+                $(".column_right").append($(ss));
+
+            }
+        }
+
+
+
+        function get_cookie(cookie_name)
+        {
+            var result = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
+            if (result)
+            {
+                return (unescape (result[2]));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
 
         $(".portlet")
           .addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
@@ -281,4 +360,9 @@ else
             icon.closest(".portlet").find(".portlet-content").toggle();
         });
     });
+
+
+
+
+
 </script>

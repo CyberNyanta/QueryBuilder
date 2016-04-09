@@ -58,6 +58,7 @@ namespace QueryBuilderMVC.Controllers
                         ViewBag.DatabaseName = connections.DatabaseName;
                         ViewBag.ServerName = connections.ServerName;
                         ViewBag.ConnectionOwner = connections.ConnectionOwner;
+                        ViewBag.ConnectionID = connections.ConnectionID;
                     }
                     else
                     {

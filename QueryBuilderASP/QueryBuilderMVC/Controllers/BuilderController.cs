@@ -5,16 +5,25 @@ using System.Web;
 using System.Web.Mvc;
 using QueryBuilderMVC.Models;
 using System.Data.SqlClient;
+using QueryBuilder.Services.Contracts;
 
 namespace QueryBuilderMVC.Controllers
 {
     public class BuilderController : Controller
     {
+        private readonly IConnectionDbService _serviceConnection;
+
         // GET: Builder
-        public ActionResult ERModel(string connectionString="Data Source=(local);Initial Catalog=QueryBuilder;Integrated Security=True;Application Name=EntityFramework")
+        [HttpGet]
+        public ActionResult ERModel(int id)
 		{
-			var sqlConnection = new SqlConnection(connectionString);
-			var viewmodel = new ERModelViewModel(sqlConnection);
+            //connectionString = "Data Source=(local);Initial Catalog=QueryBuilder;Integrated Security=True;Application Name=EntityFramework"
+
+            var Connection = _serviceConnection.GetConnectionDb(id);
+            string sqlConnection = "Data source=" + Connection.ServerName + ";Initial catalog=" + Connection.DatabaseName + "Integrated Security=True;";
+            var sql = new SqlConnection(sqlConnection);
+            
+            var viewmodel = new ERModelViewModel(sql);
             return View(viewmodel);
         }
 

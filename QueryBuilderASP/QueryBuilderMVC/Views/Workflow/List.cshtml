@@ -127,10 +127,11 @@
             <div class="portlet-header">Images</div>
             <div class="portlet-content">
                 <ul class="sorted">
-                    <li id="sort_1">111</li>
-                    <li id="sort_2">222</li>
-                    <li id="sort_3">333</li>
-                    <li id="sort_4">444</li>
+                    @Html.ActionLink("ER-MODEL", "ERModel", "Builder",
+                                                       new
+                                                       {
+                                                           id = ViewBag.ConnectionID
+                                                       })
                 </ul>
             </div>
         </div>

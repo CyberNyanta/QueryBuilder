@@ -9,6 +9,8 @@ namespace QueryBuilder.Services.Contracts
 
         void SaveConnection(ConnectionDB connectionDb);
 
-        IEnumerable<ConnectionDB> GetConnectionDB(int owner);
+        IEnumerable<ConnectionDB> GetConnectionDBs(int owner);
+
+        ConnectionDB GetConnectionDb(int id);
     }
 }

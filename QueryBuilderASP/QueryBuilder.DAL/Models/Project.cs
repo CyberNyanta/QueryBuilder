@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,6 +18,8 @@ namespace QueryBuilder.DAL.Models
 
         public string ProjectDescription { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+
         public virtual ICollection<ConnectionDB> ConnectionDBs { get; set; }
 
         public virtual ApplicationUser Users { get; set; }
@@ -27,6 +30,7 @@ namespace QueryBuilder.DAL.Models
         {
             ConnectionDBs = new HashSet<ConnectionDB>();
             ProjectsShares = new HashSet<ProjectsShare>();
+            CreatedDate = DateTime.Now;
         }
     }
 }

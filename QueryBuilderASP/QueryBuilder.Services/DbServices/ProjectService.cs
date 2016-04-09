@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using QueryBuilder.Constants;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.DAL.Models;
@@ -20,13 +21,12 @@ namespace QueryBuilder.Services.DbServices
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                return unitOfWork.Projects.GetMany(p => p.Delflag == DelflagConstants.ActiveSet);
+                return unitOfWork.Projects.GetMany(p => p.Delflag == DelflagConstants.ActiveSet).OrderByDescending(g => g.CreatedDate);
             }
         }
 
         public IEnumerable<Project> GetUserProjects(ApplicationUser user)
         {
-
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
@@ -34,8 +34,19 @@ namespace QueryBuilder.Services.DbServices
 
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                return unitOfWork.Projects.GetMany(p => (p.Delflag == DelflagConstants.ActiveSet && p.Users.Email == user.Email));
+                return unitOfWork.Projects.GetMany(p => (p.Delflag == DelflagConstants.ActiveSet && p.Users.Email == user.Email))
+                    .OrderByDescending(g => g.CreatedDate);
             }
+        }
+
+        public IEnumerable<Project> GetTop10UserProjects(ApplicationUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return GetUserProjects(user).Take(10).ToList();
         }
 
         public void SaveProject(Project project)
@@ -57,8 +68,7 @@ namespace QueryBuilder.Services.DbServices
         }
 
         public void DeleteProject(int id)
-        {
-          
+        {         
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
                 unitOfWork.Projects.Delete(id);
@@ -67,5 +77,12 @@ namespace QueryBuilder.Services.DbServices
             }
         }
 
+        public Project GetProject(int id)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.Projects.GetById(id);
+            }
+        }
     }
 }

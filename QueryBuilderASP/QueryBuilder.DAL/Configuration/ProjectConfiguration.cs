@@ -14,6 +14,7 @@ namespace QueryBuilder.DAL.Configuration
             Property(p => p.ProjectName).IsRequired().HasMaxLength(DbLengthString.LongString);
             Property(p => p.ProjectOwner).IsRequired().HasMaxLength(DbLengthString.LongString);
             Property(p => p.ProjectDescription).HasMaxLength(DbLengthString.LongString);
+            Property(g => g.CreatedDate).IsRequired();
             HasRequired(p => p.Users).WithMany(p => p.Projects).HasForeignKey(p => p.ProjectOwner);
         }
     }

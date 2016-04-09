@@ -23,7 +23,7 @@ namespace QueryBuilder.Services.DbServices
                 return unitOfWork.ConnectionDBs.GetMany(p => p.Delflag == DelflagConstants.ActiveSet);
             }
         }
-        public IEnumerable<ConnectionDB> GetConnectionDB(int owner)
+        public IEnumerable<ConnectionDB> GetConnectionDBs(int owner)
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
@@ -45,6 +45,14 @@ namespace QueryBuilder.Services.DbServices
                     unitOfWork.ConnectionDBs.Update(connectionDb);
 
                 unitOfWork.Save();
+            }
+        }
+
+        public ConnectionDB GetConnectionDb(int id)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.ConnectionDBs.GetById(id);
             }
         }
     }

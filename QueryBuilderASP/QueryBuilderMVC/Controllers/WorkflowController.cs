@@ -9,6 +9,7 @@ using System.Linq;
 using AutoMapper;
 using QueryBuilder.Services.Contracts;
 using System.Collections.Generic;
+using QueryBuilder.Constants;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -17,21 +18,21 @@ namespace QueryBuilderMVC.Controllers
         private readonly IProjectService _serviceProject;
         private readonly IUserService _serviceUser;
         private readonly IConnectionDbService _serviceConnection;
+        private readonly IProjectsShareService _serviceProjectsShareService;
 
         private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
 
         private ApplicationUser _currentUser;
 
-     
-
         // GET: Product
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser, 
-            IProjectsShareService serviceProjectShare, IConnectionDbService serviceConnection)
+            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection)
         {
             _serviceProject = serviceProject;
             _serviceUser = serviceUser;
             _serviceConnection = serviceConnection;
+            _serviceProjectsShareService = serviceProjectsShare;
         }
 
         [HttpGet]
@@ -40,7 +41,7 @@ namespace QueryBuilderMVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-                _projectModel.Projects = _serviceProject.GetTop10UserProjects(_currentUser);
+                _projectModel.Projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
                 {
@@ -110,13 +111,16 @@ namespace QueryBuilderMVC.Controllers
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-                var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
-                newProject.ProjectOwner = User.Identity.GetUserId();
+                var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);               
                 _serviceProject.SaveProject(newProject);
+
+                _serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
+
                 return PartialView("Success");
             }
             return PartialView("CreateProjectPartial");
         }
+
         [Authorize]
         public ActionResult UpdateProjectPartial(int id)
         {
@@ -137,7 +141,6 @@ namespace QueryBuilderMVC.Controllers
             if (ModelState.IsValid)
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(project);
-                newProject.ProjectOwner = User.Identity.GetUserId();
                 _serviceProject.SaveProject(newProject);
                 return PartialView("Success");
             }
@@ -161,7 +164,6 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult DeleteProjectPartial(ProjectViewModel project)
         {
             var newProject = Mapper.Map<ProjectViewModel, Project>(project);
-            newProject.ProjectOwner = User.Identity.GetUserId();
             newProject.Delflag = 1;
             _serviceProject.SaveProject(newProject);
             return PartialView("Success");

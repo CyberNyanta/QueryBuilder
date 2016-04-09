@@ -12,8 +12,6 @@ namespace QueryBuilder.DAL.Models
 
         public string ProjectName { get; set; }
 
-        public string ProjectOwner { get; set; }
-
         public int Delflag { get; set; }
 
         public string ProjectDescription { get; set; }
@@ -21,8 +19,6 @@ namespace QueryBuilder.DAL.Models
         public DateTime CreatedDate { get; set; }
 
         public virtual ICollection<ConnectionDB> ConnectionDBs { get; set; }
-
-        public virtual ApplicationUser Users { get; set; }
 
         public virtual ICollection<ProjectsShare> ProjectsShares { get; set; }
 

@@ -19,14 +19,18 @@ namespace QueryBuilder.DAL.Models
             // Add custom user claims here
             return userIdentity;
         }
+
         public int Delflag { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
-        public ICollection<Project> Projects { get; set; }
+
+        public ICollection<ProjectsShare> ProjectsShares { get; set; }
 
         public ApplicationUser():base()
         {
-            Projects = new HashSet<Project>();
+            ProjectsShares = new HashSet<ProjectsShare>();
         }
     }
 

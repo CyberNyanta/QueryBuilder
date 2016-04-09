@@ -25,30 +25,6 @@ namespace QueryBuilder.Services.DbServices
             }
         }
 
-        public IEnumerable<Project> GetUserProjects(ApplicationUser user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
-            {
-                return unitOfWork.Projects.GetMany(p => (p.Delflag == DelflagConstants.ActiveSet && p.Users.Email == user.Email))
-                    .OrderByDescending(g => g.CreatedDate);
-            }
-        }
-
-        public IEnumerable<Project> GetTop10UserProjects(ApplicationUser user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            return GetUserProjects(user).Take(10).ToList();
-        }
-
         public void SaveProject(Project project)
         {
             if (project == null)

@@ -1,9 +1,12 @@
-﻿using QueryBuilder.DAL.Models;
+﻿using System.Collections.Generic;
+using QueryBuilder.DAL.Models;
 
 namespace QueryBuilder.Services.Contracts
 {
     public interface IProjectsShareService
     {
-        void AddEmailToProjectsShare(Project project, string email);
+        void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole);
+
+        IEnumerable<Project> GetUserProjects(ApplicationUser user);
     }
 }

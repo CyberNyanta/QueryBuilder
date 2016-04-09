@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using QueryBuilder.Constants;
 using QueryBuilder.DAL.Contracts;
@@ -16,47 +17,76 @@ namespace QueryBuilder.Services.DbServices
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public void AddEmailToProjectsShare(Project project, string email)
+        public void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole)
         {
             if (project == null)
             {
                 throw new ArgumentNullException(nameof(project));
             }
 
-            if (string.IsNullOrWhiteSpace(email))
+            if (user == null)
             {
-                throw new ArgumentException("Empty email.");
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (userRole < UserRoleProjectsShareConstants.Invited && userRole > UserRoleProjectsShareConstants.Owner)
+            {
+                throw new ArgumentNullException(nameof(userRole));
             }
 
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                var projectsShare = unitOfWork.ProjectsShares.GetAll().FirstOrDefault(c => c.ProjectID.Equals(project.ProjectID) 
-                                                                                           && c.SharedEmail.Equals(email));
+                var projectsShare = unitOfWork.ProjectsShares.GetAll().FirstOrDefault(c => c.ProjectId.Equals(project.ProjectID)
+                                            && c.UserId.Equals(user.Id));
 
                 if (projectsShare != null)
                 {
-                    if (projectsShare.Delflag == DelflagConstants.UnactiveSet)
+                    if (projectsShare.UserRole > UserRoleProjectsShareConstants.Invited || userRole == UserRoleProjectsShareConstants.Owner)
                     {
-                        projectsShare.Delflag = DelflagConstants.ActiveSet;
-                        unitOfWork.ProjectsShares.Update(projectsShare);
+                        throw new ArgumentException("User exists in projects share.");
                     }
-                    else if (projectsShare.Delflag == DelflagConstants.ActiveSet)
-                    {
-                        throw new ArgumentException("Email exists in projects shares.");
-                    }
+
+                    projectsShare.UserRole = userRole;
+                    unitOfWork.ProjectsShares.Update(projectsShare);
                 }
-                else 
+                else
                 {
                     var newprojectsShare = new ProjectsShare
                     {
-                        ProjectID = project.ProjectID,
-                        SharedEmail = email
+                        ProjectId = project.ProjectID,
+                        UserId = user.Id,
+                        UserRole = userRole
                     };
 
                     unitOfWork.ProjectsShares.Create(newprojectsShare);
                 }
+              
                 unitOfWork.Save();
             }
         }
+
+        public IEnumerable<Project> GetUserProjects(ApplicationUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.ProjectsShares.GetMany(p => p.UserId == user.Id).Select(f => f.Project).
+                                ToList().OrderByDescending(g => g.CreatedDate);
+            }
+        }
+
+        //public IEnumerable<Project> GetTop10UserProjects(ApplicationUser user)
+        //{
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(user));
+        //    }
+
+        //    return GetUserProjects(user).Take(10).ToList();
+        //}
     }
 }

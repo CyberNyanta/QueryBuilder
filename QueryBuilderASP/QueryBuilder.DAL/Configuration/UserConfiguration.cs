@@ -10,10 +10,9 @@ namespace QueryBuilder.DAL.Configuration
     {
         public UserConfiguration()
         {
-            //HasKey(p => p.Email);
             Property(p => p.Email).HasMaxLength(DbLengthString.LongString);
-            //Property(p => p.FirstName).IsRequired().HasMaxLength(DbLengthString.LongString);
-            //Property(p => p.LastName).IsRequired().HasMaxLength(DbLengthString.LongString);
+            Property(p => p.FirstName).HasMaxLength(DbLengthString.LongString);
+            Property(p => p.LastName).HasMaxLength(DbLengthString.LongString);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration;
 using QueryBuilder.Constants.DbConstants;
 using QueryBuilder.DAL.Models;
+
 #pragma warning disable 0436
 
 namespace QueryBuilder.DAL.Configuration
@@ -11,10 +12,11 @@ namespace QueryBuilder.DAL.Configuration
         public ProjectsShareConfiguration()
         {
             ToTable(DbTablesNames.ProjectsShare);
-            HasKey(p => new { p.ProjectID, p.SharedEmail });
-            Property(p => p.ProjectID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            Property(p => p.SharedEmail).HasMaxLength(DbLengthString.LongString);
-            HasRequired(p => p.Project).WithMany(p => p.ProjectsShares).HasForeignKey(p => p.ProjectID);
+            HasKey(p => new { p.ProjectId, p.UserId });
+            Property(p => p.ProjectId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(p => p.UserId).HasMaxLength(DbLengthString.NormalString);
+            HasRequired(p => p.Project).WithMany(p => p.ProjectsShares).HasForeignKey(p => p.ProjectId);
+            HasRequired(p => p.User).WithMany(p => p.ProjectsShares).HasForeignKey(p => p.UserId);
         }
     }
 }

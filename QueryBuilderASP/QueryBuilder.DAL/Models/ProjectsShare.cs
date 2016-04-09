@@ -5,12 +5,14 @@ namespace QueryBuilder.DAL.Models
 {
     public class ProjectsShare
     {
-        public int ProjectID { get; set; }
+        public int ProjectId { get; set; }
 
-        public string SharedEmail { get; set; }
+        public string UserId { get; set; }
 
-        public int Delflag { get; set; }
+        public int UserRole { get; set; }
 
         public virtual Project Project { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
     }
 }

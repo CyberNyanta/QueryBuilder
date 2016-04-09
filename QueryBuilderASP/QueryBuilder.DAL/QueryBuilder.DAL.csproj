@@ -94,6 +94,18 @@
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWorkFactory.cs" />
+    <Compile Include="Migrations\201604091726067_InitialManualMigration.cs" />
+    <Compile Include="Migrations\201604091726067_InitialManualMigration.Designer.cs">
+      <DependentUpon>201604091726067_InitialManualMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604092104153_ModifiedProjectsShare.cs" />
+    <Compile Include="Migrations\201604092104153_ModifiedProjectsShare.Designer.cs">
+      <DependentUpon>201604092104153_ModifiedProjectsShare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604092113593_MinorUpdate.cs" />
+    <Compile Include="Migrations\201604092113593_MinorUpdate.Designer.cs">
+      <DependentUpon>201604092113593_MinorUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Repositories\QueriesRepository.cs" />
     <Compile Include="Repositories\ProjectsRepository.cs" />
@@ -119,6 +131,17 @@
       <Project>{ea846c4e-22ef-4810-b297-fee38d51db9d}</Project>
       <Name>QueryBuilder.Constants</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604091726067_InitialManualMigration.resx">
+      <DependentUpon>201604091726067_InitialManualMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604092104153_ModifiedProjectsShare.resx">
+      <DependentUpon>201604092104153_ModifiedProjectsShare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604092113593_MinorUpdate.resx">
+      <DependentUpon>201604092113593_MinorUpdate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

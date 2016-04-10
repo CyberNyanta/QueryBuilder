@@ -256,7 +256,28 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult InviteUserToProjectPartial(int id)
         {
-            throw new NotImplementedException();
+            var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(id));
+
+            var usersViewModel = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UsersListViewModel>>(users);
+
+            var usersModel = new UserViewModel {Users = usersViewModel};
+
+            return PartialView("_InviteUserToProjectPartial", usersModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult InviteUserToProjectPartial(UserViewModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                //var userForShared = Mapper.Map<UserViewModel, ApplicationUser>(user);
+
+                //_serviceConnection.SaveConnection(newConnection);
+                return PartialView("Success");
+
+            }
+            return PartialView("_InviteUserToProjectPartial", user);
         }
     }
 }

@@ -27,6 +27,8 @@ namespace QueryBuilderMVC.Mappings
                 .ForMember("DatabaseName", opt => opt.MapFrom(src => src.DatabaseName))
                 .ForMember("ConnectionOwner", opt => opt.MapFrom(src => src.ConnectionOwner))
                 .ForMember("PasswordDB", opt => opt.MapFrom(src => Rijndael.EncryptStringToBytes(src.PasswordDB)));
+
+            Mapper.CreateMap<UserViewModel, ApplicationUser>();
         }
     }
 }

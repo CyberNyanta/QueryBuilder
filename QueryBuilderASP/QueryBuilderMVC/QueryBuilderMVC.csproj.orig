@@ -427,8 +427,12 @@
     <Content Include="Views\Workflow\Success.cshtml" />
     <Content Include="Views\Workflow\UpdateConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\DeleteConnectionPartial.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Workflow\_InviteUserToProjectPartial.cshtml" />
+=======
+    <Content Include="Views\Workflow\InviteUserToProjectPartial.cshtml" />
     <Content Include="Views\Workflow\Failure.cshtml" />
+>>>>>>> faae0ce2c79eff45ed3a900b9accd9a717f9df6f
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -79,6 +79,19 @@ namespace QueryBuilder.Services.DbServices
             }
         }
 
+        public IEnumerable<ApplicationUser> GetProjectUsers(Project project)
+        {
+            if (project == null)
+            {
+                throw new ArgumentNullException(nameof(project));
+            }
+
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.ProjectsShares.GetMany(p => p.ProjectId == project.ProjectID).Select(f => f.User).ToList();
+            }
+        }
+
         public int GetUserRole(ApplicationUser user, int projectId)
         {
             if (user == null)
@@ -98,6 +111,21 @@ namespace QueryBuilder.Services.DbServices
                 
             }
         }
+
+        public IEnumerable<ApplicationUser> GetUsersForSharedProject(Project project)
+        {
+            if (project == null)
+            {
+                throw new ArgumentNullException(nameof(project));
+            }
+
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                var projectUsers = GetProjectUsers(project).Select(p => p.Id).ToList();
+                return unitOfWork.Users.GetMany(x => !projectUsers.Contains(x.Id));
+            }
+        }
+
 
         //public IEnumerable<Project> GetTop10UserProjects(ApplicationUser user)
         //{

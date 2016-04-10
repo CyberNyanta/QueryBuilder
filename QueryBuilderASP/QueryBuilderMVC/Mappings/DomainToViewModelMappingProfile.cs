@@ -29,6 +29,10 @@ namespace QueryBuilderMVC.Mappings
                .ForMember("Description", opt => opt.MapFrom(src => src.ProjectDescription));
 
             Mapper.CreateMap<Project, ProjectsListViewModel>();
+
+            Mapper.CreateMap<ApplicationUser, UserViewModel>();
+
+            Mapper.CreateMap<ApplicationUser, UsersListViewModel>();
         }
     }
 }

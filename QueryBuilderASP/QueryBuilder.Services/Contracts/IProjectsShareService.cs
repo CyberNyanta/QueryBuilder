@@ -9,6 +9,10 @@ namespace QueryBuilder.Services.Contracts
 
         IEnumerable<Project> GetUserProjects(ApplicationUser user);
 
+        IEnumerable<ApplicationUser> GetProjectUsers(Project project);
+
+        IEnumerable<ApplicationUser> GetUsersForSharedProject(Project project);
+
         int GetUserRole(ApplicationUser user, int projectId);
     }
 }

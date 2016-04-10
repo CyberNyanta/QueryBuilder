@@ -1,0 +1,37 @@
+﻿@model QueryBuilderMVC.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Users for shared";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+
+    @Html.TextBoxFor(model => model.UserName, new {id = "invitedUser", value = "", placeholder = "Invited", @readonly = "readonly"})
+    <br/>
+    <br/>
+    <div class="span5 well" style="margin-left: 8px;">
+        <strong>Users</strong><hr/>
+        <div style="max-height: 270px; overflow-y: auto;" id="memberlistcontainer">
+            @foreach (var item in Model.Users)
+            {
+                <div style="margin-bottom: 10px;">
+                    @*<div>
+                        <a href="Javascript:void(0);" onclick="AssigningUser('@item.Id','@item.Id','@item.UserName');">
+                            @Html.User().Avatar(item.User.ProfilePicUrl, new { @class = "span2" })
+                        </a>
+                    </div>*@
+
+                    <div style="margin-left: 50px;">
+                        <a href="Javascript:void(0);" onclick="InvitationUser('@item.Id', '@item.UserName');">@item.UserName</a>
+                    </div>
+
+                </div>
+                <hr style="margin: 35px 0px 0px 0px;"/>
+            }
+        </div>
+        @Html.HiddenFor(model => model.Id, new {@id = "invitedUserId"})
+    </div>
+}
+

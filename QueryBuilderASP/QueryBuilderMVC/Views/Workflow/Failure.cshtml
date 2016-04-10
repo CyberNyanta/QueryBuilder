@@ -1,0 +1,10 @@
+﻿
+<h2>Failure</h2>
+<script>
+    $(document).ready(function () {
+        $(".ui-button-text").hide();
+        setTimeout(function() {
+            window.location.href = "@Url.Action("List", "Workflow")";
+        }, 2000);
+    })
+</script>

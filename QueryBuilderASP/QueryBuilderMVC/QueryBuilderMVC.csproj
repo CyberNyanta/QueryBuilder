@@ -426,6 +426,7 @@
     <Content Include="Views\Workflow\UpdateConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\DeleteConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\InviteUserToProjectPartial.cshtml" />
+    <Content Include="Views\Workflow\Failure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -218,11 +218,16 @@ namespace QueryBuilderMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
-                _serviceConnection.SaveConnection(newConnection);
-                return PartialView("Success");
+				if (connection.IsConnectionValid())
+				{
+					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+					_serviceConnection.SaveConnection(newConnection);
+					return PartialView("Success");
+				}
 
-            }
+				return PartialView("Failure");
+			}
+
             return PartialView("UpdateConnectionPartial", connection);
         }
 

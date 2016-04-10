@@ -8,6 +8,8 @@ namespace QueryBuilderMVC.Models
 {
     public class ConnectionViewModel
     {
+		private string _passwordDB;
+
         [Required(ErrorMessage = @"Please enter connection name")]
         public string ConnectionName { get; set; }
 
@@ -19,7 +21,15 @@ namespace QueryBuilderMVC.Models
 
         [Required(ErrorMessage = @"Please enter password")]
         [DataType(DataType.Password)]
-        public string PasswordDB { get; set; }
+        public string PasswordDB
+		{
+			set { _passwordDB = value; }
+		}
+
+		public string PasswordDBForBinding
+		{
+			get { return _passwordDB; }
+		}
 
         [Required(ErrorMessage = @"Please enter database name")]
         public string DatabaseName { get; set; }

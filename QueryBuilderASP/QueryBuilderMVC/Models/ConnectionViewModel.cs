@@ -6,37 +6,28 @@ using System.Web;
 
 namespace QueryBuilderMVC.Models
 {
-    public class ConnectionViewModel
-    {
-		private string _passwordDB;
+	public class ConnectionViewModel
+	{
 
-        [Required(ErrorMessage = @"Please enter connection name")]
-        public string ConnectionName { get; set; }
+		[Required(ErrorMessage = @"Please enter connection name")]
+		public string ConnectionName { get; set; }
 
-        [Required(ErrorMessage = @"Please enter server name")]
-        public string ServerName { get; set; }
+		[Required(ErrorMessage = @"Please enter server name")]
+		public string ServerName { get; set; }
 
-        [Required(ErrorMessage = @"Please enter login")]
-        public string LoginDB { get; set; }
+		[Required(ErrorMessage = @"Please enter login")]
+		public string LoginDB { get; set; }
 
-        [Required(ErrorMessage = @"Please enter password")]
-        [DataType(DataType.Password)]
-        public string PasswordDB
-		{
-			set { _passwordDB = value; }
-		}
+		[Required(ErrorMessage = @"Please enter password")]
+		[DataType(DataType.Password)]
+		public string PasswordDB { get; set; }
 
-		public string PasswordDBForBinding
-		{
-			get { return _passwordDB; }
-		}
+		[Required(ErrorMessage = @"Please enter database name")]
+		public string DatabaseName { get; set; }
 
-        [Required(ErrorMessage = @"Please enter database name")]
-        public string DatabaseName { get; set; }
-
-        public int ConnectionOwner { get; set; }
-        public int ConnectionID { get; set; }
+		public int ConnectionOwner { get; set; }
+		public int ConnectionID { get; set; }
 
 
-    }
+	}
 }

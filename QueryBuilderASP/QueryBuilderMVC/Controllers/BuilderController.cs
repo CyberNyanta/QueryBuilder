@@ -13,21 +13,33 @@ namespace QueryBuilderMVC.Controllers
     {
         private readonly IConnectionDbService _serviceConnection;
 
-        // GET: Builder
-        [HttpGet]
-        public ActionResult ERModel(int id)
-		{
-            //connectionString = "Data Source=(local);Initial Catalog=QueryBuilder;Integrated Security=True;Application Name=EntityFramework"
-
-            var Connection = _serviceConnection.GetConnectionDb(id);
-            string sqlConnection = "Data source=" + Connection.ServerName + ";Initial catalog=" + Connection.DatabaseName + "Integrated Security=True;";
-            var sql = new SqlConnection(sqlConnection);
-            
-            var viewmodel = new ERModelViewModel(sql);
-            return View(viewmodel);
+        public BuilderController(IConnectionDbService serviceConnection)
+        {
+            _serviceConnection = serviceConnection;
         }
 
-		public JsonResult GetDBModel(string connectionString)
+
+        // GET: Builder
+        [HttpGet]
+        public ActionResult ERModel(int id = 0)
+        {
+            if (id != 0)
+            {
+                var Connection = _serviceConnection.GetConnectionDb(id);
+                string sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
+                    Connection.ServerName, Connection.DatabaseName, Connection.LoginDB, Connection.PasswordDB);
+                var sql = new SqlConnection(sqlConnection);
+
+                var viewmodel = new ERModelViewModel(sql);
+                return View(viewmodel);
+            }
+            else
+            {
+                return RedirectToAction("List", "Workflow");
+            }
+        }
+
+        public JsonResult GetDBModel(string connectionString)
 		{
 			var movies = new List<object>();
 			

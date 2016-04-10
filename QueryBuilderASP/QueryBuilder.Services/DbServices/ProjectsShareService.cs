@@ -79,6 +79,26 @@ namespace QueryBuilder.Services.DbServices
             }
         }
 
+        public int GetUserRole(ApplicationUser user, int projectId)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (projectId == 0)
+            {
+                throw new ArgumentNullException(nameof(projectId));
+            }
+
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                return unitOfWork.ProjectsShares.GetMany(p => (p.UserId == user.Id && p.ProjectId == projectId))
+                                                        .First().UserRole;
+                
+            }
+        }
+
         //public IEnumerable<Project> GetTop10UserProjects(ApplicationUser user)
         //{
         //    if (user == null)

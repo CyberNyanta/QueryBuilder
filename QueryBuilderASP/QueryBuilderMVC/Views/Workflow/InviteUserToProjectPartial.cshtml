@@ -1,0 +1,42 @@
+﻿@model QueryBuilderMVC.Models.ConnectionViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+
+    <div>
+        @Html.LabelFor(model => model.ConnectionName)
+        <div>
+            @Html.EditorFor(x => x.ConnectionName)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ServerName)
+        <div>
+            @Html.EditorFor(x => x.ServerName)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.LoginDB)
+        <div>
+            @Html.EditorFor(x => x.LoginDB)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.PasswordDB)
+        <div>
+            @Html.EditorFor(x => x.PasswordDB)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.DatabaseName)
+        <div>
+            @Html.EditorFor(x => x.DatabaseName)
+        </div>
+    </div>
+    <p class="TextField" style="color:black; display:none;">
+        Database: @Html.TextBoxFor(x => x.ConnectionOwner,
+       new { placeholder = Model.ConnectionOwner })
+    </p>
+    
+}

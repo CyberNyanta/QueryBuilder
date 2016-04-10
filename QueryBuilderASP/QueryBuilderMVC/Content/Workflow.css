@@ -10,6 +10,16 @@
     background-size: 25px;
 }
 
+#IconInviteUser
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/useradd.png);
+    display: block;
+    width: 25px;
+    height: 28px;
+    background-size: 25px;
+}
+
 
 #IconEdit:hover
 {

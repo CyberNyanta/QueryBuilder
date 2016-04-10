@@ -6,7 +6,7 @@ namespace QueryBuilderMVC.Models
 {
     public class ProjectViewModel
     {
-        public IEnumerable<Project> Projects { get; set; }
+        public IEnumerable<ProjectsListViewModel> Projects { get; set; }
 
         public int IdCurrentProject { get; set; }
 

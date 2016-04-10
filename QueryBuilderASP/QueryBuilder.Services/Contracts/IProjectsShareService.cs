@@ -8,5 +8,7 @@ namespace QueryBuilder.Services.Contracts
         void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole);
 
         IEnumerable<Project> GetUserProjects(ApplicationUser user);
+
+        int GetUserRole(ApplicationUser user, int projectId);
     }
 }

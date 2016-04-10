@@ -63,14 +63,26 @@
                  })
                     </div>
                     <div class="IconMenu">
-                        @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = item.ProjectID },
-                                new
-                                {
-                                    @class = "viewDialog IconEdit IconModalEdit",
-                                    @id = "IconEdit",
-                                    data_dialog_title = "Edit project"
-                                })
+                        @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new {id = item.ProjectID},
+                            new
+                            {
+                                @class = "viewDialog IconEdit IconModalEdit",
+                                @id = "IconEdit",
+                                data_dialog_title = "Edit project"
+                            })
                     </div>
+                    if (item.UserRole == 2)
+                     {
+                         <div class="IconMenu">
+                             @Html.ActionLink(" ", "InviteUserToProjectPartial", "Workflow", new {id = item.ProjectID},
+                                 new
+                                 {
+                                     @class = "viewDialog IconInviteUser IconModalEdit",
+                                     @id = "IconInviteUser",
+                                     data_dialog_title = "Invite user to project"
+                                 })
+                         </div>
+                     }
                 }
                
             </li>

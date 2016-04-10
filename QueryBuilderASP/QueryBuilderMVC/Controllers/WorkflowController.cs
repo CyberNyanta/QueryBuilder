@@ -41,7 +41,16 @@ namespace QueryBuilderMVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-                _projectModel.Projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
+                var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
+
+                var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
+
+                foreach (var project in projectsViewModel)
+                {
+                    project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                }
+
+                _projectModel.Projects = projectsViewModel;
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
                 {
@@ -82,13 +91,16 @@ namespace QueryBuilderMVC.Controllers
             }
             else
             {
-                var proj = new List<Project>();
-                proj.Add(new Project
+                var proj = new List<ProjectsListViewModel>
                 {
-                    ProjectID = 1,
-                    ProjectName = "Example",
-                    ProjectDescription = "This project for demonstration service"
-                });
+                    new ProjectsListViewModel
+                    {
+                        ProjectID = 1,
+                        ProjectName = "Example",
+                        ProjectDescription = "This project for demonstration service",
+                        UserRole = UserRoleProjectsShareConstants.Shared
+                    }
+                };
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
                 
                 _projectModel.Projects = proj;                    
@@ -234,6 +246,12 @@ namespace QueryBuilderMVC.Controllers
             newConnection.Delflag = 1;
             _serviceConnection.SaveConnection(newConnection);
             return PartialView("Success");
+        }
+
+        [Authorize]
+        public ActionResult InviteUserToProjectPartial(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace QueryBuilderMVC.Mappings
                .ForMember("IdCurrentProject", opt => opt.MapFrom(src => src.ProjectID))
                .ForMember("Name", opt => opt.MapFrom(src => src.ProjectName))
                .ForMember("Description", opt => opt.MapFrom(src => src.ProjectDescription));
+
+            Mapper.CreateMap<Project, ProjectsListViewModel>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using QueryBuilder.DAL.Models;
 using QueryBuilder.Utils;
+using QueryBuilder.Utils.Encryption;
 using QueryBuilderMVC.Models;
 
 namespace QueryBuilderMVC.Mappings
@@ -25,7 +26,7 @@ namespace QueryBuilderMVC.Mappings
                 .ForMember("LoginDB", opt => opt.MapFrom(src => src.LoginDB))
                 .ForMember("DatabaseName", opt => opt.MapFrom(src => src.DatabaseName))
                 .ForMember("ConnectionOwner", opt => opt.MapFrom(src => src.ConnectionOwner))
-                .ForMember("PasswordDB", opt => opt.MapFrom(src => Scrambler.GetPassHash(src.PasswordDB)));
+                .ForMember("PasswordDB", opt => opt.MapFrom(src => Rijndael.EncryptStringToBytes(src.PasswordDB)));
         }
     }
 }

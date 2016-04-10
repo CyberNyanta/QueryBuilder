@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace QueryBuilder.Utils
+namespace QueryBuilder.Utils.Encryption
 {
     public class Scrambler
     {

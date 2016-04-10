@@ -19,7 +19,7 @@ namespace QueryBuilder.DAL.Models
 
         public string LoginDB { get; set; }
 
-        public Guid? PasswordDB { get; set; }
+        public byte[] PasswordDB { get; set; }
 
         public string DatabaseName { get; set; }
 

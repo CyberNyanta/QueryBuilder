@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBSchema\JsonERModel.cs" />
+    <Compile Include="Encryption\Rijndael.cs" />
     <Compile Include="Exporters\DataTableToExcelExporter.cs" />
     <Compile Include="Exporters\DataTableToPdfExporter.cs" />
     <Compile Include="Exporters\IDataTableExporter.cs" />
@@ -69,7 +70,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Scrambler.cs" />
+    <Compile Include="Encryption\Scrambler.cs" />
     <Compile Include="ValidationMethods.cs" />
   </ItemGroup>
   <ItemGroup>

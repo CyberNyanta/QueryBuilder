@@ -13,13 +13,20 @@
 #IconInviteUser
 {
     background-repeat: no-repeat;
-    background: url(../Images/Icon/useradd.png);
+    background: url(../Images/Icon/useradd2.png);
     display: block;
     width: 25px;
     height: 28px;
-    background-size: 25px;
+    background-size: 30px;
 }
-
+#IconInviteUser:hover
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/useradd.png);
+      width: 30px;
+    height: 28px;
+    background-size: 30px;
+}
 
 #IconEdit:hover
 {

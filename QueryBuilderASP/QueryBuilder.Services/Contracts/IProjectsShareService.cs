@@ -5,7 +5,7 @@ namespace QueryBuilder.Services.Contracts
 {
     public interface IProjectsShareService
     {
-        void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole);
+        void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole, ApplicationUser fromUser = null);
 
         IEnumerable<Project> GetUserProjects(ApplicationUser user);
 

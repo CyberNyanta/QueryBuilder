@@ -15,6 +15,7 @@ namespace QueryBuilder.DAL.Configuration
             HasKey(p => new { p.ProjectId, p.UserId });
             Property(p => p.ProjectId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(p => p.UserId).HasMaxLength(DbLengthString.NormalString);
+            Property(p => p.FromUserId).HasMaxLength(DbLengthString.NormalString);
             HasRequired(p => p.Project).WithMany(p => p.ProjectsShares).HasForeignKey(p => p.ProjectId);
             HasRequired(p => p.User).WithMany(p => p.ProjectsShares).HasForeignKey(p => p.UserId);
         }

@@ -9,7 +9,9 @@ using System.Linq;
 using AutoMapper;
 using QueryBuilder.Services.Contracts;
 using System.Collections.Generic;
+using System.Web.Configuration;
 using QueryBuilder.Constants;
+using QueryBuilder.Utils.Mailers;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -260,9 +262,13 @@ namespace QueryBuilderMVC.Controllers
 
             var usersViewModel = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UsersListViewModel>>(users);
 
-            var usersModel = new UserViewModel {Users = usersViewModel};
+            var model = new UserViewModel
+            {
+                Users = usersViewModel,
+                ProjectId = id
+            };
 
-            return PartialView("_InviteUserToProjectPartial", usersModel);
+            return PartialView("_InviteUserToProjectPartial", model);
         }
 
         [HttpPost]
@@ -271,12 +277,20 @@ namespace QueryBuilderMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var userForShared = Mapper.Map<UserViewModel, ApplicationUser>(user);
+                var userForShared = Mapper.Map<UserViewModel, ApplicationUser>(user);
 
-                //_serviceConnection.SaveConnection(newConnection);
+                var projectForShared = _serviceProject.GetProject(user.ProjectId);
+
+                _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, userForShared, UserRoleProjectsShareConstants.Invited);
+
+                SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendMail(userForShared.Email, "AltexSoft M2T2", "Thank you for registering!");
+
                 return PartialView("Success");
-
             }
+            var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(user.ProjectId));
+
+            user.Users = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UsersListViewModel>>(users);
+
             return PartialView("_InviteUserToProjectPartial", user);
         }
     }

@@ -10,47 +10,47 @@
 
     @foreach (var item in Model.Projects)
     {
+        if (item.UserRole != 0)
+        {
+            <ul class="gn-submenu"></ul>
+            <ul class="gn-submenu" style="line-height:normal;">
+                <li>
+                    <div style="display: inline-table; line-height:normal; margin-top:10px; margin-left:10px;">
+
+                        <a href="/Workflow/List/@item.ProjectID">
+                            @if (Model.IdCurrentProject == @item.ProjectID)
+                            {
+                                <div style="color: dodgerblue">
+                                    <div style="display:block;">
+                                        <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
+                                    </div>
 
 
-        <ul class="gn-submenu"></ul>
-        <ul class="gn-submenu" style="line-height:normal;">
-            <li>
-                <div style="display: inline-table; line-height:normal; margin-top:10px; margin-left:10px;">
-                    
-                    <a href="/Workflow/List/@item.ProjectID">
-                        @if (Model.IdCurrentProject == @item.ProjectID)
-	                                {
-		                                 <div style="color: dodgerblue">
-                                           <div style="display:block;">
-                                               <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
-                                           </div>
+                                    <div style="display:block;">
+                                        <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="display:block;">
+                                    <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
+                                </div>
 
 
-                                           <div style="display:block;">
-                                               <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
-                                           </div>
-                                         </div>
-                        }
-                        else
-                        {
-                            <div style="display:block;">
-                                <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
-                            </div>
+                                <div style="display:block;">
+                                    <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
+                                </div>
+                            }
+
+                        </a>
 
 
-                            <div style="display:block;">
-                                <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
-                            </div>
-                        }
-                        
-                    </a>
-                       
-
-                </div>
-                @if (Request.IsAuthenticated)
-                {
-                    <div class="IconMenu">
-                        @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
+                    </div>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div class="IconMenu">
+                            @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
                             new
                             {
                                 id = item.ProjectID
@@ -61,33 +61,36 @@
                                 @id = "IconDelete",
                                 data_dialog_title = "Delete project"
                             })
-                    </div>
-                    <div class="IconMenu">
-                        @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new {id = item.ProjectID},
+                        </div>
+                        <div class="IconMenu">
+                            @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = item.ProjectID },
                             new
                             {
                                 @class = "viewDialog IconEdit IconModalEdit",
                                 @id = "IconEdit",
                                 data_dialog_title = "Edit project"
                             })
-                    </div>
-                    if (item.UserRole == 2)
-                     {
-                         <div class="IconMenu">
-                             @Html.ActionLink(" ", "InviteUserToProjectPartial", "Workflow", new {id = item.ProjectID},
+                        </div>
+                        if (item.UserRole == 2)
+                        {
+                            <div class="IconMenu">
+                                @Html.ActionLink(" ", "InviteUserToProjectPartial", "Workflow", new { id = item.ProjectID },
                                  new
                                  {
                                      @class = "viewDialog IconInviteUser IconModalInvite",
                                      @id = "IconInviteUser",
                                      data_dialog_title = "Invite user to project"
                                  })
-                         </div>
-                     }
-                }
-               
-            </li>
+                            </div>
+                        }
+                    }
 
-        </ul>
+                </li>
+
+            </ul>
+
+        }
+
 
 
 

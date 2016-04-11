@@ -85,7 +85,10 @@
 }
 #User
 {
-    content: url(../Images/Icon/login2.png);
+    background-image: url(../Images/Icon/login2.png);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
     width: 60px;
     margin: 0;
     padding: 0;
@@ -93,7 +96,10 @@
 #User:hover
 {
     background: none;
-    content: url(../Images/Icon/login.png);
+    background-image: url(../Images/Icon/login.png);
+    background-size: 35px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .LogOutUser, .SettingsUser
 
@@ -124,4 +130,81 @@
     background-repeat: no-repeat;
     background-position: left center;
     margin-left: 5px;
+}
+#gn-menu > .dropdown
+{
+    float: right;
+    border-right: none;
+    border-left: 1px solid #c6d0da;
+}
+#CountInvited
+{
+    position:relative;
+    /*top: 30px;
+    left: 20px;*/
+    color: red;
+    font-size: 11px;
+    /*border: 2px solid #2E83FF;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    padding: 3px;
+    line-height: normal;*/
+   
+}
+#Notification:hover
+{
+    background: none;
+    background-image: url(../Images/Icon/notify.png);
+    background-size: 50px;
+        background-position: center;
+    background-repeat: no-repeat;
+}
+#Notification
+{
+    background-image: url(../Images/Icon/notify2.png);
+    background-size: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.invites
+{
+    padding-left: 15px;
+    display:inline;
+        margin: 0;
+    line-height: normal;
+    display:inline-flex;
+    
+}
+
+.AcceptInvite
+{
+    position:relative;
+    right:-45px;
+     margin-left: 10px;
+     background-image: url(../Images/Icon/ok.png);
+     background-position: 0px -4px;
+     width: 20px;
+     height: 20px;
+     background-size: 25px;
+     background-repeat: no-repeat;
+}
+.no-touch .gn-menu-main .AcceptInvite a:hover, .no-touch .gn-menu-main .DeleteInvite a:hover
+{
+    background:none!important;
+}
+
+.DeleteInvite
+{
+    position:relative;
+    right:-40px;
+     margin-left: 10px;
+     background-image: url(../Images/Icon/no.png);
+     background-position: 0px -4px;
+     width: 20px;
+     height: 20px;
+     background-size: 25px;
+     background-repeat: no-repeat;
 }

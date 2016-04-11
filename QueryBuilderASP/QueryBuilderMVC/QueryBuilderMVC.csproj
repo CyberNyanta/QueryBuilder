@@ -329,7 +329,15 @@
     <Content Include="Images\Icon\ER.png" />
     <Content Include="Images\Icon\login.png" />
     <Content Include="Images\Icon\login2.png" />
+    <Content Include="Images\Icon\logoff.png" />
+    <Content Include="Images\Icon\logoff2.png" />
+    <Content Include="Images\Icon\no.png" />
+    <Content Include="Images\Icon\notify.png" />
+    <Content Include="Images\Icon\notify2.png" />
+    <Content Include="Images\Icon\ok.png" />
     <Content Include="Images\Icon\project.png" />
+    <Content Include="Images\Icon\setting.png" />
+    <Content Include="Images\Icon\setting2.png" />
     <Content Include="Images\Icon\useradd.png" />
     <Content Include="Images\Icon\useradd2.png" />
     <Content Include="Images\parallax-slider\images\1.png" />
@@ -445,6 +453,7 @@
     <Content Include="Views\Workflow\DeleteConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\_InviteUserToProjectPartial.cshtml" />
     <Content Include="Views\Workflow\Failure.cshtml" />
+    <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

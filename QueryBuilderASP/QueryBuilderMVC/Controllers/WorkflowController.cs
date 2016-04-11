@@ -25,6 +25,7 @@ namespace QueryBuilderMVC.Controllers
 
         private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
+        private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
 
         private ApplicationUser _currentUser;
 
@@ -47,12 +48,17 @@ namespace QueryBuilderMVC.Controllers
                 var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
 
                 var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
-
+                var countInvited = 0;
                 foreach (var project in projectsViewModel)
                 {
                     project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                    if (project.UserRole == 0)
+                    {
+                        countInvited++;
+                    }
                 }
 
+                ViewBag.CountInvited = countInvited;
                 _projectModel.Projects = projectsViewModel;
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
@@ -295,7 +301,27 @@ namespace QueryBuilderMVC.Controllers
 
             return PartialView("_InviteUserToProjectPartial", user);
         }
+        [HttpGet]
+        [Authorize]
+        public  ActionResult AcceptInvite(int id)
+        {
+            
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            var projectForShared = _serviceProject.GetProject(id);
+            _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, _currentUser, UserRoleProjectsShareConstants.Shared);
+            return View("List");
+        }
 
-      
+        [HttpGet]
+        [Authorize]
+        public ActionResult DeleteInvite(int id)
+        {
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+
+            _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(id), _currentUser);
+            
+            return View("List");
+        }
+
     }
 }

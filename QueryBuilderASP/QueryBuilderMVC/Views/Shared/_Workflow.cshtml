@@ -9,12 +9,15 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @*@Scripts.Render("~/Scripts/js")*@
-    <link rel="stylesheet" type="text/css" href="~/Content/Workflow.css" />
+
     <link rel="stylesheet" type="text/css" href="~/Content/normalize.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/demo.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/component.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui.theme.css"/>
     <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui." />
+    <link rel="stylesheet" type="text/css" href="~/Content/Workflow.css" />
+
+
     <script src="~/Scripts/modernizr.custom.js"></script>
     <script src="~/Scripts/jquery-2.2.1.js"></script>
     <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
@@ -25,7 +28,7 @@
     <div class="container">
 
 
-        <ul id="gn-menu" class="gn-menu-main">
+        <ul id="gn-menu" class="gn-menu-main" >
             <li class="gn-trigger">
                 <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
                 <nav class="gn-menu-wrapper">
@@ -62,46 +65,48 @@
                     </div><!-- /gn-scroller -->
                 </nav>
             </li>
-            <li>
-                @*<a class="codrops-icon codrops-icon-prev" href="/builder/ERModel"><span>DEMO ER-MODEL</span></a>*@
-             
-            </li>
-            <li>@Html.Partial("_LoginPartial")</li>
-            <li class="codrops-icon dropdown">
+            <li class="codrops-icon dropdown TopRightMenu">
                 <a class="dropdown-toggle" id="User" data-toggle="dropdown" href="#" aria-expanded="false">
                 </a>
-           
+
                 <ul class="dropdown-menu dropdown-user">
                     <li>
                         <div class="SettingsUser">
                             @Html.ActionLink("Settings account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </div>
                     </li>
-                 
-                        <li>
-                            <div class="LogOutUser">
-                                @if (Request.IsAuthenticated)
-                                {
-                                    @Html.ActionLink("Log Off", "LogOff", "Account");
 
-                                }
-                                else
-                                {
-                                    <ul class="LogOutUser">
-                                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-                                    </ul>
-                                }
-                            </div>
+                    <li>
+                        <div class="LogOutUser">
+                            @if (Request.IsAuthenticated)
+                            {
+                                @Html.ActionLink("Log Off", "LogOff", "Account");
 
-                        </li>
-</ul>
+                            }
+                            else
+                            {
+                                <ul class="LogOutUser">
+                                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                </ul>
+                            }
+                        </div>
 
-             
-
+                    </li>
+                </ul>
 
             </li>
-        </ul>
+
+            <li class="codrops-icon dropdown " >
+                @Html.Partial("_NotificationUserPartial")
+
+
+                
+                 
+            </li>
+            
+
+         </ul>
 
 
       

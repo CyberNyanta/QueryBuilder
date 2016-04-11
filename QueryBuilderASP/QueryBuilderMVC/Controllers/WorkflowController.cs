@@ -295,5 +295,7 @@ namespace QueryBuilderMVC.Controllers
 
             return PartialView("_InviteUserToProjectPartial", user);
         }
+
+      
     }
 }

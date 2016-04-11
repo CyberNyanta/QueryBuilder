@@ -78,3 +78,50 @@
 {
     padding-left: 60px;
 }
+
+.dropdown-user {
+    right: 0px;
+    left: auto;
+}
+#User
+{
+    content: url(../Images/Icon/login2.png);
+    width: 60px;
+    margin: 0;
+    padding: 0;
+}
+#User:hover
+{
+    background: none;
+    content: url(../Images/Icon/login.png);
+}
+.LogOutUser, .SettingsUser
+
+{
+    display: inline;
+    height: 20px;
+    line-height: 30px;
+    text-align:left;
+
+}
+
+
+.SettingsUser > a
+{
+    padding-left: 25px;
+    background-image: url(../Images/Icon/setting2.png);
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin-left: 5px;
+    
+}
+.LogOutUser > a
+{
+    padding-left: 25px;
+    background-image: url(../Images/Icon/logoff2.png);
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin-left: 5px;
+}

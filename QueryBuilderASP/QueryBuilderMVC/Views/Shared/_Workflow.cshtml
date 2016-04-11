@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+
+<!DOCTYPE html>
 
 <html class="no-js">
 <head>
@@ -64,9 +67,38 @@
              
             </li>
             <li>@Html.Partial("_LoginPartial")</li>
-            <li class="codrops-icon">
-                <span>
-                </span>
+            <li class="codrops-icon dropdown">
+                <a class="dropdown-toggle" id="User" data-toggle="dropdown" href="#" aria-expanded="false">
+                </a>
+           
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <div class="SettingsUser">
+                            @Html.ActionLink("Settings account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        </div>
+                    </li>
+                 
+                        <li>
+                            <div class="LogOutUser">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    @Html.ActionLink("Log Off", "LogOff", "Account");
+
+                                }
+                                else
+                                {
+                                    <ul class="LogOutUser">
+                                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                    </ul>
+                                }
+                            </div>
+
+                        </li>
+</ul>
+
+             
+
 
             </li>
         </ul>
@@ -85,6 +117,12 @@
 
 
     </div>
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
 
     <script src="~/Scripts/classie.js"></script>
     <script src="~/Scripts/gnmenu.js"></script>

@@ -319,12 +319,16 @@
     <Content Include="Images\groups16.png" />
     <Content Include="Images\Icon\add.png" />
     <Content Include="Images\Icon\add2.png" />
+    <Content Include="Images\Icon\arrowdown.png" />
+    <Content Include="Images\Icon\arrowdown2.png" />
     <Content Include="Images\Icon\db.png" />
     <Content Include="Images\Icon\Delete.png" />
     <Content Include="Images\Icon\Delete2.png" />
     <Content Include="Images\Icon\edit.png" />
     <Content Include="Images\Icon\edit2.png" />
     <Content Include="Images\Icon\ER.png" />
+    <Content Include="Images\Icon\login.png" />
+    <Content Include="Images\Icon\login2.png" />
     <Content Include="Images\Icon\project.png" />
     <Content Include="Images\Icon\useradd.png" />
     <Content Include="Images\Icon\useradd2.png" />
@@ -357,6 +361,7 @@
     <Content Include="fonts\icons.ttf" />
     <Content Include="fonts\icons.woff" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
+    <None Include="Properties\PublishProfiles\query.pubxml" />
     <None Include="Properties\PublishProfiles\web.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\classie.js" />

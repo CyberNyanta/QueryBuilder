@@ -131,15 +131,31 @@ namespace QueryBuilder.Services.DbServices
             }
         }
 
+        public void DeleteUserFromProjectsShare(Project project, ApplicationUser user)
+        {
+            if (project == null)
+            {
+                throw new ArgumentNullException(nameof(project));
+            }
 
-        //public IEnumerable<Project> GetTop10UserProjects(ApplicationUser user)
-        //{
-        //    if (user == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(user));
-        //    }
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
 
-        //    return GetUserProjects(user).Take(10).ToList();
-        //}
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                var projectsShare = unitOfWork.ProjectsShares.GetAll()
+                        .FirstOrDefault(c => c.ProjectId.Equals(project.ProjectID) && c.UserId.Equals(user.Id));
+
+                if (projectsShare != null)
+                {
+                    unitOfWork.ProjectsShares.Delete(projectsShare);
+
+                    unitOfWork.Save();
+                }
+
+            }
+        }
     }
 }

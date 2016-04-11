@@ -9,6 +9,7 @@ using System.Linq;
 using AutoMapper;
 using QueryBuilder.Services.Contracts;
 using System.Collections.Generic;
+using System.Text;
 using System.Web.Configuration;
 using QueryBuilder.Constants;
 using QueryBuilder.Utils.Mailers;
@@ -99,8 +100,7 @@ namespace QueryBuilderMVC.Controllers
                     {
                         ProjectID = 1,
                         ProjectName = "Example",
-                        ProjectDescription = "This project for demonstration service",
-                        UserRole = UserRoleProjectsShareConstants.Shared
+                        ProjectDescription = "This project for demonstration service"
                     }
                 };
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
@@ -277,13 +277,15 @@ namespace QueryBuilderMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userForShared = Mapper.Map<UserViewModel, ApplicationUser>(user);
+                var userForShared = _serviceUser.GetUserByID(user.UserId);
 
                 var projectForShared = _serviceProject.GetProject(user.ProjectId);
 
-                _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, userForShared, UserRoleProjectsShareConstants.Invited);
+                _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+                _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, userForShared, UserRoleProjectsShareConstants.Invited, _currentUser);
 
-                SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendMail(userForShared.Email, "AltexSoft M2T2", "Thank you for registering!");
+                var bodyMail = _currentUser.UserName + " invited you to a project!";
+                SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendMail(userForShared.Email, "Invitation to project", bodyMail);
 
                 return PartialView("Success");
             }

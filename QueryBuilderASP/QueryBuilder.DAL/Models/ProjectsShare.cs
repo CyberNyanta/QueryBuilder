@@ -9,6 +9,8 @@ namespace QueryBuilder.DAL.Models
 
         public string UserId { get; set; }
 
+        public string FromUserId { get; set; }
+
         public int UserRole { get; set; }
 
         public virtual Project Project { get; set; }

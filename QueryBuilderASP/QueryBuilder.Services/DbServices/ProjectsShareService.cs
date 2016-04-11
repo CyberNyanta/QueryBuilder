@@ -17,7 +17,7 @@ namespace QueryBuilder.Services.DbServices
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole)
+        public void AddUserToProjectsShare(Project project, ApplicationUser user, int userRole, ApplicationUser fromUser = null)
         {
             if (project == null)
             {
@@ -41,7 +41,7 @@ namespace QueryBuilder.Services.DbServices
 
                 if (projectsShare != null)
                 {
-                    if (projectsShare.UserRole > UserRoleProjectsShareConstants.Invited || userRole == UserRoleProjectsShareConstants.Owner)
+                    if (projectsShare.UserRole > UserRoleProjectsShareConstants.Invited)
                     {
                         throw new ArgumentException("User exists in projects share.");
                     }
@@ -57,6 +57,11 @@ namespace QueryBuilder.Services.DbServices
                         UserId = user.Id,
                         UserRole = userRole
                     };
+
+                    if (fromUser != null)
+                    {
+                        newprojectsShare.FromUserId = fromUser.Id;
+                    }
 
                     unitOfWork.ProjectsShares.Create(newprojectsShare);
                 }

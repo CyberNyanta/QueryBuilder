@@ -14,5 +14,7 @@ namespace QueryBuilder.Services.Contracts
         IEnumerable<ApplicationUser> GetUsersForSharedProject(Project project);
 
         int GetUserRole(ApplicationUser user, int projectId);
+
+        void DeleteUserFromProjectsShare(Project project, ApplicationUser user);
     }
 }

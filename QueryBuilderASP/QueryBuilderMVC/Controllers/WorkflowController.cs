@@ -184,6 +184,7 @@ namespace QueryBuilderMVC.Controllers
             }
             return View("List");
         }
+
         [Authorize]
         [HttpPost]
         public ActionResult DeleteProjectPartial(ProjectViewModel project)
@@ -192,20 +193,24 @@ namespace QueryBuilderMVC.Controllers
             var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
             var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
             var deleteProject = projectsViewModel.FirstOrDefault(x => x.ProjectID == project.IdCurrentProject);
-            deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
-            if (deleteProject.UserRole == UserRoleProjectsShareConstants.Shared)
+            if (deleteProject != null)
+            {
+                deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
+                if (deleteProject.UserRole == UserRoleProjectsShareConstants.Shared)
                 {
                     _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(deleteProject.ProjectID), _currentUser);
                 }
-            if (deleteProject.UserRole == UserRoleProjectsShareConstants.Owner)
-            {
-                var newproject = Mapper.Map<ProjectViewModel, Project>(project);
-                newproject.Delflag = 1;
-                _serviceProject.SaveProject(newproject);
 
+                if (deleteProject.UserRole == UserRoleProjectsShareConstants.Owner)
+                {
+                    var newproject = Mapper.Map<ProjectViewModel, Project>(project);
+                    newproject.Delflag = 1;
+                    _serviceProject.SaveProject(newproject);
+                }
             }
-                return PartialView("Success");
-           
+
+            ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            return PartialView("Success");         
         }
 
         [Authorize]

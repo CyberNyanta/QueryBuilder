@@ -246,6 +246,32 @@
         }
     });
         });
+        $(".UpdateConnectionItem").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Update": function () {
+                            $.ajax({
+                                url: "@Url.Action("UpdateConnectionPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+    });
         $(".CreateConnection").on("click", function (e) {
             e.preventDefault();
 
@@ -298,6 +324,33 @@
         }
     });
         });
+
+        $(".DeleteConnectionItem").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Delete": function () {
+                            $.ajax({
+                                url: "@Url.Action("DeleteConnectionPartial", "Workflow")",
+                                type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                $("#dialogContent").html(result);
+                            }
+                        });
+        }
+        }
+    });
+    });
 
         $(".IconModalInvite").on("click", function (e) {
             e.preventDefault();

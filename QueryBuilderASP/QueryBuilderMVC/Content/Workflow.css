@@ -293,7 +293,10 @@
         background-image: url(../../Images/Icon/edit2.png);
 
     }
+      .iconHeaderEditItem:hover {
+        background-image: url(../../Images/Icon/edit.png);
 
+    }
     .iconHeaderCreate {
         background-image: url(../../Images/Icon/add2.png);
         margin-top: -13px;
@@ -323,6 +326,11 @@
         background-image: url(../../Images/Icon/Delete2.png);
         background-position:center;
         background-size:30px;
+      
+    }
+        .iconHeaderDeleteItem:hover {
+        background-image: url(../../Images/Icon/Delete.png);
+
       
     }
 .ItemConnectionDelete > .iconHeaderDelete

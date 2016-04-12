@@ -214,7 +214,7 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [Authorize]
-        public ActionResult CreateConnectionPartial(int id, int count)
+        public ActionResult CreateConnectionPartial(int id, int count=0)
         {
             _connectionModel.ConnectionOwner = id;
             _connectionModel.ConnectionCount = count;

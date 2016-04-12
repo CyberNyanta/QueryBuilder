@@ -97,7 +97,7 @@
                                     @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
                             new
                             {
-                                @class = "DeleteConnection ",
+                                @class = "DeleteConnectionItem iconHeaderDeleteItem",
                                 data_dialog_title = "Delete connection"
                             })
                                 </div>
@@ -105,7 +105,7 @@
                                 @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
                                         new
                                         {
-                                            @class = "UpdateConnection",
+                                            @class = "UpdateConnectionItem",
                                             data_dialog_title = "Update connection"
                                         })
                             </div>
@@ -280,10 +280,12 @@ else
 
         $(".UpdateConnection")
             .prepend("<span class='iconHeaderEdit iconHeader portlet-3'></span>");
-
+        $(".UpdateConnectionItem")
+            .prepend("<span class='iconHeaderEditItem iconHeader portlet-3'></span>");
         $(".DeleteConnection")
             .prepend("<span class='iconHeaderDelete iconHeader portlet-2'></span>");
-
+        $(".DeleteConnectionItem")
+            .prepend("<span class='iconHeaderDeleteItem iconHeader portlet-2'></span>");
         $(".CreateConnection")
             .prepend("<span class='iconHeaderCreate iconHeader portlet-2'></span>");
 

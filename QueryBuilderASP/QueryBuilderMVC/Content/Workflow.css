@@ -181,9 +181,9 @@
 
 .AcceptInvite
 {
-    position:relative;
-    right:-45px;
-     margin-left: 10px;
+    /*position:relative;
+    right:-45px;*/
+    float:right;
      background-image: url(../Images/Icon/ok.png);
      background-position: 0px -4px;
      width: 20px;
@@ -198,9 +198,9 @@
 
 .DeleteInvite
 {
-    position:relative;
-    right:-40px;
-     margin-left: 10px;
+    /*position:relative;
+    right:-40px;*/
+    float:right;
      background-image: url(../Images/Icon/no.png);
      background-position: 0px -4px;
      width: 20px;
@@ -284,12 +284,22 @@
 
     .iconHeaderEdit {
         background-image: url(../../Images/Icon/edit2.png);
-        /*margin-top: -13px;*/
+        margin-top: -13px;
+        position: absolute;
+    top: 50%;
+    right: 45px;
+    }
+    .iconHeaderEditItem {
+        background-image: url(../../Images/Icon/edit2.png);
+
     }
 
     .iconHeaderCreate {
         background-image: url(../../Images/Icon/add2.png);
         margin-top: -13px;
+        position: absolute;
+    top: 50%;
+    right: 20px;
     }
 
         .iconHeaderCreate:hover {
@@ -304,9 +314,17 @@
         background-image: url(../../Images/Icon/Delete2.png);
         background-position:center;
         background-size:30px;
-        /*margin-top: -13px;*/
+        margin-top: -13px;
+        position: absolute;
+    top: 50%;
+    right: 20px;
     }
-
+    .iconHeaderDeleteItem {
+        background-image: url(../../Images/Icon/Delete2.png);
+        background-position:center;
+        background-size:30px;
+      
+    }
 .ItemConnectionDelete > .iconHeaderDelete
  {
         background-image: url(../../Images/Icon/Delete2.png);

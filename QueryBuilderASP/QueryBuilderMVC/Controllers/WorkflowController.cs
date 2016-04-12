@@ -242,14 +242,16 @@ namespace QueryBuilderMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+				ViewBag.IdCurrentProject = connection.ConnectionOwner;
 				if (connection.IsConnectionValid())
 				{
 					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
 					_serviceConnection.SaveConnection(newConnection);
-					return PartialView("Success");
+					ViewBag.Title = "Success";
+					return PartialView("Result");
 				}
-
-				return PartialView("Failure");
+				ViewBag.Title = "Failure";
+				return PartialView("Result");
 			}
 
             return PartialView("UpdateConnectionPartial", connection);

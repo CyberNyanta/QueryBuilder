@@ -452,7 +452,7 @@
     <Content Include="Views\Workflow\UpdateConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\DeleteConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\_InviteUserToProjectPartial.cshtml" />
-    <Content Include="Views\Workflow\Failure.cshtml" />
+    <Content Include="Views\Workflow\Result.cshtml" />
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>

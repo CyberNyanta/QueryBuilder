@@ -166,7 +166,7 @@ namespace QueryBuilderMVC.Controllers
                     //await SmtpMailer.Instance(ConfigurationManagerConstant.WebConfiguration).SendAsyncRegisterNotification(user.Email);
                     SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendRegisterNotification(user.Email);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("List", "Workflow");
                 }
                 AddErrors(result);
             }
@@ -452,7 +452,7 @@ namespace QueryBuilderMVC.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("List", "Workflow");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

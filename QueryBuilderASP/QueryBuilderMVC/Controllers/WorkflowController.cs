@@ -309,7 +309,7 @@ namespace QueryBuilderMVC.Controllers
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             var projectForShared = _serviceProject.GetProject(id);
             _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, _currentUser, UserRoleProjectsShareConstants.Shared);
-            return View("List");
+            return RedirectToAction("List", "Workflow");
         }
 
         [HttpGet]
@@ -319,8 +319,8 @@ namespace QueryBuilderMVC.Controllers
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
 
             _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(id), _currentUser);
-            
-            return View("List");
+
+            return RedirectToAction("List", "Workflow");
         }
 
     }

@@ -162,7 +162,8 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(project);
                 _serviceProject.SaveProject(newProject);
-                ViewBag.IdCurrentProject = project.IdCurrentProject;
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+
                 return PartialView("Success");
             }
             return PartialView("UpdateProjectPartial", project);
@@ -221,6 +222,8 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
                 _serviceConnection.SaveConnection(newConnection);
+
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 return PartialView("Success");
 
             }
@@ -246,7 +249,9 @@ namespace QueryBuilderMVC.Controllers
 				{
 					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
 					_serviceConnection.SaveConnection(newConnection);
-					return PartialView("Success");
+
+                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    return PartialView("Success");
 				}
 
 				return PartialView("Failure");
@@ -274,6 +279,8 @@ namespace QueryBuilderMVC.Controllers
             var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
             newConnection.Delflag = 1;
             _serviceConnection.SaveConnection(newConnection);
+
+            ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
             return PartialView("Success");
         }
 
@@ -309,6 +316,7 @@ namespace QueryBuilderMVC.Controllers
                 var bodyMail = _currentUser.UserName + " invited you to a project!";
                 SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendMail(userForShared.Email, "Invitation to project", bodyMail);
 
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 return PartialView("Success");
             }
             var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(user.ProjectId));
@@ -317,14 +325,18 @@ namespace QueryBuilderMVC.Controllers
 
             return PartialView("_InviteUserToProjectPartial", user);
         }
+
         [HttpGet]
         [Authorize]
         public  ActionResult AcceptInvite(int id)
-        {
-            
+        {           
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             var projectForShared = _serviceProject.GetProject(id);
             _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, _currentUser, UserRoleProjectsShareConstants.Shared);
+
+            if (System.Web.HttpContext.Current.Request.UrlReferrer != null)
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
+
             return RedirectToAction("List", "Workflow");
         }
 
@@ -335,6 +347,9 @@ namespace QueryBuilderMVC.Controllers
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
 
             _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(id), _currentUser);
+
+            if (System.Web.HttpContext.Current.Request.UrlReferrer != null)
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
 
             return RedirectToAction("List", "Workflow");
         }

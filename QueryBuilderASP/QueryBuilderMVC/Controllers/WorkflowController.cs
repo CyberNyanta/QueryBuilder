@@ -46,7 +46,6 @@ namespace QueryBuilderMVC.Controllers
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
-
                 var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
                 var countInvited = 0;
                 foreach (var project in projectsViewModel)
@@ -63,23 +62,18 @@ namespace QueryBuilderMVC.Controllers
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
                 {
+                    var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
+                    _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
+                    
                     var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
                     {
                         ViewBag.name = currentProject.ProjectName;
                         ViewBag.desk = currentProject.ProjectDescription;
                     }
-                    var connections = _serviceConnection.GetConnectionDBs().FirstOrDefault(a => a.ConnectionID == _projectModel.IdCurrentProject);
+                    ViewBag.Count = _projectModel.ConnectionDbs.Count();
 
-                    if (connections != null)
-                    {
-                        ViewBag.ConnectionName = connections.ConnectionName;
-                        ViewBag.DatabaseName = connections.DatabaseName;
-                        ViewBag.ServerName = connections.ServerName;
-                        ViewBag.ConnectionOwner = connections.ConnectionOwner;
-                        ViewBag.ConnectionID = connections.ConnectionID;
-                    }
-                    else
+                    if (ViewBag.Count == 0)
                     {
                         ViewBag.ConnectionName = "ConnectionName";
                         ViewBag.DatabaseName = "connections.DatabaseName";
@@ -136,6 +130,7 @@ namespace QueryBuilderMVC.Controllers
 
                 _serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
 
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 return PartialView("Success");
             }
             return PartialView("CreateProjectPartial");
@@ -144,9 +139,13 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult UpdateProjectPartial(int id)
         {
-            _projectModel.IdCurrentProject = Convert.ToInt32(id);
+            _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
-            var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            ProjectViewModel newProject = new ProjectViewModel();
+            newProject.Name = currentProject.ProjectName;
+            newProject.Description = currentProject.ProjectDescription;
+            newProject.IdCurrentProject = currentProject.ProjectID;
             if (newProject != null)
             {
                 return PartialView("UpdateProjectPartial", newProject);
@@ -162,7 +161,8 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(project);
                 _serviceProject.SaveProject(newProject);
-                ViewBag.IdCurrentProject = project.IdCurrentProject;
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+
                 return PartialView("Success");
             }
             return PartialView("UpdateProjectPartial", project);
@@ -171,16 +171,20 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult DeleteProjectPartial(int id)
         {
-            _projectModel.IdCurrentProject = Convert.ToInt32(id);
+            _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
-            var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
-            
+            //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            ProjectViewModel newProject = new ProjectViewModel();
+            newProject.Name = currentProject.ProjectName;
+            newProject.Description = currentProject.ProjectDescription;
+            newProject.IdCurrentProject = currentProject.ProjectID;
             if (newProject != null)
             {
                 return PartialView("DeleteProjectPartial", newProject);
             }
             return View("List");
         }
+
         [Authorize]
         [HttpPost]
         public ActionResult DeleteProjectPartial(ProjectViewModel project)
@@ -189,27 +193,35 @@ namespace QueryBuilderMVC.Controllers
             var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
             var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
             var deleteProject = projectsViewModel.FirstOrDefault(x => x.ProjectID == project.IdCurrentProject);
-            deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
-            if (deleteProject.UserRole == 1)
+            if (deleteProject != null)
+            {
+                deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
+                if (deleteProject.UserRole == UserRoleProjectsShareConstants.Shared)
                 {
                     _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(deleteProject.ProjectID), _currentUser);
                 }
-            if (deleteProject.UserRole == 2)
-            {
-                var newproject = Mapper.Map<ProjectViewModel, Project>(project);
-                newproject.Delflag = 1;
-                _serviceProject.SaveProject(newproject);
 
+                if (deleteProject.UserRole == UserRoleProjectsShareConstants.Owner)
+                {
+                    var newproject = Mapper.Map<ProjectViewModel, Project>(project);
+                    newproject.Delflag = 1;
+                    _serviceProject.SaveProject(newproject);
+                }
             }
-                return PartialView("Success");
-           
+
+            ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            return PartialView("Success");         
         }
 
         [Authorize]
-        public ActionResult CreateConnectionPartial(int id)
+        public ActionResult CreateConnectionPartial(int id, int count)
         {
             _connectionModel.ConnectionOwner = id;
-
+            _connectionModel.ConnectionCount = count;
+            if (count != 0)
+            {
+                _connectionModel.ServerName = _serviceConnection.GetConnectionDBs(id).FirstOrDefault().ServerName;
+            }
             return PartialView("CreateConnectionPartial", _connectionModel);
 
         }
@@ -221,6 +233,8 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
                 _serviceConnection.SaveConnection(newConnection);
+
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 return PartialView("Success");
 
             }
@@ -230,7 +244,7 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult UpdateConnectionPartial(int id)
         {
-            var currentConnection = _serviceConnection.GetConnectionDb(id);
+            var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(x => x.ConnectionID == id);
             var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
 
             return PartialView("UpdateConnectionPartial", newConnection);
@@ -240,6 +254,7 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult UpdateConnectionPartial(ConnectionViewModel connection)
         {
+           
             if (ModelState.IsValid)
             {
 				ViewBag.IdCurrentProject = connection.ConnectionOwner;
@@ -247,8 +262,14 @@ namespace QueryBuilderMVC.Controllers
 				{
 					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
 					_serviceConnection.SaveConnection(newConnection);
+
 					ViewBag.Title = "Success";
+					ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+
 					return PartialView("Result");
+
+                    
+
 				}
 				ViewBag.Title = "Failure";
 				return PartialView("Result");
@@ -259,9 +280,9 @@ namespace QueryBuilderMVC.Controllers
 
         [Authorize]
         public ActionResult DeleteConnectionPartial(int id)
-        { 
-            var currentConnection = _serviceConnection.GetConnectionDb(id);
-            var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
+        {
+            var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(x => x.ConnectionID == id);
+                var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
             if (newConnection != null)
             {
                 return PartialView("DeleteConnectionPartial", newConnection);
@@ -276,6 +297,8 @@ namespace QueryBuilderMVC.Controllers
             var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
             newConnection.Delflag = 1;
             _serviceConnection.SaveConnection(newConnection);
+
+            ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
             return PartialView("Success");
         }
 
@@ -311,6 +334,7 @@ namespace QueryBuilderMVC.Controllers
                 var bodyMail = _currentUser.UserName + " invited you to a project!";
                 SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendMail(userForShared.Email, "Invitation to project", bodyMail);
 
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 return PartialView("Success");
             }
             var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(user.ProjectId));
@@ -319,14 +343,18 @@ namespace QueryBuilderMVC.Controllers
 
             return PartialView("_InviteUserToProjectPartial", user);
         }
+
         [HttpGet]
         [Authorize]
         public  ActionResult AcceptInvite(int id)
-        {
-            
+        {           
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             var projectForShared = _serviceProject.GetProject(id);
             _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, _currentUser, UserRoleProjectsShareConstants.Shared);
+
+            if (System.Web.HttpContext.Current.Request.UrlReferrer != null)
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
+
             return RedirectToAction("List", "Workflow");
         }
 
@@ -337,6 +365,9 @@ namespace QueryBuilderMVC.Controllers
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
 
             _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(id), _currentUser);
+
+            if (System.Web.HttpContext.Current.Request.UrlReferrer != null)
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
 
             return RedirectToAction("List", "Workflow");
         }

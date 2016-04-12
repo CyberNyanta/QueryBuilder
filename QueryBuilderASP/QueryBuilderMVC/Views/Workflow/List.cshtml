@@ -10,7 +10,8 @@
 
         <div class="portlet" id="id_1">
             <div class="portlet-header ">
-                <div style="display:inline-block;">
+                <div style="width:100%; height: 30px;">
+
                     @ViewBag.name
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
@@ -51,32 +52,23 @@
             <div class="portlet-header">
 
                 <div style="display:inline-block;">
-                    Connection
+                    <div>My connections</div>
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
                         <div>
-                            @if (ViewBag.ConnectionName != "ConnectionName")
+                            @if (ViewBag.ConnectionName == "ConnectionName")
                             {
-                                <div>
-                                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                              
+                                <div>@Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
-                                        @class = "UpdateConnection",
-                                        data_dialog_title = "Update connection"
-                                    })
-                                </div>
-                                <div>
-                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
-                                    new
-                                    {
-                                        @class = "DeleteConnection",
-                                        data_dialog_title = "Delete connection"
-                                    })
-                                </div>
+                                        @class = "CreateConnection",
+                                        data_dialog_title = "Create connection"
+                                    })</div>
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject, count = ViewBag.Count },
                                     new
                                     {
                                         @class = "CreateConnection",
@@ -94,10 +86,39 @@
 
             </div>
             <div class="portlet-content">
-                <p>@ViewBag.ConnectionOwner</p>
+                @if (Model.IdCurrentProject != 0)
+                {
+                        foreach (var item in Model.ConnectionDbs)
+                        {
+                        <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
+                                <div class="ItemNameConnection">@item.ConnectionName</div>
+                               
+                                <div>
+                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                            new
+                            {
+                                @class = "DeleteConnection ",
+                                data_dialog_title = "Delete connection"
+                            })
+                                </div>
+                            <div class="">
+                                @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                                        new
+                                        {
+                                            @class = "UpdateConnection",
+                                            data_dialog_title = "Update connection"
+                                        })
+                            </div>
+                            </div>
+                            <br />
+                    }
+                }
+
+
+                @*<p>@ViewBag.ConnectionOwner</p>
                 <p>@ViewBag.ConnectionName </p>
                 <p>@ViewBag.DatabaseName </p>
-                <p>@ViewBag.ServerName </p>
+                <p>@ViewBag.ServerName </p>*@
 
             </div>
         </div>
@@ -119,12 +140,12 @@
     <div class="column column_right col-xs-12 col-lg-3 col-md-3 col-sm-3">
 
         <div class="portlet" id="id_3">
-            <div class="portlet-header">Links</div>
+            <div class="portlet-header">Databases</div>
             <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
         </div>
 
         <div class="portlet" id="id_4">
-            <div class="portlet-header">Images</div>
+            <div class="portlet-header">Query</div>
             <div class="portlet-content">
                 <ul class="sorted">
                     @Html.ActionLink("ER-MODEL", "ERModel", "Builder",
@@ -157,95 +178,6 @@ else
     <h1 class="col-lg-6">Autorized please</h1>
 }
 
-
-<style>
-    .column {
-        float: left;
-        padding-bottom: 100px;
-    }
-
-    .nonSortable {
-        margin: 0 1em 1em 0;
-        padding: 0.3em;
-    }
-
-    .portlet {
-        margin: 0 1em 1em 0;
-        padding: 0.3em;
-    }
-
-    .portlet-header {
-        padding: 0.2em 0.3em;
-        margin-bottom: 0.5em;
-        position: relative;
-    }
-
-    .portlet-toggle {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        margin-top: -8px;
-    }
-
-    .portlet-3 {
-        position: absolute;
-        top: 50%;
-        right: 45px;
-    }
-
-    .portlet-2 {
-        position: absolute;
-        top: 50%;
-        right: 20px;
-    }
-
-    .portlet-content {
-        padding: 0.4em;
-    }
-
-    .portlet-placeholder {
-        border: 1px dotted black;
-        margin: 0 1em 1em 0;
-        height: 50px;
-    }
-
-    .iconHeader {
-        background-repeat: no-repeat;
-        width: 27px;
-        height: 27px;
-        background-size: 25px;
-        background-position: center;
-        padding: 0;
-        margin: 0;
-    }
-
-    .iconHeaderEdit {
-        background-image: url(../../Images/Icon/edit2.png);
-        margin-top: -13px;
-    }
-
-    .iconHeaderCreate {
-        background-image: url(../../Images/Icon/add2.png);
-        margin-top: -13px;
-    }
-
-        .iconHeaderCreate:hover {
-            background-image: url(../../Images/Icon/add.png);
-        }
-
-    .iconHeaderEdit:hover {
-        background-image: url(../../Images/Icon/edit.png);
-    }
-
-    .iconHeaderDelete {
-        background-image: url(../../Images/Icon/Delete2.png);
-        margin-top: -13px;
-    }
-
-        .iconHeaderDelete:hover {
-            background-image: url(../../Images/Icon/Delete.png);
-        }
-</style>
 
 
 <script>

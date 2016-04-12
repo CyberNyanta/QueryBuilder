@@ -12,8 +12,9 @@ namespace QueryBuilderMVC.Models
 {
 	public class ConnectionViewModel
 	{
+        public IEnumerable<ConnectionsListViewModel> Connections { get; set; }
 
-		[Required(ErrorMessage = @"Please enter connection name")]
+        [Required(ErrorMessage = @"Please enter connection name")]
 		public string ConnectionName { get; set; }
 
 		[Required(ErrorMessage = @"Please enter server name")]
@@ -31,6 +32,8 @@ namespace QueryBuilderMVC.Models
 
 		public int ConnectionOwner { get; set; }
 		public int ConnectionID { get; set; }
+
+        public int ConnectionCount { get; set; }
 
 		public bool IsConnectionValid()
 		{

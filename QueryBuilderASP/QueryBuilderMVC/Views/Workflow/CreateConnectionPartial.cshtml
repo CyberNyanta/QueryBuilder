@@ -12,9 +12,23 @@
     </div>
     <div>
         @Html.LabelFor(model => model.ServerName)
-        <div>
-            @Html.EditorFor(x => x.ServerName)
-        </div>
+        @if (Model.ConnectionCount > 0)
+        {
+            <div>
+                @Html.TextBoxFor(x => x.ServerName, new { disabled = "disabled", placehoder = Model.ServerName })
+                <p class="TextField" style="display:none;">
+                    Database: @Html.TextBoxFor(x => x.ServerName,
+                    new { placeholder = Model.ServerName })
+                </p>
+            </div>
+        }
+        else
+        {
+            <div>
+                @Html.EditorFor(x => x.ServerName)
+            </div>
+        }
+       
     </div>
     <div>
         @Html.LabelFor(model => model.LoginDB)

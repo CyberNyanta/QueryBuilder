@@ -18,8 +18,8 @@ namespace QueryBuilderMVC.Models
         [MaxLength(150, ErrorMessage = "Limit length string for 150 symbols")]
         public string Description { get; set; }
 
-        //public ConnectionViewModel ConnectionDb { get; set; }
+        public IEnumerable<ConnectionsListViewModel> ConnectionDbs { get; set; }
 
-        public IEnumerable<ConnectionDB> _ConnectionDb { get; set; }
+        //public IEnumerable<ConnectionDB> _ConnectionDb { get; set; }
     }
 }

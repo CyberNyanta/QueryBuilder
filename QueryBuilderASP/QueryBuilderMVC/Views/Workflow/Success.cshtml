@@ -4,7 +4,7 @@
     $(document).ready(function () {
         $(".ui-button-text").hide();
         setTimeout(function() {
-            window.location.href = "@Url.Action("List", "Workflow", new { id = ViewBag.IdCurrentProject })";
+            window.location.href = "@Url.Content(ViewBag.PreviousPage.ToString())";
         }, 2000);
     })
 </script>

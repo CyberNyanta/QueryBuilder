@@ -63,6 +63,7 @@
     <Compile Include="Exporters\DataTableToExcelExporter.cs" />
     <Compile Include="Exporters\DataTableToPdfExporter.cs" />
     <Compile Include="Exporters\IDataTableExporter.cs" />
+    <Compile Include="Extentions\SqlExtention.cs" />
     <Compile Include="Mailers\SmtpMailer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">

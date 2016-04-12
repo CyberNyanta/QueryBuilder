@@ -46,7 +46,6 @@ namespace QueryBuilderMVC.Controllers
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
-
                 var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
                 var countInvited = 0;
                 foreach (var project in projectsViewModel)
@@ -63,6 +62,9 @@ namespace QueryBuilderMVC.Controllers
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
                 {
+                    var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
+                    _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
+                    
                     var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
                     {
@@ -189,11 +191,11 @@ namespace QueryBuilderMVC.Controllers
             var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
             var deleteProject = projectsViewModel.FirstOrDefault(x => x.ProjectID == project.IdCurrentProject);
             deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
-            if (deleteProject.UserRole == 1)
+            if (deleteProject.UserRole == UserRoleProjectsShareConstants.Shared)
                 {
                     _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(deleteProject.ProjectID), _currentUser);
                 }
-            if (deleteProject.UserRole == 2)
+            if (deleteProject.UserRole == UserRoleProjectsShareConstants.Owner)
             {
                 var newproject = Mapper.Map<ProjectViewModel, Project>(project);
                 newproject.Delflag = 1;

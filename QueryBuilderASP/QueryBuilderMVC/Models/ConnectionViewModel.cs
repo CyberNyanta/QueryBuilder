@@ -10,8 +10,9 @@ namespace QueryBuilderMVC.Models
 {
 	public class ConnectionViewModel
 	{
+        public IEnumerable<ConnectionsListViewModel> Connections { get; set; }
 
-		[Required(ErrorMessage = @"Please enter connection name")]
+        [Required(ErrorMessage = @"Please enter connection name")]
 		public string ConnectionName { get; set; }
 
 		[Required(ErrorMessage = @"Please enter server name")]

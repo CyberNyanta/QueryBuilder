@@ -35,6 +35,10 @@ namespace QueryBuilderMVC.Mappings
 
             Mapper.CreateMap<ApplicationUser, UsersListViewModel>()
                 .ForMember(x => x.UserId, opt => opt.MapFrom(src => src.Id));
+
+            Mapper.CreateMap<ConnectionDB, ConnectionsListViewModel>()
+                .ForMember(x => x.ConnectionID, opt => opt.MapFrom(src => src.ConnectionID));
         }
+
     }
 }

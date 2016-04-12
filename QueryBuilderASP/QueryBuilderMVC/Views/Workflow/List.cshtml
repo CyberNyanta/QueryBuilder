@@ -51,7 +51,7 @@
             <div class="portlet-header">
 
                 <div style="display:inline-block;">
-                    Connection
+                    My connections
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
                         <div>
@@ -73,6 +73,12 @@
                                         data_dialog_title = "Delete connection"
                                     })
                                 </div>
+                                <div>@Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                                    new
+                                    {
+                                        @class = "CreateConnection",
+                                        data_dialog_title = "Create connection"
+                                    })</div>
                             }
                             else
                             {
@@ -94,10 +100,19 @@
 
             </div>
             <div class="portlet-content">
-                <p>@ViewBag.ConnectionOwner</p>
+                @if (Model.IdCurrentProject != 0)
+                {
+                    foreach (var item in Model.ConnectionDbs)
+                {
+                        <p>ID= @item.ConnectionID</p>
+                    }
+                }
+
+
+                @*<p>@ViewBag.ConnectionOwner</p>
                 <p>@ViewBag.ConnectionName </p>
                 <p>@ViewBag.DatabaseName </p>
-                <p>@ViewBag.ServerName </p>
+                <p>@ViewBag.ServerName </p>*@
 
             </div>
         </div>

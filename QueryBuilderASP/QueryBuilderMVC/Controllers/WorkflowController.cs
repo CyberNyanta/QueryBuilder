@@ -174,6 +174,7 @@ namespace QueryBuilderMVC.Controllers
             _projectModel.IdCurrentProject = Convert.ToInt32(id);
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
             var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            
             if (newProject != null)
             {
                 return PartialView("DeleteProjectPartial", newProject);
@@ -184,10 +185,24 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult DeleteProjectPartial(ProjectViewModel project)
         {
-            var newProject = Mapper.Map<ProjectViewModel, Project>(project);
-            newProject.Delflag = 1;
-            _serviceProject.SaveProject(newProject);
-            return PartialView("Success");
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
+            var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
+            var deleteProject = projectsViewModel.FirstOrDefault(x => x.ProjectID == project.IdCurrentProject);
+            deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
+            if (deleteProject.UserRole == 1)
+                {
+                    _serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(deleteProject.ProjectID), _currentUser);
+                }
+            if (deleteProject.UserRole == 2)
+            {
+                var newproject = Mapper.Map<ProjectViewModel, Project>(project);
+                newproject.Delflag = 1;
+                _serviceProject.SaveProject(newproject);
+
+            }
+                return PartialView("Success");
+           
         }
 
         [Authorize]

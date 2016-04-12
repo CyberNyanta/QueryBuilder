@@ -57,22 +57,7 @@
                         <div>
                             @if (ViewBag.ConnectionName != "ConnectionName")
                             {
-                                <div>
-                                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
-                                    new
-                                    {
-                                        @class = "UpdateConnection",
-                                        data_dialog_title = "Update connection"
-                                    })
-                                </div>
-                                <div>
-                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
-                                    new
-                                    {
-                                        @class = "DeleteConnection",
-                                        data_dialog_title = "Delete connection"
-                                    })
-                                </div>
+                              
                                 <div>@Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
@@ -82,7 +67,7 @@
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject, count = ViewBag.Count },
                                     new
                                     {
                                         @class = "CreateConnection",
@@ -105,6 +90,22 @@
                     foreach (var item in Model.ConnectionDbs)
                 {
                         <p>ID= @item.ConnectionID</p>
+                        <div>
+                            @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                                    new
+                                    {
+                                        @class = "UpdateConnection",
+                                        data_dialog_title = "Update connection"
+                                    })
+                        </div>
+                                <div>
+                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                                    new
+                                    {
+                                        @class = "DeleteConnection",
+                                        data_dialog_title = "Delete connection"
+                                    })
+                                </div>
                     }
                 }
 

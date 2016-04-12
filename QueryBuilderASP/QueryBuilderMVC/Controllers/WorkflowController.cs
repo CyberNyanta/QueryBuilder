@@ -71,17 +71,9 @@ namespace QueryBuilderMVC.Controllers
                         ViewBag.name = currentProject.ProjectName;
                         ViewBag.desk = currentProject.ProjectDescription;
                     }
-                    var connections = _serviceConnection.GetConnectionDBs().FirstOrDefault(a => a.ConnectionID == _projectModel.IdCurrentProject);
+                    ViewBag.Count = _projectModel.ConnectionDbs.Count();
 
-                    if (connections != null)
-                    {
-                        ViewBag.ConnectionName = connections.ConnectionName;
-                        ViewBag.DatabaseName = connections.DatabaseName;
-                        ViewBag.ServerName = connections.ServerName;
-                        ViewBag.ConnectionOwner = connections.ConnectionOwner;
-                        ViewBag.ConnectionID = connections.ConnectionID;
-                    }
-                    else
+                    if (ViewBag.Count == 0)
                     {
                         ViewBag.ConnectionName = "ConnectionName";
                         ViewBag.DatabaseName = "connections.DatabaseName";
@@ -164,6 +156,7 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(project);
                 _serviceProject.SaveProject(newProject);
+                ViewBag.IdCurrentProject = project.IdCurrentProject;
                 return PartialView("Success");
             }
             return PartialView("UpdateProjectPartial", project);
@@ -207,10 +200,11 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [Authorize]
-        public ActionResult CreateConnectionPartial(int id)
+        public ActionResult CreateConnectionPartial(int id, int count)
         {
             _connectionModel.ConnectionOwner = id;
-
+            _connectionModel.ConnectionCount = count;
+            _connectionModel.ServerName = _serviceConnection.GetConnectionDBs(id).FirstOrDefault().ServerName ;
             return PartialView("CreateConnectionPartial", _connectionModel);
 
         }
@@ -231,7 +225,7 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult UpdateConnectionPartial(int id)
         {
-            var currentConnection = _serviceConnection.GetConnectionDb(id);
+            var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(x => x.ConnectionID == id);
             var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
 
             return PartialView("UpdateConnectionPartial", newConnection);
@@ -241,6 +235,7 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult UpdateConnectionPartial(ConnectionViewModel connection)
         {
+           
             if (ModelState.IsValid)
             {
 				if (connection.IsConnectionValid())
@@ -258,9 +253,9 @@ namespace QueryBuilderMVC.Controllers
 
         [Authorize]
         public ActionResult DeleteConnectionPartial(int id)
-        { 
-            var currentConnection = _serviceConnection.GetConnectionDb(id);
-            var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
+        {
+            var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(x => x.ConnectionID == id);
+                var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
             if (newConnection != null)
             {
                 return PartialView("DeleteConnectionPartial", newConnection);

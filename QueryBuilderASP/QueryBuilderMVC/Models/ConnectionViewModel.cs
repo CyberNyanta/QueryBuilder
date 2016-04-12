@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Timers;
+using QueryBuilder.Utils.Extentions;
+using QueryBuilder.Constants.DbConstants;
 
 namespace QueryBuilderMVC.Models
 {
@@ -31,22 +33,20 @@ namespace QueryBuilderMVC.Models
 		public int ConnectionOwner { get; set; }
 		public int ConnectionID { get; set; }
 
+        public int ConnectionCount { get; set; }
+
 		public bool IsConnectionValid()
 		{
 			string connectionString = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
 			   ServerName, DatabaseName, LoginDB, PasswordDB);
 			var connection = new SqlConnection(connectionString);
-			Timer timer = new Timer(3000);
 			try
 			{
-
-				//timer.Elapsed += Timer_Elapsed;
-				//timer.Start();
-				connection.Open();
+				connection.QuickOpen(SqlConnectionConstants.OpenTimeout);
 				connection.Close();
 				return true;
 			}
-			catch
+			catch (Exception e)
 			{
 				return false;
 			}

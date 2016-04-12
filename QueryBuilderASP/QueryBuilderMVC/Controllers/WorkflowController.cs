@@ -162,6 +162,7 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(project);
                 _serviceProject.SaveProject(newProject);
+                ViewBag.IdCurrentProject = project.IdCurrentProject;
                 return PartialView("Success");
             }
             return PartialView("UpdateProjectPartial", project);

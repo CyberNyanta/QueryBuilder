@@ -79,8 +79,8 @@ namespace QueryBuilder.Services.DbServices
 
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                return unitOfWork.ProjectsShares.GetMany(p => p.UserId == user.Id).Select(f => f.Project).
-                                ToList().OrderByDescending(g => g.CreatedDate);
+                return unitOfWork.ProjectsShares.GetMany(p => (p.UserId == user.Id && p.User.Delflag == DelflagConstants.ActiveSet && p.Project.Delflag == DelflagConstants.ActiveSet))
+                                .Select(f => f.Project).ToList().OrderByDescending(g => g.CreatedDate);
             }
         }
 

@@ -130,6 +130,7 @@ namespace QueryBuilderMVC.Controllers
 
                 _serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
 
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 return PartialView("Success");
             }
             return PartialView("CreateProjectPartial");

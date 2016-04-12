@@ -208,3 +208,121 @@
      background-size: 25px;
      background-repeat: no-repeat;
 }
+.disabled
+{
+    display: none;
+}
+ .column {
+        float: left;
+        padding-bottom: 100px;
+    }
+
+    .nonSortable {
+        margin: 0 1em 1em 0;
+        padding: 0.3em;
+    }
+
+    .portlet {
+        margin: 0 1em 1em 0;
+        padding: 0.3em;
+    }
+
+    .portlet-header {
+        padding: 0.2em 0.3em;
+        margin-bottom: 0.5em;
+        position: relative;
+        width: 100%;
+        display: block;
+        height: 30px;
+    }
+
+    .portlet-toggle {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        margin-top: -8px;
+    }
+
+    .portlet-3 {
+        /*position: absolute;
+        top: 50%;
+        right: 45px;*/
+         position:relative;
+        float: right;
+        display: inline-block;
+    }
+
+    .portlet-2 {
+        /*position: absolute;
+        top: 50%;
+        right: 20px;*/
+
+        position:relative;
+        float: right;
+        display: inline-block;
+    }
+
+    .portlet-content {
+        padding: 0.4em;
+    }
+
+    .portlet-placeholder {
+        border: 1px dotted black;
+        margin: 0 1em 1em 0;
+        height: 50px;
+    }
+
+    .iconHeader {
+        background-repeat: no-repeat;
+        width: 27px;
+        height: 27px;
+        background-size: 25px;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .iconHeaderEdit {
+        background-image: url(../../Images/Icon/edit2.png);
+        /*margin-top: -13px;*/
+    }
+
+    .iconHeaderCreate {
+        background-image: url(../../Images/Icon/add2.png);
+        margin-top: -13px;
+    }
+
+        .iconHeaderCreate:hover {
+            background-image: url(../../Images/Icon/add.png);
+        }
+
+    .iconHeaderEdit:hover {
+        background-image: url(../../Images/Icon/edit.png);
+    }
+
+    .iconHeaderDelete {
+        background-image: url(../../Images/Icon/Delete2.png);
+        background-position:center;
+        background-size:30px;
+        /*margin-top: -13px;*/
+    }
+
+.ItemConnectionDelete > .iconHeaderDelete
+ {
+        background-image: url(../../Images/Icon/Delete2.png);
+    }
+
+.iconHeaderDelete:hover
+{
+    background-image: url(../../Images/Icon/Delete.png);
+}
+
+
+.ItemNameConnection
+{
+    float: left;
+   max-width:150px;
+}
+.HeaderNameProject
+{
+   }

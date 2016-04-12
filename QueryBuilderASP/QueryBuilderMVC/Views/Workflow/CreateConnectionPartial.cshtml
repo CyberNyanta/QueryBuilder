@@ -16,6 +16,10 @@
         {
             <div>
                 @Html.TextBoxFor(x => x.ServerName, new { disabled = "disabled", placehoder = Model.ServerName })
+                <p class="TextField" style="display:none;">
+                    Database: @Html.TextBoxFor(x => x.ServerName,
+                    new { placeholder = Model.ServerName })
+                </p>
             </div>
         }
         else

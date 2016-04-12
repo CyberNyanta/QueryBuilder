@@ -139,9 +139,13 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult UpdateProjectPartial(int id)
         {
-            _projectModel.IdCurrentProject = Convert.ToInt32(id);
+            _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
-            var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            ProjectViewModel newProject = new ProjectViewModel();
+            newProject.Name = currentProject.ProjectName;
+            newProject.Description = currentProject.ProjectDescription;
+            newProject.IdCurrentProject = currentProject.ProjectID;
             if (newProject != null)
             {
                 return PartialView("UpdateProjectPartial", newProject);
@@ -167,10 +171,13 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult DeleteProjectPartial(int id)
         {
-            _projectModel.IdCurrentProject = Convert.ToInt32(id);
+            _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
-            var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
-            
+            //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            ProjectViewModel newProject = new ProjectViewModel();
+            newProject.Name = currentProject.ProjectName;
+            newProject.Description = currentProject.ProjectDescription;
+            newProject.IdCurrentProject = currentProject.ProjectID;
             if (newProject != null)
             {
                 return PartialView("DeleteProjectPartial", newProject);
@@ -206,7 +213,10 @@ namespace QueryBuilderMVC.Controllers
         {
             _connectionModel.ConnectionOwner = id;
             _connectionModel.ConnectionCount = count;
-            _connectionModel.ServerName = _serviceConnection.GetConnectionDBs(id).FirstOrDefault().ServerName ;
+            if (count != 0)
+            {
+                _connectionModel.ServerName = _serviceConnection.GetConnectionDBs(id).FirstOrDefault().ServerName;
+            }
             return PartialView("CreateConnectionPartial", _connectionModel);
 
         }

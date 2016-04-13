@@ -12,5 +12,7 @@ namespace QueryBuilder.Services.Contracts
         IEnumerable<ConnectionDB> GetConnectionDBs(int owner);
 
         ConnectionDB GetConnectionDb(int id);
+
+        void DeleteProjectConnections(int owner);
     }
 }

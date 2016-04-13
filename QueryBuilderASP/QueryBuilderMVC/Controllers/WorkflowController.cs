@@ -204,8 +204,10 @@ namespace QueryBuilderMVC.Controllers
                 if (deleteProject.UserRole == UserRoleProjectsShareConstants.Owner)
                 {
                     var newproject = Mapper.Map<ProjectViewModel, Project>(project);
-                    newproject.Delflag = 1;
+                    newproject.Delflag = DelflagConstants.UnactiveSet;
                     _serviceProject.SaveProject(newproject);
+
+                    _serviceConnection.DeleteProjectConnections(deleteProject.ProjectID);
                 }
             }
 

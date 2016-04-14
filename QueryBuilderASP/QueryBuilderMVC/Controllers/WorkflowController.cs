@@ -231,16 +231,23 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult CreateConnectionPartial(ConnectionViewModel connection)
         {
-            if (ModelState.IsValid)
-            {
-                var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
-                _serviceConnection.SaveConnection(newConnection);
+			if (ModelState.IsValid)
+			{
+				ViewBag.IdCurrentProject = connection.ConnectionOwner;
+				if (connection.IsConnectionValid())
+				{
+					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+					_serviceConnection.SaveConnection(newConnection);
 
-                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-                return PartialView("Success");
+					ViewBag.Title = "Success";
+					ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
 
-            }
-            return PartialView("CreateConnectionPartial",connection);
+					return PartialView("Result");
+				}
+				ViewBag.Title = "Failure";
+				return PartialView("Result");
+			}
+			return PartialView("CreateConnectionPartial",connection);
         }
 
         [Authorize]

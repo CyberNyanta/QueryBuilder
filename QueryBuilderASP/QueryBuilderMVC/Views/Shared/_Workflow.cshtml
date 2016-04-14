@@ -38,7 +38,7 @@
                             <div class="demo " style="line-height:50px;">
                                 <input type="checkbox" id="hd-1" class="hide " />
                                 <label for="hd-1">Your projects:</label>
-                                <div>
+                                <div id="proj">
                                     <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
                                     @if (Request.IsAuthenticated)
                                     {
@@ -51,8 +51,11 @@
                                                        })
                                         </div>
                                     }
+                                    <div id="ListProject">
+                                        @Html.Partial("ListProjectPartial")
 
-                                    @Html.Partial("ListProjectPartial")
+
+                                    </div>
 
                                 </div>
                             </div>
@@ -118,11 +121,11 @@
     <div class="container-fluid ">
         @RenderBody()
 
+        <div id="notify"></div>
 
 
 
     </div>
-
 
     <!-- Bootstrap Core JavaScript -->
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -155,15 +158,22 @@
                     buttons: {
                         "Create new project": function () {
                             $.ajax({
-                             url: "@Url.Action("CreateProjectPartial", "Workflow")",
-                             type: "POST",
-                             data: $('form').serialize(),
-                             datatype: "json",
-                             success: function (result) {
-                                 $("#dialogContent").html(result);
-                                }
+                                url: "@Url.Action("CreateProjectPartial", "Workflow")",
+                                type: "POST",
+                                data: $('form').serialize(),
+                                datatype: "json",
+                                success:
+                                        function (result) {
+                                            //$("#dialogContent").html(result);
+                                            $("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
+                                            $(".dialog").remove();
+
+                                        }
+
+
                             });
                         }
+
                     }
                 });
         });

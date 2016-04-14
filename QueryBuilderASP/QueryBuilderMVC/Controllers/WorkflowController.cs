@@ -115,6 +115,27 @@ namespace QueryBuilderMVC.Controllers
 
             return View(_projectModel);
         }
+        [HttpPost]
+        public ActionResult ListProjectPartial()
+        {
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
+            var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
+            var countInvited = 0;
+            foreach (var project in projectsViewModel)
+            {
+                project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                if (project.UserRole == 0)
+                {
+                    countInvited++;
+                }
+            }
+
+            ViewBag.CountInvited = countInvited;
+            _projectModel.Projects = projectsViewModel;
+
+            return PartialView("ListProjectPartial", _projectModel);
+        }
 
         [Authorize]
         public ActionResult CreateProjectPartial()
@@ -139,6 +160,7 @@ namespace QueryBuilderMVC.Controllers
             }
             return PartialView("CreateProjectPartial");
         }
+
 
         [Authorize]
         public ActionResult UpdateProjectPartial(int id)

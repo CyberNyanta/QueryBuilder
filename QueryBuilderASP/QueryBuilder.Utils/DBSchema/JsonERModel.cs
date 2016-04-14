@@ -33,7 +33,7 @@ namespace QueryBuilder.Utils.DBSchema
 			{
 
 				var type = (string)dr[TABLE_TYPE];
-				if (type != TABLE && type != VIEW && type != LINK)
+				if (type != TABLE ) //(type != TABLE && type != VIEW && type != LINK)
 				{
 					continue;
 				}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using QueryBuilder.Constants;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.DAL.Models;
@@ -53,6 +54,31 @@ namespace QueryBuilder.Services.DbServices
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
                 return unitOfWork.ConnectionDBs.GetById(id);
+            }
+        }
+
+        public void DeleteProjectConnections(int owner)
+        {
+            if (owner == 0)
+            {
+                throw new ArgumentNullException(nameof(owner));
+            }
+
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                var connectionDbs = unitOfWork.ConnectionDBs.GetMany(p => p.Delflag == DelflagConstants.ActiveSet 
+                                                                        && p.ConnectionOwner == owner).ToList();
+
+                foreach (var connectionDb in connectionDbs)
+                {
+                    connectionDb.Delflag = DelflagConstants.UnactiveSet;
+                    unitOfWork.ConnectionDBs.Update(connectionDb);
+                }
+
+                if (connectionDbs.Any())
+                {
+                    unitOfWork.Save();
+                }
             }
         }
     }

@@ -102,7 +102,11 @@ namespace QueryBuilderMVC.Controllers
                         ProjectName = "Example",
                         ProjectDescription = "This project for demonstration service"
                     }
+
                 };
+                ViewBag.ConnectionName = "ConnectionName";
+                ViewBag.DatabaseName = "DatabaseName";
+                ViewBag.ServerName = "ServerName";
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
                 
                 _projectModel.Projects = proj;                    

@@ -11,8 +11,11 @@
         <div class="portlet" id="id_1">
             <div class="portlet-header ">
                 <div style="width:100%; height: 30px;">
-
                     @ViewBag.name
+
+                    @* IF user autorized and choose current project show buttons for delete and edit project *@
+
+
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
                         <div>
@@ -58,13 +61,15 @@
                         <div>
                             @if (ViewBag.ConnectionName == "ConnectionName")
                             {
-                              
-                                <div>@Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+
+                                <div>
+                                    @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
                                         @class = "CreateConnection",
                                         data_dialog_title = "Create connection"
-                                    })</div>
+                                    })
+                            </div>
                             }
                             else
                             {
@@ -88,19 +93,26 @@
             <div class="portlet-content">
                 @if (Model.IdCurrentProject != 0)
                 {
-                        foreach (var item in Model.ConnectionDbs)
-                        {
+                    foreach (var item in Model.ConnectionDbs)
+                    {
                         <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
-                                <div class="ItemNameConnection">@item.ConnectionName</div>
-                               
-                                <div>
-                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                            <div class="ItemNameConnection">
+                                @Html.ActionLink(@item.ConnectionName, "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                                new
+                                {
+                                    @class = "LinkEdit",
+                                    data_dialog_title = "Update connection"
+                                })
+                            </div>
+
+                            <div>
+                                @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
                             new
                             {
                                 @class = "DeleteConnectionItem iconHeaderDeleteItem",
                                 data_dialog_title = "Delete connection"
                             })
-                                </div>
+                            </div>
                             <div class="">
                                 @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
                                         new
@@ -109,16 +121,19 @@
                                             data_dialog_title = "Update connection"
                                         })
                             </div>
+                            <div>
+                                @Html.ActionLink(" ", "ERModel", "Builder", new { id = item.ConnectionID },
+                                        new
+                                        {
+                                            @class = "ERModel",
+                                            data_dialog_title = "ER-Model"
+                                        })
                             </div>
-                            <br />
+                        </div>
+                        <br />
+
                     }
                 }
-
-
-                @*<p>@ViewBag.ConnectionOwner</p>
-                <p>@ViewBag.ConnectionName </p>
-                <p>@ViewBag.DatabaseName </p>
-                <p>@ViewBag.ServerName </p>*@
 
             </div>
         </div>
@@ -162,31 +177,10 @@
 </div>
 
 
-@if (Request.IsAuthenticated)
-{
+<script src="~/Scripts/WorkflowList.js">
 
-
-
-
-
-
-
-}
-else
-{
-
-    <h1 class="col-lg-6">Autorized please</h1>
-}
-
-
-
+</script>
 <script>
-
-
-
-
-
-
     $(function () {
         $(".column").sortable(
             {
@@ -204,13 +198,6 @@ else
             });
 
         var x = get_cookie("sort_left"+@Model.IdCurrentProject);
-        console.log("Cookie  "+x);
-
-        //$(function sss ()
-        //{
-        //    $(".column_left").append($(set_blocks()));
-        //});
-        //$(".column_left").append($(set_blocks()));
         set_blocks();
 
         function set_blocks()
@@ -256,48 +243,5 @@ else
                 return null;
             }
         }
-
-
-
-
-        $(".portlet")
-          .addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-            .find(".portlet-header")
-            .addClass("ui-widget-header ui-corner-all")
-            .prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-        $(".nonSortable")
-          .addClass(" ui-widget-content ui-helper-clearfix ui-corner-all")
-            .find(".portlet-header")
-            .addClass("ui-widget-header ui-corner-all")
-
-        $(".viewDialogDelete")
-            .prepend("<span class='iconHeaderDelete iconHeader portlet-2'></span>");
-
-        $(".portlet")
-        .find(".viewDialogEdit")
-            .prepend("<span class='iconHeaderEdit iconHeader portlet-3'></span>");
-
-        $(".UpdateConnection")
-            .prepend("<span class='iconHeaderEdit iconHeader portlet-3'></span>");
-        $(".UpdateConnectionItem")
-            .prepend("<span class='iconHeaderEdit iconHeader portlet-3'></span>");
-        $(".DeleteConnection")
-            .prepend("<span class='iconHeaderDelete iconHeader portlet-2'></span>");
-        $(".DeleteConnectionItem")
-            .prepend("<span class='iconHeaderDeleteItem iconHeader portlet-2'></span>");
-        $(".CreateConnection")
-            .prepend("<span class='iconHeaderCreate iconHeader portlet-2'></span>");
-
-        $(".portlet-toggle").click(function () {
-            var icon = $(this);
-            icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-            icon.closest(".portlet").find(".portlet-content").toggle();
-        });
-    });
-
-
-
-
-
+    } );
 </script>

@@ -38,7 +38,7 @@
                             <div class="demo " style="line-height:50px;">
                                 <input type="checkbox" id="hd-1" class="hide " />
                                 <label for="hd-1">Your projects:</label>
-                                <div id="proj">
+                                <div >
                                     <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
                                     @if (Request.IsAuthenticated)
                                     {
@@ -51,11 +51,16 @@
                                                        })
                                         </div>
                                     }
-                                    <div id="ListProject">
-                                        @Html.Partial("ListProjectPartial")
+                                    <div id="proj">
+                                        <div id="ListProject">
+                                            @Html.Partial("ListProjectPartial")
+
+
+                                        </div>
 
 
                                     </div>
+                                   
 
                                 </div>
                             </div>
@@ -120,10 +125,9 @@
     </div><!-- /container -->
     <div class="container-fluid ">
         @RenderBody()
-
         <div id="notify"></div>
 
-
+       
 
     </div>
 
@@ -167,6 +171,24 @@
                                             //$("#dialogContent").html(result);
                                             $("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
                                             $(".dialog").remove();
+                                            
+                                            var s = function () {
+                                                $.ajax({
+                                                    url: "@Url.Action("ListProjectPartial", "Workflow")",
+                                                    type: "POST",
+                                                    datatype: "json",
+                                                    success: 
+                                                        function (result) {
+                                                            console.log(result);
+                                                            $("#ListProject").remove();
+                                                            $("#proj").append('<div id="ListProject"></div>');
+                                                            $("#ListProject").append(result);
+                                                            $("#hd-1").addClass(".hide");
+                                                        }
+                                                })}
+                                            var rr = s();
+
+
 
                                         }
 

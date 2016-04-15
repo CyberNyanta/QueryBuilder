@@ -34,8 +34,11 @@
             },
             select: function(event, ui) {
                 $('#invitedUserId').val(ui.item.id);
+            },
+            search: function() {
+                $('#invitedUserId').val('');
             }
-        });
+    });
     })
 </script>
 

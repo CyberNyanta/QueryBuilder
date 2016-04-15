@@ -51,6 +51,7 @@ namespace QueryBuilderMVC.Controllers
                 foreach (var project in projectsViewModel)
                 {
                     project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                    project.CountUsersForShared = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(project.ProjectID)).Count();
                     if (project.UserRole == 0)
                     {
                         countInvited++;
@@ -383,6 +384,19 @@ namespace QueryBuilderMVC.Controllers
                 return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
 
             return RedirectToAction("List", "Workflow");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult SearchUser(string prefix, int projectId)
+        {
+            var allUsers = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(projectId));
+
+            var userName = from user in allUsers
+                           where user.UserName.Contains(prefix)
+                           select new { user.UserName, user.Id };
+
+            return Json(userName, JsonRequestBehavior.AllowGet);
         }
 
     }

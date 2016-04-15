@@ -16,5 +16,7 @@ namespace QueryBuilderMVC.Models
         public DateTime CreatedDate { get; set; }
 
         public int UserRole { get; set; }
+
+        public int CountUsersForShared { get; set; }
     }
 }

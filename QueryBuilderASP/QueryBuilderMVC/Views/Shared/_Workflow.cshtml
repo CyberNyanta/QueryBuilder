@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/normalize.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/demo.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/component.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui.theme.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui.theme.css" />
     @*<link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery.ui." />*@
     <link rel="stylesheet" type="text/css" href="~/Content/Workflow.css" />
 
@@ -21,14 +21,14 @@
     <script src="~/Scripts/modernizr.custom.js"></script>
     <script src="~/Scripts/jquery-2.2.1.js"></script>
     <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
-   
+
 </head>
 <body>
-   
+
     <div class="container">
 
 
-        <ul id="gn-menu" class="gn-menu-main" >
+        <ul id="gn-menu" class="gn-menu-main">
             <li class="gn-trigger">
                 <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
                 <nav class="gn-menu-wrapper">
@@ -38,7 +38,7 @@
                             <div class="demo " style="line-height:50px;">
                                 <input type="checkbox" id="hd-1" class="hide " />
                                 <label for="hd-1">Your projects:</label>
-                                <div >
+                                <div>
                                     <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
                                     @if (Request.IsAuthenticated)
                                     {
@@ -60,7 +60,7 @@
 
 
                                     </div>
-                                   
+
 
                                 </div>
                             </div>
@@ -105,348 +105,90 @@
 
             </li>
 
-            <li class="codrops-icon dropdown " >
+            <li class="codrops-icon dropdown ">
                 @Html.Partial("_NotificationUserPartial")
 
 
-                
-                 
+
+
             </li>
-            
-
-         </ul>
 
 
-      
+        </ul>
+
+
+
         @*<header>
-            
-        </header>*@
-        
+
+            </header>*@
+
     </div><!-- /container -->
     <div class="container-fluid ">
         @RenderBody()
         <div id="notify"></div>
 
-       
+
 
     </div>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="~/Scripts/bootstrap.min.js"></script>
 
+    <script src="~/Scripts/Workflow.js"></script>
 
 
     <script src="~/Scripts/classie.js"></script>
     <script src="~/Scripts/gnmenu.js"></script>
     <script>
-			new gnMenu( document.getElementById( 'gn-menu' ) );
+        new gnMenu(document.getElementById('gn-menu'));
     </script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
 
     <script>
-    $(document).ready(function () {
 
-        $.ajaxSetup({ cache: false });
+        $(document).ready(function () {
 
-        $("#IconMenuAdd").on("click", function (e) {
-            e.preventDefault();
+            $.ajaxSetup({ cache: false });
 
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Create new project": function () {
-                            $.ajax({
-                                url: "@Url.Action("CreateProjectPartial", "Workflow")",
-                                type: "POST",
-                                data: $('form').serialize(),
-                                datatype: "json",
-                                success:
-                                        function (result) {
-                                            //$("#dialogContent").html(result);
-                                            $("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
-                                            $(".dialog").remove();
-                                            
-                                            var s = function () {
-                                                $.ajax({
-                                                    url: "@Url.Action("ListProjectPartial", "Workflow")",
-                                                    type: "POST",
-                                                    datatype: "json",
-                                                    success: 
-                                                        function (result) {
-                                                            console.log(result);
-                                                            $("#ListProject").remove();
-                                                            $("#proj").append('<div id="ListProject"></div>');
-                                                            $("#ListProject").append(result);
-                                                            $("#hd-1").addClass(".hide");
-                                                        }
-                                                })}
-                                            var rr = s();
+            @*ModalPostDialogCreateWithNotifyAndUpdate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
+            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');*@
+
+            ModalPostDialogCreate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")');
+
+            ModalPostDialogDelete(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")');
+
+            ///Modal edit for edit Project
+            ModalPostDialogUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")');
+            ///Modal edit for edit Connection
+            ModalPostDialogUpdate(".UpdateConnection", '@Url.Action("UpdateConnectionPartial", "Workflow")');
+            ModalPostDialogUpdate(".UpdateConnectionItem", '@Url.Action("UpdateConnectionPartial", "Workflow")');
+            ModalPostDialogUpdate(".LinkEdit", '@Url.Action("UpdateConnectionPartial", "Workflow")');
+            ///Modal create Connection
+            ModalPostDialogCreate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")');
+
+            ModalPostDialogDelete(".DeleteConnection", '@Url.Action("DeleteConnectionPartial", "Workflow")');
+            ModalPostDialogDelete(".DeleteConnectionItem", '@Url.Action("DeleteConnectionPartial", "Workflow")');
+
+            ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');
 
 
 
-                                        }
 
 
-                            });
-                        }
 
-                    }
-                });
-        });
-        $(".IconModalDelete").on("click", function (e) {
-            e.preventDefault();
 
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Delete": function () {
-                            $.ajax({
-                                url: "@Url.Action("DeleteProjectPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
+
+
+
+
+            $(".close").on("click", function (e) {
+                e.preventDefault();
+                $(this).closest(".dialog").dialog("close");
+            });
         });
 
-        $(".IconModalEdit").on("click", function (e) {
-            e.preventDefault();
 
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Update": function () {
-                            $.ajax({
-                                url: "@Url.Action("UpdateProjectPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-        });
-        $(".UpdateConnection").on("click", function (e) {
-            e.preventDefault();
 
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Update": function () {
-                            $.ajax({
-                                url: "@Url.Action("UpdateConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-        });
-        $(".UpdateConnectionItem").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Update": function () {
-                            $.ajax({
-                                url: "@Url.Action("UpdateConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-        });
-        $(".LinkEdit").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Update": function () {
-                            $.ajax({
-                                url: "@Url.Action("UpdateConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-    });
-        $(".CreateConnection").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Create": function () {
-                            $.ajax({
-                                url: "@Url.Action("CreateConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-        });
-        $(".DeleteConnection").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Delete": function () {
-                            $.ajax({
-                                url: "@Url.Action("DeleteConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-        });
-
-        $(".DeleteConnectionItem").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Delete": function () {
-                            $.ajax({
-                                url: "@Url.Action("DeleteConnectionPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-    });
-
-        $(".IconModalInvite").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Invite user": function () {
-                            $.ajax({
-                                url: "@Url.Action("InviteUserToProjectPartial", "Workflow")",
-                                type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                $("#dialogContent").html(result);
-                            }
-                        });
-        }
-        }
-    });
-    });
-
-        $(".close").on("click", function (e) {
-            e.preventDefault();
-            $(this).closest(".dialog").dialog("close");
-        });
-    });
-
-        function InvitationUser(userName, userId) {
-        $("#invitedUser").val(userName);
-        $("#invitedUserId").val(userId);
-    }
 
     </script>
 </body>

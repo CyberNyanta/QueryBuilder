@@ -244,6 +244,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\component.css" />
     <Content Include="Content\demo.css" />
+    <Content Include="Content\form\form-elements.css" />
+    <Content Include="Content\form\style.css" />
     <Content Include="Content\normalize.css" />
     <Content Include="Content\parallax-slider\flexslider.css" />
     <Content Include="Content\parallax-slider\parallax-slider.css" />
@@ -390,6 +392,8 @@
     <Content Include="Scripts\jquery-ui-i18n.js" />
     <Content Include="Scripts\jquery-ui-i18n.min.js" />
     <Content Include="Scripts\jquery.cslider.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -403,7 +407,9 @@
     <Content Include="Scripts\Workflow.js" />
     <Content Include="Scripts\WorkflowList.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -459,6 +465,7 @@
     <Content Include="Views\Workflow\_InviteUserToProjectPartial.cshtml" />
     <Content Include="Views\Workflow\Result.cshtml" />
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
+    <Content Include="Views\Account\_RegisterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\parallax-slider\" />

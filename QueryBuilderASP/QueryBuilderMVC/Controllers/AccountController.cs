@@ -141,7 +141,8 @@ namespace QueryBuilderMVC.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var registerVM = new RegisterViewModel();
+            return PartialView("_RegisterPartial", registerVM);
         }
 
         //
@@ -172,7 +173,7 @@ namespace QueryBuilderMVC.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return PartialView("_RegisterPartial", model);
         }
 
         //

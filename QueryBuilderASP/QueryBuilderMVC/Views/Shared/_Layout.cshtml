@@ -14,22 +14,22 @@
 <body>
 
     @*<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1694104010860815',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-  };
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '1694104010860815',
+            xfbml      : true,
+            version    : 'v2.5'
+          });
+        };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-    </script>*@
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+          </script>*@
 
     <div class="navbar navbar-inverse navbar-fixed-top" id="tt">
         <div class="container">
@@ -54,7 +54,7 @@
 
     @RenderBody()
     <div class="container body-content">
-       
+
 
     </div>
 
@@ -66,5 +66,23 @@
     @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <!-- Modal Register -->
+    <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content" id="register-dialog">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('body').on('click', '.modal-link', function (e) {
+            e.preventDefault();
+            $(this).attr('data-target', '#modal-register');
+            $(this).attr('data-toggle', 'modal');
+        });
+    </script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 </body>
 </html>

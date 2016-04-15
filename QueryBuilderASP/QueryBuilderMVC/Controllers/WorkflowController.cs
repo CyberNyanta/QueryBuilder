@@ -101,15 +101,30 @@ namespace QueryBuilderMVC.Controllers
                     {
                         ProjectID = 1,
                         ProjectName = "Example",
-                        ProjectDescription = "This project for demonstration service"
-                    }
-
+                        ProjectDescription = "This project for demonstration service",
+                        UserRole = UserRoleProjectsShareConstants.Owner,
+                     }
+                    
                 };
-                ViewBag.ConnectionName = "ConnectionName";
-                ViewBag.DatabaseName = "DatabaseName";
-                ViewBag.ServerName = "ServerName";
+                var connect = new List<ConnectionsListViewModel>
+                {
+                    new ConnectionsListViewModel
+                    {
+                        ConnectionID = -1,
+                        ConnectionName = "Example",
+                        ConnectionOwner = 1,
+                        DatabaseName = "Northwind",
+                        LoginDB = "MyLogin",
+                        ServerName = "MSSQL"
+                    }
+                };
+                _projectModel.ConnectionDbs = connect;
+                //ViewBag.ConnectionName = "ConnectionName";
+                //ViewBag.DatabaseName = "DatabaseName";
+                //ViewBag.ServerName = "ServerName";
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
-                
+                _projectModel.Name = proj[0].ProjectName;
+                _projectModel.Description = proj[0].ProjectDescription;
                 _projectModel.Projects = proj;                    
                 
             }

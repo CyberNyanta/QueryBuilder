@@ -79,9 +79,13 @@
 
                 <ul class="dropdown-menu dropdown-user">
                     <li>
-                        <div class="SettingsUser">
-                            @Html.ActionLink("Settings account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                        </div>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div class="SettingsUser">
+                                @Html.ActionLink("Settings account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            </div>
+                        }
+                       
                     </li>
 
                     <li>

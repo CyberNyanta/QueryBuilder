@@ -26,9 +26,19 @@ namespace QueryBuilderMVC.Controllers
         {
             if (id != 0)
             {
-                var Connection = _serviceConnection.GetConnectionDb(id);
-                string sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
-                    Connection.ServerName, Connection.DatabaseName, Connection.LoginDB, Rijndael.DecryptStringFromBytes(Connection.PasswordDB));
+                string sqlConnection="";
+               
+                if (id==-1)
+                {
+                    sqlConnection = "Data Source =(LocalDB)\\MSSQLLocalDB; AttachDbFilename=| DataDirectory |\\NORTHWND.MDF; Integrated Security= True";
+                }
+                else
+                {
+                    var Connection = _serviceConnection.GetConnectionDb(id);
+
+                    sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
+                   Connection.ServerName, Connection.DatabaseName, Connection.LoginDB, Rijndael.DecryptStringFromBytes(Connection.PasswordDB));
+                }
                 var sql = new SqlConnection(sqlConnection);
 
                 var viewmodel = new ERModelViewModel(sql);

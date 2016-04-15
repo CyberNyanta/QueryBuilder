@@ -42,7 +42,7 @@
                   modal: true,
                   buttons: {
                       "Invite": function () {
-                          AjaxPostWithDialog(url);
+                          AjaxPostWithNotify(url);
                       }
                   }
               }
@@ -171,6 +171,17 @@
           datatype: "json",
           success: function (result) {
               $("#dialogContent").html(result);
+          }
+      });
+  };
+  function AjaxPostWithNotify(url) {
+      $.ajax({
+          url: url,
+          type: "POST",
+          data: $('form').serialize(),
+          datatype: "json",
+          success: function (result) {
+              Notify();
           }
       });
   };

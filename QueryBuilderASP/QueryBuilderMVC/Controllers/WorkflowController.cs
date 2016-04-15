@@ -278,15 +278,16 @@ namespace QueryBuilderMVC.Controllers
 				ViewBag.IdCurrentProject = connection.ConnectionOwner;
 				if (connection.IsConnectionValid())
 				{
-
 					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
 					_serviceConnection.SaveConnection(newConnection);
 
 					ViewBag.Title = "Success";
 					ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
 
-					return PartialView("Success");
+					return PartialView("Result");
 				}
+				ViewBag.Title = "Failure";
+				return PartialView("Result");
 			}
 			return PartialView("CreateConnectionPartial",connection);
         }

@@ -30,9 +30,6 @@ namespace QueryBuilderMVC.Models
 		[Required(ErrorMessage = @"Please enter database name")]
 		public string DatabaseName { get; set; }
 
-		[Required(ErrorMessage = @"Can't connect database! Please check your data")]
-		public bool? IsConnectionCorrect { get; set; } = false;
-
 		public int ConnectionOwner { get; set; }
 		public int ConnectionID { get; set; }
 
@@ -47,12 +44,10 @@ namespace QueryBuilderMVC.Models
 			{
 				connection.QuickOpen(SqlConnectionConstants.OpenTimeout);
 				connection.Close();
-				IsConnectionCorrect = true;
 				return true;
 			}
 			catch (Exception e)
 			{
-				IsConnectionCorrect = null;
 				return false;
 			}
 

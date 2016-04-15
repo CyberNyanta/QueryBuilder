@@ -7,6 +7,7 @@ using QueryBuilderMVC.Models;
 using System.Data.SqlClient;
 using QueryBuilder.Services.Contracts;
 using QueryBuilder.Utils.Encryption;
+using System.Configuration;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -30,8 +31,10 @@ namespace QueryBuilderMVC.Controllers
                
                 if (id==-1)
                 {
-                    sqlConnection = "Data Source =(LocalDB)\\MSSQLLocalDB; AttachDbFilename=| DataDirectory |\\NORTHWND.MDF; Integrated Security= True";
-                }
+					//sqlConnection = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot").ConnectionStrings.ConnectionStrings["NorthwindConnection"].ConnectionString;
+					sqlConnection = ConfigurationManager.ConnectionStrings["NorthwindConnection"].ConnectionString;
+					//sqlConnection = "Data Source =.\\v11; AttachDbFilename=| DataDirectory |NORTHWND.MDF; Integrated Security= True";
+				}
                 else
                 {
                     var Connection = _serviceConnection.GetConnectionDb(id);

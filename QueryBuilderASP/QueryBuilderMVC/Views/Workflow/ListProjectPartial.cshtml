@@ -71,7 +71,7 @@
                                 data_dialog_title = "Edit project"
                             })
                         </div>
-                        if (item.UserRole == 2)
+                        if ((item.UserRole == 2) && (item.CountUsersForShared > 0))
                         {
                             <div class="IconMenu">
                                 @Html.ActionLink(" ", "InviteUserToProjectPartial", "Workflow", new { id = item.ProjectID },

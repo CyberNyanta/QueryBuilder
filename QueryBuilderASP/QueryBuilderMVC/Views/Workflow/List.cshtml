@@ -11,30 +11,44 @@
         <div class="portlet" id="id_1">
             <div class="portlet-header ">
                 <div style="width:100%; height: 30px;">
+                    @if (Request.IsAuthenticated)
+                   {
                     @ViewBag.name
+                   }
+                   else
+                   {
+
+                    <span>@Model.Name</span>
+
+                   }
+
 
                     @* IF user autorized and choose current project show buttons for delete and edit project *@
 
 
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
-                        <div>
+                    <div>
 
-                            @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
+                        @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
                                     @class = "viewDialogDelete IconModalDelete",
                                     data_dialog_title = "Delete project"
                                 })
-                        </div>
-                        <div>
-                            @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
+                    </div>
+                    <div>
+                        @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
                                     @class = "viewDialogEdit IconModalEdit",
                                     data_dialog_title = "Edit project"
                                 })
-                        </div>
+                    </div>
+
+                    }
+                    else
+                    {
 
                     }
 
@@ -44,6 +58,10 @@
             <div class="portlet-content">
 
                 <div class="">
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <p>@Model.Description</p>
+                    }
                     <p>@ViewBag.desk</p>
 
                 </div>
@@ -62,8 +80,8 @@
                             @if (ViewBag.ConnectionName == "ConnectionName")
                             {
 
-                                <div>
-                                    @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                            <div>
+                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
                                         @class = "CreateConnection",
@@ -73,7 +91,7 @@
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject, count = ViewBag.Count },
+                            @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject, count = ViewBag.Count },
                                     new
                                     {
                                         @class = "CreateConnection",
@@ -96,31 +114,41 @@
                     foreach (var item in Model.ConnectionDbs)
                     {
                         <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
-                            <div class="ItemNameConnection">
-                                @Html.ActionLink(@item.ConnectionName, "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                            @if (Request.IsAuthenticated)
+                            {
+                                <div class="ItemNameConnection">
+                                    @Html.ActionLink(@item.ConnectionName, "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
                                 new
                                 {
                                     @class = "LinkEdit",
                                     data_dialog_title = "Update connection"
                                 })
-                            </div>
+                                </div>
 
-                            <div>
-                                @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                                <div>
+                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
                             new
                             {
                                 @class = "DeleteConnectionItem iconHeaderDeleteItem",
                                 data_dialog_title = "Delete connection"
                             })
-                            </div>
-                            <div class="">
-                                @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
+                                </div>
+                                <div class="">
+                                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
                                         new
                                         {
                                             @class = "UpdateConnectionItem",
                                             data_dialog_title = "Update connection"
                                         })
-                            </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="ItemNameConnection">
+                                    @item.ConnectionName
+                                </div>
+                            }
+
                             <div>
                                 @Html.ActionLink(" ", "ERModel", "Builder", new { id = item.ConnectionID },
                                         new
@@ -130,7 +158,7 @@
                                         })
                             </div>
                         </div>
-                        <br />
+                                <br />
 
                     }
                 }
@@ -163,11 +191,7 @@
             <div class="portlet-header">Query</div>
             <div class="portlet-content">
                 <ul class="sorted">
-                    @Html.ActionLink("ER-MODEL", "ERModel", "Builder",
-                                                       new
-                                                       {
-                                                           id = ViewBag.ConnectionID
-                                                       }, null)
+                  
                 </ul>
             </div>
         </div>

@@ -51,6 +51,7 @@ namespace QueryBuilderMVC.Controllers
                 foreach (var project in projectsViewModel)
                 {
                     project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                    project.CountUsersForShared = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(project.ProjectID)).Count();
                     if (project.UserRole == 0)
                     {
                         countInvited++;
@@ -100,20 +101,56 @@ namespace QueryBuilderMVC.Controllers
                     {
                         ProjectID = 1,
                         ProjectName = "Example",
-                        ProjectDescription = "This project for demonstration service"
-                    }
-
+                        ProjectDescription = "This project for demonstration service",
+                        UserRole = UserRoleProjectsShareConstants.Owner,
+                     }
+                    
                 };
-                ViewBag.ConnectionName = "ConnectionName";
-                ViewBag.DatabaseName = "DatabaseName";
-                ViewBag.ServerName = "ServerName";
+                var connect = new List<ConnectionsListViewModel>
+                {
+                    new ConnectionsListViewModel
+                    {
+                        ConnectionID = -1,
+                        ConnectionName = "Example",
+                        ConnectionOwner = 1,
+                        DatabaseName = "Northwind",
+                        LoginDB = "MyLogin",
+                        ServerName = "MSSQL"
+                    }
+                };
+                _projectModel.ConnectionDbs = connect;
+                //ViewBag.ConnectionName = "ConnectionName";
+                //ViewBag.DatabaseName = "DatabaseName";
+                //ViewBag.ServerName = "ServerName";
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
-                
+                _projectModel.Name = proj[0].ProjectName;
+                _projectModel.Description = proj[0].ProjectDescription;
                 _projectModel.Projects = proj;                    
                 
             }
 
             return View(_projectModel);
+        }
+        [HttpPost]
+        public ActionResult ListProjectPartial()
+        {
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
+            var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
+            var countInvited = 0;
+            foreach (var project in projectsViewModel)
+            {
+                project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                if (project.UserRole == 0)
+                {
+                    countInvited++;
+                }
+            }
+
+            ViewBag.CountInvited = countInvited;
+            _projectModel.Projects = projectsViewModel;
+
+            return PartialView("ListProjectPartial", _projectModel);
         }
 
         [Authorize]
@@ -139,6 +176,7 @@ namespace QueryBuilderMVC.Controllers
             }
             return PartialView("CreateProjectPartial");
         }
+
 
         [Authorize]
         public ActionResult UpdateProjectPartial(int id)
@@ -382,6 +420,19 @@ namespace QueryBuilderMVC.Controllers
                 return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
 
             return RedirectToAction("List", "Workflow");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult SearchUser(string prefix, int projectId)
+        {
+            var allUsers = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(projectId));
+
+            var userName = from user in allUsers
+                           where user.UserName.Contains(prefix)
+                           select new { user.UserName, user.Id };
+
+            return Json(userName, JsonRequestBehavior.AllowGet);
         }
 
     }

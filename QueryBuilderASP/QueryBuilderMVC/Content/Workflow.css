@@ -359,6 +359,19 @@
     float: left;
    max-width:150px;
 }
-.HeaderNameProject
+
+#notify
 {
-   }
+    position:fixed;
+    top: 63px;
+    right:5px;
+
+   
+}
+/*.alert-success
+{
+    display: block;
+}
+.alert-success .open{
+    display:block;
+}*/

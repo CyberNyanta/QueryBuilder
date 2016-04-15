@@ -42,7 +42,8 @@
                   modal: true,
                   buttons: {
                       "Invite": function () {
-                          AjaxPostWithNotify(url);
+                          //AjaxPostWithNotify(url);
+                          AjaxPostWithDialog(url);
                       }
                   }
               }

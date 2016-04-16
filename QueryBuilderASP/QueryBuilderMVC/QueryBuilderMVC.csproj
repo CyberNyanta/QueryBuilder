@@ -129,6 +129,10 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -149,10 +153,6 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -375,6 +375,12 @@
     <Content Include="fonts\icons.ttf" />
     <Content Include="fonts\icons.woff" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\query.pubxml" />
     <None Include="Properties\PublishProfiles\web.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

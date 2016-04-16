@@ -154,10 +154,10 @@
 
             $.ajaxSetup({ cache: false });
 
-            @*ModalPostDialogCreateWithNotifyAndUpdate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');*@
+            ModalPostDialogCreateWithNotifyAndUpdate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
+            //ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
 
-            ModalPostDialogCreate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")');
+            @*ModalPostDialogCreate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")');*@
 
             ModalPostDialogDelete(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")');
 

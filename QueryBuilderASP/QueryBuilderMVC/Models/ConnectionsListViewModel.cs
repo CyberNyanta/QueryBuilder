@@ -18,5 +18,7 @@ namespace QueryBuilderMVC.Models
         public string LoginDB { get; set; }
 
         public string DatabaseName { get; set; }
+
+        public byte[] PasswordDB { get; set; }
     }
 }

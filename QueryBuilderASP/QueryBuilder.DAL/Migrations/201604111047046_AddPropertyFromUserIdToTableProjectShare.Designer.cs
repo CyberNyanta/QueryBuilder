@@ -5,7 +5,8 @@ namespace QueryBuilder.DAL.Migrations
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
-    
+#pragma warning disable 0436
+
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
     public sealed partial class AddPropertyFromUserIdToTableProjectShare : IMigrationMetadata
     {

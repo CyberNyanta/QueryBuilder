@@ -87,7 +87,7 @@ namespace QueryBuilder.Utils.DBSchema
 			{
 				shema[1].Add(new { from = row[1], to = row[0] });
 			}
-
+            
 			return JsonConvert.SerializeObject(shema);
 		}
 

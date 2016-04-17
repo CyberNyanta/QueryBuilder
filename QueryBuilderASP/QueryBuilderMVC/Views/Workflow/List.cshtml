@@ -1,4 +1,7 @@
 ﻿@model QueryBuilderMVC.Models.ProjectViewModel
+@using SharkDev.MVC
+
+<link href="~/Content/SharkDev.TreeView.css" rel="stylesheet" />
 
 @{
     Layout = "~/Views/Shared/_Workflow.cshtml";
@@ -12,15 +15,15 @@
             <div class="portlet-header ">
                 <div style="width:100%; height: 30px;">
                     @if (Request.IsAuthenticated)
-                   {
-                    @ViewBag.name
-                   }
-                   else
-                   {
+                    {
+                        @ViewBag.name
+                    }
+                    else
+                    {
 
-                    <span>@Model.Name</span>
+                        <span>@Model.Name</span>
 
-                   }
+                    }
 
 
                     @* IF user autorized and choose current project show buttons for delete and edit project *@
@@ -28,23 +31,23 @@
 
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
-                    <div>
+                        <div>
 
-                        @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
+                            @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
                                     @class = "viewDialogDelete IconModalDelete",
                                     data_dialog_title = "Delete project"
                                 })
-                    </div>
-                    <div>
-                        @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
+                        </div>
+                        <div>
+                            @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
                                     @class = "viewDialogEdit IconModalEdit",
                                     data_dialog_title = "Edit project"
                                 })
-                    </div>
+                        </div>
 
                     }
                     else
@@ -80,18 +83,18 @@
                             @if (ViewBag.ConnectionName == "ConnectionName")
                             {
 
-                            <div>
-                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
+                                <div>
+                                    @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject },
                                     new
                                     {
                                         @class = "CreateConnection",
                                         data_dialog_title = "Create connection"
                                     })
-                            </div>
+                                </div>
                             }
                             else
                             {
-                            @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject, count = ViewBag.Count },
+                                @Html.ActionLink(" ", "CreateConnectionPartial", "Workflow", new { id = Model.IdCurrentProject, count = ViewBag.Count },
                                     new
                                     {
                                         @class = "CreateConnection",
@@ -158,7 +161,7 @@
                                         })
                             </div>
                         </div>
-                                <br />
+                        <br />
 
                     }
                 }
@@ -171,7 +174,10 @@
 
         <div class="nonSortable">
             <div class="portlet-header">QueryBuilder</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            <div class="portlet-content">
+
+
+            </div>
         </div>
         <div class="nonSortable">
             <div class="portlet-header">Result query</div>
@@ -184,15 +190,36 @@
 
         <div class="portlet" id="id_3">
             <div class="portlet-header">Databases</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            <div class="portlet-content">
+                @if (ViewBag.TreeData != null)
+                {
+                    @Html.SharkDev().TreeView(settings =>
+           {
+               settings.Id = "treeViewContainer";
+               settings.Header.Text = ViewBag.NameDatabase;
+               settings.Header.Visible = true;
+               settings.Header.Expanded = true;
+               settings.ClientHandlers.ContentSelect = "function (e) {console.log(e);}";
+               settings.AutoCompleteHandler = Url.Content("~/TreeView/GetBySample");
+               //settings.Height = 350;
+               //settings.Width = 270;
+               settings.DataOnClient = true;
+           }).GetContent(ViewBag.TreeData)
+                }
+               
+
+                <script>
+                    $("#treeViewContainer").addClass("column col-xs-12") 
+                </script>
+
+
+            </div>
         </div>
 
         <div class="portlet" id="id_4">
             <div class="portlet-header">Query</div>
             <div class="portlet-content">
-                <ul class="sorted">
-                  
-                </ul>
+                <ul class="sorted"></ul>
             </div>
         </div>
 
@@ -201,9 +228,9 @@
 </div>
 
 
-<script src="~/Scripts/WorkflowList.js">
+<script src="~/Scripts/WorkflowList.js"></script>
+<script src="~/Scripts/SharkDev.treeView.js"></script>
 
-</script>
 <script>
     $(function () {
         $(".column").sortable(

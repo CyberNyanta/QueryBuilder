@@ -13,6 +13,14 @@ using System.Text;
 using System.Web.Configuration;
 using QueryBuilder.Constants;
 using QueryBuilder.Utils.Mailers;
+using SharkDev.MVC;
+using SharkDev.Web.Controls.TreeView.Model;
+using System.Data.SqlClient;
+using QueryBuilder.Utils.Encryption;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using QueryBuilder.Utils.DBSchema;
+using System.Dynamic;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -38,6 +46,7 @@ namespace QueryBuilderMVC.Controllers
             _serviceConnection = serviceConnection;
             _serviceProjectsShareService = serviceProjectsShare;
         }
+
 
         [HttpGet]
         public ActionResult List(string id="0")
@@ -65,7 +74,43 @@ namespace QueryBuilderMVC.Controllers
                 {
                     var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
                     _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
-                    
+                    //
+                    //Create treeView from database in first connections;
+                    //
+                    //
+                    var connect = _projectModel.ConnectionDbs.First();
+                    var sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
+                                       connect.ServerName, connect.DatabaseName, connect.LoginDB, Rijndael.DecryptStringFromBytes(connect.PasswordDB));
+                    ViewBag.NameDatabase = connect.DatabaseName;
+                    var sql = new SqlConnection(sqlConnection);
+
+                    var viewmodel = JsonERModel.GetERModel(sql);
+                    var shema = new List<dynamic>[2];
+
+                    List<Node> _lstTreeNodes = new List<Node>();
+
+                    shema = JsonConvert.DeserializeObject<List<dynamic>[]>(viewmodel.ToString());
+                    var temp_tables = shema[0];
+                    int idItem = 0;
+                    foreach (var _name in temp_tables)
+                    {
+                        idItem++;
+                        dynamic table = new ExpandoObject();
+                        table = _name;
+                        var name = table.key as object;
+                        _lstTreeNodes.Add(new Node() { Id = idItem.ToString(), Term = name.ToString() });
+                        var idParent = idItem;
+                        foreach (var item in table.items)
+                        {
+                            idItem++;
+                            var column = item.name as object;
+                                
+                            _lstTreeNodes.Add(new Node() { Id = idItem.ToString(), Term = column.ToString(), ParentId = idParent.ToString() });
+                        }
+                    }
+
+                    ViewBag.TreeData = _lstTreeNodes;
+
                     var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
                     {
@@ -119,16 +164,13 @@ namespace QueryBuilderMVC.Controllers
                     }
                 };
                 _projectModel.ConnectionDbs = connect;
-                //ViewBag.ConnectionName = "ConnectionName";
-                //ViewBag.DatabaseName = "DatabaseName";
-                //ViewBag.ServerName = "ServerName";
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
                 _projectModel.Name = proj[0].ProjectName;
                 _projectModel.Description = proj[0].ProjectDescription;
                 _projectModel.Projects = proj;                    
                 
             }
-
+            
             return View(_projectModel);
         }
         [HttpPost]

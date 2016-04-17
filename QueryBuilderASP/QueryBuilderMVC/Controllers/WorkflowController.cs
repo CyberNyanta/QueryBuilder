@@ -356,7 +356,7 @@ namespace QueryBuilderMVC.Controllers
         [Authorize]
         public ActionResult InviteUserToProjectPartial(int id)
         {
-            var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(id));
+            var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(id)).Take(10);
 
             var usersViewModel = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UsersListViewModel>>(users);
 

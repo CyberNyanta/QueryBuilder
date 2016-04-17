@@ -1,4 +1,5 @@
-﻿@model QueryBuilderMVC.Models.UserViewModel
+﻿@using Newtonsoft.Json
+@model QueryBuilderMVC.Models.UserViewModel
 
 @{
     ViewBag.Title = "Users for shared";
@@ -12,7 +13,17 @@
        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })  
     </div>
     @Html.HiddenFor(model => model.ProjectId, new { placeholder = Model.ProjectId })
-    @Html.HiddenFor(model => model.UserId, new { @id = "invitedUserId", value = "" })        
+    @Html.HiddenFor(model => model.UserId, new { @id = "invitedUserId", value = "" })
+    <br/>
+    <br/>
+    <div class="list-group" id="listGroup">       
+        <div style="max-height: 270px; " id="memberlistcontainer">
+            @foreach (var item in Model.Users)
+            {
+                <a href="Javascript:void(0);" class="list-group-item" onclick="InvitationUser('@item.UserName', '@item.Id');">@item.UserName</a>
+            }
+        </div>
+    </div>
 }
 
 <script type="text/javascript">
@@ -25,6 +36,7 @@
                     dataType: "json",
                     data: { Prefix: request.term, projectId: @Model.ProjectId },
                     success: function(data) {
+                        fillListUsers(data);
                         response($.map(data, function(item) {
                             return { label: item.UserName, value: item.UserName, id: item.Id };
                         }));
@@ -38,9 +50,33 @@
             search: function() {
                 $('#invitedUserId').val('');
             }
-    });
+        });
+
+        $('#UserName').keyup(function(){
+            if ($(this).val() === '') {
+
+                fillListUsers(@Html.Raw(JsonConvert.SerializeObject(Model.Users)));
+            }
+        });
+
+        function fillListUsers(data) {
+            if ($("div").is("#memberlistcontainer")) {
+                $("div #memberlistcontainer").remove();
+            };
+
+            $('div #listGroup').append("<div style='max-height: 270px; overflow-y: auto;' id='memberlistcontainer'>");
+            jQuery.each(data, function() {
+                var tegA = $("<a href='Javascript:void(0)'></a>").text(this.UserName);
+                tegA.attr('onclick', 'InvitationUser(\'' + this.UserName + '\',\'' + this.Id + '\');');
+                tegA.addClass("list-group-item");
+                $('div #memberlistcontainer').append(tegA);
+
+            });
+            $('div #listGroup').append("</div>");
+        }
     })
 </script>
+
 
 
 

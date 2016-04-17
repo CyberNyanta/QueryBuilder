@@ -1,5 +1,5 @@
 ﻿function InvitationUser(userName, userId) {
-    $("#invitedUser").val(userName);
+    $("#UserName").val(userName);
     $("#invitedUserId").val(userId);
 };
 

@@ -177,6 +177,11 @@
             <div id="QueryBuilder" class="portlet-content">
 
 
+
+                <script>
+                    var text = $(".ItemQuery").text();
+
+                </script>
             </div>
         </div>
         <div class="nonSortable">
@@ -208,34 +213,6 @@
                 }
                
 
-                <script>
-                    $("#treeViewContainer").addClass("column col-xs-12");
-                    $(".spaninsidediv ").addClass("");
-
-                    $(function() {
-                        $( ".divInsideLi" ).draggable({
-                            appendTo: "body",
-                            helper: "clone"
-                        });
-                        $( "#QueryBuilder" ).droppable({
-                            activeClass: "ui-state-default",
-                            hoverClass: "ui-state-hover",
-                            accept: ":not(.ui-sortable-helper)",
-                            drop: function( event, ui ) {
-                                $( this ).find( ".placeholder" ).remove();
-                                $( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
-
-                            }
-                        });
-                    });
-                    $(function()
-                    {
-                        $("#QueryBuilder").sortable();
-                        $("#QueryBuilder").disableSelection();
-                    })
-
-                </script>
-
 
             </div>
         </div>
@@ -243,7 +220,6 @@
         <div class="portlet" id="id_4">
             <div class="portlet-header">Query</div>
             <div class="portlet-content">
-                <ul class="sorted"></ul>
             </div>
         </div>
 
@@ -256,7 +232,8 @@
 <script src="~/Scripts/SharkDev.treeView.js"></script>
 
 <script>
-    $(function () {
+
+    $(function SetGetWindow() {
         $(".column").sortable(
             {
                 connectWith: ".column",
@@ -273,50 +250,33 @@
             });
 
         var x = get_cookie("sort_left"+@Model.IdCurrentProject);
-        set_blocks();
+        set_blocks(@Model.IdCurrentProject);
 
-        function set_blocks()
-        {
-            var right = get_cookie("sort_right"+@Model.IdCurrentProject);
-            var left = get_cookie("sort_left"+@Model.IdCurrentProject);
-            var pattern = /(id=[0-9])/gmi;
-            while ((array = pattern.exec(left)) != null)
-            {
-                var result = array[0];
-                result += pattern.lastIndex;
-                var s = "#"+array[0];
-                console.log(s);
-                var ss = s.replace(/=/,"_")
-                console.log(ss);
-                $(".column_left").append($(ss));
-
-            }
-            while ((array = pattern.exec(right)) != null)
-            {
-                var result = array[0];
-                result += pattern.lastIndex;
-                var s = "#"+array[0];
-                console.log(s);
-                var ss = s.replace(/=/,"_")
-                console.log(ss);
-                $(".column_right").append($(ss));
-
-            }
-        }
-
-
-
-        function get_cookie(cookie_name)
-        {
-            var result = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
-            if (result)
-            {
-                return (unescape (result[2]));
-            }
-            else
-            {
-                return null;
-            }
-        }
     } );
+
+
+    $("#treeViewContainer").addClass("column col-xs-12");
+    $(".spaninsidediv ").addClass("");
+
+    $(function() {
+        $( ".divInsideLi" ).draggable({
+            appendTo: "body",
+            helper: "clone"
+        });
+        $( "#QueryBuilder" ).droppable({
+            activeClass: "ui-state-default",
+            hoverClass: "ui-state-hover",
+            accept: ":not(.ui-sortable-helper)",
+            drop: function( event, ui ) {
+                $( this ).find( ".placeholder" ).remove();
+                $( "<div class='ItemQuery'></div>" ).text( ui.draggable.text() ).appendTo( this );
+
+            }
+        });
+    });
+    $(function()
+    {
+        $("#QueryBuilder").sortable();
+        $("#QueryBuilder").disableSelection();
+    })
 </script>

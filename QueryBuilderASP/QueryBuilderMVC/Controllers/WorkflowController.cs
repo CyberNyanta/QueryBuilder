@@ -34,7 +34,6 @@ namespace QueryBuilderMVC.Controllers
         private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
         private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
-
         private ApplicationUser _currentUser;
 
         // GET: Product
@@ -53,6 +52,7 @@ namespace QueryBuilderMVC.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
                 var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
@@ -75,12 +75,12 @@ namespace QueryBuilderMVC.Controllers
                     var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
                     _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
                     //
-                    //Create treeView from database in first connections;
+                    //Create treeView from database in first connection;
                     //
                     //
                     if (_projectModel.ConnectionDbs.Count() > 0)
                     {
-                        var connect = _projectModel.ConnectionDbs.First();
+                       var connect = _projectModel.ConnectionDbs.First();
                         var sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
                                            connect.ServerName, connect.DatabaseName, connect.LoginDB, Rijndael.DecryptStringFromBytes(connect.PasswordDB));
                         ViewBag.NameDatabase = connect.DatabaseName;
@@ -90,7 +90,6 @@ namespace QueryBuilderMVC.Controllers
                         var shema = new List<dynamic>[2];
 
                         List<Node> _lstTreeNodes = new List<Node>();
-
                         shema = JsonConvert.DeserializeObject<List<dynamic>[]>(viewmodel.ToString());
                         var temp_tables = shema[0];
                         int idItem = 0;
@@ -101,16 +100,16 @@ namespace QueryBuilderMVC.Controllers
                             table = _name;
                             var name = table.key as object;
                             _lstTreeNodes.Add(new Node() { Id = idItem.ToString(), Term = name.ToString() });
+
                             var idParent = idItem;
                             foreach (var item in table.items)
                             {
                                 idItem++;
                                 var column = item.name as object;
-
                                 _lstTreeNodes.Add(new Node() { Id = idItem.ToString(), Term = column.ToString(), ParentId = idParent.ToString() });
                             }
                         }
-
+                        
                         ViewBag.TreeData = _lstTreeNodes;
                     }
                   

@@ -376,7 +376,7 @@
     display:block;
 }*/
 
-#QueryBuilder li
+#QueryBuilder .ItemQuery
 {
     display: inline-block;
     overflow: hidden;
@@ -390,9 +390,13 @@
     border: 0.5px solid gray;
     margin: 3px;
 }
-#QueryBuilder li:hover
+#QueryBuilder .ItemQuery:hover
 {
     cursor: pointer;
     background-color: rgba(70,184,218,0.3);
 
+}
+#QueryBuilder
+{
+    min-height:100px;
 }

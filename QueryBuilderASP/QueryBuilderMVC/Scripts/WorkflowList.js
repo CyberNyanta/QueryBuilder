@@ -40,3 +40,38 @@
         icon.closest(".portlet").find(".portlet-content").toggle();
     });
 });
+function get_cookie(cookie_name) {
+    var result = document.cookie.match('(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
+    if (result) {
+        return (unescape(result[2]));
+    }
+    else {
+        return null;
+    }
+};
+function set_blocks(id) {
+    var right = get_cookie("sort_right" + id);
+    var left = get_cookie("sort_left" + id);
+    var pattern = /(id=[0-9])/gmi;
+    while ((array = pattern.exec(left)) != null) {
+        var result = array[0];
+        result += pattern.lastIndex;
+        var s = "#" + array[0];
+        console.log(s);
+        var ss = s.replace(/=/, "_")
+        console.log(ss);
+        $(".column_left").append($(ss));
+
+    }
+    while ((array = pattern.exec(right)) != null) {
+        var result = array[0];
+        result += pattern.lastIndex;
+        var s = "#" + array[0];
+        console.log(s);
+        var ss = s.replace(/=/, "_")
+        console.log(ss);
+        $(".column_right").append($(ss));
+
+    }
+};
+

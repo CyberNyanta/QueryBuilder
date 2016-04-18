@@ -59,7 +59,7 @@ namespace QueryBuilder.Utils.DBSchema
 
 				foreach (DataColumn column in datatable.Columns)
 				{
-					table.items.Add(new { name = column.ColumnName });
+					table.items.Add(new { name = column.ColumnName, datatype = column.DataType.Name });
 				}
 
 				shema[0].Add(table);

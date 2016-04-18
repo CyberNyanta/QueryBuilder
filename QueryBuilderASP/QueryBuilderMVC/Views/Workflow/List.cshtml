@@ -256,13 +256,29 @@
 
 
     $("#treeViewContainer").addClass("column col-xs-12");
-    $(".spaninsidediv ").addClass("");
+    
+    $(function()
+    {
+        $(".divinsideli").each(function(){
+            var name = $(this).text();
+            //console.log($(this).text());//table name
+            var s = $(this).siblings().first();
+            //console.log(s);
+            $(s).each(function(){
+                $(this).children().addClass(name);
+            });
+        });
+        
+        
+  
+    });
 
     $(function() {
         $( ".divInsideLi" ).draggable({
             appendTo: "body",
             helper: "clone",
-            cursor: "move"
+            cursor: "move",
+            
 
         });
         $( "#QueryBuilder" ).droppable({
@@ -270,10 +286,9 @@
             hoverClass: "ui-state-hover",
             accept: ":not(.ui-sortable-helper)",
             drop: function( event, ui ) {
-                //$( this ).find( ".placeholder" ).remove();
-                $( "<div class='ItemQuery'></div>" ).text( ui.draggable.text() ).appendTo( this );
-                //$( "<div class='ItemQuery'></div>" ).ui.draggable.append( this );
-
+             
+                var tableName = ($(ui.draggable).parent().first().attr("class"));
+                $( "<div class='ItemQuery "+ tableName +"'></div>" ).text( ui.draggable.text() ).appendTo( this );
             }
         });
     });

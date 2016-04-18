@@ -19,10 +19,6 @@ namespace QueryBuilderMVC.Models
         public string Description { get; set; }
 
         public IEnumerable<ConnectionsListViewModel> ConnectionDbs { get; set; }
-<<<<<<< HEAD
-=======
-        //public List<QueryViewModel> Queries { get; set; }
->>>>>>> origin/Query
 
         //public IEnumerable<ConnectionDB> _ConnectionDb { get; set; }
     }

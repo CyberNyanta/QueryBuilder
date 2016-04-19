@@ -202,14 +202,6 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharkDev.MVC, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharkTree.1.2.1.2\lib\SharkDev.MVC.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharkDev.Web.Controls, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharkTree.1.2.1.2\lib\SharkDev.Web.Controls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -336,7 +328,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\component.css" />
     <Content Include="Content\demo.css" />
-    <Content Include="Content\Images\SharkDev.TreeView.png" />
     <Content Include="Content\normalize.css" />
     <Content Include="Content\parallax-slider\flexslider.css" />
     <Content Include="Content\parallax-slider\parallax-slider.css" />
@@ -738,10 +729,6 @@
     <Content Include="img\TreeView\treeview-red.gif" />
     <Content Include="img\ui-icons_039be5_256x240.png" />
     <Content Include="img\ui-icons_ffffff_256x240.png" />
-    <Content Include="js\release\dto.generated.js" />
-    <Content Include="js\release\jquery-ui.js" />
-    <Content Include="js\release\jquery.js" />
-    <Content Include="js\release\usr_v2_11_1.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="fonts\icons.ttf" />
@@ -828,6 +815,10 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\modernizr.custom.28468.js" />
     <Content Include="Scripts\modernizr.custom.js" />
+    <Content Include="Scripts\QueryBuilder\dto.generated.js" />
+    <Content Include="Scripts\QueryBuilder\jquery-ui.js" />
+    <Content Include="Scripts\QueryBuilder\jquery.js" />
+    <Content Include="Scripts\QueryBuilder\usr_v2_11_1.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />

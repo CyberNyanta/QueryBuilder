@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
 
 
 <!DOCTYPE html>
@@ -19,8 +20,28 @@
 
 
     <script src="~/Scripts/modernizr.custom.js"></script>
-    <script src="~/Scripts/jquery-2.2.1.js"></script>
-    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
+    @*<script src="~/Scripts/jquery-2.2.1.js"></script>
+    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />*@
+
+    @Html.ActiveQueryBuilder().GetCSS(settings =>
+{
+    // Instructs to load the jQueryUI CSS files
+    settings.LoadJQuery = true;
+    // Determines path to the component's CSS files
+    settings.Path = "~/css/";
+})
+
+    @Html.ActiveQueryBuilder().GetScripts(settings =>
+{
+    // Instructs to load the jQuery and jQueryUI JavaScript libraries
+    settings.LoadJQuery = true;
+    // Determines path to the component's JavaScript libraries
+    settings.Path = "~/Scripts/QueryBuilder/";
+})
+
+
+
+
 
 </head>
 <body>
@@ -112,9 +133,6 @@
             <li class="codrops-icon dropdown ">
                 @Html.Partial("_NotificationUserPartial")
 
-
-
-
             </li>
 
 
@@ -146,7 +164,7 @@
     <script>
         new gnMenu(document.getElementById('gn-menu'));
     </script>
-    <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>*@
 
     <script>
 

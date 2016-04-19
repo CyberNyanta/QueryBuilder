@@ -1,5 +1,18 @@
 ﻿@model QueryBuilderMVC.Models.ProjectViewModel
 @using SharkDev.MVC
+@using System.Data.SqlClient
+@using System.Web.UI.WebControls
+@using ActiveDatabaseSoftware.ActiveQueryBuilder
+@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
+@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server
+@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
+
+
+
+@*<script src="~/Scripts/QueryBuilder/dto.generated.js"></script>
+<script src="~/Scripts/QueryBuilder/usr_v2_11_1.js"></script>
+<script src="~/Scripts/QueryBuilder/jquery-ui.js"></script>
+<script src="~/Scripts/QueryBuilder/jquery-ui.js"></script>*@
 
 <link href="~/Content/SharkDev.TreeView.css" rel="stylesheet" />
 
@@ -176,27 +189,117 @@
             <div class="portlet-header">QueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
+                @Html.ActiveQueryBuilder(settings =>
+           {
+               settings.HttpCompressionEnabled = false;
+               settings.PersistentConnection = false;
+               settings.Language = "auto";
+               settings.UseCustomLanguageFiles = false;
+               settings.CustomLanguagePath = "~/Language Files/";
+
+               settings.Init += (sender, e) =>
+               {
+                   var sessionStoreItem = sender as SessionStoreItem;
+                   // Get instance of the QueryBuilder object
+                   var queryBuilder = sessionStoreItem.QueryBuilder;
+
+                   // create an instance of the proper syntax provider for your database server.
+                   // - use AutoSyntaxProvider if you want to detect your database server automatically
+                   //   (autodetection works in case of live database connection only);
+                   // - use ANSI or Universal syntax provider only if you can't find the right syntax
+                   //   provider for your database server.
+                   var syntaxProvider = new MSSQLSyntaxProvider();
+
+                   queryBuilder.SyntaxProvider = syntaxProvider;
+                   // ===========================================================
+                   // a) you can load metadata from the database connection using live database connection
+                   var connection = new SqlConnection { ConnectionString = "Data Source = .; Initial catalog= QueryBuilder; Integrated Security = True" };
+                   var metadataProvider = new MSSQLMetadataProvider { Connection = connection };
+                   queryBuilder.MetadataProvider = metadataProvider;
+
+                   // call the RefreshMetadata to load metadata from a database connection
+                   queryBuilder.MetadataStructure.Refresh();
+
+                   // ===========================================================
+                   // b) or you can load metadata from the pre-generated XML file
+                   //queryBuilder.OfflineMode = false;
+                   //queryBuilder.MetadataContainer.ImportFromXML(Server.MapPath("~/Views/Northwind.xml"));
+                   //queryBuilder.MetadataStructure.Refresh();
+               };
+           }).GetHtml()
+
+                <div id="all">
+                    <div id="content-container">
+                        <div id="qb-ui">
+                            <div id="tree">
+                                @Html.ActiveQueryBuilder().ObjectTree(settings =>
+       {
+           settings.ShowFields = false;
+           settings.ShowDescriptons = false;
+           settings.SortingType = ObjectsSortingType.None;
+           settings.VisiblePaginationLinksCount = 6;
+           settings.ItemsPerPage = 24;
+           settings.PreloadedPagesCount = 3;
+           settings.ShowAllItemInGroupingSelectLists = true;
+       }).GetHtml()
+                                
+                            </div>
+                         
+                            
+
+                            <div id="center">
+                                @Html.ActiveQueryBuilder().SubQueryNavigationBar(settings =>
+           {
+               settings.UnionNavBarVisible = true;
+           }).GetHtml()
+                                @Html.ActiveQueryBuilder().Canvas(settings =>
+               {
+                   settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
+                   settings.DefaultDatasourceWidth = "auto";
+                   settings.DisableDatasourcePropertiesDialog = false;
+                   settings.DisableLinkPropertiesDialog = false;
+                   settings.DisableQueryPropertiesDialog = false;
+                   settings.MaxDefaultDatasourceHeight = "144";
+                   //settings.FieldListOptions
+               }).GetHtml()
+                                @Html.ActiveQueryBuilder().Grid(settings =>
+           {
+               settings.OrColumnCount = 2;
+           }).GetHtml()
+                                @Html.ActiveQueryBuilder().StatusBar().GetHtml()
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-                <script>
-                    var text = $(".ItemQuery").text();
 
-                </script>
+
+
+
+              
             </div>
         </div>
         <div class="nonSortable">
             <div class="portlet-header">Result query</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            <div class="portlet-content">
+
+
+
+            </div>
         </div>
     </div>
 
 
     <div class="column column_right col-xs-12 col-lg-3 col-md-3 col-sm-3">
 
-        <div class="portlet" id="id_3">
+        <div class="portlet" id="id_3" >
             <div class="portlet-header">Databases</div>
-            <div class="portlet-content">
-                @if (ViewBag.TreeData != null)
+            <div class="portlet-content" id="TreeDatabase">
+                @* My TreeView *@
+                @*@if (ViewBag.TreeData != null)
                 {
                     @Html.SharkDev().TreeView(settings =>
            {
@@ -210,8 +313,8 @@
                //settings.Width = 270;
                settings.DataOnClient = true;
            }).GetContent(ViewBag.TreeData)
-                }
-               
+                }*@
+    
 
 
             </div>
@@ -219,7 +322,10 @@
 
         <div class="portlet" id="id_4">
             <div class="portlet-header">Query</div>
-            <div class="portlet-content">
+            <div class="portlet-content" >
+                @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
+
+
             </div>
         </div>
 
@@ -228,11 +334,13 @@
 </div>
 
 
+
+
 <script src="~/Scripts/WorkflowList.js"></script>
-<script src="~/Scripts/SharkDev.treeView.js"></script>
+@*<script src="~/Scripts/SharkDev.treeView.js"></script>*@
 
 <script>
-
+    
     $(function SetGetWindow() {
         $(".column").sortable(
             {
@@ -255,46 +363,66 @@
     } );
 
 
-    $("#treeViewContainer").addClass("column col-xs-12");
+    $("#qb-ui-tree .qb-ui-tree").addClass("column col-xs-12");
     
-    $(function()
-    {
-        $(".divinsideli").each(function(){
-            var name = $(this).text();
-            //console.log($(this).text());//table name
-            var s = $(this).siblings().first();
-            //console.log(s);
-            $(s).each(function(){
-                $(this).children().addClass(name);
-            });
-        });
+    //$(function SetTableName()
+    //{
+    //    $(".divinsideli").each(function(){
+    //        var name = $(this).text();
+    //        //console.log($(this).text());//table name
+    //        var s = $(this).siblings().first();
+    //        //console.log(s);
+    //        $(s).each(function(){
+    //            $(this).children().addClass(name);
+    //        });
+    //    });
         
         
   
-    });
-
-    $(function() {
-        $( ".divInsideLi" ).draggable({
-            appendTo: "body",
-            helper: "clone",
-            cursor: "move",
+    //});
+    //My drag and drop
+    //$(function() {
+    //    $( ".divInsideLi" ).draggable({
+    //        appendTo: "body",
+    //        helper: "clone",
+    //        cursor: "move",
             
 
-        });
-        $( "#QueryBuilder" ).droppable({
-            activeClass: "ui-state-default",
-            hoverClass: "ui-state-hover",
-            accept: ":not(.ui-sortable-helper)",
-            drop: function( event, ui ) {
+    //    });
+    //    $( "#QueryBuilder" ).droppable({
+    //        activeClass: "ui-state-default",
+    //        hoverClass: "ui-state-hover",
+    //        accept: ":not(.ui-sortable-helper)",
+    //        drop: function( event, ui ) {
              
-                var tableName = ($(ui.draggable).parent().first().attr("class"));
-                $( "<div class='ItemQuery "+ tableName +"'></div>" ).text( ui.draggable.text() ).appendTo( this );
-            }
-        });
-    });
-    $(function()
-    {
-        $("#QueryBuilder").sortable();
-        $("#QueryBuilder").disableSelection();
-    })
+    //            var tableName = ($(ui.draggable).parent().first().attr("class"));
+    //            $( "<div class='"+tableName+" ItemQuery'></div>" ).text( ui.draggable.text() ).appendTo( this );
+    //        }
+    //    });
+    //});
+    //$(function()
+    //{
+    //    $("#QueryBuilder").sortable();
+    //    $("#QueryBuilder").disableSelection();
+    //})
+
+    //$(init);
+
+    //function init() {
+    //    $('#TreeDatabase').append( $('#gb-ui>p') );
+    //    //$('#gb-ui>p').detach().prependTo('#TreeDatabase');
+    //    console.log("move");
+    //}
+
+
+    $( init );
+
+    function init() {
+
+        // Перемещаем параграф из #myDiv1 в #myDiv2 и #myDiv3
+        $('#TreeDatabase').append( $('#qb-ui>#tree') );
+    }
+
+
+
 </script>

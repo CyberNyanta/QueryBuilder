@@ -1,6 +1,9 @@
-﻿<!DOCTYPE html>
+@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
+<!DOCTYPE html>
 <html>
 <head>
+    @Html.ActiveQueryBuilder().GetCSS()
+    @Html.ActiveQueryBuilder().GetScripts()
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
@@ -68,3 +71,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

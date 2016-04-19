@@ -483,5 +483,10 @@ namespace QueryBuilderMVC.Controllers
             return Json(userName, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult QueryBuilder()
+        {
+            return View();
+        }
+
     }
 }

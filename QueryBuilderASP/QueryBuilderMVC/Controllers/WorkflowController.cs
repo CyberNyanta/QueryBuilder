@@ -2,14 +2,13 @@
 using System.Web.Mvc;
 using QueryBuilder.DAL.Models;
 using QueryBuilderMVC.Models;
-using QueryBuilder.DAL.Contracts;
 using Microsoft.AspNet.Identity;
 using QueryBuilder.Utils;
 using System.Linq;
 using AutoMapper;
 using QueryBuilder.Services.Contracts;
 using System.Collections.Generic;
-using System.Text;
+using System.Data;
 using System.Web.Configuration;
 using QueryBuilder.Constants;
 using QueryBuilder.Utils.Mailers;
@@ -34,7 +33,6 @@ namespace QueryBuilderMVC.Controllers
         private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
         private ApplicationUser _currentUser;
 
-        // GET: Product
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser, 
             IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection)
         {
@@ -44,13 +42,11 @@ namespace QueryBuilderMVC.Controllers
             _serviceProjectsShareService = serviceProjectsShare;
         }
 
-
         [HttpGet]
         public ActionResult List(string id="0")
         {
             if (User.Identity.IsAuthenticated)
             {
-
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
                 var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
@@ -76,7 +72,7 @@ namespace QueryBuilderMVC.Controllers
                     //Create treeView from database in first connection;
                     //
                     //
-                    if (_projectModel.ConnectionDbs.Count() > 0)
+                    if (_projectModel.ConnectionDbs.Any())
                     {
                        var connect = _projectModel.ConnectionDbs.First();
                         var sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
@@ -456,5 +452,43 @@ namespace QueryBuilderMVC.Controllers
             return Json(userName, JsonRequestBehavior.AllowGet);
         }
 
+        public string GetData()
+        {
+            var dataTableForGrid = GetDataTableForGrid();
+
+            return JsonConvert.SerializeObject(dataTableForGrid);
+        }
+
+        public string GetGridModel()
+        {
+            var dataTableForGrid = GetDataTableForGrid();
+
+            var header = (from DataColumn column in dataTableForGrid.Columns
+                          select new DataGridModel
+                          {
+                              Name = column.ColumnName,
+                              Index = column.ColumnName,
+                              Sortable = true
+                          }).ToList();
+
+            return JsonConvert.SerializeObject(header);
+        }
+
+        private DataTable GetDataTableForGrid()
+        {
+            // FOR TEST
+            var table = new DataTable();
+            table.Columns.Add("Dosage", typeof(int));
+            table.Columns.Add("Drug", typeof(string));
+            table.Columns.Add("Patient", typeof(string));
+            table.Columns.Add("Date", typeof(DateTime));
+
+            table.Rows.Add(25, "Indocin", "David", DateTime.Now);
+            table.Rows.Add(50, "Enebrel", "Sam", DateTime.Now);
+            table.Rows.Add(10, "Hydralazine", "Christoff", DateTime.Now);
+            table.Rows.Add(21, "Combivent", "Janet", DateTime.Now);
+            table.Rows.Add(100, "Dilantin", "Melanie", DateTime.Now);
+            return table;
+        }
     }
 }

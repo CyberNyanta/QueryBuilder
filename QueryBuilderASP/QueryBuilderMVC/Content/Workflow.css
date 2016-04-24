@@ -400,3 +400,18 @@
 {
     min-height:100px;
 }
+
+.ui-jqgrid .ui-pg-input 
+{
+    height: 20px;
+}
+
+.ui-jqgrid .ui-jqgrid-pager 
+{
+    height: 40px;
+}
+
+.ui-jqgrid .ui-jqgrid-pager .ui-pg-div
+{
+    font-size: 14px;
+}

@@ -395,7 +395,17 @@
                 scrollerbar: true
              });
 
-             //
+             $("#jqg").jqGrid('navGrid', '#jpager', {
+                search: true,
+                searchtext: "Search",
+                refresh: false,
+                add: false,
+                del: false,
+                edit: false,
+                view: true,
+                viewtext: "View",
+                viewtitle: "Selected record"
+             });
          },
          error: function(x, e)
          {

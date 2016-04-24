@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using QueryBuilder.DAL.Models;
 using QueryBuilderMVC.Models;
 using Microsoft.AspNet.Identity;
-using QueryBuilder.Utils;
 using System.Linq;
 using AutoMapper;
 using QueryBuilder.Services.Contracts;
@@ -12,12 +11,8 @@ using System.Data;
 using System.Web.Configuration;
 using QueryBuilder.Constants;
 using QueryBuilder.Utils.Mailers;
-using System.Data.SqlClient;
 using QueryBuilder.Utils.Encryption;
 using Newtonsoft.Json;
-using System.Diagnostics;
-using QueryBuilder.Utils.DBSchema;
-using System.Dynamic;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -232,10 +227,12 @@ namespace QueryBuilderMVC.Controllers
             _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
             //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
-            ProjectViewModel newProject = new ProjectViewModel();
-            newProject.Name = currentProject.ProjectName;
-            newProject.Description = currentProject.ProjectDescription;
-            newProject.IdCurrentProject = currentProject.ProjectID;
+            var newProject = new ProjectViewModel
+            {
+                Name = currentProject.ProjectName,
+                Description = currentProject.ProjectDescription,
+                IdCurrentProject = currentProject.ProjectID
+            };
             if (newProject != null)
             {
                 return PartialView("DeleteProjectPartial", newProject);
@@ -280,11 +277,14 @@ namespace QueryBuilderMVC.Controllers
             _connectionModel.ConnectionCount = count;
             if (count != 0)
             {
-                _connectionModel.ServerName = _serviceConnection.GetConnectionDBs(id).FirstOrDefault().ServerName;
+                var connection = _serviceConnection.GetConnectionDBs(id).FirstOrDefault();
+                if (connection != null)
+                    _connectionModel.ServerName = connection.ServerName;
             }
             return PartialView("CreateConnectionPartial", _connectionModel);
 
         }
+
         [Authorize]
         [HttpPost]
         public ActionResult CreateConnectionPartial(ConnectionViewModel connection)
@@ -349,7 +349,8 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult DeleteConnectionPartial(int id)
         {
             var currentConnection = _serviceConnection.GetConnectionDBs().FirstOrDefault(x => x.ConnectionID == id);
-                var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
+            var newConnection = Mapper.Map<ConnectionDB, ConnectionViewModel>(currentConnection);
+
             if (newConnection != null)
             {
                 return PartialView("DeleteConnectionPartial", newConnection);
@@ -468,7 +469,8 @@ namespace QueryBuilderMVC.Controllers
                           {
                               Name = column.ColumnName,
                               Index = column.ColumnName,
-                              Sortable = true
+                              Sortable = true,
+                              Align = "center"
                           }).ToList();
 
             return JsonConvert.SerializeObject(header);

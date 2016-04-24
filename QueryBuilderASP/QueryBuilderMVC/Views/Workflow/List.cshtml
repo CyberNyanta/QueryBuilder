@@ -304,6 +304,7 @@
             <div class="portlet-header">Result query</div>
                 <div class="portlet-content">
                     <table id="jqg"></table>
+                    <div id="jpager"></div>
                 </div>
         </div>
     </div>
@@ -374,7 +375,7 @@
                         name: result[i].Name, 
                         index: result[i].Index,
                         sortable: result[i].Sortable,
-                        align: 'center'
+                        align: result[i].Align
                      });
                 }
 
@@ -394,7 +395,7 @@
                 scrollerbar: true
              });
 
-             
+             //
          },
          error: function(x, e)
          {

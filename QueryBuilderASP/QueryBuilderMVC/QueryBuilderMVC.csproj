@@ -319,10 +319,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NORTHWND.MDF" />
-    <Content Include="App_Data\NORTHWND_log.ldf">
-      <DependentUpon>NORTHWND.MDF</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -925,6 +921,7 @@
     <Content Include="Views\Workflow\QueryBuilder.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Scripts\parallax-slider\" />
   </ItemGroup>
   <ItemGroup>
@@ -946,6 +943,10 @@
     <ProjectReference Include="..\QueryBuilder.Services\QueryBuilder.Services.csproj">
       <Project>{fc317fa6-9bbe-4fe8-996c-0db80d6c604d}</Project>
       <Name>QueryBuilder.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.University\QueryBuilder.University.csproj">
+      <Project>{fa8f6233-15bb-4a6b-a51a-f24cc506bc52}</Project>
+      <Name>QueryBuilder.University</Name>
     </ProjectReference>
     <ProjectReference Include="..\QueryBuilder.Utils\QueryBuilder.Utils.csproj">
       <Project>{f0e68d32-c9e0-47e3-87bc-cd16904e7e76}</Project>

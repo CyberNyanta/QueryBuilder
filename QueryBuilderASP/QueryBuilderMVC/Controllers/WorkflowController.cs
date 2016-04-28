@@ -72,7 +72,7 @@ namespace QueryBuilderMVC.Controllers
                        var connect = _projectModel.ConnectionDbs.First();
                         var sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
                                            connect.ServerName, connect.DatabaseName, connect.LoginDB, Rijndael.DecryptStringFromBytes(connect.PasswordDB));
-                        ViewBag.NameDatabase = connect.DatabaseName;
+                        ViewBag.ConnectionString = sqlConnection;
                        
                             
                     }

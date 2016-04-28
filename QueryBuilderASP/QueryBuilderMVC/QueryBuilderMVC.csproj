@@ -775,9 +775,11 @@
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\query.pubxml" />
     <None Include="Properties\PublishProfiles\web.pubxml" />
@@ -866,7 +868,9 @@
     <Content Include="Scripts\Workflow.js" />
     <Content Include="Scripts\WorkflowList.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -922,7 +926,6 @@
     <Content Include="Views\Workflow\_InviteUserToProjectPartial.cshtml" />
     <Content Include="Views\Workflow\Result.cshtml" />
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
-    <Content Include="Views\Workflow\QueryBuilder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\parallax-slider\" />

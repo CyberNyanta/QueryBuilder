@@ -130,6 +130,7 @@
                 {
                     foreach (var item in Model.ConnectionDbs)
                     {
+                       
                         <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
                             @if (Request.IsAuthenticated)
                             {
@@ -207,6 +208,9 @@
             <div class="portlet-header">QueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
+
+
+
                 @Html.ActiveQueryBuilder(settings =>
            {
                settings.HttpCompressionEnabled = false;
@@ -231,13 +235,14 @@
                    queryBuilder.SyntaxProvider = syntaxProvider;
                    // ===========================================================
                    // a) you can load metadata from the database connection using live database connection
-                   var connection = new SqlConnection { ConnectionString = "Data Source = .; Initial catalog= QueryBuilder; Integrated Security = True" };
+                   //var connection = new SqlConnection { ConnectionString = "Data Source = .; Initial catalog= QueryBuilder; Integrated Security = True" };
+                   var connection = new SqlConnection { ConnectionString = "Data source= .; Initial catalog= .; UID= sa; Password= vjzbuhf;" };
                    var metadataProvider = new MSSQLMetadataProvider { Connection = connection };
                    queryBuilder.MetadataProvider = metadataProvider;
 
                    // call the RefreshMetadata to load metadata from a database connection
                    queryBuilder.MetadataStructure.Refresh();
-
+                   
                    // ===========================================================
                    // b) or you can load metadata from the pre-generated XML file
                    //queryBuilder.OfflineMode = false;
@@ -251,15 +256,15 @@
                         <div id="qb-ui">
                             <div id="tree">
                                 @Html.ActiveQueryBuilder().ObjectTree(settings =>
-       {
-           settings.ShowFields = false;
-           settings.ShowDescriptons = false;
-           settings.SortingType = ObjectsSortingType.None;
-           settings.VisiblePaginationLinksCount = 6;
-           settings.ItemsPerPage = 24;
-           settings.PreloadedPagesCount = 3;
-           settings.ShowAllItemInGroupingSelectLists = true;
-       }).GetHtml()
+                           {
+                               settings.ShowFields = false;
+                               settings.ShowDescriptons = false;
+                               settings.SortingType = ObjectsSortingType.None;
+                               settings.VisiblePaginationLinksCount = 6;
+                               settings.ItemsPerPage = 24;
+                               settings.PreloadedPagesCount = 1;
+                               settings.ShowAllItemInGroupingSelectLists = true;
+                           }).GetHtml()
                                 
                             </div>
                          
@@ -267,23 +272,24 @@
 
                             <div id="center">
                                 @Html.ActiveQueryBuilder().SubQueryNavigationBar(settings =>
-           {
-               settings.UnionNavBarVisible = true;
-           }).GetHtml()
+                           {
+                               settings.UnionNavBarVisible = true;
+                           }).GetHtml()
                                 @Html.ActiveQueryBuilder().Canvas(settings =>
-               {
-                   settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
-                   settings.DefaultDatasourceWidth = "auto";
-                   settings.DisableDatasourcePropertiesDialog = false;
-                   settings.DisableLinkPropertiesDialog = false;
-                   settings.DisableQueryPropertiesDialog = false;
-                   settings.MaxDefaultDatasourceHeight = "144";
-                   //settings.FieldListOptions
-               }).GetHtml()
+                           {
+                               settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
+                               settings.DefaultDatasourceWidth = "auto";
+                               settings.DisableDatasourcePropertiesDialog = false;
+                               settings.DisableLinkPropertiesDialog = false;
+                               settings.DisableQueryPropertiesDialog = false;
+                               settings.MaxDefaultDatasourceHeight = "144";
+                               //settings.FieldListOptions
+                           }).GetHtml()
                                 @Html.ActiveQueryBuilder().Grid(settings =>
-           {
-               settings.OrColumnCount = 2;
-           }).GetHtml()
+                           {
+                               settings.OrColumnCount = 2;
+                           }).GetHtml()
+                                
                                 @*@Html.ActiveQueryBuilder().StatusBar().GetHtml()*@
                             </div>
                             <div class="clear">
@@ -295,9 +301,9 @@
 
 
 
+           
 
 
-              
             </div>
         </div>
         <div class="nonSortable">

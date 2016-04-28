@@ -33,13 +33,13 @@
     <div>
         @if (Model.ConnectionCount > 0)
         {
-            @*<div>
-                @Html.TextBoxFor(x => x.LoginDB, new { disabled = "disabled", placehoder = Model.LoginDB })
+            <div>
+                @*@Html.TextBoxFor(x => x.LoginDB, new { disabled = "disabled", placehoder = Model.LoginDB })*@
                 <p class="TextField" style="display:none;">
                     Database: @Html.TextBoxFor(x => x.LoginDB,
        new { placeholder = Model.LoginDB })
                 </p>
-            </div>*@
+            </div>
         }
         else
         {
@@ -54,13 +54,13 @@
     <div>
 @if (Model.ConnectionCount > 0)
 {
-    @*<div>
-        @Html.TextBoxFor(x => x.PasswordDB, new { disabled = "disabled", placehoder = Model.PasswordDB })
+    <div>
+        @*@Html.TextBoxFor(x => x.PasswordDB, new { disabled = "disabled", placehoder = Model.PasswordDB })*@
         <p class="TextField" style="display:none;">
             Database: @Html.TextBoxFor(x => x.PasswordDB,
        new { placeholder = Model.PasswordDB })
         </p>
-    </div>*@
+    </div>
 }
 else
 {

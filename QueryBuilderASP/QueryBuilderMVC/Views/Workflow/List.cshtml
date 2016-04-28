@@ -5,6 +5,8 @@
 @using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
 @using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server
 @using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
+@using QueryBuilder.Utils.Encryption
+
 
 
 
@@ -208,7 +210,8 @@
             <div class="portlet-header">QueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
-
+                @if (Model.IdCurrentProject != 0 && Model.ConnectionDbs != null)
+                {
 
 
                 @Html.ActiveQueryBuilder(settings =>
@@ -236,13 +239,46 @@
                    // ===========================================================
                    // a) you can load metadata from the database connection using live database connection
                    //var connection = new SqlConnection { ConnectionString = "Data Source = .; Initial catalog= QueryBuilder; Integrated Security = True" };
-                   var connection = new SqlConnection { ConnectionString = "Data source= .; Initial catalog= .; UID= sa; Password= vjzbuhf;" };
+                   //var connection = new SqlConnection { ConnectionString = "Data source= .; Initial catalog= QueryBuilder; UID= sa; Password= vjzbuhf;" };
+                   var connection = new SqlConnection();
+
+                   var count = 0;
+                   foreach (var item in Model.ConnectionDbs)
+                   {
+                       count++;
+                       if (count == 1)
+                       {
+                           string connectString = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
+                   item.ServerName, item.DatabaseName, item.LoginDB, Rijndael.DecryptStringFromBytes(item.PasswordDB));
+                           connection = new SqlConnection { ConnectionString = connectString };
+
+                       }
+                       MetadataItem database = queryBuilder.MetadataContainer.AddDatabase(item.DatabaseName);
+                   }
+
+
                    var metadataProvider = new MSSQLMetadataProvider { Connection = connection };
                    queryBuilder.MetadataProvider = metadataProvider;
 
+
+
+                   //MetadataItem database = queryBuilder.MetadataContainer.AddDatabase("ReportServer");
+                   //MetadataItem databases = queryBuilder.MetadataContainer.AddDatabase("QueryBuilder");
+
+                   //MetadataItem server = queryBuilder.MetadataContainer.AddServer(".");
+
+                   //queryBuilder.MetadataContainer.LoadAll(true);
+                   queryBuilder.InitializeDatabaseSchemaTree();
+
+
+
+
+
+
+
                    // call the RefreshMetadata to load metadata from a database connection
                    queryBuilder.MetadataStructure.Refresh();
-                   
+
                    // ===========================================================
                    // b) or you can load metadata from the pre-generated XML file
                    //queryBuilder.OfflineMode = false;
@@ -301,9 +337,9 @@
 
 
 
-           
 
 
+                }
             </div>
         </div>
         <div class="nonSortable">

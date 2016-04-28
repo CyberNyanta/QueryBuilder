@@ -31,16 +31,45 @@
        
     </div>
     <div>
-        @Html.LabelFor(model => model.LoginDB)
+        @if (Model.ConnectionCount > 0)
+        {
+            @*<div>
+                @Html.TextBoxFor(x => x.LoginDB, new { disabled = "disabled", placehoder = Model.LoginDB })
+                <p class="TextField" style="display:none;">
+                    Database: @Html.TextBoxFor(x => x.LoginDB,
+       new { placeholder = Model.LoginDB })
+                </p>
+            </div>*@
+        }
+        else
+        {
+            @Html.LabelFor(model => model.LoginDB)
+
         <div>
+
             @Html.EditorFor(x => x.LoginDB)
         </div>
+        }
     </div>
     <div>
-        @Html.LabelFor(model => model.PasswordDB)
+@if (Model.ConnectionCount > 0)
+{
+    @*<div>
+        @Html.TextBoxFor(x => x.PasswordDB, new { disabled = "disabled", placehoder = Model.PasswordDB })
+        <p class="TextField" style="display:none;">
+            Database: @Html.TextBoxFor(x => x.PasswordDB,
+       new { placeholder = Model.PasswordDB })
+        </p>
+    </div>*@
+}
+else
+{
+    @Html.LabelFor(model => model.PasswordDB)
+
         <div>
             @Html.EditorFor(x => x.PasswordDB)
         </div>
+        }
     </div>
     <div>
         @Html.LabelFor(model => model.DatabaseName)

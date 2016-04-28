@@ -164,6 +164,8 @@ namespace QueryBuilderMVC.Controllers
             return PartialView("ListProjectPartial", _projectModel);
         }
 
+
+        #region Project
         [Authorize]
         public ActionResult CreateProjectPartial()
         {
@@ -269,7 +271,9 @@ namespace QueryBuilderMVC.Controllers
             ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
             return PartialView("Success");         
         }
+#endregion
 
+        #region Connection
         [Authorize]
         public ActionResult CreateConnectionPartial(int id, int count=0)
         {
@@ -279,7 +283,12 @@ namespace QueryBuilderMVC.Controllers
             {
                 var connection = _serviceConnection.GetConnectionDBs(id).FirstOrDefault();
                 if (connection != null)
+                {
                     _connectionModel.ServerName = connection.ServerName;
+                    _connectionModel.LoginDB = connection.LoginDB;
+                    _connectionModel.PasswordDB = Rijndael.DecryptStringFromBytes(connection.PasswordDB);
+
+                }
             }
             return PartialView("CreateConnectionPartial", _connectionModel);
 
@@ -369,7 +378,9 @@ namespace QueryBuilderMVC.Controllers
             ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
             return PartialView("Success");
         }
+        #endregion
 
+        #region Invite
         [Authorize]
         public ActionResult InviteUserToProjectPartial(int id)
         {
@@ -440,6 +451,8 @@ namespace QueryBuilderMVC.Controllers
             return RedirectToAction("List", "Workflow");
         }
 
+     
+
         [HttpPost]
         [Authorize]
         public JsonResult SearchUser(string prefix, int projectId)
@@ -452,7 +465,9 @@ namespace QueryBuilderMVC.Controllers
 
             return Json(userName, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region Grid
         public string GetData()
         {
             var dataTableForGrid = GetDataTableForGrid();
@@ -492,5 +507,6 @@ namespace QueryBuilderMVC.Controllers
             table.Rows.Add(100, "Dilantin", "Melanie", DateTime.Now);
             return table;
         }
+        #endregion
     }
 }

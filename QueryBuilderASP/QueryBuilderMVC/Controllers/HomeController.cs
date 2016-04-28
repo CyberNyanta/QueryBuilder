@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using QueryBuilder.University;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -11,6 +10,11 @@ namespace QueryBuilderMVC.Controllers
     {
         public ActionResult Index()
         {
+            using (var context = new UniversityContext())
+            {
+                var courses = context.Courses.ToList();
+            }
+
             return View();
         }
 

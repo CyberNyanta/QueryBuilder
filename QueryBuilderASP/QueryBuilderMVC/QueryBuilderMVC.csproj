@@ -319,10 +319,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NORTHWND.MDF" />
-    <Content Include="App_Data\NORTHWND_log.ldf">
-      <DependentUpon>NORTHWND.MDF</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -776,6 +772,7 @@
     <None Include="Properties\PublishProfiles\query-builder - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\query-builder - FTP %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - Web Deploy %283%29.pubxml" />
@@ -859,6 +856,7 @@
     <Content Include="Scripts\QueryBuilder\dto.generated.js" />
     <Content Include="Scripts\QueryBuilder\jquery-ui.js" />
     <Content Include="Scripts\QueryBuilder\jquery.js" />
+    <Content Include="Scripts\QueryBuilder\usr_v2_11_1.js" />
     <Content Include="Scripts\QueryBuilder\usr_v2_11_2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -928,6 +926,7 @@
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Scripts\parallax-slider\" />
   </ItemGroup>
   <ItemGroup>
@@ -949,6 +948,10 @@
     <ProjectReference Include="..\QueryBuilder.Services\QueryBuilder.Services.csproj">
       <Project>{fc317fa6-9bbe-4fe8-996c-0db80d6c604d}</Project>
       <Name>QueryBuilder.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.University\QueryBuilder.University.csproj">
+      <Project>{fa8f6233-15bb-4a6b-a51a-f24cc506bc52}</Project>
+      <Name>QueryBuilder.University</Name>
     </ProjectReference>
     <ProjectReference Include="..\QueryBuilder.Utils\QueryBuilder.Utils.csproj">
       <Project>{f0e68d32-c9e0-47e3-87bc-cd16904e7e76}</Project>

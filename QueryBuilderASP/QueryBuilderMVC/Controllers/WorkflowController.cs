@@ -308,11 +308,9 @@ namespace QueryBuilderMVC.Controllers
 
 					ViewBag.Title = "Success";
 					ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-
 					return PartialView("Result");
 				}
-				ViewBag.Title = "Failure";
-				return PartialView("Result");
+				ModelState.AddModelError("", "The connection failed. Check entered data");
 			}
 			return PartialView("CreateConnectionPartial",connection);
         }
@@ -347,8 +345,7 @@ namespace QueryBuilderMVC.Controllers
                     
 
 				}
-				ViewBag.Title = "Failure";
-				return PartialView("Result");
+				ModelState.AddModelError("", "The connection failed. Check entered data");
 			}
 
             return PartialView("UpdateConnectionPartial", connection);

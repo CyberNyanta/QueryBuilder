@@ -28,20 +28,20 @@ namespace QueryBuilderMVC.Controllers
             if (id != 0)
             {
                 string sqlConnection="";
-               
-    //            if (id==-1)
-    //            {
-				//	//sqlConnection = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot").ConnectionStrings.ConnectionStrings["NorthwindConnection"].ConnectionString;
-				//	sqlConnection = ConfigurationManager.ConnectionStrings["NorthwindConnection"].ConnectionString;
-				//	//sqlConnection = "Data Source =.\\v11; AttachDbFilename=| DataDirectory |NORTHWND.MDF; Integrated Security= True";
-				//}
-    //            else
-    //            {
+
+                if (id == -1)
+                {
+                    //sqlConnection = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot").ConnectionStrings.ConnectionStrings["NorthwindConnection"].ConnectionString;
+                    sqlConnection = ConfigurationManager.ConnectionStrings["TestConnection"].ConnectionString;
+                    //sqlConnection = "Data Source =.\\v11; AttachDbFilename=| DataDirectory |NORTHWND.MDF; Integrated Security= True";
+                }
+                else
+                {
                     var Connection = _serviceConnection.GetConnectionDb(id);
 
                     sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
                    Connection.ServerName, Connection.DatabaseName, Connection.LoginDB, Rijndael.DecryptStringFromBytes(Connection.PasswordDB));
-                //}
+                }
                 var sql = new SqlConnection(sqlConnection);
 
                 var viewmodel = new ERModelViewModel(sql);

@@ -174,7 +174,8 @@
                                         new
                                         {
                                             @class = "ERModel",
-                                            data_dialog_title = "ER-Model"
+                                            data_dialog_title = "ER-Model",
+                                            target="_blank"
                                         })
                             </div>
                         </div>
@@ -269,8 +270,7 @@
 
                    //queryBuilder.MetadataContainer.LoadAll(true);
                    queryBuilder.InitializeDatabaseSchemaTree();
-
-
+                   
 
 
 
@@ -293,20 +293,22 @@
                             <div id="tree">
                                 @Html.ActiveQueryBuilder().ObjectTree(settings =>
                            {
+                               
                                settings.ShowFields = false;
                                settings.ShowDescriptons = false;
                                settings.SortingType = ObjectsSortingType.None;
                                settings.VisiblePaginationLinksCount = 6;
                                settings.ItemsPerPage = 24;
-                               settings.PreloadedPagesCount = 1;
+                               settings.PreloadedPagesCount = 5;
                                settings.ShowAllItemInGroupingSelectLists = true;
+                               
                            }).GetHtml()
-                                
+
                             </div>
                          
                             
 
-                            <div id="center">
+                            <div id="center" style="height:700px">
                                 @Html.ActiveQueryBuilder().SubQueryNavigationBar(settings =>
                            {
                                settings.UnionNavBarVisible = true;
@@ -319,13 +321,11 @@
                                settings.DisableLinkPropertiesDialog = false;
                                settings.DisableQueryPropertiesDialog = false;
                                settings.MaxDefaultDatasourceHeight = "144";
-                               //settings.FieldListOptions
                            }).GetHtml()
                                 @Html.ActiveQueryBuilder().Grid(settings =>
                            {
-                               settings.OrColumnCount = 2;
+                               settings.OrColumnCount = 1;
                            }).GetHtml()
-                                
                                 @*@Html.ActiveQueryBuilder().StatusBar().GetHtml()*@
                             </div>
                             <div class="clear">

@@ -127,9 +127,10 @@ namespace QueryBuilderMVC.Controllers
                         ConnectionID = -1,
                         ConnectionName = "Example",
                         ConnectionOwner = 1,
-                        DatabaseName = "Northwind",
-                        LoginDB = "MyLogin",
-                        ServerName = "MSSQL"
+                        DatabaseName = "defaultsamples",
+                        LoginDB = "scrumtracker01@e7g8mfm8ri",
+                        ServerName = "tcp:e7g8mfm8ri.database.windows.net,1433",
+                        PasswordDB = Rijndael.EncryptStringToBytes("Instance@1")
                     }
                 };
                 _projectModel.ConnectionDbs = connect;

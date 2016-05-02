@@ -10,10 +10,10 @@ namespace QueryBuilderMVC.Controllers
     {
         public ActionResult Index()
         {
-            using (var context = new UniversityContext())
-            {
-                var courses = context.Courses.ToList();
-            }
+            //using (var context = new UniversityContext())
+            //{
+            //    var courses = context.Courses.ToList();
+            //}
 
             return View();
         }

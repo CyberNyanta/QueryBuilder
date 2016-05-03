@@ -1,5 +1,71 @@
 ﻿body {
 }
+.GetResult
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/data2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 33px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    display: inline-block;
+}
+.GetResult:hover
+{
+    background: url(../Images/Icon/data.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 37px;
+        display: inline-block;
+
+}
+.SendQuery
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/send2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 33px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    display: inline-block;
+}
+.SendQuery:hover
+{
+    background: url(../Images/Icon/send.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 37px;
+        display: inline-block;
+
+}
+.SaveQuery
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/save2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 33px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    display: inline-block;
+}
+.SaveQuery:hover
+{
+    background: url(../Images/Icon/save.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 37px;
+        display: inline-block;
+
+}
 #IconEdit
 {
     background-repeat: no-repeat;

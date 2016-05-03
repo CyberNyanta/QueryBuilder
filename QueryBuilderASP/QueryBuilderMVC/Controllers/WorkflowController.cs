@@ -13,6 +13,10 @@ using QueryBuilder.Constants;
 using QueryBuilder.Utils.Mailers;
 using QueryBuilder.Utils.Encryption;
 using Newtonsoft.Json;
+using System.Data.SqlClient;
+using System.IO;
+using System.Text;
+using System.Web;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -28,7 +32,7 @@ namespace QueryBuilderMVC.Controllers
         private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
         private ApplicationUser _currentUser;
 
-        public WorkflowController(IProjectService serviceProject, IUserService serviceUser, 
+        public WorkflowController(IProjectService serviceProject, IUserService serviceUser,
             IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection)
         {
             _serviceProject = serviceProject;
@@ -38,12 +42,12 @@ namespace QueryBuilderMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult List(string id="0")
+        public ActionResult List(string id = "0")
         {
             if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-                var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);                
+                var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
                 var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
                 var countInvited = 0;
                 foreach (var project in projectsViewModel)
@@ -69,14 +73,14 @@ namespace QueryBuilderMVC.Controllers
                     //
                     if (_projectModel.ConnectionDbs.Any())
                     {
-                       var connect = _projectModel.ConnectionDbs.First();
+                        var connect = _projectModel.ConnectionDbs.First();
                         var sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
                                            connect.ServerName, connect.DatabaseName, connect.LoginDB, Rijndael.DecryptStringFromBytes(connect.PasswordDB));
                         ViewBag.ConnectionString = sqlConnection;
-                       
-                            
+
+
                     }
-                  
+
                     ////
                     ///
                     ///
@@ -94,7 +98,7 @@ namespace QueryBuilderMVC.Controllers
                         ViewBag.DatabaseName = "connections.DatabaseName";
                         ViewBag.ServerName = "ServerName";
                     }
-                   
+
                 }
                 else
                 {
@@ -104,7 +108,7 @@ namespace QueryBuilderMVC.Controllers
                     ViewBag.DatabaseName = "DatabaseName";
                     ViewBag.ServerName = "ServerName";
                 }
-              
+
 
             }
             else
@@ -118,7 +122,7 @@ namespace QueryBuilderMVC.Controllers
                         ProjectDescription = "This project for demonstration service",
                         UserRole = UserRoleProjectsShareConstants.Owner,
                      }
-                    
+
                 };
                 var connect = new List<ConnectionsListViewModel>
                 {
@@ -137,10 +141,10 @@ namespace QueryBuilderMVC.Controllers
                 _projectModel.IdCurrentProject = proj[0].ProjectID;
                 _projectModel.Name = proj[0].ProjectName;
                 _projectModel.Description = proj[0].ProjectDescription;
-                _projectModel.Projects = proj;                    
-                
+                _projectModel.Projects = proj;
+
             }
-            
+
             return View(_projectModel);
         }
         [HttpPost]
@@ -180,7 +184,7 @@ namespace QueryBuilderMVC.Controllers
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-                var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);               
+                var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
                 _serviceProject.SaveProject(newProject);
 
                 _serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
@@ -270,13 +274,13 @@ namespace QueryBuilderMVC.Controllers
             }
 
             ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-            return PartialView("Success");         
+            return PartialView("Success");
         }
-#endregion
+        #endregion
 
         #region Connection
         [Authorize]
-        public ActionResult CreateConnectionPartial(int id, int count=0)
+        public ActionResult CreateConnectionPartial(int id, int count = 0)
         {
             _connectionModel.ConnectionOwner = id;
             _connectionModel.ConnectionCount = count;
@@ -299,21 +303,21 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult CreateConnectionPartial(ConnectionViewModel connection)
         {
-			if (ModelState.IsValid)
-			{
-				ViewBag.IdCurrentProject = connection.ConnectionOwner;
-				if (connection.IsConnectionValid())
-				{
-					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
-					_serviceConnection.SaveConnection(newConnection);
+            if (ModelState.IsValid)
+            {
+                ViewBag.IdCurrentProject = connection.ConnectionOwner;
+                if (connection.IsConnectionValid())
+                {
+                    var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+                    _serviceConnection.SaveConnection(newConnection);
 
-					ViewBag.Title = "Success";
-					ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-					return PartialView("Result");
-				}
-				ModelState.AddModelError("", "The connection failed. Check entered data");
-			}
-			return PartialView("CreateConnectionPartial",connection);
+                    ViewBag.Title = "Success";
+                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    return PartialView("Result");
+                }
+                ModelState.AddModelError("", "The connection failed. Check entered data");
+            }
+            return PartialView("CreateConnectionPartial", connection);
         }
 
         [Authorize]
@@ -329,25 +333,25 @@ namespace QueryBuilderMVC.Controllers
         [HttpPost]
         public ActionResult UpdateConnectionPartial(ConnectionViewModel connection)
         {
-           
+
             if (ModelState.IsValid)
             {
-				ViewBag.IdCurrentProject = connection.ConnectionOwner;
-				if (connection.IsConnectionValid())
-				{
-					var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
-					_serviceConnection.SaveConnection(newConnection);
+                ViewBag.IdCurrentProject = connection.ConnectionOwner;
+                if (connection.IsConnectionValid())
+                {
+                    var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
+                    _serviceConnection.SaveConnection(newConnection);
 
-					ViewBag.Title = "Success";
-					ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    ViewBag.Title = "Success";
+                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
 
-					return PartialView("Result");
+                    return PartialView("Result");
 
-                    
 
-				}
-				ModelState.AddModelError("", "The connection failed. Check entered data");
-			}
+
+                }
+                ModelState.AddModelError("", "The connection failed. Check entered data");
+            }
 
             return PartialView("UpdateConnectionPartial", connection);
         }
@@ -423,8 +427,8 @@ namespace QueryBuilderMVC.Controllers
 
         [HttpGet]
         [Authorize]
-        public  ActionResult AcceptInvite(int id)
-        {           
+        public ActionResult AcceptInvite(int id)
+        {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
             var projectForShared = _serviceProject.GetProject(id);
             _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, _currentUser, UserRoleProjectsShareConstants.Shared);
@@ -449,7 +453,7 @@ namespace QueryBuilderMVC.Controllers
             return RedirectToAction("List", "Workflow");
         }
 
-     
+
 
         [HttpPost]
         [Authorize]
@@ -491,20 +495,48 @@ namespace QueryBuilderMVC.Controllers
 
         private DataTable GetDataTableForGrid()
         {
-            // FOR TEST
             var table = new DataTable();
-            table.Columns.Add("Dosage", typeof(int));
-            table.Columns.Add("Drug", typeof(string));
-            table.Columns.Add("Patient", typeof(string));
-            table.Columns.Add("Date", typeof(DateTime));
 
-            table.Rows.Add(25, "Indocin", "David", DateTime.Now);
-            table.Rows.Add(50, "Enebrel", "Sam", DateTime.Now);
-            table.Rows.Add(10, "Hydralazine", "Christoff", DateTime.Now);
-            table.Rows.Add(21, "Combivent", "Janet", DateTime.Now);
-            table.Rows.Add(100, "Dilantin", "Melanie", DateTime.Now);
+
+            //using (var conn = new SqlConnection("Data Source=(local);Initial Catalog=QueryBuilder;Integrated Security=true; App=EntityFramework"))
+            //{
+            //    string query = "Select QueryBuilder.dbo.Project.ProjectName As uB1,  QueryBuilder.dbo.Project.ProjectID As uB2 From QueryBuilder.dbo.Project";
+
+            //    using (var cmd = new SqlCommand(query, conn))
+            //    {
+            //        SqlDataAdapter adapt = new SqlDataAdapter(cmd);
+            //        conn.Open();
+            //        adapt.Fill(table);
+            //        conn.Close();
+            //    }
+            //}
+
+
+
+            // FOR TEST
+            //table.Columns.Add("Dosage", typeof(int));
+            //table.Columns.Add("Drug", typeof(string));
+            //table.Columns.Add("Patient", typeof(string));
+            //table.Columns.Add("Date", typeof(DateTime));
+
+            //table.Rows.Add(25, "Indocin", "David", DateTime.Now);
+            //table.Rows.Add(50, "Enebrel", "Sam", DateTime.Now);
+            //table.Rows.Add(10, "Hydralazine", "Christoff", DateTime.Now);
+            //table.Rows.Add(21, "Combivent", "Janet", DateTime.Now);
+            //table.Rows.Add(100, "Dilantin", "Melanie", DateTime.Now);
             return table;
         }
         #endregion
+
+        public FileStreamResult SaveQuery(string query)
+        {
+            
+            var dataFile = query.ToString();
+
+            var byteArray = Encoding.ASCII.GetBytes(dataFile);
+            var stream = new MemoryStream(byteArray);
+
+            return File(stream, "text/plain", "Query.txt");
+        }
     }
 }

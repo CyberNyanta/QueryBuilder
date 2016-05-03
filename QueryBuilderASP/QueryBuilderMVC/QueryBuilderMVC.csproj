@@ -402,6 +402,16 @@
     <Content Include="Content\Querybuider\qb-theme.new.css" />
     <Content Include="Content\Querybuider\qb-theme.odb.css" />
     <Content Include="Content\Querybuider\RightToLeft.css" />
+    <Content Include="Images\Icon\data.png" />
+    <Content Include="Images\Icon\data2.png" />
+    <Content Include="Images\Icon\excel.png" />
+    <Content Include="Images\Icon\excel2.png" />
+    <Content Include="Images\Icon\pdf.png" />
+    <Content Include="Images\Icon\pdf2.png" />
+    <Content Include="Images\Icon\save.png" />
+    <Content Include="Images\Icon\save2.png" />
+    <Content Include="Images\Icon\send.png" />
+    <Content Include="Images\Icon\send2.png" />
     <Content Include="Images\QueryBuilder\images\animated-overlay.gif" />
     <Content Include="Images\QueryBuilder\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Images\QueryBuilder\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
@@ -924,6 +934,7 @@
     <Content Include="Views\Workflow\_InviteUserToProjectPartial.cshtml" />
     <Content Include="Views\Workflow\Result.cshtml" />
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
+    <Content Include="Views\Workflow\DataGridPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

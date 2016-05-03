@@ -187,15 +187,42 @@
             </div>
             
         </div>
+
         <div class="portlet" id="id_4">
             <div class="portlet-header">Query</div>
             <div class="portlet-content">
-                @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
 
+                <div class="IconQuery">
+                   
+                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
+                                new
+                                {
+                                    @class = "SendQuery",
+                                    //data_dialog_title = "Update connection"
+                                })
+                    @Html.ActionLink(" ", "SaveQuery", "Workflow", new { query = @Html.ActiveQueryBuilder().SqlEditor().SQL.ToString()  },
+                                new
+                                {
+                                    @class = "SaveQuery",
+                                    //data_dialog_title = "Update connection"
+                                })
+                     @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
+                                new
+                                {
+                                    @class = "GetResult",
+                                    //data_dialog_title = "Update connection"
+                                })
+                </div>
+
+                @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
+            
 
             </div>
             
         </div>
+
+
+
         <div class="portlet" id="id_5">
             <div class="portlet-header">Statistics</div>
             <div class="portlet-content">
@@ -313,6 +340,7 @@
                            {
                                settings.UnionNavBarVisible = true;
                            }).GetHtml()
+
                                 @Html.ActiveQueryBuilder().Canvas(settings =>
                            {
                                settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
@@ -322,10 +350,9 @@
                                settings.DisableQueryPropertiesDialog = false;
                                settings.MaxDefaultDatasourceHeight = "144";
                            }).GetHtml()
-                                @Html.ActiveQueryBuilder().Grid(settings =>
-                           {
-                               settings.OrColumnCount = 1;
-                           }).GetHtml()
+
+                                
+                               
                                 @*@Html.ActiveQueryBuilder().StatusBar().GetHtml()*@
                             </div>
                             <div class="clear">
@@ -343,28 +370,24 @@
             </div>
         </div>
         <div class="nonSortable">
+            <div class="portlet-header">Settings</div>
+            <div class="portlet-content">
+                @Html.ActiveQueryBuilder().Grid(settings =>
+                           {
+                               settings.OrColumnCount = 1;
+                           }).GetHtml()
+            </div>
+        </div>
+        <div class="nonSortable">
             <div class="portlet-header">Result query</div>
                 <div class="portlet-content">
-                    <table id="jqg"></table>
-                    <div id="jpager"></div>
+                    <div class="Tools-panel">
+
+                    </div>
+                    @Html.Partial("DataGridPartial");
                 </div>
         </div>
     </div>
-
-
-    @*<div class="" style="background-color:white; padding:2px;float:right; margin-right:15px;">
-
-        <div class="portlet" id="id_3" >
-            <div class="portlet-header">Databases</div>
-            <div class="portlet-content" id="TreeDatabase">
-
-
-            </div>
-        </div>
-
-       
-
-    </div>*@
 
 </div>
 

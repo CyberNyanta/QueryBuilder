@@ -194,18 +194,23 @@
 
                 <div class="IconQuery">
                    
-                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
+                    @Html.ActionLink(" ", "SendQuery", "Workflow", new { id = 33 },
                                 new
                                 {
                                     @class = "SendQuery",
                                     //data_dialog_title = "Update connection"
                                 })
-                    @Html.ActionLink(" ", "SaveQuery", "Workflow", new { query = @Html.ActiveQueryBuilder().SqlEditor().SQL.ToString()  },
-                                new
-                                {
-                                    @class = "SaveQuery",
-                                    //data_dialog_title = "Update connection"
-                                })
+                    <div id="SaveQuery">
+                        @using (Html.BeginForm("SaveQuery", "Workflow", FormMethod.Post))
+                        {
+
+                            <input type="text" name="query" id="sqlQuery" style="display:none;" />
+
+                                    <button class="SaveQuery"></button>
+
+                        }
+                    </div>
+
                      @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
                                 new
                                 {
@@ -215,7 +220,13 @@
                 </div>
 
                 @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
-            
+            <script>
+                jQuery(".SaveQuery").click(function() {
+                    var s = $("#sql-code").val();  
+                    $("#sqlQuery").val(s);
+                          
+                });
+            </script>
 
             </div>
             

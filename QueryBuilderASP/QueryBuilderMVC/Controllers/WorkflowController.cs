@@ -17,6 +17,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 using System.Web;
+using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Control;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -530,13 +531,17 @@ namespace QueryBuilderMVC.Controllers
 
         public FileStreamResult SaveQuery(string query)
         {
-            
-            var dataFile = query.ToString();
-
-            var byteArray = Encoding.ASCII.GetBytes(dataFile);
+            var byteArray = Encoding.ASCII.GetBytes(query);
             var stream = new MemoryStream(byteArray);
 
             return File(stream, "text/plain", "Query.txt");
+        }
+        public ActionResult SaveQuery2(string query)
+        {
+            var byteArray = Encoding.ASCII.GetBytes(query);
+            var stream = new MemoryStream(byteArray);
+
+            return RedirectToAction("SaveQuery", new {query = "jjk" });
         }
     }
 }

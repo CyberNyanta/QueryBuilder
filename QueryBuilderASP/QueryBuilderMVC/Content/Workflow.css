@@ -45,6 +45,52 @@
         display: inline-block;
 
 }
+.SavePDF
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/pdf2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 33px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    display: inline-block;
+    padding-top:10px;
+}
+.SavePDF:hover
+{
+    background: url(../Images/Icon/pdf.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 37px;
+        display: inline-block;
+
+}
+.SaveExcel
+{
+    background-repeat: no-repeat;
+    background: url(../Images/Icon/excel2.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 33px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    display: inline-block;
+    padding-top:10px;
+}
+.SaveExcel:hover
+{
+    background: url(../Images/Icon/excel.png);
+    display: block;
+    width: 30px;
+    height: 28px;
+    background-size: 37px;
+        display: inline-block;
+
+}
 .SaveQuery
 {
     background-repeat: no-repeat;

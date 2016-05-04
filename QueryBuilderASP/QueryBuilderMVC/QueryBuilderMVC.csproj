@@ -872,7 +872,6 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\SharkDev.treeView.js" />
     <Content Include="Scripts\Workflow.js" />
     <Content Include="Scripts\WorkflowList.js" />
     <Content Include="Scripts\_references.js" />
@@ -935,6 +934,7 @@
     <Content Include="Views\Workflow\Result.cshtml" />
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
     <Content Include="Views\Workflow\DataGridPartial.cshtml" />
+    <Content Include="Views\Workflow\SendQueryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

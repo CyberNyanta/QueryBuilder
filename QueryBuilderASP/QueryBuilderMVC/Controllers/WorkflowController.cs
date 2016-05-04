@@ -536,12 +536,27 @@ namespace QueryBuilderMVC.Controllers
 
             return File(stream, "text/plain", "Query.txt");
         }
-        public ActionResult SaveQuery2(string query)
-        {
-            var byteArray = Encoding.ASCII.GetBytes(query);
-            var stream = new MemoryStream(byteArray);
 
-            return RedirectToAction("SaveQuery", new {query = "jjk" });
+        public ActionResult SendQuery(string query, string email=null)
+        {
+            if (email==null)
+            {
+                ViewBag.Query = query;
+
+                return PartialView("SendQueryPartial");
+
+            }
+            else
+            {
+                SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).
+                    SendMail(email, "Query from QueryBuilder", query);
+                return RedirectToAction("List");
+            }
+
+
+
         }
+
+     
     }
 }

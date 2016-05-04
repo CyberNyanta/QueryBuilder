@@ -1,0 +1,12 @@
+﻿@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+    <input type="text" name="query" class="sqlQuery" style="display:none;" value="@ViewBag.Query" />
+            <div>
+                @Html.Label("E-mail:")
+                <div>
+                    <input type="text" name="email" />
+                </div>
+            </div>
+            <input type="submit" />
+}

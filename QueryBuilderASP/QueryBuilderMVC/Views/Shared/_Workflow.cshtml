@@ -161,7 +161,6 @@
     <script>
         new gnMenu(document.getElementById('gn-menu'));
     </script>
-    @*<script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>*@
 
     <script>
 
@@ -189,7 +188,6 @@
             ModalPostDialogDelete(".DeleteConnectionItem", '@Url.Action("DeleteConnectionPartial", "Workflow")');
 
             ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');
-
 
             $(".close").on("click", function (e) {
                 e.preventDefault();

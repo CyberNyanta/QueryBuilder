@@ -1245,7 +1245,7 @@ td.ui-qb-grid-row-selected { min-width: 21px; width: 21px; /*max-width: 21px ;*/
 .qb-ui-grid-container { overflow-x: auto; overflow-y: auto; }
 .qb-ui-grid-container { overflow-x: auto; overflow-y: auto; position: relative; width: 100%; }
 .qb-ui-grid-container .sticky-thead, .qb-ui-grid-container .sticky-col, .qb-ui-grid-container .sticky-intersect { opacity: 1; position: absolute; top: 0; left: 0; z-index: 50; width: auto; }
-.qb-ui-grid-container .sticky-thead { z-index: 100; height: 1.5em; }
+.qb-ui-grid-container .sticky-thead { height: 1.5em; }
 .sticky-enabled { margin: 1.5em 0 0; }
 .qb-ui-grid-container td, .qb-ui-grid-container th { box-sizing: border-box; }
 .qb-ui-grid-container.overflow-y { overflow-y: auto; }
@@ -1354,7 +1354,7 @@ div.editable-select-options { font-family: Verdana, Arial, sans-serif; font-size
 .qb-ui-canvas-container { flex-grow: 1; display: flex; flex-direction: column;overflow: hidden; width: 100%;}
 #qb-ui-canvas { width: 100%; /* flex: 0 0 356px; */ height: 356px; position: relative; }
 #qb-ui-grid { width: 100%; }
-#qb-ui-grid { flex-shrink: 1; flex-grow: 1; flex-basis: 0; z-index: 6001;}
+#qb-ui-grid { flex-shrink: 1; flex-grow: 1; flex-basis: 0; }
 #qb-ui-grid > table { width: 100%; overflow: visible; /*max-width: 0;*/ }
 #qb-ui-grid > table > tbody { height: 100%; }
 #qb-ui-editor textarea { width: 100%; height: 100%; padding: 3px; }

@@ -25,6 +25,7 @@
     <script src="~/Scripts/modernizr.custom.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     @*<script src="~/Scripts/jquery-2.2.1.js"></script>*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
 
     <link rel="stylesheet" type="text/css" href="~/Content/Workflow.css" />
@@ -55,7 +56,7 @@
 
                             <div class="demo " style="line-height:50px;">
                                 <input type="checkbox" id="hd-1" class="hide " />
-                                <label for="hd-1">Your projects:</label>
+                                <label for="hd-1">My projects</label>
                                 <div>
                                     <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
                                     @if (Request.IsAuthenticated)
@@ -69,13 +70,12 @@
                                                        })
                                         </div>
                                     }
+
                                     <div id="proj">
                                         <div id="ListProject">
                                             @Html.Partial("ListProjectPartial")
 
-
                                         </div>
-
 
                                     </div>
 
@@ -103,7 +103,7 @@
                                 @Html.ActionLink("Settings account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                             </div>
                         }
-                       
+
                     </li>
 
                     <li>
@@ -157,44 +157,10 @@
 
     <script src="~/Scripts/classie.js"></script>
     <script src="~/Scripts/gnmenu.js"></script>
-    
+
     <script>
         new gnMenu(document.getElementById('gn-menu'));
     </script>
 
-    <script>
-
-        $(document).ready(function () {
-
-            $.ajaxSetup({ cache: false });
-
-            ModalPostDialogCreateWithNotifyAndUpdate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-            //ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-
-            @*ModalPostDialogCreate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")');*@
-
-            ModalPostDialogDelete(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")');
-
-            ///Modal edit for edit Project
-            ModalPostDialogUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")');
-            ///Modal edit for edit Connection
-            ModalPostDialogUpdate(".UpdateConnection", '@Url.Action("UpdateConnectionPartial", "Workflow")');
-            ModalPostDialogUpdate(".UpdateConnectionItem", '@Url.Action("UpdateConnectionPartial", "Workflow")');
-            ModalPostDialogUpdate(".LinkEdit", '@Url.Action("UpdateConnectionPartial", "Workflow")');
-            ///Modal create Connection
-            ModalPostDialogCreate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")');
-
-            ModalPostDialogDelete(".DeleteConnection", '@Url.Action("DeleteConnectionPartial", "Workflow")');
-            ModalPostDialogDelete(".DeleteConnectionItem", '@Url.Action("DeleteConnectionPartial", "Workflow")');
-
-            ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');
-
-            $(".close").on("click", function (e) {
-                e.preventDefault();
-                $(this).closest(".dialog").dialog("close");
-            });
-        });
-
-    </script>
 </body>
 </html>

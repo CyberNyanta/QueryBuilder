@@ -218,62 +218,7 @@
 
                 @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
 
-            <script>
-                jQuery(".SaveQuery").click(function() {
-                    var s = $("#sql-code").val();  
-                    $(".sqlQuery").val(s);
-
-                });
-
-                $(".SendQuery").hover(function(){
-                    var s = $("#sql-code").val();  
-                    $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
-
-                });
-
-                function AjaxPostWithDialog2(url) {
-                    console.log("dfd");
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: $('form').serialize(),
-                        datatype: "json",
-                        success: function (result) {
-                            $("#dialogContent").html(result);
-                        }
-                    });
-                };
-
-
-                function ModalPostDialogSend(selector, url) {
-
-                    $(selector).on("click", function (e) {
-                        e.preventDefault();
-                        $("<div id='dialogContent'></div>")
-                            .addClass("dialog")
-                            .appendTo("body")
-                            .load(this.href)
-                            .dialog({
-                                title: $(this).attr("data-dialog-title"),
-                                close: function () { $(this).remove() },
-                                modal: true,
-                                success: {
-                                    "": function () {
-                                        AjaxPostWithDialog2(url);
-                                    }
-                                }
-                            }
-                            );
-                    });
-
-                };
-                ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
-
-            </script>
-
-
-
-
+            
 
             </div>
             
@@ -296,7 +241,7 @@
             <div class="portlet-header">QueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
-                @if (Model.IdCurrentProject != 0 && Model.ConnectionDbs != null)
+                @if (Model.IdCurrentProject != 0)
                 {
 
 
@@ -393,7 +338,7 @@
                          
                             
 
-                            <div id="center" style="height:700px">
+                            <div id="center">
                                 @Html.ActiveQueryBuilder().SubQueryNavigationBar(settings =>
                            {
                                settings.UnionNavBarVisible = true;
@@ -468,6 +413,63 @@
 
 
 <script src="~/Scripts/WorkflowList.js"></script>
+
+
+<script>
+                jQuery(".SaveQuery").click(function() {
+                    var s = $("#sql-code").val();
+                    $(".sqlQuery").val(s);
+
+                });
+
+                $(".SendQuery").hover(function(){
+                    var s = $("#sql-code").val();
+                    $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
+
+                });
+
+                function AjaxPostWithDialog2(url) {
+                    console.log("dfd");
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: $('form').serialize(),
+                        datatype: "json",
+                        success: function (result) {
+                            $("#dialogContent").html(result);
+                        }
+                    });
+                };
+
+
+                function ModalPostDialogSend(selector, url) {
+
+                    $(selector).on("click", function (e) {
+                        e.preventDefault();
+                        $("<div id='dialogContent'></div>")
+                            .addClass("dialog")
+                            .appendTo("body")
+                            .load(this.href)
+                            .dialog({
+                                title: $(this).attr("data-dialog-title"),
+                                close: function () { $(this).remove() },
+                                modal: true,
+                                success: {
+                                    "": function () {
+                                        AjaxPostWithDialog2(url);
+                                    }
+                                }
+                            }
+                            );
+                    });
+
+                };
+                ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
+
+</script>
+
+
+
 
 <script>
 

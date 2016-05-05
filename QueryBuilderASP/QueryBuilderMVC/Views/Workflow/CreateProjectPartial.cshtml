@@ -1,13 +1,12 @@
 ﻿@model QueryBuilderMVC.Models.ProjectViewModel
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     @Html.ValidationSummary();
     <div>
         @Html.LabelFor(model => model.Name)
         <div>
             @Html.EditorFor(x => x.Name)
-            @*@Html.ValidationMessageFor(model => model.Name, "")*@
 
         </div>
     </div>
@@ -15,16 +14,17 @@
         @Html.LabelFor(model => model.Description)
         <div>
             @Html.EditorFor(x => x.Description)
-            @*@Html.ValidationMessageFor(model => model.Description, "")*@
         </div>
     </div>
+}*@
 
+@using (Html.BeginForm())
+{
 
-
-
-
-    @*<p class="TextField">Your project name: @Html.TextBoxFor(x => x.Name)</p>
-    <p class="TextField">Project description: @Html.TextAreaFor(x => x.Description)</p>
-    <br />*@
-        @*<input type="submit" name="action" value="Create new project" />*@
+    @Html.ValidationSummary();
+    <p class="TextField">Name project: @Html.TextBoxFor(x => x.Name) </p>
+    <p class="TextField">Description: @Html.TextBoxFor(x => x.Description)</p>
+   
 }
+
+

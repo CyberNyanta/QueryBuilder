@@ -86,8 +86,14 @@ function NotifyAndUpdate(url, updateurl) {
         datatype: "json",
         success:
         function (result) {
-            UpdateProjectList(updateurl)
-            Notify();
+                if ( result == "Success") {
+                    UpdateProjectList(updateurl)
+                    Notify();
+                }
+                else {
+                    $("#dialogContent").html(result);
+                }
+            
         }
     });
 }
@@ -98,24 +104,10 @@ function Notify() {
 };
 
 
-//function GetUrlFromHrefByName(selector) {
-//    return $(selector);
-//}
-//function SetEventForItems(selector, list, callback) {
-//    for (var index = 0; index <= list.length; index++) {
-//        if (!!list[index]) {
-//            callback(selector, list[index].href);
-
-//        }
-//    }
-
-//}
-
 function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
 
     $(selector).on("click", function (e) {
         e.preventDefault();
-
         $("<div id='dialogContent'></div>")
             .addClass("dialog")
             .appendTo("body")
@@ -127,14 +119,7 @@ function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
                 buttons: {
                     "Create": function () {
                         NotifyAndUpdate(url, updateurl);
-                        //debugger;
-                        //var iconDel = ".IconModalDelete";
-                        //var iconEdit = ".IconModalEdit";
-                        //var list = GetUrlFromHrefByName(iconEdit);
-                        //SetEventForItems(iconEdit, list, ModalPostDialogUpdate);
-                        //var actionEditUrl = GetUrlFromHrefByName(iconEdit);
 
-                        //ModalPostDialogUpdate(iconEdit, actionEditUrl);
                     }
                 }
             }
@@ -176,7 +161,7 @@ function UpdateProjectList(url) {
             $("#ListProject").remove();
             $("#proj").append('<div id="ListProject"></div>');
             $("#ListProject").append(result);
-            $("#hd-1").addClass(".hide");
+            //$("#hd-1").addClass(".hide");
         }
     })
 };

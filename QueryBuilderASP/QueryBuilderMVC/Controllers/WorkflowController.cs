@@ -148,7 +148,6 @@ namespace QueryBuilderMVC.Controllers
 
             return View(_projectModel);
         }
-        [HttpPost]
         public ActionResult ListProjectPartial()
         {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());

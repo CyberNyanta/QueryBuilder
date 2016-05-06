@@ -84,32 +84,28 @@ function NotifyAndUpdate(url, updateurl) {
         datatype: "json",
         success:
         function (result) {
-            Notify();
-            var s = function () {
-                UpdateProjectList(updateurl);
-
-            }
-            var rr = s();
+                if ( result == "Success") {
+                    UpdateProjectList(updateurl)
+                    Notify();
+                }
+                else {
+                    $("#dialogContent").html(result);
+                }
+            
         }
     });
 }
 
-function GetUrlFromHrefByName(selector) {
-    return $(selector);
-}
-function SetEventForItems(selector, list, event) {
-    for (var index = 0; index <= list.length; index++) {
-        if (!!list[index]) {
-            event(selector, list[index].href);
-        }
-    }
-    // ModalPostDialogDelete(iconDel, actionDelUrl);
-}
+function Notify() {
+    $("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
+    $(".dialog").remove();
+};
+
+
 function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
 
     $(selector).on("click", function (e) {
         e.preventDefault();
-
         $("<div id='dialogContent'></div>")
             .addClass("dialog")
             .appendTo("body")
@@ -121,14 +117,7 @@ function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
                 buttons: {
                     "Create": function () {
                         NotifyAndUpdate(url, updateurl);
-                        debugger;
-                        var iconDel = ".IconModalDelete";
-                        var iconEdit = ".IconModalEdit";
-                        var list = GetUrlFromHrefByName(iconDel);
-                        SetEventForItems(iconDel, list, ModalPostDialogDelete);
-                        var actionEditUrl = GetUrlFromHrefByName(iconEdit);
 
-                        //ModalPostDialogUpdate(iconEdit, actionEditUrl);
                     }
                 }
             }
@@ -151,7 +140,7 @@ function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl) {
                 modal: true,
                 buttons: {
                     "Delete": function () {
-                        NotifyAndUpdate(url, updateurl)
+                        NotifyAndUpdate(url, updateurl);
                     }
                 }
             }
@@ -167,19 +156,15 @@ function UpdateProjectList(url) {
         datatype: "json",
         success:
         function (result) {
-            console.log(result);
             $("#ListProject").remove();
             $("#proj").append('<div id="ListProject"></div>');
             $("#ListProject").append(result);
-            $("#hd-1").addClass(".hide");
+            //$("#hd-1").addClass(".hide");
         }
     })
 };
 
-function Notify() {
-    $("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
-    $(".dialog").remove();
-};
+
 
 function AjaxPostWithDialog(url) {
     $.ajax({
@@ -203,11 +188,10 @@ function AjaxPostWithNotify(url) {
         }
     });
 };
-function ModalPostDialogUpdate(selector, url) {
+function ModalPostDialogUpdate(selector, url, updateurl) {
 
     $(selector).on("click", function (e) {
         e.preventDefault();
-
         $("<div id='dialogContent'></div>")
             .addClass("dialog")
             .appendTo("body")
@@ -218,7 +202,7 @@ function ModalPostDialogUpdate(selector, url) {
                 modal: true,
                 buttons: {
                     "Update": function () {
-                        AjaxPostWithDialog(url);
+                        NotifyAndUpdate(url, updateurl);
                     }
                 }
             }

@@ -201,19 +201,21 @@
                         @using (Html.BeginForm("SaveQuery", "Workflow", FormMethod.Post))
                         {
 
-                            <input type="text" name="query" class="sqlQuery" style="display:none;" />
+                            <input type="text" name="query" class="sqlQuery" style="display: none;"/>
 
-                                    <button class="SaveQuery"></button>
+                            <button class="SaveQuery"></button>
 
                         }
                     </div>
 
-                     @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
+                    <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
+
+                    @*@Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
                                 new
                                 {
                                     @class = "GetResult",
                                     //data_dialog_title = "Update connection"
-                                })
+                                })*@
                 </div>
 
                 @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
@@ -457,7 +459,7 @@
                                     @class = "SaveExcel",
                                 })
                     </div>
-                    @Html.Partial("DataGridPartial");
+                    @Html.Partial("DataGridPartial")
                 </div>
         </div>
     </div>
@@ -490,59 +492,70 @@
         var x = get_cookie("sort_left"+@Model.IdCurrentProject);
         set_blocks(@Model.IdCurrentProject);
 
-    } );
+    });
 
-    $(document).ready(function () {
+    function LoadGrid() {
+        var s = $("#sql-code").val();
+
+        var arr = s.split('From');
+        s = '';
+        for (var i = 0; i < arr.length; i++) {
+            s += arr[i];
+            if (i === 0) {
+                s += ' From';
+            }
+        }
+
         $.ajax({
             type: "POST",
-            url: '@Url.Action("GetGridModel")',
+            url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
             data: "",
             dataType: "json",
-            success: function(result){
+            success: function(result) {
                 var modelList = [];
                 for (var i = 0; i < result.length; i++) {
                     modelList.push({
-                        name: result[i].Name, 
+                        name: result[i].Name,
                         index: result[i].Index,
                         sortable: result[i].Sortable,
                         align: result[i].Align
-                     });
+                    });
                 }
 
+                $("#jqg").jqGrid("GridUnload");
+
                 $("#jqg").jqGrid({
-                jsonReader: {
-                     cell: "",
-                     id: "0"
-                },
-                url: '@Url.Action("GetData")',
-                colModel: modelList,
-                datatype: 'json',
-                rowNum: 10,
-                rowList: [10, 20, 30, 50, 100],
-                pager: '#jpager',
-                loadonce: true,
-                autowidth: true,
-                scrollerbar: true
-             });
+                    jsonReader: {
+                        cell: "",
+                        id: "0"
+                    },
+                    url: '@Url.Action("GetData")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
+                    colModel: modelList,
+                    datatype: 'json',
+                    rowNum: 10,
+                    rowList: [10, 20, 30, 50, 100],
+                    pager: '#jpager',
+                    loadonce: true,
+                    autowidth: true,
+                    scrollerbar: true
+                });
 
-             $("#jqg").jqGrid('navGrid', '#jpager', {
-                search: true,
-                searchtext: "Search",
-                refresh: false,
-                add: false,
-                del: false,
-                edit: false,
-                view: true,
-                viewtext: "View",
-                viewtitle: "Selected record"
-             });
-         },
-         error: function(x, e)
-         {
-             alert(x.readyState + " "+ x.status +" "+ e.msg);
-         }
-    });
-       
-    });
-
+                $("#jqg").jqGrid('navGrid', '#jpager', {
+                    search: true,
+                    searchtext: "Search",
+                    refresh: false,
+                    add: false,
+                    del: false,
+                    edit: false,
+                    view: true,
+                    viewtext: "View",
+                    viewtitle: "Selected record"
+                });
+            },
+            error: function(x, e)
+            {
+                alert(x.readyState + " "+ x.status +" "+ e.msg);
+            }
+        });
+    };
 </script>

@@ -75,8 +75,8 @@ namespace QueryBuilderMVC.Controllers
                     if (_projectModel.ConnectionDbs.Any())
                     {
                         var connect = _projectModel.ConnectionDbs.First();
-                        var sqlConnection = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
-                                           connect.ServerName, connect.DatabaseName, connect.LoginDB, Rijndael.DecryptStringFromBytes(connect.PasswordDB));
+                        var sqlConnection =
+                            $"Data source= {connect.ServerName}; Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
                         ViewBag.ConnectionString = sqlConnection;
 
 
@@ -471,16 +471,17 @@ namespace QueryBuilderMVC.Controllers
         #endregion
 
         #region Grid
-        public string GetData()
+        public string GetData(string query, int idCurrentProject)
         {
-            var dataTableForGrid = GetDataTableForGrid();
+            var dataTableForGrid = GetDataTableForGrid(query, idCurrentProject);
 
             return JsonConvert.SerializeObject(dataTableForGrid);
         }
 
-        public string GetGridModel()
+        public string GetGridModel(string query, int idCurrentProject)
         {
-            var dataTableForGrid = GetDataTableForGrid();
+
+            var dataTableForGrid = GetDataTableForGrid(query, idCurrentProject);
 
             var header = (from DataColumn column in dataTableForGrid.Columns
                           select new DataGridModel
@@ -494,37 +495,33 @@ namespace QueryBuilderMVC.Controllers
             return JsonConvert.SerializeObject(header);
         }
 
-        private DataTable GetDataTableForGrid()
+        private DataTable GetDataTableForGrid(string query, int idCurrentProject)
         {
             var table = new DataTable();
 
+            var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
+            var connect = connectionsCurrentProject.First();
+            var connectionString = $"Data source= {connect.ServerName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
 
-            //using (var conn = new SqlConnection("Data Source=(local);Initial Catalog=QueryBuilder;Integrated Security=true; App=EntityFramework"))
-            //{
-            //    string query = "Select QueryBuilder.dbo.Project.ProjectName As uB1,  QueryBuilder.dbo.Project.ProjectID As uB2 From QueryBuilder.dbo.Project";
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    var adapt = new SqlDataAdapter(cmd);
+                    conn.Open();
+                    try
+                    {
+                        adapt.Fill(table);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
 
-            //    using (var cmd = new SqlCommand(query, conn))
-            //    {
-            //        SqlDataAdapter adapt = new SqlDataAdapter(cmd);
-            //        conn.Open();
-            //        adapt.Fill(table);
-            //        conn.Close();
-            //    }
-            //}
+                    conn.Close();
+                }
+            }
 
-
-
-            // FOR TEST
-            //table.Columns.Add("Dosage", typeof(int));
-            //table.Columns.Add("Drug", typeof(string));
-            //table.Columns.Add("Patient", typeof(string));
-            //table.Columns.Add("Date", typeof(DateTime));
-
-            //table.Rows.Add(25, "Indocin", "David", DateTime.Now);
-            //table.Rows.Add(50, "Enebrel", "Sam", DateTime.Now);
-            //table.Rows.Add(10, "Hydralazine", "Christoff", DateTime.Now);
-            //table.Rows.Add(21, "Combivent", "Janet", DateTime.Now);
-            //table.Rows.Add(100, "Dilantin", "Melanie", DateTime.Now);
             return table;
         }
         #endregion

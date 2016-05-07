@@ -12,7 +12,7 @@ namespace QueryBuilder.DAL.Models
 
         public string QueryOwner { get; set; }
 
-        public int ConnectionID { get; set; }
+        public int ProjectID { get; set; }
 
         public string QueryBody { get; set; }
 
@@ -22,6 +22,6 @@ namespace QueryBuilder.DAL.Models
 
         public int Delflag { get; set; }
 
-        public virtual ConnectionDB ConnectionDB { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

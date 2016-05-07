@@ -37,5 +37,33 @@ namespace QueryBuilder.Services.DbServices
                 return unitOfWork.Queries.GetMany(p => p.Delflag == DelflagConstants.ActiveSet);
             }
         }
-    }
+
+		public void SaveQuery(Query query)
+		{
+			if (query == null)
+			{
+				throw new ArgumentNullException(nameof(query));
+			}
+
+			using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+			{
+				if (query.QueryID == 0)
+					unitOfWork.Queries.Create(query);
+				else
+					unitOfWork.Queries.Update(query);
+
+				unitOfWork.Save();
+			}
+		}
+
+		public void DeleteQuery(int id)
+		{
+			using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+			{
+				unitOfWork.Queries.Delete(id);
+
+				unitOfWork.Save();
+			}
+		}
+	}
 }

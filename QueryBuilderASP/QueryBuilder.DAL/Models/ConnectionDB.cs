@@ -27,11 +27,11 @@ namespace QueryBuilder.DAL.Models
 
         public virtual Project Project { get; set; }
 
-        public virtual ICollection<Query> Queries { get; set; }
+       // public virtual ICollection<Query> Queries { get; set; }
 
-        public ConnectionDB()
-        {
-            Queries = new HashSet<Query>();
-        }
+        //public ConnectionDB()
+        //{
+        //    Queries = new HashSet<Query>();
+        //}
     }
 }

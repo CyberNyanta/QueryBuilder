@@ -20,13 +20,17 @@ namespace QueryBuilder.DAL.Models
 
         public virtual ICollection<ConnectionDB> ConnectionDBs { get; set; }
 
-        public virtual ICollection<ProjectsShare> ProjectsShares { get; set; }
+		public virtual ICollection<Query> Queries { get; set; }
+
+		public virtual ICollection<ProjectsShare> ProjectsShares { get; set; }
 
         public Project()
         {
             ConnectionDBs = new HashSet<ConnectionDB>();
             ProjectsShares = new HashSet<ProjectsShare>();
-            CreatedDate = DateTime.Now;
+			Queries = new HashSet<Query>();
+			CreatedDate = DateTime.Now;
+
         }
     }
 }

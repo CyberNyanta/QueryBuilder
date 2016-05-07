@@ -8,5 +8,10 @@ namespace QueryBuilder.Services.Contracts
         IEnumerable<Query> GetQueries();
 
         void CreateQuery(Query query);
-    }
+
+		void SaveQuery(Query query);
+
+		void DeleteQuery(int id);
+
+	}
 }

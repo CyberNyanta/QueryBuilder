@@ -13,9 +13,9 @@ namespace QueryBuilder.DAL.Configuration
             HasKey(p => p.QueryID);
             Property(p => p.QueryName).HasMaxLength(DbLengthString.LongString);
             Property(p => p.QueryOwner).HasMaxLength(DbLengthString.LongString);
-            Property(p => p.ConnectionID).IsRequired();
+            Property(p => p.ProjectID).IsRequired();
             Property(p => p.QueryDate).IsRequired().HasColumnType("DateTime");
-            HasRequired(p => p.ConnectionDB).WithMany(p => p.Queries).HasForeignKey(p => p.ConnectionID);
+            HasRequired(p => p.Project).WithMany(p => p.Queries).HasForeignKey(p => p.ProjectID);
         }
     }
 }

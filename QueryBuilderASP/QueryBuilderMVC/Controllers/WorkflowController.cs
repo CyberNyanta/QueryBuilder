@@ -27,6 +27,7 @@ namespace QueryBuilderMVC.Controllers
         private readonly IUserService _serviceUser;
         private readonly IConnectionDbService _serviceConnection;
         private readonly IProjectsShareService _serviceProjectsShareService;
+		private readonly IQueryService _serviceQueryService;
 
         private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
@@ -34,13 +35,15 @@ namespace QueryBuilderMVC.Controllers
         private ApplicationUser _currentUser;
 
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser,
-            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection)
+            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection, IQueryService serviceQueryService)
         {
             _serviceProject = serviceProject;
             _serviceUser = serviceUser;
             _serviceConnection = serviceConnection;
             _serviceProjectsShareService = serviceProjectsShare;
-        }
+			_serviceQueryService = serviceQueryService;
+
+		}
 
         [HttpGet]
         public ActionResult List(string id = "0")

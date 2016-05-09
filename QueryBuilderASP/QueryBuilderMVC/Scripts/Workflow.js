@@ -123,7 +123,7 @@ function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl, call
                         NotifyAndUpdate(url, updateurl);
                         setTimeout(function () {
                             callback(updateurl);
-                        }, 1000);
+                        }, 500);
                     }
                 }
             }
@@ -131,6 +131,34 @@ function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl, call
     });
 
 };
+
+function ModalPostDialogInviteWithNotifyAndUpdate(selector, url, updateurl, callback) {
+
+    $(selector).on("click", function (e) {
+        e.preventDefault();
+        $("<div id='dialogContent'></div>")
+            .addClass("dialog")
+            .appendTo("body")
+            .load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() },
+                modal: true,
+                buttons: {
+                    "Invite": function () {
+                        NotifyAndUpdate(url, updateurl);
+                        setTimeout(function () {
+                            callback(updateurl);
+                        }, 500);
+
+                    }
+                }
+            }
+            );
+    });
+
+};
+
 function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, callback) {
 
     $(selector).on("click", function (e) {

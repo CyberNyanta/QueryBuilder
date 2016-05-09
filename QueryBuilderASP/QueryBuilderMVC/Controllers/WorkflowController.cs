@@ -153,6 +153,7 @@ namespace QueryBuilderMVC.Controllers
             var countInvited = 0;
             foreach (var project in projectsViewModel)
             {
+                project.CountUsersForShared = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(project.ProjectID)).Count();
                 project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
                 if (project.UserRole == 0)
                 {
@@ -422,7 +423,7 @@ namespace QueryBuilderMVC.Controllers
                 ProjectId = id
             };
 
-            return PartialView("_InviteUserToProjectPartial", model);
+            return PartialView("InviteUserToProjectPartial", model);
         }
 
         [HttpPost]
@@ -448,7 +449,7 @@ namespace QueryBuilderMVC.Controllers
 
             user.Users = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UsersListViewModel>>(users);
 
-            return PartialView("_InviteUserToProjectPartial", user);
+            return PartialView("InviteUserToProjectPartial", user);
         }
 
         [HttpGet]

@@ -71,6 +71,7 @@
                                 data_dialog_title = "Edit project"
                             })
                         </div>
+
                         if ((item.UserRole == 2) && (item.CountUsersForShared > 0))
                         {
                             <div class="IconMenu">
@@ -107,8 +108,9 @@
 
             ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
             ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
+            ModalPostDialogInviteWithNotifyAndUpdate(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
 
-            ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');
+            @*ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');*@
 
 
             $(".close").on("click", function (e) {

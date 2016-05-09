@@ -45,7 +45,7 @@
                             @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
-                                    @class = "viewDialogDelete IconModalDelete",
+                                    @class = "viewDialogDelete IconModalDelete2",
                                     data_dialog_title = "Delete project"
                                 })
                         </div>
@@ -53,7 +53,7 @@
                             @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = Model.IdCurrentProject },
                                 new
                                 {
-                                    @class = "viewDialogEdit IconModalEdit",
+                                    @class = "viewDialogEdit IconModalEdit2",
                                     data_dialog_title = "Edit project"
                                 })
                         </div>
@@ -157,12 +157,6 @@
 
                     <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
 
-                    @*@Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
-                                new
-                                {
-                                    @class = "GetResult",
-                                    //data_dialog_title = "Update connection"
-                                })*@
                 </div>
 
                 @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
@@ -515,8 +509,9 @@
 
             $.ajaxSetup({ cache: false });
             ///Modal edit for edit Project
-            @*ModalPostDialogUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);*@
-            ///Modal edit for edit Connection
+            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete2", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
+            ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit2", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
+
 
            
             ///Modal create Connection

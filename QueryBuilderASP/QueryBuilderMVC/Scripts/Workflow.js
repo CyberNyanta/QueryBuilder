@@ -3,54 +3,6 @@
     $("#invitedUserId").val(userId);
 };
 
-function ModalPostDialogDelete(selector, url) {
-
-    $(selector).on("click", function (e) {
-        e.preventDefault();
-
-        $("<div id='dialogContent'></div>")
-            .addClass("dialog")
-            .appendTo("body")
-            .load(this.href)
-            .dialog({
-                title: $(this).attr("data-dialog-title"),
-                close: function () { $(this).remove() },
-                modal: true,
-                buttons: {
-                    "Delete": function () {
-                        AjaxPostWithDialog(url);
-                    }
-                }
-            }
-            );
-    });
-
-};
-
-function ModalPostDialogInvite(selector, url) {
-
-    $(selector).on("click", function (e) {
-        e.preventDefault();
-
-        $("<div id='dialogContent'></div>")
-            .addClass("dialog")
-            .appendTo("body")
-            .load(this.href)
-            .dialog({
-                title: $(this).attr("data-dialog-title"),
-                close: function () { $(this).remove() },
-                modal: true,
-                buttons: {
-                    "Invite": function () {
-                        //AjaxPostWithNotify(url);
-                        AjaxPostWithDialog(url);
-                    }
-                }
-            }
-            );
-    });
-
-};
 
 
 function NotifyAndUpdate(url, updateurl) {
@@ -217,50 +169,4 @@ function UpdateConnectionList(url) {
             $("#ListConnection").append(result);
         }
     })
-};
-
-
-function AjaxPostWithDialog(url) {
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: $('form').serialize(),
-        datatype: "json",
-        success: function (result) {
-            $("#dialogContent").html(result);
-        }
-    });
-};
-function AjaxPostWithNotify(url) {
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: $('form').serialize(),
-        datatype: "json",
-        success: function (result) {
-            Notify();
-        }
-    });
-};
-function ModalPostDialogUpdate(selector, url, updateurl) {
-
-    $(selector).on("click", function (e) {
-        e.preventDefault();
-        $("<div id='dialogContent'></div>")
-            .addClass("dialog")
-            .appendTo("body")
-            .load(this.href)
-            .dialog({
-                title: $(this).attr("data-dialog-title"),
-                close: function () { $(this).remove() },
-                modal: true,
-                buttons: {
-                    "Update": function () {
-                        NotifyAndUpdate(url, updateurl);
-                    }
-                }
-            }
-            );
-    });
-
 };

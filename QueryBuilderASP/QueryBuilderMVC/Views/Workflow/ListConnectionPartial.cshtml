@@ -91,7 +91,6 @@
         $.ajaxSetup({ cache: false });
         //CRUD connection
         ModalPostDialogDeleteWithNotifyAndUpdate(".DeleteConnectionItem", '@Url.Action("DeleteConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
-        ModalPostDialogDeleteWithNotifyAndUpdate(".DeleteConnection", '@Url.Action("DeleteConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
         ModalPostDialogUpdateWithNotifyAndUpdate(".UpdateConnectionItem", '@Url.Action("UpdateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
         ModalPostDialogUpdateWithNotifyAndUpdate(".LinkEdit", '@Url.Action("UpdateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
        

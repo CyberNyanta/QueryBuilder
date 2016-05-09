@@ -110,9 +110,6 @@
             ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
             ModalPostDialogInviteWithNotifyAndUpdate(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
 
-            @*ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');*@
-
-
             $(".close").on("click", function (e) {
                 e.preventDefault();
                 $(this).closest(".dialog").dialog("close");

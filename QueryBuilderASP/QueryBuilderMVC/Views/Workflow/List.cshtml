@@ -84,8 +84,8 @@
         <div class="portlet " id="id_2">
             <div class="portlet-header">
 
-                <div style="display:inline-block;">
-                    <div>My connections</div>
+                <div style="display:inline-block;" class="ContainerForConnections">
+                    <div class="MyConnections">My connections</div>
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
                         <div>
@@ -115,67 +115,14 @@
                         </div>
 
                     }
-
                 </div>
 
 
             </div>
-            <div class="portlet-content">
-                @if (Model.IdCurrentProject != 0)
-                {
-                    foreach (var item in Model.ConnectionDbs)
-                    {
-                       
-                        <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
-                            @if (Request.IsAuthenticated)
-                            {
-                                <div class="ItemNameConnection">
-                                    @Html.ActionLink(@item.ConnectionName, "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
-                                new
-                                {
-                                    @class = "LinkEdit",
-                                    data_dialog_title = "Update connection"
-                                })
-                                </div>
-
-                                <div>
-                                    @Html.ActionLink(" ", "DeleteConnectionPartial", "Workflow", new { id = item.ConnectionID },
-                            new
-                            {
-                                @class = "DeleteConnectionItem iconHeaderDeleteItem",
-                                data_dialog_title = "Delete connection"
-                            })
-                                </div>
-                                <div class="">
-                                    @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = item.ConnectionID },
-                                        new
-                                        {
-                                            @class = "UpdateConnectionItem",
-                                            data_dialog_title = "Update connection"
-                                        })
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="ItemNameConnection">
-                                    @item.ConnectionName
-                                </div>
-                            }
-
-                            <div>
-                                @Html.ActionLink(" ", "ERModel", "Builder", new { id = item.ConnectionID },
-                                        new
-                                        {
-                                            @class = "ERModel",
-                                            data_dialog_title = "ER-Model",
-                                            target="_blank"
-                                        })
-                            </div>
-                        </div>
-                        <br />
-
-                    }
-                }
+            <div class="portlet-content" id="ContainerListConnection">
+                <div id="ListConnection">
+                    @Html.Partial("ListConnectionPartial")
+                </div>
 
             </div>
             
@@ -560,4 +507,37 @@
             }
         });
     };
+</script>
+
+<script>
+
+        $(document).ready(function () {
+
+            $.ajaxSetup({ cache: false });
+            ///Modal edit for edit Project
+            @*ModalPostDialogUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);*@
+            ///Modal edit for edit Connection
+
+           
+            ///Modal create Connection
+            ModalPostDialogCreateWithNotifyAndUpdate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")',UpdateConnectionList);
+
+            $(function () {
+
+
+                $(".portlet-toggle").click(function () {
+                    var icon = $(this);
+                    icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+                    icon.closest(".portlet").find(".portlet-content").toggle();
+                });
+            });
+
+
+
+            $(".close").on("click", function (e) {
+                e.preventDefault();
+                $(this).closest(".dialog").dialog("close");
+            });
+        });
+
 </script>

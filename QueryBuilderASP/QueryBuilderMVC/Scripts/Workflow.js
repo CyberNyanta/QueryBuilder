@@ -52,29 +52,6 @@ function ModalPostDialogInvite(selector, url) {
 
 };
 
-function ModalPostDialogCreate(selector, url) {
-
-    $(selector).on("click", function (e) {
-        e.preventDefault();
-
-        $("<div id='dialogContent'></div>")
-            .addClass("dialog")
-            .appendTo("body")
-            .load(this.href)
-            .dialog({
-                title: $(this).attr("data-dialog-title"),
-                close: function () { $(this).remove() },
-                modal: true,
-                buttons: {
-                    "Create": function () {
-                        AjaxPostWithDialog(url);
-                    }
-                }
-            }
-            );
-    });
-
-};
 
 function NotifyAndUpdate(url, updateurl) {
     $.ajax({
@@ -85,8 +62,8 @@ function NotifyAndUpdate(url, updateurl) {
         success:
         function (result) {
                 if ( result == "Success") {
-                    UpdateProjectList(updateurl)
                     Notify();
+                    
                 }
                 else {
                     $("#dialogContent").html(result);
@@ -102,7 +79,7 @@ function Notify() {
 };
 
 
-function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
+function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl, callback) {
 
     $(selector).on("click", function (e) {
         e.preventDefault();
@@ -117,6 +94,9 @@ function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
                 buttons: {
                     "Create": function () {
                         NotifyAndUpdate(url, updateurl);
+                        setTimeout(function() {
+                            callback(updateurl);
+                        }, 500);
 
                     }
                 }
@@ -125,7 +105,7 @@ function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl) {
     });
 
 };
-function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl) {
+function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl, callback) {
 
     $(selector).on("click", function (e) {
         e.preventDefault();
@@ -141,6 +121,35 @@ function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl) {
                 buttons: {
                     "Delete": function () {
                         NotifyAndUpdate(url, updateurl);
+                        setTimeout(function () {
+                            callback(updateurl);
+                        }, 1000);
+                    }
+                }
+            }
+            );
+    });
+
+};
+function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, callback) {
+
+    $(selector).on("click", function (e) {
+        e.preventDefault();
+
+        $("<div id='dialogContent'></div>")
+            .addClass("dialog")
+            .appendTo("body")
+            .load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() },
+                modal: true,
+                buttons: {
+                    "Update": function () {
+                        NotifyAndUpdate(url, updateurl);
+                        setTimeout(function () {
+                            callback(updateurl);
+                        }, 500);
                     }
                 }
             }
@@ -149,7 +158,10 @@ function ModalPostDialogDeleteWithNotifyAndUpdate(selector, url, updateurl) {
 
 };
 
+
 function UpdateProjectList(url) {
+    console.log("UpdateProjectList ");
+
     $.ajax({
         url: url,
         type: "POST",
@@ -159,11 +171,25 @@ function UpdateProjectList(url) {
             $("#ListProject").remove();
             $("#proj").append('<div id="ListProject"></div>');
             $("#ListProject").append(result);
-            //$("#hd-1").addClass(".hide");
         }
     })
 };
 
+function UpdateConnectionList(url) {
+    console.log("UpdateConnectionList");
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        datatype: "json",
+        success:
+        function (result) {
+            $("#ListConnection").remove();
+            $("#ContainerListConnection").append('<div id="ListConnection"></div>');
+            $("#ListConnection").append(result);
+        }
+    })
+};
 
 
 function AjaxPostWithDialog(url) {

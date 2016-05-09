@@ -105,26 +105,11 @@
 
             $.ajaxSetup({ cache: false });
 
-            @*ModalPostDialogCreateWithNotifyAndUpdate(".CreateNewProject", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');*@
-            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-
-            @*ModalPostDialogCreate("#IconMenuAdd", '@Url.Action("CreateProjectPartial", "Workflow")');*@
-
-            @*ModalPostDialogDelete(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")');*@
-
-            ///Modal edit for edit Project
-            ModalPostDialogUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-            ///Modal edit for edit Connection
-            ModalPostDialogUpdate(".UpdateConnection", '@Url.Action("UpdateConnectionPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-            ModalPostDialogUpdate(".UpdateConnectionItem", '@Url.Action("UpdateConnectionPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-            ModalPostDialogUpdate(".LinkEdit", '@Url.Action("UpdateConnectionPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
-            ///Modal create Connection
-            ModalPostDialogCreate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")');
-
-            ModalPostDialogDelete(".DeleteConnection", '@Url.Action("DeleteConnectionPartial", "Workflow")');
-            ModalPostDialogDelete(".DeleteConnectionItem", '@Url.Action("DeleteConnectionPartial", "Workflow")');
+            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
+            ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
 
             ModalPostDialogInvite(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")');
+
 
             $(".close").on("click", function (e) {
                 e.preventDefault();

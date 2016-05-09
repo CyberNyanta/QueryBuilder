@@ -171,7 +171,7 @@
 
             $.ajaxSetup({ cache: false });
 
-            ModalPostDialogCreateWithNotifyAndUpdate(".CreateNewProject", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")');
+            ModalPostDialogCreateWithNotifyAndUpdate(".CreateNewProject", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
             UpdateProjectClick();
 
             function UpdateProjectClick() {
@@ -181,6 +181,7 @@
 
             };
 
+            
 
             $(".close").on("click", function (e) {
                 e.preventDefault();

@@ -16,8 +16,7 @@ using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
-using System.Web;
-using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Control;
+using System.Text.RegularExpressions;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -27,7 +26,7 @@ namespace QueryBuilderMVC.Controllers
         private readonly IUserService _serviceUser;
         private readonly IConnectionDbService _serviceConnection;
         private readonly IProjectsShareService _serviceProjectsShareService;
-		private readonly IQueryService _serviceQueryService;
+        private readonly IQueryService _serviceQueryService;
 
         private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
@@ -41,9 +40,9 @@ namespace QueryBuilderMVC.Controllers
             _serviceUser = serviceUser;
             _serviceConnection = serviceConnection;
             _serviceProjectsShareService = serviceProjectsShare;
-			_serviceQueryService = serviceQueryService;
+            _serviceQueryService = serviceQueryService;
 
-		}
+        }
 
         [HttpGet]
         public ActionResult List(string id = "0")
@@ -71,10 +70,7 @@ namespace QueryBuilderMVC.Controllers
                 {
                     var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
                     _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
-                    //
-                    //Create treeView from database in first connection;
-                    //
-                    //
+
                     if (_projectModel.ConnectionDbs.Any())
                     {
                         var connect = _projectModel.ConnectionDbs.First();
@@ -85,9 +81,6 @@ namespace QueryBuilderMVC.Controllers
 
                     }
 
-                    ////
-                    ///
-                    ///
                     var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
                     {
@@ -151,6 +144,7 @@ namespace QueryBuilderMVC.Controllers
 
             return View(_projectModel);
         }
+
         public ActionResult ListProjectPartial()
         {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
@@ -172,6 +166,36 @@ namespace QueryBuilderMVC.Controllers
             return PartialView("ListProjectPartial", _projectModel);
         }
 
+        public ActionResult ListConnectionPartial()
+        {
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+
+            string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            string pattern = "[0-9]+$";
+            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match match = rgx.Match(PreviousPage);
+            int id = Convert.ToInt16(match.Value);
+            _projectModel.IdCurrentProject = id;
+            if (id != 0)
+            {
+                var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(id);
+                _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
+
+                if (_projectModel.ConnectionDbs.Any())
+                {
+                    var connect = _projectModel.ConnectionDbs.First();
+                    var sqlConnection =
+                        $"Data source= {connect.ServerName}; Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
+                    ViewBag.ConnectionString = sqlConnection;
+
+
+                }
+
+            }
+
+
+            return PartialView("ListConnectionPartial", _projectModel);
+        }
 
         #region Project
         [Authorize]
@@ -314,9 +338,10 @@ namespace QueryBuilderMVC.Controllers
                     var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
                     _serviceConnection.SaveConnection(newConnection);
 
-                    ViewBag.Title = "Success";
-                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-                    return PartialView("Result");
+                    //ViewBag.Title = "Success";
+                    //ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    //return PartialView("Result");
+                    return PartialView("Success");
                 }
                 ModelState.AddModelError("", "The connection failed. Check entered data");
             }
@@ -345,13 +370,11 @@ namespace QueryBuilderMVC.Controllers
                     var newConnection = Mapper.Map<ConnectionViewModel, ConnectionDB>(connection);
                     _serviceConnection.SaveConnection(newConnection);
 
-                    ViewBag.Title = "Success";
-                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    //ViewBag.Title = "Success";
+                    //ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
 
-                    return PartialView("Result");
-
-
-
+                    return PartialView("Success");
+                    
                 }
                 ModelState.AddModelError("", "The connection failed. Check entered data");
             }
@@ -536,9 +559,9 @@ namespace QueryBuilderMVC.Controllers
             return File(stream, "text/plain", "Query.txt");
         }
 
-        public ActionResult SendQuery(string query, string email=null)
+        public ActionResult SendQuery(string query, string email = null)
         {
-            if (email==null)
+            if (email == null)
             {
                 ViewBag.Query = query;
 
@@ -556,6 +579,6 @@ namespace QueryBuilderMVC.Controllers
 
         }
 
-     
+
     }
 }

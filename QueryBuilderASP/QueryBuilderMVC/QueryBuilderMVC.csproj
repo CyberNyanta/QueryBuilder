@@ -937,6 +937,7 @@
     <Content Include="Views\Workflow\_NotificationUserPartial.cshtml" />
     <Content Include="Views\Workflow\DataGridPartial.cshtml" />
     <Content Include="Views\Workflow\SendQueryPartial.cshtml" />
+    <Content Include="Views\Workflow\ListConnectionPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

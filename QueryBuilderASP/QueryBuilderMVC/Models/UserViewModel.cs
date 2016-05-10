@@ -6,7 +6,8 @@ namespace QueryBuilderMVC.Models
     public class UserViewModel
     {
         [ScaffoldColumn(false)]
-        [Required(ErrorMessage = @"Please select user")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                 ErrorMessageResourceName = "UserViewModelUser")]
         public string UserId { get; set; }
 
         public string UserName { get; set; }

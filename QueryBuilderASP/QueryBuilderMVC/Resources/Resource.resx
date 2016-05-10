@@ -265,6 +265,12 @@
   <data name="LoginPartialHello" xml:space="preserve">
     <value>Hello</value>
   </data>
+  <data name="ManageViewModelValidPassord" xml:space="preserve">
+    <value>The password must be at least 6 characters long.</value>
+  </data>
+  <data name="ManageViewModelValidPasswordText" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -282,6 +288,9 @@
   </data>
   <data name="SettingsForMenu" xml:space="preserve">
     <value>Settings </value>
+  </data>
+  <data name="UserViewModelUser" xml:space="preserve">
+    <value>Please select user</value>
   </data>
   <data name="WorkflowLogIn" xml:space="preserve">
     <value>Log in</value>

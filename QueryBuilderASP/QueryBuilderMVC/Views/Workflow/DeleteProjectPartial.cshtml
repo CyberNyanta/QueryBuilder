@@ -1,11 +1,11 @@
 ﻿@model QueryBuilderMVC.Models.ProjectViewModel
 
 
-<h5>Do you want delete this project?</h5>
+<h5>@Resources.Resource.DeleteProjectQuestion</h5>
 <div>
     <p>Id: @Html.DisplayFor(m => m.IdCurrentProject)</p>
-    <p>Name: @Html.DisplayFor(m => m.Name)</p>
-    <p>Description: @Html.DisplayFor(m => m.Description)</p>
+    <p>@Resources.Resource.CreateProjectName @Html.DisplayFor(m => m.Name)</p>
+    <p>@Resources.Resource.CreateProjectDescription @Html.DisplayFor(m => m.Description)</p>
 
     @using (Html.BeginForm())
     {

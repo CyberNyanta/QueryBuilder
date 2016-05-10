@@ -17,7 +17,7 @@
             <div>
                 @Html.TextBoxFor(x => x.ServerName, new { disabled = "disabled", placehoder = Model.ServerName })
                 <p class="TextField" style="display:none;">
-                    Database: @Html.TextBoxFor(x => x.ServerName,
+                    @Resources.Resource.CreateConnectionDatabase @Html.TextBoxFor(x => x.ServerName,
                     new { placeholder = Model.ServerName })
                 </p>
             </div>
@@ -36,7 +36,7 @@
             <div>
                 @*@Html.TextBoxFor(x => x.LoginDB, new { disabled = "disabled", placehoder = Model.LoginDB })*@
                 <p class="TextField" style="display:none;">
-                    Database: @Html.TextBoxFor(x => x.LoginDB,
+                    @Resources.Resource.CreateConnectionDatabase @Html.TextBoxFor(x => x.LoginDB,
        new { placeholder = Model.LoginDB })
                 </p>
             </div>

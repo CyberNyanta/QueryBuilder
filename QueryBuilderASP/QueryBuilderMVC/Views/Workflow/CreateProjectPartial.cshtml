@@ -22,8 +22,8 @@
 {
 
     @Html.ValidationSummary();
-    <p class="TextField">Name project: @Html.TextBoxFor(x => x.Name) </p>
-    <p class="TextField">Description: @Html.TextBoxFor(x => x.Description)</p>
+    <p class="TextField">@Resources.Resource.CreateProjectName @Html.TextBoxFor(x => x.Name) </p>
+    <p class="TextField">@Resources.Resource.CreateProjectDescription @Html.TextBoxFor(x => x.Description)</p>
    
 }
 

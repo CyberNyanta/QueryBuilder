@@ -70,6 +70,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database Name:.
+        /// </summary>
+        public static string CreateConnectionDatabase {
+            get {
+                return ResourceManager.GetString("CreateConnectionDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection:.
+        /// </summary>
+        public static string CreateConnectionName {
+            get {
+                return ResourceManager.GetString("CreateConnectionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description:.
+        /// </summary>
+        public static string CreateProjectDescription {
+            get {
+                return ResourceManager.GetString("CreateProjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name project:.
+        /// </summary>
+        public static string CreateProjectName {
+            get {
+                return ResourceManager.GetString("CreateProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want delete this connection?.
+        /// </summary>
+        public static string DeleteConnectionQuestion {
+            get {
+                return ResourceManager.GetString("DeleteConnectionQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want delete this project?.
+        /// </summary>
+        public static string DeleteProjectQuestion {
+            get {
+                return ResourceManager.GetString("DeleteProjectQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start FREE.
         /// </summary>
         public static string IndexStartFREE {
@@ -349,6 +403,105 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users for shared.
+        /// </summary>
+        public static string InviteUserTitle {
+            get {
+                return ResourceManager.GetString("InviteUserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string LayoutAbout {
+            get {
+                return ResourceManager.GetString("LayoutAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string LayoutContact {
+            get {
+                return ResourceManager.GetString("LayoutContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string LayoutHome {
+            get {
+                return ResourceManager.GetString("LayoutHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - QueryBuilder.
+        /// </summary>
+        public static string LayoutTitle {
+            get {
+                return ResourceManager.GetString("LayoutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My connections.
+        /// </summary>
+        public static string ListMyConnection {
+            get {
+                return ResourceManager.GetString("ListMyConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query.
+        /// </summary>
+        public static string ListQuery {
+            get {
+                return ResourceManager.GetString("ListQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QueryBuilder.
+        /// </summary>
+        public static string ListQueryBuilder {
+            get {
+                return ResourceManager.GetString("ListQueryBuilder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string ListQuerySettings {
+            get {
+                return ResourceManager.GetString("ListQuerySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result query.
+        /// </summary>
+        public static string ListResultQuery {
+            get {
+                return ResourceManager.GetString("ListResultQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        public static string LoginPartialHello {
+            get {
+                return ResourceManager.GetString("LoginPartialHello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ProjectName {
@@ -403,11 +556,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string WorkflowLogIn {
+            get {
+                return ResourceManager.GetString("WorkflowLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Off.
+        /// </summary>
+        public static string WorkflowLogOff {
+            get {
+                return ResourceManager.GetString("WorkflowLogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account Settings.
         /// </summary>
         public static string WorkflowMenuSettings {
             get {
                 return ResourceManager.GetString("WorkflowMenuSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new project.
+        /// </summary>
+        public static string WorkflowNewProject {
+            get {
+                return ResourceManager.GetString("WorkflowNewProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string WorkflowRegister {
+            get {
+                return ResourceManager.GetString("WorkflowRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings account.
+        /// </summary>
+        public static string WorkflowSettingAccount {
+            get {
+                return ResourceManager.GetString("WorkflowSettingAccount", resourceCulture);
             }
         }
     }

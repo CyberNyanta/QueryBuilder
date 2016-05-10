@@ -7,8 +7,8 @@
    
     <p class="TextField" style="display:none;">Name project: @Html.TextBoxFor(x => x.IdCurrentProject, new { placeholder = Model.IdCurrentProject}) </p>
 
-    <p class="TextField">Name project: @Html.TextBoxFor(x => x.Name, new { placeholder = Model.Name }) </p>
-    <p class="TextField">Description: @Html.TextBoxFor(x => x.Description, new { placeholder = Model.Description })</p>
+    <p class="TextField">@Resources.Resource.CreateProjectName @Html.TextBoxFor(x => x.Name, new { placeholder = Model.Name }) </p>
+    <p class="TextField">@Resources.Resource.CreateProjectDescription @Html.TextBoxFor(x => x.Description, new { placeholder = Model.Description })</p>
     @*<br />
 
     <input type="submit" name="action" value="Update project" />*@

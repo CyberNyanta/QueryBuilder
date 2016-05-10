@@ -85,7 +85,7 @@
             <div class="portlet-header">
 
                 <div style="display:inline-block;" class="ContainerForConnections">
-                    <div class="MyConnections">My connections</div>
+                    <div class="MyConnections">@Resources.Resource.ListMyConnection</div>
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
                         <div>
@@ -129,7 +129,7 @@
         </div>
 
         <div class="portlet" id="id_4">
-            <div class="portlet-header">Query</div>
+            <div class="portlet-header">@Resources.Resource.ListQuery</div>
             <div class="portlet-content">
 
                 <div class="IconQuery">
@@ -181,7 +181,7 @@
     <div class="col-xs-12 col-lg-10 col-md-10 col-sm-10">
 
         <div class="nonSortable">
-            <div class="portlet-header">QueryBuilder</div>
+            <div class="portlet-header">@Resources.Resource.ListQueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
                 @if (Model.IdCurrentProject != 0)
@@ -316,7 +316,7 @@
             </div>
         </div>
         <div class="nonSortable">
-            <div class="portlet-header">Settings</div>
+            <div class="portlet-header">@Resources.Resource.ListQuerySettings</div>
             <div class="portlet-content">
                 @Html.ActiveQueryBuilder().Grid(settings =>
                            {
@@ -325,7 +325,7 @@
             </div>
         </div>
         <div class="nonSortable">
-            <div class="portlet-header">Result query</div>
+            <div class="portlet-header">@Resources.Resource.ListResultQuery</div>
                 <div class="portlet-content">
                     <div class="Tools-panel">
 

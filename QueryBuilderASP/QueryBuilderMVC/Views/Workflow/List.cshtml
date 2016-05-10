@@ -360,19 +360,18 @@
 
 <script>
                 jQuery(".SaveQuery").click(function() {
-                    var s = $("#sql-code").val();
+                    var s = FormatQueryString();
                     $(".sqlQuery").val(s);
 
                 });
 
                 $(".SendQuery").hover(function(){
-                    var s = $("#sql-code").val();
+                    var s = FormatQueryString();
                     $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
 
                 });
 
                 function AjaxPostWithDialog2(url) {
-                    console.log("dfd");
                     $.ajax({
                         url: url,
                         type: "POST",

@@ -36,7 +36,7 @@ namespace QueryBuilder.Utils.Exporters
 
             var writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
 
-            AddContentToFile(document, dataTable, title);
+            AddContentToDocument(document, dataTable, title);
 
             writer.Close();
         }
@@ -51,7 +51,7 @@ namespace QueryBuilder.Utils.Exporters
             var pdfStream = new MemoryStream();
             var writer = PdfWriter.GetInstance(document, pdfStream);
 
-            AddContentToFile(document, dataTable, title);
+            AddContentToDocument(document, dataTable, title);
 
             writer.Close();
 
@@ -59,7 +59,7 @@ namespace QueryBuilder.Utils.Exporters
         }
 
 
-        private void AddContentToFile(Document document, DataTable dataTable, string title)
+        private void AddContentToDocument(Document document, DataTable dataTable, string title)
         {
             if (document == null) throw new ArgumentNullException(nameof(document));
 

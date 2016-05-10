@@ -45,7 +45,6 @@ namespace QueryBuilderMVC.Controllers
             _serviceConnection = serviceConnection;
             _serviceProjectsShareService = serviceProjectsShare;
             _serviceQueryService = serviceQueryService;
-
         }
 
         public ActionResult ChangeCulture(string lang)
@@ -528,17 +527,16 @@ namespace QueryBuilderMVC.Controllers
         #region Grid
         public string GetData(string query, int idCurrentProject)
         {
-            var dataTableForGrid = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
 
-            return JsonConvert.SerializeObject(dataTableForGrid);
+            return JsonConvert.SerializeObject(dataTable);
         }
 
         public string GetGridModel(string query, int idCurrentProject)
         {
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
 
-            var dataTableForGrid = GetDataTableForGrid(query, idCurrentProject);
-
-            var header = (from DataColumn column in dataTableForGrid.Columns
+            var header = (from DataColumn column in dataTable.Columns
                           select new DataGridModel
                           {
                               Name = column.ColumnName,
@@ -599,13 +597,13 @@ namespace QueryBuilderMVC.Controllers
         {
             var dataTable = GetDataTableForGrid(query, idCurrentProject);
 
-            var pdfExporter = DataTableToPdfExporter.CreateInstance();
-            var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
+            var excelExporter = DataTableToExcelExporter.CreateInstance();
+            var pdfStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");
 
             Response.ClearContent();
             Response.ClearHeaders();
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.pdf");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.xlsx");
             Response.BinaryWrite(pdfStream.ToArray());
             Response.End();
         }

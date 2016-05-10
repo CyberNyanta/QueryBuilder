@@ -29,6 +29,13 @@ namespace QueryBuilder.Utils.Exporters
             if ((dataTable == null) || (dataTable.Rows.Count == 0))
                 throw new ArgumentException("Empty data table.");
 
+            var workbook = AddContentToDocument(dataTable, title);
+           
+            workbook.SaveAs(filePath);
+        }
+
+        private XLWorkbook AddContentToDocument(DataTable dataTable, string title)
+        {
             var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add(title);
 
@@ -48,12 +55,22 @@ namespace QueryBuilder.Utils.Exporters
 
             worksheet.Columns().AdjustToContents();
 
-            workbook.SaveAs(filePath);
+            return workbook;
         }
 
         public MemoryStream DataTableExportToMemory(DataTable dataTable, string title)
         {
-            throw new NotImplementedException();
+            if ((dataTable == null) || (dataTable.Rows.Count == 0))
+                throw new ArgumentException("Empty data table.");
+
+            var excelStream = new MemoryStream();
+
+            var workbook = AddContentToDocument(dataTable, title);
+
+            workbook.SaveAs(excelStream);
+            excelStream.Position = 0;
+
+            return excelStream;
         }
     }
 }

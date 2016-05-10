@@ -21,7 +21,7 @@ namespace QueryBuilder.Utils.Exporters
             return _instance ?? (_instance = new DataTableToExcelExporter());
         }
 
-        public void DataTableExport(DataTable dataTable, string filePath, string title)
+        public void DataTableExportToFile(DataTable dataTable, string filePath, string title)
         {
             if (string.IsNullOrWhiteSpace(filePath))
                 throw new FileNotFoundException("Incorrect file path.");
@@ -49,6 +49,11 @@ namespace QueryBuilder.Utils.Exporters
             worksheet.Columns().AdjustToContents();
 
             workbook.SaveAs(filePath);
+        }
+
+        public MemoryStream DataTableExportToMemory(DataTable dataTable, string title)
+        {
+            throw new NotImplementedException();
         }
     }
 }

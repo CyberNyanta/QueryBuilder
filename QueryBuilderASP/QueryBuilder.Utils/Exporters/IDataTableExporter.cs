@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.IO;
 
 namespace QueryBuilder.Utils.Exporters
 {
@@ -6,6 +7,8 @@ namespace QueryBuilder.Utils.Exporters
     {
         bool IncludeTitle { get; set; }
 
-        void DataTableExport(DataTable dataTable, string filePath, string title);
+        void DataTableExportToFile(DataTable dataTable, string filePath, string title);
+
+        MemoryStream DataTableExportToMemory(DataTable dataTable, string title);
     }
 }

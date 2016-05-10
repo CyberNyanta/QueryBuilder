@@ -19,6 +19,7 @@ using System.Text;
 using QueryBuilderMVC.Filters;
 using System.Text.RegularExpressions;
 using System.Web;
+using QueryBuilder.Utils.Exporters;
 
 namespace QueryBuilderMVC.Controllers
 {
@@ -578,6 +579,37 @@ namespace QueryBuilderMVC.Controllers
 
             return table;
         }
+
+        public void SaveGridToPdf(string query, int idCurrentProject)
+        {
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+
+            var pdfExporter = DataTableToPdfExporter.CreateInstance();
+            var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.pdf");
+            Response.BinaryWrite(pdfStream.ToArray());
+            Response.End();
+        }
+
+        public void SaveGridToExcel(string query, int idCurrentProject)
+        {
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+
+            var pdfExporter = DataTableToPdfExporter.CreateInstance();
+            var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.pdf");
+            Response.BinaryWrite(pdfStream.ToArray());
+            Response.End();
+        }
+
         #endregion
 
         public FileStreamResult SaveQuery(string query)

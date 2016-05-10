@@ -22,7 +22,7 @@ namespace QueryBuilder.Utils.Exporters
             return _instance ?? (_instance = new DataTableToPdfExporter());
         }
 
-        public void DataTableExport(DataTable dataTable, string filePath, string title)
+        public void DataTableExportToFile(DataTable dataTable, string filePath, string title)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -32,8 +32,36 @@ namespace QueryBuilder.Utils.Exporters
             if ((dataTable == null) || (dataTable.Rows.Count == 0))
                 throw new ArgumentException("Empty data table.");
 
-            var document = new Document();
+            var document = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10);
+
             var writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            AddContentToFile(document, dataTable, title);
+
+            writer.Close();
+        }
+
+        public MemoryStream DataTableExportToMemory(DataTable dataTable, string title)
+        {
+            if ((dataTable == null) || (dataTable.Rows.Count == 0))
+                throw new ArgumentException("Empty data table.");
+
+            var document = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10);
+
+            var pdfStream = new MemoryStream();
+            var writer = PdfWriter.GetInstance(document, pdfStream);
+
+            AddContentToFile(document, dataTable, title);
+
+            writer.Close();
+
+            return pdfStream;
+        }
+
+
+        private void AddContentToFile(Document document, DataTable dataTable, string title)
+        {
+            if (document == null) throw new ArgumentNullException(nameof(document));
 
             document.Open();
 
@@ -43,7 +71,7 @@ namespace QueryBuilder.Utils.Exporters
             {
                 var pdfTitle = new PdfPTable(1);
 
-                GetPdfCell(ref cell, title, GetFont(18, Font.BOLD), 0);
+                GetPdfCell(ref cell, title, GetFont(12, Font.BOLD), 0);
                 pdfTitle.AddCell(cell);
                 document.Add(pdfTitle);
             }
@@ -53,7 +81,7 @@ namespace QueryBuilder.Utils.Exporters
 
             for (var i = 0; i < dataTable.Columns.Count; i++)
             {
-                GetPdfCell(ref cell, dataTable.Columns[i].ColumnName, GetFont(16, Font.BOLD), 2);
+                GetPdfCell(ref cell, dataTable.Columns[i].ColumnName, GetFont(10, Font.BOLD), 2);
                 table.AddCell(cell);
             }
 
@@ -64,7 +92,7 @@ namespace QueryBuilder.Utils.Exporters
                 {
                     for (var i = 0; i < dtReader.FieldCount; i++)
                     {
-                        GetPdfCell(ref cell, dtReader.GetValue(i).ToString().Trim(), GetFont(14, Font.NORMAL), 1);
+                        GetPdfCell(ref cell, dtReader.GetValue(i).ToString().Trim(), GetFont(10, Font.NORMAL), 1);
                         table.AddCell(cell);
                     }
                 }
@@ -73,7 +101,6 @@ namespace QueryBuilder.Utils.Exporters
             document.Add(table);
 
             document.Close();
-            writer.Close();
         }
 
         private static Font GetFont(int sizeFont, int styleFont)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace QueryBuilderMVC.Models
 {
     public class ProjectViewModel
@@ -9,17 +10,19 @@ namespace QueryBuilderMVC.Models
         public IEnumerable<ProjectsListViewModel> Projects { get; set; }
 
         public int IdCurrentProject { get; set; }
-
-        [Required(ErrorMessage = @"Please enter project name")]
-        [MaxLength(16, ErrorMessage = "Limit length string for 16 letters")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                 ErrorMessageResourceName = "ProjectValidationMessage")]
+        [MaxLength(16, ErrorMessageResourceType = typeof(Resources.Resource),
+                 ErrorMessageResourceName = "ProjectValidationMessageMaxLenght")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = @"Enter description")]
-        [MaxLength(150, ErrorMessage = "Limit length string for 150 symbols")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "ProjectValidationDescription")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "ProjectValidationMessageDescriptionMaxLenght")]
         public string Description { get; set; }
 
         public IEnumerable<ConnectionsListViewModel> ConnectionDbs { get; set; }
 
-        //public IEnumerable<ConnectionDB> _ConnectionDb { get; set; }
     }
 }

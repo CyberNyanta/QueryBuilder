@@ -86,7 +86,7 @@
 
 
 
-                            <li><a class="gn-icon">Settings</a></li>
+                            <li><a class="gn-icon">@Resources.Resource.SettingsForMenu</a></li>
 
                         </ul>
                     </div><!-- /gn-scroller -->
@@ -132,7 +132,19 @@
                 @Html.Partial("_NotificationUserPartial")
 
             </li>
-
+            <li>
+                <div>
+                    @using (Html.BeginForm("ChangeCulture", "Workflow"))
+                    {
+                        <select name="lang">
+                            <option disabled selected>@Resources.Resource.ChooseLang</option>
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                        </select>
+                        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+                    }
+                </div>
+            </li>
 
         </ul>
 

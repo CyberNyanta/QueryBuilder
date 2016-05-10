@@ -502,6 +502,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password must be at least 6 characters long..
+        /// </summary>
+        public static string ManageViewModelValidPassord {
+            get {
+                return ResourceManager.GetString("ManageViewModelValidPassord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        public static string ManageViewModelValidPasswordText {
+            get {
+                return ResourceManager.GetString("ManageViewModelValidPasswordText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ProjectName {
@@ -552,6 +570,15 @@ namespace Resources {
         public static string SettingsForMenu {
             get {
                 return ResourceManager.GetString("SettingsForMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select user.
+        /// </summary>
+        public static string UserViewModelUser {
+            get {
+                return ResourceManager.GetString("UserViewModelUser", resourceCulture);
             }
         }
         

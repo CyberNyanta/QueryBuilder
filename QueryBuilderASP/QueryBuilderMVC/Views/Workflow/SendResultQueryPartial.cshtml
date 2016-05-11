@@ -1,0 +1,13 @@
+﻿@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+
+    <div>
+        @Html.Label("E-mail:")
+        <div>
+            <input type="text" name="email"/>
+        </div>
+    </div>
+
+    <input type="submit"/>
+}

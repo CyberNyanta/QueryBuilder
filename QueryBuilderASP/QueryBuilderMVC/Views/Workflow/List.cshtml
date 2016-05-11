@@ -326,24 +326,29 @@
                         <div id="SavePDF">
                             @using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
                             {
-                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;"/>
-                                <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;"/>
+                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
+                                <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;" />
                                 <button class="SavePDF"></button>
                             }
                         </div>
 
-
-                        @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
-                        {
-                            <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;"/>
-                            <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;"/>
-                            <button class="SaveExcel"></button>
-                        }
-                        @*@Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new {id = 33},
-                            new
+                        <div id="SaveExcel">
+                            @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
                             {
-                                @class = "SaveExcel",
-                            })*@
+                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
+                                <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;" />
+                                <button class="SaveExcel"></button>
+                            }
+                        </div>
+
+                        @Html.ActionLink(" ", "SendResultQuery", "Workflow",
+                        new
+                        {
+                            @id = "SendResultQuery",
+                            @class = "SendResultQuery",
+                            data_dialog_title = "Send result query"
+                        })
+
                     </div>
                     @Html.Partial("DataGridPartial")
                 </div>
@@ -407,6 +412,7 @@
 
                 };
                 ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
+                ModalPostDialogSend(".SendResultQuery", '@Url.Action("SendResultQueryPartial", "Workflow")');
 
 </script>
 

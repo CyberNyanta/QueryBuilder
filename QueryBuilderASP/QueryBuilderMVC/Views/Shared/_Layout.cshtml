@@ -10,8 +10,11 @@
     <title>@ViewBag.Title @Resources.Resource.LayoutTitle</title>
     <link href="~/Content/parallax-slider/style-responsive.css" rel="stylesheet" />
     <script src="~/Scripts/respond.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-    @Styles.Render("~/Content/css")
+    <link href="~/Content/Workflow.css" rel="stylesheet" />
+
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -35,16 +38,37 @@
                     <li>@Html.ActionLink(Resources.Resource.LayoutContact, "Contact", "Home")</li>
                 </ul>
                 <div>
-                    @using (Html.BeginForm("ChangeCulture", "Home"))
-                    {
-                        <select name="lang">
-                            <option disabled selected>@Resources.Resource.ChooseLang</option>
-                            <option value="ru">Русский</option>
-                            <option value="en">English</option>
-                        </select>
-                        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
-                    }
+                    @*@using (Html.BeginForm("ChangeCulture", "Home"))
+                        {
+                            <select name="lang">
+                                <option disabled selected>@Resources.Resource.ChooseLang</option>
+                                <option value="ru">Русский</option>
+                                <option value="en">English</option>
+                            </select>
+                            <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+                        }*@
+                    <div class="containerLanguage">
+                        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "en" }, new
+                   {
+                       @class = "IconLanguage EN",
+                   })
+                    </div>
+                    <div class="containerLanguage">
+                        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ua" }, new
+                   {
+                       @class = "IconLanguage UA",
+                   })
+                    </div>
+                    <div class="containerLanguage">
+                    @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ru" }, new
+                   {
+                       @class = "IconLanguage RU",
+                   })
+</div>
+                    
+                 
                 </div>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -52,12 +76,12 @@
 
     @RenderBody()
     <div class="container body-content">
-       
+
 
     </div>
 
     @Html.Partial("_FooterPartial")
-   
+
 
 
 

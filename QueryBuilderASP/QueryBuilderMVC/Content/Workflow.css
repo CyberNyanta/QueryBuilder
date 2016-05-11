@@ -1,5 +1,37 @@
 ﻿body {
 }
+.containerLanguage
+{
+    display:inline-block;
+
+}
+.IconLanguage
+{
+    display:inline-block;
+    background-image: url(../Images/Icon/languages.png);
+   background-size:cover;
+    background-repeat:no-repeat;
+        background-position-y:1px;
+    height:30px;
+    width: 30px;
+    margin:3px;
+}
+
+.EN
+{
+    background-position-x:-64px;
+}
+
+.UA
+{
+    background-position-x:-33px;
+}
+.RU
+{
+    background-position-x:0px;
+            background-position-y:2px;
+
+}
 .GetResult
 {
     background-repeat: no-repeat;

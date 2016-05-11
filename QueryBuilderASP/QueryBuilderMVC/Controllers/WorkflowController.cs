@@ -245,7 +245,7 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult CreateProjectPartial(ProjectViewModel projectModel)
         {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            if (ModelState.IsValid)
+            if (ModelState.IsValidField("Name") && ModelState.IsValidField("Description"))
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
                 _serviceProject.SaveProject(newProject);

@@ -9,7 +9,9 @@ namespace QueryBuilderMVC.Models
     {
         public IEnumerable<ProjectsListViewModel> Projects { get; set; }
 
+        
         public int IdCurrentProject { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
                  ErrorMessageResourceName = "ProjectValidationMessage")]
         [MaxLength(16, ErrorMessageResourceType = typeof(Resources.Resource),

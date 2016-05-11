@@ -12,6 +12,9 @@ namespace QueryBuilder.DAL.Contracts
         IProjectsShareRepository ProjectsShares { get; }
         IQueryRepository Queries { get; }
 
-        void Save();
+		IQueryHistoryRepository QueriesHistory { get; }
+
+
+		void Save();
     }
 }

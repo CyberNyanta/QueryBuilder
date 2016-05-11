@@ -313,6 +313,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProjectsListViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
+    <Compile Include="Models\QueriesListViewModel.cs" />
     <Compile Include="Models\UsersListViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -37,8 +37,9 @@ namespace QueryBuilderMVC.Infrastructure
             ninjectKernel.Bind<IUserService>().To<UserService>();
             ninjectKernel.Bind<IProjectsShareService>().To<ProjectsShareService>();
             ninjectKernel.Bind<IQueryService>().To<QueryService>();
+			ninjectKernel.Bind<IQueriesHistoryService>().To<QueryHistoryService>();
 
 
-        }
+		}
     }
 }

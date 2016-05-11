@@ -50,12 +50,14 @@
     <Compile Include="Contracts\IConnectionDbService.cs" />
     <Compile Include="Contracts\IProjectService.cs" />
     <Compile Include="Contracts\IProjectsShareService.cs" />
+    <Compile Include="Contracts\IQueriesHistoryService .cs" />
     <Compile Include="Contracts\IQueryService.cs" />
     <Compile Include="Contracts\IServicesFactory.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="DbServices\ConnectionDbService.cs" />
     <Compile Include="DbServices\ProjectService.cs" />
     <Compile Include="DbServices\ProjectsShareService.cs" />
+    <Compile Include="DbServices\QueryHistoryService.cs" />
     <Compile Include="DbServices\QueryService.cs" />
     <Compile Include="DbServices\ServicesFactory.cs" />
     <Compile Include="DbServices\UserService.cs" />

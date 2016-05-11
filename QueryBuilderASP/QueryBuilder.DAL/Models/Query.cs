@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace QueryBuilder.DAL.Models
 {
@@ -10,18 +11,20 @@ namespace QueryBuilder.DAL.Models
 
         public string QueryName { get; set; }
 
-        public string QueryOwner { get; set; }
-
         public int ProjectID { get; set; }
 
         public string QueryBody { get; set; }
 
-        public DateTime QueryDate { get; set; }
+		public virtual ICollection<QueryHistory> QueriesHistory { get; set; }
 
-        public byte[] QueryResult { get; set; }
-
-        public int Delflag { get; set; }
+		public int Delflag { get; set; }
 
         public virtual Project Project { get; set; }
-    }
+
+		//public DateTime QueryDate { get; set; }
+
+		//public byte[] QueryResult { get; set; }
+
+		// public int QueryOwner { get; set; }
+	}
 }

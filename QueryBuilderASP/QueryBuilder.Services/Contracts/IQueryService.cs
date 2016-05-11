@@ -13,5 +13,10 @@ namespace QueryBuilder.Services.Contracts
 
 		void DeleteQuery(int id);
 
+		IEnumerable<Query> GetQueries(int owner);
+
+		Query GetQuery(int id);
+
+
 	}
 }

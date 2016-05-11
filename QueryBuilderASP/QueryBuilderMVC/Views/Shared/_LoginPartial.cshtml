@@ -1,4 +1,40 @@
 ﻿@using Microsoft.AspNet.Identity
+
+
+<ul class="nav navbar-nav navbar-right lang">
+    @*@using (Html.BeginForm("ChangeCulture", "Home"))
+        {
+            <select name="lang">
+                <option disabled selected>@Resources.Resource.ChooseLang</option>
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+            </select>
+            <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+        }*@
+    <li class="containerLanguage">
+        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "en" }, new
+   {
+       @class = "IconLanguage EN",
+   })
+    </li>
+    <li class="containerLanguage">
+        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ua" }, new
+   {
+       @class = "IconLanguage UA",
+   })
+    </li>
+    <li class="containerLanguage">
+        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ru" }, new
+   {
+       @class = "IconLanguage RU",
+   })
+    </li>
+
+
+</ul>
+
+
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm(Resources.Resource.WorkflowLogOff, "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -7,7 +43,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink(Resources.Resource.LoginPartialHello + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink(Resources.Resource.LoginPartialHello+" " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
@@ -20,3 +56,4 @@ else
         <li>@Html.ActionLink(Resources.Resource.WorkflowLogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+

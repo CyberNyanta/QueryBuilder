@@ -39,7 +39,8 @@ namespace QueryBuilderMVC.Controllers
         private ApplicationUser _currentUser;
 
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser,
-            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection, IQueryService serviceQueryService, IQueriesHistoryService serviceQueryHistory)
+            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection, 
+            IQueryService serviceQueryService, IQueriesHistoryService serviceQueryHistory)
         {
             _serviceProject = serviceProject;
             _serviceUser = serviceUser;
@@ -47,8 +48,6 @@ namespace QueryBuilderMVC.Controllers
             _serviceProjectsShareService = serviceProjectsShare;
 			_serviceQuery = serviceQueryService;
 			_serviceQueryHistory = serviceQueryHistory;
-
-
 		}
 
 
@@ -535,7 +534,7 @@ namespace QueryBuilderMVC.Controllers
         #region Grid
         public string GetData(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = Session["datatableForGrid"] as DataTable;
 
             return JsonConvert.SerializeObject(dataTable);
         }
@@ -543,6 +542,7 @@ namespace QueryBuilderMVC.Controllers
         public string GetGridModel(string query, int idCurrentProject)
         {
             var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            Session["datatableForGrid"] = dataTable;
 
             var header = (from DataColumn column in dataTable.Columns
                           select new DataGridModel
@@ -588,7 +588,9 @@ namespace QueryBuilderMVC.Controllers
 
         public void SaveGridToPdf(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = Session["datatableForGrid"] as DataTable;
+
+            if ((dataTable == null) || (dataTable.Rows.Count == 0)) return;
 
             var pdfExporter = DataTableToPdfExporter.CreateInstance();
             var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
@@ -603,7 +605,9 @@ namespace QueryBuilderMVC.Controllers
 
         public void SaveGridToExcel(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = Session["datatableForGrid"] as DataTable;
+
+            if ((dataTable == null) || (dataTable.Rows.Count == 0)) return;
 
             var excelExporter = DataTableToExcelExporter.CreateInstance();
             var pdfStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");

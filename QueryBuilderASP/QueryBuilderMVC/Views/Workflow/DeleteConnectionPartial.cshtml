@@ -2,10 +2,10 @@
 @model QueryBuilderMVC.Models.ConnectionViewModel
 
 
-<h5>Do you want delete this connection?</h5>
+<h5>@Resources.Resource.DeleteConnectionQuestion</h5>
 <div>
-    <p>Name: @Html.DisplayFor(m => m.ConnectionName)</p>
-    <p>DatabaseName: @Html.DisplayFor(m => m.DatabaseName)</p>
+    <p>@Resources.Resource.CreateConnectionName @Html.DisplayFor(m => m.ConnectionName)</p>
+    <p>@Resources.Resource.CreateConnectionDatabase @Html.DisplayFor(m => m.DatabaseName)</p>
 
     @using (Html.BeginForm())
     {

@@ -85,7 +85,7 @@
             <div class="portlet-header">
 
                 <div style="display:inline-block;" class="ContainerForConnections">
-                    <div class="MyConnections">My connections</div>
+                    <div class="MyConnections">@Resources.Resource.ListMyConnection</div>
                     @if ((Model.IdCurrentProject != 0) && (Request.IsAuthenticated))
                     {
                         <div>
@@ -129,29 +129,23 @@
         </div>
 
         <div class="portlet" id="id_4">
-            <div class="portlet-header">Query</div>
+            <div class="portlet-header">@Resources.Resource.ListQuery</div>
             <div class="portlet-content">
 
-                <div class="IconQuery">
-                   
-                    
-                    <div id="SendQuery">
-                        @Html.ActionLink(" ", "SendQuery", "Workflow", new { query = "00" },
-                                new
-                                {
-                                    @id = "buttonSend",
-                                    @class = "SendQuery",
-                                    data_dialog_title = "Send query"
-                                })
-                    </div>
+                <div class="IconQuery">                                     
+                    @Html.ActionLink(" ", "SendQuery", "Workflow", new { query = "00" },
+                        new
+                        {
+                            @id = "buttonSend",
+                            @class = "SendQuery",
+                            data_dialog_title = "Send query"
+                        })
+
                     <div id="SaveQuery">
                         @using (Html.BeginForm("SaveQuery", "Workflow", FormMethod.Post))
                         {
-
                             <input type="text" name="query" class="sqlQuery" style="display: none;"/>
-
                             <button class="SaveQuery"></button>
-
                         }
                     </div>
 
@@ -160,8 +154,6 @@
                 </div>
 
                 @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
-
-            
 
             </div>
             
@@ -181,7 +173,7 @@
     <div class="col-xs-12 col-lg-10 col-md-10 col-sm-10">
 
         <div class="nonSortable">
-            <div class="portlet-header">QueryBuilder</div>
+            <div class="portlet-header">@Resources.Resource.ListQueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
                 @if (Model.IdCurrentProject != 0)
@@ -316,7 +308,7 @@
             </div>
         </div>
         <div class="nonSortable">
-            <div class="portlet-header">Settings</div>
+            <div class="portlet-header">@Resources.Resource.ListQuerySettings</div>
             <div class="portlet-content">
                 @Html.ActiveQueryBuilder().Grid(settings =>
                            {
@@ -325,25 +317,33 @@
             </div>
         </div>
         <div class="nonSortable">
-            <div class="portlet-header">Result query</div>
+            <div class="portlet-header">@Resources.Resource.ListResultQuery</div>
                 <div class="portlet-content">
                     <div class="Tools-panel">
 
                     </div>
                     <div class="IconGrid">
+                        <div id="SavePDF">
+                            @using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
+                            {
+                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;"/>
+                                <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;"/>
+                                <button class="SavePDF"></button>
+                            }
+                        </div>
 
-                        @Html.ActionLink(" ", "SendQuery", "Workflow", new { id = 33 },
-                                new
-                                {
-                                    @class = "SavePDF",
-                                })
-                 
 
-                        @Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new { id = 33 },
-                                new
-                                {
-                                    @class = "SaveExcel",
-                                })
+                        @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
+                        {
+                            <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;"/>
+                            <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;"/>
+                            <button class="SaveExcel"></button>
+                        }
+                        @*@Html.ActionLink(" ", "UpdateConnectionPartial", "Workflow", new {id = 33},
+                            new
+                            {
+                                @class = "SaveExcel",
+                            })*@
                     </div>
                     @Html.Partial("DataGridPartial")
                 </div>
@@ -360,19 +360,18 @@
 
 <script>
                 jQuery(".SaveQuery").click(function() {
-                    var s = $("#sql-code").val();
+                    var s = FormatQueryString();
                     $(".sqlQuery").val(s);
 
                 });
 
                 $(".SendQuery").hover(function(){
-                    var s = $("#sql-code").val();
+                    var s = FormatQueryString();
                     $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
 
                 });
 
                 function AjaxPostWithDialog2(url) {
-                    console.log("dfd");
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -437,17 +436,37 @@
 
     });
 
-    function LoadGrid() {
-        var s = $("#sql-code").val();
+    $(".SavePDF").click(function() {
+        FillParameters();
+    });
 
-        var arr = s.split('From');
-        s = '';
+    $(".SaveExcel").click(function() {
+        FillParameters();
+    });
+
+    function FillParameters() {
+        var s = FormatQueryString();
+        $(".sqlQueryForSaveToFile").val(s);
+        $(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
+    }
+
+    function FormatQueryString() {
+        var query = $("#sql-code").val();
+
+        var arr = query.split('From');
+        query = '';
         for (var i = 0; i < arr.length; i++) {
-            s += arr[i];
+            query += arr[i];
             if (i === 0) {
-                s += ' From';
+                query += ' From';
             }
         }
+
+        return query;
+    }
+
+    function LoadGrid() {
+        var s = FormatQueryString();
 
         $.ajax({
             type: "POST",

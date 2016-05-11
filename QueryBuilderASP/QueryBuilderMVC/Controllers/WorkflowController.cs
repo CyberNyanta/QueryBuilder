@@ -16,10 +16,14 @@ using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
+using QueryBuilderMVC.Filters;
 using System.Text.RegularExpressions;
+using System.Web;
+using QueryBuilder.Utils.Exporters;
 
 namespace QueryBuilderMVC.Controllers
 {
+    [Culture]
     public class WorkflowController : Controller
     {
         private readonly IProjectService _serviceProject;
@@ -46,6 +50,32 @@ namespace QueryBuilderMVC.Controllers
 
 
 		}
+
+
+        public ActionResult ChangeCulture(string lang)
+        {
+            string returnUrl = Request.UrlReferrer.AbsolutePath;
+            // Список культур
+            List<string> cultures = new List<string>() { "ru", "en" };
+            if (!cultures.Contains(lang))
+            {
+                lang = "en";
+            }
+            // Сохраняем выбранную культуру в куки
+            HttpCookie cookie = Request.Cookies["lang"];
+            if (cookie != null)
+                cookie.Value = lang;   // если куки уже установлено, то обновляем значение
+            else
+            {
+
+                cookie = new HttpCookie("lang");
+                cookie.HttpOnly = false;
+                cookie.Value = lang;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            return Redirect(returnUrl);
+        }
 
         [HttpGet]
         public ActionResult List(string id = "0")
@@ -505,17 +535,16 @@ namespace QueryBuilderMVC.Controllers
         #region Grid
         public string GetData(string query, int idCurrentProject)
         {
-            var dataTableForGrid = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
 
-            return JsonConvert.SerializeObject(dataTableForGrid);
+            return JsonConvert.SerializeObject(dataTable);
         }
 
         public string GetGridModel(string query, int idCurrentProject)
         {
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
 
-            var dataTableForGrid = GetDataTableForGrid(query, idCurrentProject);
-
-            var header = (from DataColumn column in dataTableForGrid.Columns
+            var header = (from DataColumn column in dataTable.Columns
                           select new DataGridModel
                           {
                               Name = column.ColumnName,
@@ -556,6 +585,37 @@ namespace QueryBuilderMVC.Controllers
 
             return table;
         }
+
+        public void SaveGridToPdf(string query, int idCurrentProject)
+        {
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+
+            var pdfExporter = DataTableToPdfExporter.CreateInstance();
+            var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.pdf");
+            Response.BinaryWrite(pdfStream.ToArray());
+            Response.End();
+        }
+
+        public void SaveGridToExcel(string query, int idCurrentProject)
+        {
+            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+
+            var excelExporter = DataTableToExcelExporter.CreateInstance();
+            var pdfStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.xlsx");
+            Response.BinaryWrite(pdfStream.ToArray());
+            Response.End();
+        }
+
         #endregion
 
         public FileStreamResult SaveQuery(string query)

@@ -1,4 +1,4 @@
-@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
+﻿@using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,7 @@
     @Html.ActiveQueryBuilder().GetScripts()
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title @Resources.Resource.LayoutTitle</title>
     <link href="~/Content/parallax-slider/style-responsive.css" rel="stylesheet" />
     <script src="~/Scripts/respond.min.js"></script>
 
@@ -17,23 +17,6 @@
 </head>
 <body>
 
-    @*<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1694104010860815',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-    </script>*@
 
     <div class="navbar navbar-inverse navbar-fixed-top" id="tt">
         <div class="container">
@@ -47,10 +30,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink(Resources.Resource.LayoutHome, "Index", "Home")</li>
+                    <li>@Html.ActionLink(Resources.Resource.LayoutAbout, "About", "Home")</li>
+                    <li>@Html.ActionLink(Resources.Resource.LayoutContact, "Contact", "Home")</li>
                 </ul>
+                <div>
+                    @using (Html.BeginForm("ChangeCulture", "Home"))
+                    {
+                        <select name="lang">
+                            <option disabled selected>@Resources.Resource.ChooseLang</option>
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                        </select>
+                        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+                    }
+                </div>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -63,6 +57,7 @@
     </div>
 
     @Html.Partial("_FooterPartial")
+   
 
 
 

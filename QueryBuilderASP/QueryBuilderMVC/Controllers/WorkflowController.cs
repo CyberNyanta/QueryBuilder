@@ -30,22 +30,26 @@ namespace QueryBuilderMVC.Controllers
         private readonly IUserService _serviceUser;
         private readonly IConnectionDbService _serviceConnection;
         private readonly IProjectsShareService _serviceProjectsShareService;
-        private readonly IQueryService _serviceQueryService;
+        private readonly IQueryService _serviceQuery;
+		private readonly IQueriesHistoryService _serviceQueryHistory;
 
-        private readonly ProjectViewModel _projectModel = new ProjectViewModel();
+		private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
         private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
         private ApplicationUser _currentUser;
 
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser,
-            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection, IQueryService serviceQueryService)
+            IProjectsShareService serviceProjectsShare, IConnectionDbService serviceConnection, 
+            IQueryService serviceQueryService, IQueriesHistoryService serviceQueryHistory)
         {
             _serviceProject = serviceProject;
             _serviceUser = serviceUser;
             _serviceConnection = serviceConnection;
             _serviceProjectsShareService = serviceProjectsShare;
-            _serviceQueryService = serviceQueryService;
-        }
+			_serviceQuery = serviceQueryService;
+			_serviceQueryHistory = serviceQueryHistory;
+		}
+
 
         public ActionResult ChangeCulture(string lang)
         {
@@ -106,10 +110,13 @@ namespace QueryBuilderMVC.Controllers
                             $"Data source= {connect.ServerName}; Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
                         ViewBag.ConnectionString = sqlConnection;
 
-
                     }
 
-                    var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
+					var quriesCurrentProject = _serviceQuery.GetQueries(_projectModel.IdCurrentProject);
+					_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueriesListViewModel>>(quriesCurrentProject).ToList();
+
+
+					var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
                     {
                         ViewBag.name = currentProject.ProjectName;
@@ -527,7 +534,7 @@ namespace QueryBuilderMVC.Controllers
         #region Grid
         public string GetData(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = Session["datatableForGrid"] as DataTable;
 
             return JsonConvert.SerializeObject(dataTable);
         }
@@ -535,6 +542,7 @@ namespace QueryBuilderMVC.Controllers
         public string GetGridModel(string query, int idCurrentProject)
         {
             var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            Session["datatableForGrid"] = dataTable;
 
             var header = (from DataColumn column in dataTable.Columns
                           select new DataGridModel
@@ -580,7 +588,9 @@ namespace QueryBuilderMVC.Controllers
 
         public void SaveGridToPdf(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = Session["datatableForGrid"] as DataTable;
+
+            if ((dataTable == null) || (dataTable.Rows.Count == 0)) return;
 
             var pdfExporter = DataTableToPdfExporter.CreateInstance();
             var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
@@ -595,7 +605,9 @@ namespace QueryBuilderMVC.Controllers
 
         public void SaveGridToExcel(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = Session["datatableForGrid"] as DataTable;
+
+            if ((dataTable == null) || (dataTable.Rows.Count == 0)) return;
 
             var excelExporter = DataTableToExcelExporter.CreateInstance();
             var pdfStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");

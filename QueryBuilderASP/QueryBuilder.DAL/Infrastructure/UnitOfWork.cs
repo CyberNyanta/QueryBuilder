@@ -17,7 +17,8 @@ namespace QueryBuilder.DAL.Infrastructure
         private ProjectsRepository _projectsRepository;
         private ProjectsShareRepository _projectsShareRepository;
         private QueriesRepository _queriesRepository;
-        private UsersRepository _usersRepository;
+		private QueryHistoryRepository _queriesHistoryRepository;
+		private UsersRepository _usersRepository;
 
         public QueryBuilderContext QueryBuilderContext
         {
@@ -101,7 +102,25 @@ namespace QueryBuilder.DAL.Infrastructure
             }
         }
 
-        public IUsersRepository Users
+		public IQueryHistoryRepository QueriesHistory
+		{
+			get
+			{
+				if (_queriesHistoryRepository == null)
+				{
+					lock (_lockObject)
+					{
+						if (_queriesHistoryRepository == null)
+						{
+							_queriesHistoryRepository = new QueryHistoryRepository(_databaseFactory);
+						}
+					}
+				}
+				return _queriesHistoryRepository;
+			}
+		}
+
+		public IUsersRepository Users
         {
             get
             {

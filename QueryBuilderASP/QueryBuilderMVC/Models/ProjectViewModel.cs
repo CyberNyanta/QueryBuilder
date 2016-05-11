@@ -24,5 +24,8 @@ namespace QueryBuilderMVC.Models
 
         public IEnumerable<ConnectionsListViewModel> ConnectionDbs { get; set; }
 
+		public IEnumerable<QueriesListViewModel> Queries { get; set; }
+
     }
+
 }

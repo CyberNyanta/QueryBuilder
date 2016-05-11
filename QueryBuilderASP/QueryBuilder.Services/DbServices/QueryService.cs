@@ -65,5 +65,21 @@ namespace QueryBuilder.Services.DbServices
 				unitOfWork.Save();
 			}
 		}
+
+		public IEnumerable<Query> GetQueries(int id)
+		{
+			using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+			{
+				return unitOfWork.Queries.GetMany(p => p.Delflag == DelflagConstants.ActiveSet && p.ProjectID == id);
+			}
+		}
+
+		public Query GetQuery(int id)
+		{
+			using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+			{
+				return unitOfWork.Queries.GetById(id);
+			}
+		}
 	}
 }

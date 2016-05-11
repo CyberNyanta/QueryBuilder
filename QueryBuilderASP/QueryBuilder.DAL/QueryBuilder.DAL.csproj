@@ -84,6 +84,7 @@
     <Compile Include="Configuration\ProjectConfiguration.cs" />
     <Compile Include="Configuration\ProjectsShareConfiguration.cs" />
     <Compile Include="Configuration\QueryConfiguration.cs" />
+    <Compile Include="Configuration\QueryHistoryConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="Contracts\IDatabaseFactory.cs" />
     <Compile Include="Contracts\IRepository.cs" />
@@ -118,7 +119,16 @@
     <Compile Include="Migrations\201605070810357_ChangeQueryRelation.Designer.cs">
       <DependentUpon>201605070810357_ChangeQueryRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605101403223_FixQueryModel.cs" />
+    <Compile Include="Migrations\201605101403223_FixQueryModel.Designer.cs">
+      <DependentUpon>201605101403223_FixQueryModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605110546181_AddQueryHistory.cs" />
+    <Compile Include="Migrations\201605110546181_AddQueryHistory.Designer.cs">
+      <DependentUpon>201605110546181_AddQueryHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\QueryHistory.cs" />
     <Compile Include="Repositories\QueriesRepository.cs" />
     <Compile Include="Repositories\ProjectsRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -130,6 +140,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConnectionDBRepository.cs" />
     <Compile Include="Repositories\ProjectsShareRepository.cs" />
+    <Compile Include="Repositories\QueryHistoryRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605070810357_ChangeQueryRelation.resx">
       <DependentUpon>201605070810357_ChangeQueryRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605101403223_FixQueryModel.resx">
+      <DependentUpon>201605101403223_FixQueryModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605110546181_AddQueryHistory.resx">
+      <DependentUpon>201605110546181_AddQueryHistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

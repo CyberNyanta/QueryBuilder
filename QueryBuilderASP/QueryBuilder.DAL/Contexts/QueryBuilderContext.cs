@@ -23,8 +23,9 @@ namespace QueryBuilder.DAL.Contexts
         public DbSet<ProjectsShare> ProjectsShares { get; set; }
         //public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Query> Queries { get; set; }
+		public DbSet<QueryHistory> QueriesHistory { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
@@ -41,32 +42,33 @@ namespace QueryBuilder.DAL.Contexts
             modelBuilder.Configurations.Add(new QueryConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new ProjectsShareConfiguration());
-            //modelBuilder.Entity<ConnectionDB>()
-            //    .HasMany(e => e.ResultHistories)
-            //    .WithRequired(e => e.ConnectionDB)
-            //    .WillCascadeOnDelete(false);
+			modelBuilder.Configurations.Add(new QueryHistoryConfiguration());
+			//modelBuilder.Entity<ConnectionDB>()
+			//    .HasMany(e => e.ResultHistories)
+			//    .WithRequired(e => e.ConnectionDB)
+			//    .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Project>()
-            //    .HasMany(e => e.ConnectionDBs)
-            //    .WithRequired(e => e.Project)
-            //    .HasForeignKey(e => e.ConnectionOwner)
-            //    .WillCascadeOnDelete(false);
+			//modelBuilder.Entity<Project>()
+			//    .HasMany(e => e.ConnectionDBs)
+			//    .WithRequired(e => e.Project)
+			//    .HasForeignKey(e => e.ConnectionOwner)
+			//    .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Project>()
-            //    .HasMany(e => e.ProjectsShares)
-            //    .WithRequired(e => e.Project)
-            //    .WillCascadeOnDelete(false);
+			//modelBuilder.Entity<Project>()
+			//    .HasMany(e => e.ProjectsShares)
+			//    .WithRequired(e => e.Project)
+			//    .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.Projects)
-            //    .WithRequired(e => e.User)
-            //    .HasForeignKey(e => e.ProjectOwner)
-            //    .WillCascadeOnDelete(false);
+			//modelBuilder.Entity<User>()
+			//    .HasMany(e => e.Projects)
+			//    .WithRequired(e => e.User)
+			//    .HasForeignKey(e => e.ProjectOwner)
+			//    .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<ResultHistory>()
-            //    .Property(e => e.ResultBody)
-            //    .IsUnicode(false);
-        }
+			//modelBuilder.Entity<ResultHistory>()
+			//    .Property(e => e.ResultBody)
+			//    .IsUnicode(false);
+		}
         public static QueryBuilderContext Create()
         {
             return new QueryBuilderContext();

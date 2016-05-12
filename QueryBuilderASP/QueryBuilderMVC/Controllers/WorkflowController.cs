@@ -229,7 +229,6 @@ namespace QueryBuilderMVC.Controllers
 
             }
 
-
             return PartialView("ListConnectionPartial", _projectModel);
         }
 

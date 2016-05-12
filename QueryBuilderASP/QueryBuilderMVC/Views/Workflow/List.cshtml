@@ -505,7 +505,18 @@
                     pager: '#jpager',
                     loadonce: true,
                     autowidth: true,
-                    scrollerbar: true
+                    scrollerbar: true,
+                    gridComplete: function() {
+                        var recs = parseInt($("#jqg").getGridParam("records"),10);
+                        if (isNaN(recs) || recs === 0) {
+                            $("#gridWrapper").hide();
+                            $("#nodata_jqg").show();                           
+                        }
+                        else {
+                            $('#gridWrapper').show();
+                            $("#nodata_jqg").hide();
+                        }
+                    }
                 });
 
                 $("#jqg").jqGrid('navGrid', '#jpager', {

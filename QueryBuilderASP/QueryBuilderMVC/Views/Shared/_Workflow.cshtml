@@ -92,6 +92,32 @@
                     </div><!-- /gn-scroller -->
                 </nav>
             </li>
+            <li class="codrops-icon dropdown ">
+                <ul id="LangWorkflow">
+                    <li class="containerLanguage">
+                        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "en" }, new
+                   {
+                       @class = "IconLanguage EN",
+                   })
+                    </li>
+                    <li class="containerLanguage">
+                        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ua" }, new
+                   {
+                       @class = "IconLanguage UA",
+                   })
+                    </li>
+                    <li class="containerLanguage">
+                        @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ru" }, new
+                   {
+                       @class = "IconLanguage RU",
+                   })
+                    </li>
+
+                </ul>
+
+
+
+            </li>
             <li class="codrops-icon dropdown TopRightMenu">
                 <a class="dropdown-toggle" id="User" data-toggle="dropdown" href="#" aria-expanded="false">
                 </a>
@@ -112,18 +138,23 @@
                             @if (Request.IsAuthenticated)
                             {
                                 @Html.ActionLink(Resources.Resource.WorkflowLogOff, "LogOff", "Account");
-
+                               
                             }
                             else
                             {
                                 <ul class="LogOutUser">
                                     <li>@Html.ActionLink(Resources.Resource.WorkflowRegister, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                                     <li>@Html.ActionLink(Resources.Resource.WorkflowLogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-                                </ul>
+                                   
+                                  </ul>
                             }
                         </div>
 
                     </li>
+                  
+                      
+
+                    
                 </ul>
 
             </li>
@@ -132,7 +163,8 @@
                 @Html.Partial("_NotificationUserPartial")
 
             </li>
-            <li>
+            
+            @*<li>
                 <div>
                     @using (Html.BeginForm("ChangeCulture", "Workflow"))
                     {
@@ -144,7 +176,7 @@
                         <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
                     }
                 </div>
-            </li>
+            </li>*@
 
         </ul>
 

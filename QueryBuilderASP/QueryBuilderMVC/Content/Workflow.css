@@ -92,10 +92,9 @@
     width: 30px;
     height: 28px;
     background-size: 37px;
-        display: inline-block;
-
+    display: inline-block;
 }
-.SendQuery
+.SendQuery, .SendResultQuery
 {
     background-repeat: no-repeat;
     background: url(../Images/Icon/send2.png);
@@ -108,7 +107,7 @@
     display: inline-block;
     padding-top:10px;
 }
-.SendQuery:hover
+.SendQuery:hover, .SendResultQuery:hover
 {
     background: url(../Images/Icon/send.png);
     display: block;
@@ -177,7 +176,7 @@
     display: inline-block;
     border: none;
 }
-#SaveQuery, #SavePDF
+#SaveQuery, #SavePDF, #SaveExcel
 {
     float:left;
 }

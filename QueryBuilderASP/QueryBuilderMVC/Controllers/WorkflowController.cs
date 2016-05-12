@@ -589,36 +589,37 @@ namespace QueryBuilderMVC.Controllers
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 
-            if ((dataTable == null) || (dataTable.Rows.Count == 0)) return;
+            if (dataTable == null || dataTable.Rows.Count == 0) return;
 
             var pdfExporter = DataTableToPdfExporter.CreateInstance();
             var pdfStream = pdfExporter.DataTableExportToMemory(dataTable, "Result query");
 
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.pdf");
-            Response.BinaryWrite(pdfStream.ToArray());
-            Response.End();
+            SaveGridToFile(pdfStream, "application/pdf", "Result.pdf");
         }
 
         public void SaveGridToExcel(string query, int idCurrentProject)
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 
-            if ((dataTable == null) || (dataTable.Rows.Count == 0)) return;
+            if (dataTable == null || dataTable.Rows.Count == 0) return;
 
             var excelExporter = DataTableToExcelExporter.CreateInstance();
-            var pdfStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");
+            var excelStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");
 
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=Result.xlsx");
-            Response.BinaryWrite(pdfStream.ToArray());
-            Response.End();
+            SaveGridToFile(excelStream, "application/vnd.ms-excel", "Result.xlsx");
         }
 
+        private void SaveGridToFile(MemoryStream stream, string contentType, string filename)
+        {
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = contentType;
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename);
+            Response.BinaryWrite(stream.ToArray());
+            Response.End();
+
+            stream.Close();
+        }
         #endregion
 
         public FileStreamResult SaveQuery(string query)
@@ -636,19 +637,35 @@ namespace QueryBuilderMVC.Controllers
                 ViewBag.Query = query;
 
                 return PartialView("SendQueryPartial");
-
-            }
-            else
-            {
-                SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).
-                    SendMail(email, "Query from QueryBuilder", query);
-                return RedirectToAction("List");
             }
 
+            SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).
+                SendMail(email, "Query from QueryBuilder", query);
 
+            if (System.Web.HttpContext.Current.Request.UrlReferrer != null)
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
 
+            return RedirectToAction("List");
         }
 
+        public ActionResult SendResultQuery(string email = null)
+        {
+            var dataTable = Session["datatableForGrid"] as DataTable;
 
+            if (email == null || dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return PartialView("SendResultQueryPartial");
+            }
+            var excelExporter = DataTableToExcelExporter.CreateInstance();
+            var excelStream = excelExporter.DataTableExportToMemory(dataTable, "Result query");
+
+            SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).
+                SendMail(email, "Result query from QueryBuilder", "", excelStream);
+
+            if (System.Web.HttpContext.Current.Request.UrlReferrer != null)
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
+            
+            return RedirectToAction("List");
+        }
     }
 }

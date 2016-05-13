@@ -308,13 +308,16 @@
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ConnectionsListViewModel.cs" />
+    <Compile Include="Models\QueryViewModel.cs" />
+    <Compile Include="Models\QueryHistoryViewModel.cs" />
     <Compile Include="Models\ConnectionViewModel.cs" />
     <Compile Include="Models\DataGridModel.cs" />
     <Compile Include="Models\ERModelViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProjectsListViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
-    <Compile Include="Models\QueriesListViewModel.cs" />
+    <Compile Include="Models\QueryHistoryListViewModel .cs" />
+    <Compile Include="Models\QueryListViewModel.cs" />
     <Compile Include="Models\UsersListViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -35,7 +35,10 @@ namespace QueryBuilderMVC.Controllers
 
 		private readonly ProjectViewModel _projectModel = new ProjectViewModel();
         private readonly ConnectionViewModel _connectionModel = new ConnectionViewModel();
-        private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
+		private readonly QueryViewModel _queryModel = new QueryViewModel();
+		private readonly QueryHistoryViewModel _queryHistoryModel = new QueryHistoryViewModel();
+
+		private readonly ProjectsListViewModel _projectListModel = new ProjectsListViewModel();
         private ApplicationUser _currentUser;
 
         public WorkflowController(IProjectService serviceProject, IUserService serviceUser,
@@ -113,7 +116,7 @@ namespace QueryBuilderMVC.Controllers
                     }
 
 					var quriesCurrentProject = _serviceQuery.GetQueries(_projectModel.IdCurrentProject);
-					_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueriesListViewModel>>(quriesCurrentProject).ToList();
+					_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueryListViewModel>>(quriesCurrentProject).ToList();
 
 
 					var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
@@ -444,28 +447,39 @@ namespace QueryBuilderMVC.Controllers
 		#endregion
 
 		#region Queries
+
+		[Authorize]
+		public ActionResult CreateQueryPartial(int id, string query)
+		{
+			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+			_queryModel.ProjectID = id;
+			_queryModel.QueryBody = query;
+			_queryModel.UserID = 0;
+			_queryModel.QueryDate = DateTime.Now;
+			return PartialView("CreateQueryPartial", _connectionModel);
+
+		}
 		[HttpPost]
 		[Authorize]
-		//public ActionResult CreateQuery(Query projectModel)
-		//{
-		//	_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-		//	if (ModelState.IsValidField("Name") && ModelState.IsValidField("Description"))
-		//	{
-		//		var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
-		//		_serviceProject.SaveProject(newProject);
+		public ActionResult CreateQueryPartial(QueryViewModel query)
+		{
+			
+			ViewBag.IdCurrentProject = query.ProjectID;
+			if (ModelState.IsValid)
+			{
+				var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+				_serviceQuery.SaveQuery(newQuery);
 
-		//		_serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
-
-		//		ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-		//		return PartialView("Success");
-		//	}
-		//	return PartialView("CreateProjectPartial");
-		//}
+				return PartialView("Success");
+			}
+			return PartialView("CreateQueryPartial", query);
+		}
 
 
 		[Authorize]
 		public ActionResult UpdateQueryPartial(int id)
 		{
+			
 			_projectModel.IdCurrentProject = id;
 			var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
 			//var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);

@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace QueryBuilderMVC.Models
 {
-	public class QueriesListViewModel
+	public class QueryHistoryListViewModel
 	{
-		public int QueryID { get; set; }
+		public int QueryHistoryID { get; set; }
 
-		public string QueryName { get; set; }
-
-		public int QueryOwner { get; set; }
+		public int UserID { get; set; }
 
 		public int ProjectID { get; set; }
 

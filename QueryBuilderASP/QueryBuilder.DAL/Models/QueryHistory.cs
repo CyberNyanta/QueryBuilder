@@ -5,11 +5,13 @@ namespace QueryBuilder.DAL.Models
 	public class QueryHistory
 	{
 #pragma warning disable 0436
-		public int QueryID { get; set; }
 
-		public string QueryHistoryID { get; set; }
+		public int QueryHistoryID { get; set; }
 
 		public int UserID { get; set; }
+
+		public int ProjectID { get; set; }
+
 		public DateTime QueryDate { get; set; }
 
 		public string QueryBody { get; set; }
@@ -17,6 +19,9 @@ namespace QueryBuilder.DAL.Models
 		public int Delflag { get; set; }
 
 		public virtual Query Query { get; set; }
+
+		public virtual Project Project { get; set; }
+
 
 	}
 }

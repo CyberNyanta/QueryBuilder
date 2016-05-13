@@ -47,7 +47,7 @@ namespace QueryBuilder.Services.DbServices
 
 			using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
 			{
-				if (queryHistory.QueryID == 0)
+				if (queryHistory.QueryHistoryID == 0)
 					unitOfWork.QueriesHistory.Create(queryHistory);
 				else
 					unitOfWork.QueriesHistory.Update(queryHistory);
@@ -70,7 +70,7 @@ namespace QueryBuilder.Services.DbServices
 		{
 			using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
 			{
-				return unitOfWork.QueriesHistory.GetMany(p => p.Delflag == DelflagConstants.ActiveSet && p.QueryID == owner);
+				return unitOfWork.QueriesHistory.GetMany(p => p.Delflag == DelflagConstants.ActiveSet && p.ProjectID == owner);
 			}
 		}
 

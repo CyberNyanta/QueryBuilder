@@ -22,6 +22,8 @@ namespace QueryBuilder.DAL.Models
 
 		public virtual ICollection<Query> Queries { get; set; }
 
+		public virtual ICollection<QueryHistory> QueriesHistory { get; set; }
+
 		public virtual ICollection<ProjectsShare> ProjectsShares { get; set; }
 
         public Project()
@@ -29,6 +31,7 @@ namespace QueryBuilder.DAL.Models
             ConnectionDBs = new HashSet<ConnectionDB>();
             ProjectsShares = new HashSet<ProjectsShare>();
 			Queries = new HashSet<Query>();
+			QueriesHistory = new HashSet<QueryHistory>();
 			CreatedDate = DateTime.Now;
 
         }

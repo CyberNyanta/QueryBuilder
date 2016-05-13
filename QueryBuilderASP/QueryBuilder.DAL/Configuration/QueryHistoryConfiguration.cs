@@ -12,9 +12,9 @@ namespace QueryBuilder.DAL.Configuration
 			ToTable(DbTablesNames.QueriesHistory);
 			HasKey(p => p.QueryHistoryID);
 			Property(p => p.UserID).IsRequired();
-			Property(p => p.QueryID).IsRequired();
+			Property(p => p.ProjectID).IsRequired();
 			Property(p => p.QueryDate).IsRequired().HasColumnType("DateTime");
-			HasRequired(p => p.Query).WithMany(p => p.QueriesHistory).HasForeignKey(p => p.QueryID);
+			HasRequired(p => p.Project).WithMany(p => p.QueriesHistory).HasForeignKey(p => p.ProjectID);
 		}
 
 	}

@@ -13,18 +13,15 @@ namespace QueryBuilder.DAL.Models
 
         public int ProjectID { get; set; }
 
-        public string QueryBody { get; set; }
+		public int UserID { get; set; }
 
-		public virtual ICollection<QueryHistory> QueriesHistory { get; set; }
+		public string QueryBody { get; set; }
 
 		public int Delflag { get; set; }
 
         public virtual Project Project { get; set; }
 
-		//public DateTime QueryDate { get; set; }
+		public DateTime QueryDate { get; set; }
 
-		//public byte[] QueryResult { get; set; }
-
-		// public int QueryOwner { get; set; }
 	}
 }

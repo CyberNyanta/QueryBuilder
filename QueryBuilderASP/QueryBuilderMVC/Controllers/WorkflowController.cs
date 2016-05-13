@@ -442,10 +442,113 @@ namespace QueryBuilderMVC.Controllers
             ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
             return PartialView("Success");
         }
-        #endregion
+		#endregion
 
-        #region Invite
-        [Authorize]
+		#region Queries
+		[HttpPost]
+		[Authorize]
+		//public ActionResult CreateQuery(Query projectModel)
+		//{
+		//	_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+		//	if (ModelState.IsValidField("Name") && ModelState.IsValidField("Description"))
+		//	{
+		//		var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
+		//		_serviceProject.SaveProject(newProject);
+
+		//		_serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
+
+		//		ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+		//		return PartialView("Success");
+		//	}
+		//	return PartialView("CreateProjectPartial");
+		//}
+
+
+		[Authorize]
+		public ActionResult UpdateQueryPartial(int id)
+		{
+			_projectModel.IdCurrentProject = id;
+			var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
+			//var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+			ProjectViewModel newProject = new ProjectViewModel();
+			newProject.Name = currentProject.ProjectName;
+			newProject.Description = currentProject.ProjectDescription;
+			newProject.IdCurrentProject = currentProject.ProjectID;
+			if (newProject != null)
+			{
+				return PartialView("UpdateProjectPartial", newProject);
+			}
+			return View("List");
+		}
+
+		[HttpPost]
+		[Authorize]
+		public ActionResult UpdateQueryPartial(ProjectViewModel project)
+		{
+			if (ModelState.IsValid)
+			{
+				var newProject = Mapper.Map<ProjectViewModel, Project>(project);
+				_serviceProject.SaveProject(newProject);
+				ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+
+				return PartialView("Success");
+			}
+			return PartialView("UpdateProjectPartial", project);
+		}
+
+		[Authorize]
+		public ActionResult DeleteQueryPartial(int id)
+		{
+			_projectModel.IdCurrentProject = id;
+			var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
+			//var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+			var newProject = new ProjectViewModel
+			{
+				Name = currentProject.ProjectName,
+				Description = currentProject.ProjectDescription,
+				IdCurrentProject = currentProject.ProjectID
+			};
+			if (newProject != null)
+			{
+				return PartialView("DeleteProjectPartial", newProject);
+			}
+			return View("List");
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult DeleteQueryPartial(ProjectViewModel project)
+		{
+			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+			var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
+			var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
+			var deleteProject = projectsViewModel.FirstOrDefault(x => x.ProjectID == project.IdCurrentProject);
+			if (deleteProject != null)
+			{
+				deleteProject.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.IdCurrentProject);
+				if (deleteProject.UserRole == UserRoleProjectsShareConstants.Shared)
+				{
+					_serviceProjectsShareService.DeleteUserFromProjectsShare(_serviceProject.GetProject(deleteProject.ProjectID), _currentUser);
+				}
+
+				if (deleteProject.UserRole == UserRoleProjectsShareConstants.Owner)
+				{
+					var newproject = Mapper.Map<ProjectViewModel, Project>(project);
+					newproject.Delflag = DelflagConstants.UnactiveSet;
+					_serviceProject.SaveProject(newproject);
+
+					_serviceConnection.DeleteProjectConnections(deleteProject.ProjectID);
+				}
+			}
+
+			ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+			return PartialView("Success");
+		}
+		#endregion
+
+
+		#region Invite
+		[Authorize]
         public ActionResult InviteUserToProjectPartial(int id)
         {
             var users = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(id)).Take(10);

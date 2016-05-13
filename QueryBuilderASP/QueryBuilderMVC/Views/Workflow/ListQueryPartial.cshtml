@@ -1,0 +1,87 @@
+﻿@model QueryBuilderMVC.Models.ProjectViewModel
+
+
+
+@if (Model.IdCurrentProject != 0)
+{
+    foreach (var item in Model.Queries)
+    {
+
+        <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
+            @if (Request.IsAuthenticated)
+            {
+                <div class="ItemNameConnection">
+                    @Html.ActionLink(@item.QueryName, "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
+                                new
+                                {
+                                    @class = "LinkEdit",
+                                    data_dialog_title = "Update connection"
+                                })
+                </div>
+
+                <div>
+                    @Html.ActionLink(" ", "DeleteQueryPartial", "Workflow", new { id = item.QueryID },
+							new
+							{
+								@class = "DeleteQueryItem iconHeaderDeleteItem",
+								data_dialog_title = "Delete query"
+							})
+                </div>
+                                <div class="">
+                                    @Html.ActionLink(" ", "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
+										new
+										{
+											@class = "UpdateQueryItem",
+											data_dialog_title = "Update query"
+										})
+                                </div>
+            }
+            else
+            {
+                <div class="ItemNameConnection">
+                    @item.QueryName
+                </div>
+            }
+
+
+        </div>
+        <br />
+
+    }
+}
+
+<script>
+
+
+    $(document).ready(function () {
+        $(function () {
+
+           
+
+        	$(".UpdateQuery")
+                .prepend("<span class='iconHeaderEdit iconHeader portlet-3'></span>");
+
+        	$(".UpdateQueryItem")
+                .prepend("<span class='iconHeaderEditItem iconHeader portlet-3'></span>");
+
+        	$(".DeleteQuery")
+                .prepend("<span class='iconHeaderDelete iconHeader portlet-2'></span>");
+        	$(".DeleteQueryItem")
+                .prepend("<span class='iconHeaderDeleteItem iconHeader portlet-2'></span>");
+
+            $(".portlet-toggle").click(function () {
+                var icon = $(this);
+                icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+                icon.closest(".portlet").find(".portlet-content").toggle();
+            });
+        });
+        $.ajaxSetup({ cache: false });
+        //CRUD connection
+        ModalPostDialogDeleteWithNotifyAndUpdate(".DeleteQueryItem", '@Url.Action("DeleteQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
+    	ModalPostDialogUpdateWithNotifyAndUpdate(".UpdateQueryItem", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateConnectionList);
+        ModalPostDialogUpdateWithNotifyAndUpdate(".LinkEdit", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateConnectionList);
+       
+
+    });
+
+</script>

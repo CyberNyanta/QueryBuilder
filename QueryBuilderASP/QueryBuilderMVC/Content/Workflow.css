@@ -1,5 +1,12 @@
 ﻿body {
 }
+#LangWorkflow
+{
+   padding-top:10px;
+    line-height:normal !important;
+    float:right !important;
+}
+
 .lang
 {
     margin-left:30px;
@@ -17,18 +24,35 @@
    background-size:cover;
     background-repeat:no-repeat;
         background-position-y:1px;
-    height:30px;
+    height:30px!important;
     width: 30px;
     margin:3px;
 }
 
+.IconLanguage:hover
+{
+    background-color:transparent!important;
+    display:inline-block!important;
+    background-image: url(../Images/Icon/languages.png)!important;
+   background-size:cover!important;
+    background-repeat:no-repeat!important;
+        background-position-y:1px!important;
+    height:30px!important;
+    width: 30px!important;
+    margin:3px!important;
+}
 .EN
 {
             background-position-y:2px;
 
     background-position-x:-64px;
 }
+.EN:hover
+{
+    background-position-y:2px;
 
+    background-position-x:-64px!important;
+}
 .UA
 {
     background-position-x:-33px;
@@ -37,6 +61,16 @@
 {
     background-position-x:0px;
             background-position-y:2px;
+
+}
+.UA:hover
+{
+    background-position-x:-33px!important;
+}
+.RU:hover
+{
+    background-position-x:0px!important;
+            background-position-y:2px!important;
 
 }
 .GetResult

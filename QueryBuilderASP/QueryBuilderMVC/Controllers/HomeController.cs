@@ -40,7 +40,7 @@ namespace QueryBuilderMVC.Controllers
         {
             string returnUrl = Request.UrlReferrer.AbsolutePath;
             // Список культур
-            List<string> cultures = new List<string>() { "ru", "en" };
+            List<string> cultures = new List<string>() { "ru", "en", "ua" };
             if (!cultures.Contains(lang))
             {
                 lang = "en";

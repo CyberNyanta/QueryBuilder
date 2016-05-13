@@ -198,7 +198,7 @@
 				   // Get instance of the QueryBuilder object
 				   var queryBuilder = sessionStoreItem.QueryBuilder;
 				   queryBuilder.ClearMetadata();
-				   queryBuilder.RefreshDatasourcesMetadata();
+				   //queryBuilder.RefreshDatasourcesMetadata();
 				   // create an instance of the proper syntax provider for your database server.
 				   // - use AutoSyntaxProvider if you want to detect your database server automatically
 				   //   (autodetection works in case of live database connection only);
@@ -550,13 +550,19 @@
 </script>
 
 <script>
+	function FixTreeView(){
+		QB.Web.Application.fullUpdate();
+		QB.Web.Application.fullUpdate();
+		QB.Web.Application.reconnect();
+		QB.Web.Application.reconnect();
+	};
+	
 
         $(document).ready(function () {
         
         	
-        	QB.Web.Application.reconnect();
-        	QB.Web.Core.fullUpdate();
-        	QB.Web.Core.fullUpdate();
+        	FixTreeView();
+        	FixTreeView();
 
             $.ajaxSetup({ cache: false });
             ///Modal edit for edit Project

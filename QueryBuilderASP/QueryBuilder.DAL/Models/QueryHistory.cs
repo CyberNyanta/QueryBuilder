@@ -18,8 +18,6 @@ namespace QueryBuilder.DAL.Models
 
 		public int Delflag { get; set; }
 
-		public virtual Query Query { get; set; }
-
 		public virtual Project Project { get; set; }
 
 

@@ -127,10 +127,6 @@
     <Compile Include="Migrations\201605110546181_AddQueryHistory.Designer.cs">
       <DependentUpon>201605110546181_AddQueryHistory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605131016466_ChangeQueryHistoryRelationAgain.cs" />
-    <Compile Include="Migrations\201605131016466_ChangeQueryHistoryRelationAgain.Designer.cs">
-      <DependentUpon>201605131016466_ChangeQueryHistoryRelationAgain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\QueryHistory.cs" />
     <Compile Include="Repositories\QueriesRepository.cs" />
@@ -183,9 +179,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605110546181_AddQueryHistory.resx">
       <DependentUpon>201605110546181_AddQueryHistory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605131016466_ChangeQueryHistoryRelationAgain.resx">
-      <DependentUpon>201605131016466_ChangeQueryHistoryRelationAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -150,9 +150,7 @@
                     </div>
 
                     <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
-					<button id="SaveQueryToDatabase" class="SaveQuery">
-					
-					</button>
+			
 
                 </div>
 
@@ -179,9 +177,9 @@
             <div class="portlet-header">@Resources.Resource.ListQueryBuilder</div>
             <div id="QueryBuilder" class="portlet-content">
 
-                @if (Model.IdCurrentProject != 0)
+                @if (Model.IdCurrentProject != 0 && ViewBag.ConnectionString != null)
 				{
-					
+
 
                 @Html.ActiveQueryBuilder(settings =>
 		   {
@@ -377,7 +375,7 @@
 
                 });
 				
-                $(".SaveQueryToDatabase").click()
+                
 
 
                 $(".SendQuery").hover(function(){

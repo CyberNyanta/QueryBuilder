@@ -247,7 +247,7 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult CreateProjectPartial(ProjectViewModel projectModel)
         {
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            if (ModelState.IsValidField("Name") && ModelState.IsValidField("Description"))
+            if (ModelState.IsValid)
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(projectModel);
                 _serviceProject.SaveProject(newProject);
@@ -303,7 +303,7 @@ namespace QueryBuilderMVC.Controllers
             {
                 Name = currentProject.ProjectName,
                 Description = currentProject.ProjectDescription,
-                IdCurrentProject = currentProject.ProjectID
+                IdCurrentProject = id
             };
             if (newProject != null)
             {
@@ -702,7 +702,7 @@ namespace QueryBuilderMVC.Controllers
             return table;
         }
 
-        public void SaveGridToPdf(string query, int idCurrentProject)
+        public void SaveGridToPdf(string query)
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 
@@ -714,7 +714,7 @@ namespace QueryBuilderMVC.Controllers
             SaveGridToFile(pdfStream, "application/pdf", "Result.pdf");
         }
 
-        public void SaveGridToExcel(string query, int idCurrentProject)
+        public void SaveGridToExcel(string query)
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 

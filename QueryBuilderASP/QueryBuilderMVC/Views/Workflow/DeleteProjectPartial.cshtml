@@ -6,12 +6,13 @@
     <p>Id: @Html.DisplayFor(m => m.IdCurrentProject)</p>
     <p>@Resources.Resource.CreateProjectName @Html.DisplayFor(m => m.Name)</p>
     <p>@Resources.Resource.CreateProjectDescription @Html.DisplayFor(m => m.Description)</p>
-
+  
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <p class="TextField" style="display:none;">Name project: @Html.TextBoxFor(x => x.IdCurrentProject, new { placeholder = Model.IdCurrentProject }) </p>
         <p class="TextField" style="display:none;">Name project: @Html.TextBoxFor(x => x.Name, new { placeholder = Model.Name }) </p>
+        <p class="TextField" style="display:none;">Name project: @Html.TextBoxFor(x => x.Description, new { placeholder = Model.Description }) </p>
 
         @*<input type="submit" value="Delete" />*@
     }

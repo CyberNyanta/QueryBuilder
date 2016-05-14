@@ -332,7 +332,6 @@
                             @using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
                             {
                                 <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
-                                <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;" />
                                 <button class="SavePDF"></button>
                             }
                         </div>
@@ -341,7 +340,6 @@
                             @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
                             {
                                 <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
-                                <input type="text" name="idCurrentProject" class="idCurrentProjectForSaveToFile" style="display: none;" />
                                 <button class="SaveExcel"></button>
                             }
                         </div>

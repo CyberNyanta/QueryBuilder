@@ -95,37 +95,9 @@
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWorkFactory.cs" />
-    <Compile Include="Migrations\201604091726067_InitialManualMigration.cs" />
-    <Compile Include="Migrations\201604091726067_InitialManualMigration.Designer.cs">
-      <DependentUpon>201604091726067_InitialManualMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604092104153_ModifiedProjectsShare.cs" />
-    <Compile Include="Migrations\201604092104153_ModifiedProjectsShare.Designer.cs">
-      <DependentUpon>201604092104153_ModifiedProjectsShare.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604092113593_MinorUpdate.cs" />
-    <Compile Include="Migrations\201604092113593_MinorUpdate.Designer.cs">
-      <DependentUpon>201604092113593_MinorUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604101121213_ChangePasswordDb.cs" />
-    <Compile Include="Migrations\201604101121213_ChangePasswordDb.Designer.cs">
-      <DependentUpon>201604101121213_ChangePasswordDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604111047046_AddPropertyFromUserIdToTableProjectShare.cs" />
-    <Compile Include="Migrations\201604111047046_AddPropertyFromUserIdToTableProjectShare.Designer.cs">
-      <DependentUpon>201604111047046_AddPropertyFromUserIdToTableProjectShare.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605070810357_ChangeQueryRelation.cs" />
-    <Compile Include="Migrations\201605070810357_ChangeQueryRelation.Designer.cs">
-      <DependentUpon>201605070810357_ChangeQueryRelation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605101403223_FixQueryModel.cs" />
-    <Compile Include="Migrations\201605101403223_FixQueryModel.Designer.cs">
-      <DependentUpon>201605101403223_FixQueryModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605110546181_AddQueryHistory.cs" />
-    <Compile Include="Migrations\201605110546181_AddQueryHistory.Designer.cs">
-      <DependentUpon>201605110546181_AddQueryHistory.cs</DependentUpon>
+    <Compile Include="Migrations\201605141114202_initial.cs" />
+    <Compile Include="Migrations\201605141114202_initial.Designer.cs">
+      <DependentUpon>201605141114202_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\QueryHistory.cs" />
@@ -156,29 +128,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604091726067_InitialManualMigration.resx">
-      <DependentUpon>201604091726067_InitialManualMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604092104153_ModifiedProjectsShare.resx">
-      <DependentUpon>201604092104153_ModifiedProjectsShare.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604092113593_MinorUpdate.resx">
-      <DependentUpon>201604092113593_MinorUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604101121213_ChangePasswordDb.resx">
-      <DependentUpon>201604101121213_ChangePasswordDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604111047046_AddPropertyFromUserIdToTableProjectShare.resx">
-      <DependentUpon>201604111047046_AddPropertyFromUserIdToTableProjectShare.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605070810357_ChangeQueryRelation.resx">
-      <DependentUpon>201605070810357_ChangeQueryRelation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605101403223_FixQueryModel.resx">
-      <DependentUpon>201605101403223_FixQueryModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605110546181_AddQueryHistory.resx">
-      <DependentUpon>201605110546181_AddQueryHistory.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605141114202_initial.resx">
+      <DependentUpon>201605141114202_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

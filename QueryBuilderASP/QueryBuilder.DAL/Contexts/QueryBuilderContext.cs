@@ -13,6 +13,7 @@ namespace QueryBuilder.DAL.Contexts
         public QueryBuilderContext()
             : base("name=DefaultConnection", throwIfV1Schema: false)
         {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<QueryBuilderContext>());
             //Database.SetInitializer<QueryBuilderContext>(null);
             //Configuration.ProxyCreationEnabled = false;
             //Configuration.LazyLoadingEnabled = false;

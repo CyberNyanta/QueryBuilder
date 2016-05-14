@@ -357,6 +357,7 @@ namespace QueryBuilderMVC.Controllers
                     _connectionModel.ServerName = connection.ServerName;
                     _connectionModel.LoginDB = connection.LoginDB;
                     _connectionModel.PasswordDB = Rijndael.DecryptStringFromBytes(connection.PasswordDB);
+                    _connectionModel.ConnectionCount = _serviceConnection.GetConnectionDBs(id).Count();
 
                 }
             }

@@ -3,7 +3,7 @@ namespace QueryBuilder.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialManualMigration : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -16,7 +16,7 @@ namespace QueryBuilder.DAL.Migrations
                         ConnectionName = c.String(nullable: false, maxLength: 255),
                         ServerName = c.String(nullable: false, maxLength: 255),
                         LoginDB = c.String(maxLength: 255),
-                        PasswordDB = c.Guid(),
+                        PasswordDB = c.Binary(),
                         DatabaseName = c.String(nullable: false, maxLength: 255),
                         Delflag = c.Int(nullable: false),
                     })
@@ -30,26 +30,26 @@ namespace QueryBuilder.DAL.Migrations
                     {
                         ProjectID = c.Int(nullable: false, identity: true),
                         ProjectName = c.String(nullable: false, maxLength: 255),
-                        ProjectOwner = c.String(nullable: false, maxLength: 128),
                         Delflag = c.Int(nullable: false),
                         ProjectDescription = c.String(maxLength: 255),
                         CreatedDate = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.ProjectID)
-                .ForeignKey("dbo.ApplicationUser", t => t.ProjectOwner)
-                .Index(t => t.ProjectOwner);
+                .PrimaryKey(t => t.ProjectID);
             
             CreateTable(
                 "dbo.ProjectsShare",
                 c => new
                     {
-                        ProjectID = c.Int(nullable: false),
+                        ProjectId = c.Int(nullable: false),
                         UserId = c.String(nullable: false, maxLength: 128),
-                        Delflag = c.Int(nullable: false),
+                        FromUserId = c.String(maxLength: 128),
+                        UserRole = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.ProjectID, t.UserId })
-                .ForeignKey("dbo.Project", t => t.ProjectID)
-                .Index(t => t.ProjectID);
+                .PrimaryKey(t => new { t.ProjectId, t.UserId })
+                .ForeignKey("dbo.Project", t => t.ProjectId)
+                .ForeignKey("dbo.ApplicationUser", t => t.UserId)
+                .Index(t => t.ProjectId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.ApplicationUser",
@@ -57,8 +57,8 @@ namespace QueryBuilder.DAL.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Delflag = c.Int(nullable: false),
-                        FirstName = c.String(nullable: false, maxLength: 255),
-                        LastName = c.String(nullable: false, maxLength: 255),
+                        FirstName = c.String(maxLength: 255),
+                        LastName = c.String(maxLength: 255),
                         Email = c.String(maxLength: 255),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -120,16 +120,30 @@ namespace QueryBuilder.DAL.Migrations
                     {
                         QueryID = c.Int(nullable: false, identity: true),
                         QueryName = c.String(maxLength: 255),
-                        QueryOwner = c.String(maxLength: 255),
-                        ConnectionID = c.Int(nullable: false),
+                        ProjectID = c.Int(nullable: false),
+                        UserID = c.Int(nullable: false),
                         QueryBody = c.String(),
-                        QueryDate = c.DateTime(nullable: false),
-                        QueryResult = c.Binary(),
                         Delflag = c.Int(nullable: false),
+                        QueryDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.QueryID)
-                .ForeignKey("dbo.ConnectionDB", t => t.ConnectionID)
-                .Index(t => t.ConnectionID);
+                .ForeignKey("dbo.Project", t => t.ProjectID)
+                .Index(t => t.ProjectID);
+            
+            CreateTable(
+                "dbo.QueriesHistory",
+                c => new
+                    {
+                        QueryHistoryID = c.Int(nullable: false, identity: true),
+                        UserID = c.Int(nullable: false),
+                        ProjectID = c.Int(nullable: false),
+                        QueryDate = c.DateTime(nullable: false),
+                        QueryBody = c.String(),
+                        Delflag = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.QueryHistoryID)
+                .ForeignKey("dbo.Project", t => t.ProjectID)
+                .Index(t => t.ProjectID);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -146,23 +160,26 @@ namespace QueryBuilder.DAL.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Queries", "ConnectionID", "dbo.ConnectionDB");
             DropForeignKey("dbo.ConnectionDB", "ConnectionOwner", "dbo.Project");
-            DropForeignKey("dbo.Project", "ProjectOwner", "dbo.ApplicationUser");
+            DropForeignKey("dbo.QueriesHistory", "ProjectID", "dbo.Project");
+            DropForeignKey("dbo.Queries", "ProjectID", "dbo.Project");
+            DropForeignKey("dbo.ProjectsShare", "UserId", "dbo.ApplicationUser");
             DropForeignKey("dbo.AspNetUserRoles", "ApplicationUser_Id", "dbo.ApplicationUser");
             DropForeignKey("dbo.AspNetUserLogins", "ApplicationUser_Id", "dbo.ApplicationUser");
             DropForeignKey("dbo.AspNetUserClaims", "ApplicationUser_Id", "dbo.ApplicationUser");
-            DropForeignKey("dbo.ProjectsShare", "ProjectID", "dbo.Project");
+            DropForeignKey("dbo.ProjectsShare", "ProjectId", "dbo.Project");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Queries", new[] { "ConnectionID" });
+            DropIndex("dbo.QueriesHistory", new[] { "ProjectID" });
+            DropIndex("dbo.Queries", new[] { "ProjectID" });
             DropIndex("dbo.AspNetUserRoles", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserClaims", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.ProjectsShare", new[] { "ProjectID" });
-            DropIndex("dbo.Project", new[] { "ProjectOwner" });
+            DropIndex("dbo.ProjectsShare", new[] { "UserId" });
+            DropIndex("dbo.ProjectsShare", new[] { "ProjectId" });
             DropIndex("dbo.ConnectionDB", new[] { "ConnectionOwner" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.QueriesHistory");
             DropTable("dbo.Queries");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

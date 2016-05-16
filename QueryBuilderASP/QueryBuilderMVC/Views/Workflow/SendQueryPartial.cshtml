@@ -1,11 +1,11 @@
-﻿@using (Html.BeginForm())
+﻿@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "emailQueryForm" }))
 {
     @Html.ValidationSummary();
     <input type="text" name="query" class="sqlQuery" style="display:none;" value="@ViewBag.Query" />
             <div>
                 @Html.Label("E-mail:")
                 <div>
-                    <input type="text" name="email" />
+                    <input type="email" name="email" required="required"/>
                 </div>
             </div>
             <input type="submit" />

@@ -597,7 +597,7 @@ namespace QueryBuilderMVC.Controllers
 
             var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
             var connect = connectionsCurrentProject.First();
-            var connectionString = $"Data source= {connect.ServerName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
+            var connectionString = $"Data source= {connect.ServerName};Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
 
             using (var conn = new SqlConnection(connectionString))
             {

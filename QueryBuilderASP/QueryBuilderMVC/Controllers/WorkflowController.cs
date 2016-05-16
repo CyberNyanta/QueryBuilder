@@ -13,12 +13,11 @@ using QueryBuilder.Constants;
 using QueryBuilder.Utils.Mailers;
 using QueryBuilder.Utils.Encryption;
 using Newtonsoft.Json;
-using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 using QueryBuilderMVC.Filters;
 using System.Text.RegularExpressions;
-using System.Web;
+using QueryBuilder.Utils.DBSchema;
 using QueryBuilder.Utils.Exporters;
 
 namespace QueryBuilderMVC.Controllers
@@ -103,6 +102,8 @@ namespace QueryBuilderMVC.Controllers
                 _projectModel.IdCurrentProject = Convert.ToInt32(id);
                 if (id != "0")
                 {
+                    Session["datatableForGrid"] = new DataTable();
+
                     var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
                     _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
 
@@ -567,7 +568,7 @@ namespace QueryBuilderMVC.Controllers
         #endregion
 
         #region Grid
-        public string GetData(string query, int idCurrentProject)
+        public string GetData()
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 
@@ -576,7 +577,22 @@ namespace QueryBuilderMVC.Controllers
 
         public string GetGridModel(string query, int idCurrentProject)
         {
-            var dataTable = GetDataTableForGrid(query, idCurrentProject);
+            var dataTable = new DataTable();
+
+            var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
+            var connect = connectionsCurrentProject.FirstOrDefault();
+            if (connect != null)
+            {
+                var connectionString = $"Data source= {connect.ServerName};Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
+
+                var resultQuery = SqlExecuteData.SqlReturnDataFromQuery(query, connectionString);
+
+                if (!resultQuery.HasError)
+                    dataTable = resultQuery.ResultData;
+                else
+                    return JsonConvert.SerializeObject(resultQuery.ErrorText);
+            }
+
             Session["datatableForGrid"] = dataTable;
 
             var header = (from DataColumn column in dataTable.Columns
@@ -591,37 +607,7 @@ namespace QueryBuilderMVC.Controllers
             return JsonConvert.SerializeObject(header);
         }
 
-        private DataTable GetDataTableForGrid(string query, int idCurrentProject)
-        {
-            var table = new DataTable();
-
-            var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
-            var connect = connectionsCurrentProject.First();
-            var connectionString = $"Data source= {connect.ServerName};Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
-
-            using (var conn = new SqlConnection(connectionString))
-            {
-                using (var cmd = new SqlCommand(query, conn))
-                {
-                    var adapt = new SqlDataAdapter(cmd);
-                    conn.Open();
-                    try
-                    {
-                        adapt.Fill(table);
-                    }
-                    catch (Exception)
-                    {
-                        // ignored
-                    }
-
-                    conn.Close();
-                }
-            }
-
-            return table;
-        }
-
-        public void SaveGridToPdf(string query)
+        public void SaveGridToPdf()
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 
@@ -633,7 +619,7 @@ namespace QueryBuilderMVC.Controllers
             SaveGridToFile(pdfStream, "application/pdf", "Result.pdf");
         }
 
-        public void SaveGridToExcel(string query)
+        public void SaveGridToExcel()
         {
             var dataTable = Session["datatableForGrid"] as DataTable;
 

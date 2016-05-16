@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBSchema\JsonERModel.cs" />
+    <Compile Include="DBSchema\SqlExecuteData.cs" />
     <Compile Include="Encryption\Rijndael.cs" />
     <Compile Include="Exporters\DataTableToExcelExporter.cs" />
     <Compile Include="Exporters\DataTableToPdfExporter.cs" />

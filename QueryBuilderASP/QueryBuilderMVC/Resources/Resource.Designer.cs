@@ -106,6 +106,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Query body .
+        /// </summary>
+        public static string CreateQueryBody {
+            get {
+                return ResourceManager.GetString("CreateQueryBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query name.
+        /// </summary>
+        public static string CreateQueryName {
+            get {
+                return ResourceManager.GetString("CreateQueryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want delete this connection?.
         /// </summary>
         public static string DeleteConnectionQuestion {
@@ -120,6 +138,15 @@ namespace Resources {
         public static string DeleteProjectQuestion {
             get {
                 return ResourceManager.GetString("DeleteProjectQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want delete this query?.
+        /// </summary>
+        public static string DeleteQueryQuestion {
+            get {
+                return ResourceManager.GetString("DeleteQueryQuestion", resourceCulture);
             }
         }
         

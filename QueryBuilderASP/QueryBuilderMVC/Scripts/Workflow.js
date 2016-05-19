@@ -176,7 +176,7 @@ function UpdateConnectionList(url) {
 };
 
 function UpdateQueryList(url) {
-	console.log("UpdateQueryList");
+	console.log(url);
 
 	$.ajax({
 		url: url,
@@ -188,5 +188,5 @@ function UpdateQueryList(url) {
         	$("#ContainerListQuery").append('<div id="ListQuery"></div>');
         	$("#ListQuery").append(result);
         }
-	})
+	});
 };

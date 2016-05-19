@@ -502,21 +502,21 @@ namespace QueryBuilderMVC.Controllers
 		public ActionResult UpdateQueryPartial(int id)
 		{
 			var currentQuery = _serviceQuery.GetQueries().FirstOrDefault(x => x.QueryID == id);
-			var newQuery = Mapper.Map<Query, QueryViewModel>(currentQuery);
+			var _queryModel = Mapper.Map<Query, QueryViewModel>(currentQuery);
 
-			return PartialView("UpdateQueryPartial", newQuery);
+			return PartialView("UpdateQueryPartial", _queryModel);
 		}
 
 		[Authorize]
 		[HttpPost]
-		public ActionResult UpdateQueryPartial(QueryViewModel query)
+		public ActionResult UpdateQueryPartial(QueryViewModel _queryModel)
 		{
 
 			if (ModelState.IsValid)
 			{
-				ViewBag.IdCurrentProject = query.ProjectID;
+				ViewBag.IdCurrentProject = _queryModel.ProjectID;
 				
-				var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+				var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
                 
 				_serviceQuery.SaveQuery(newQuery);
 
@@ -524,27 +524,27 @@ namespace QueryBuilderMVC.Controllers
 
 			}
 
-			return PartialView("UpdateConnectionPartial", query);
+			return PartialView("UpdateConnectionPartial", _queryModel);
 		}
 
 		[Authorize]
 		public ActionResult DeleteQueryPartial(int id)
 		{
 			var currentQuery = _serviceQuery.GetQueries().FirstOrDefault(x => x.QueryID == id);
-			var newQuery = Mapper.Map<Query, QueryViewModel>(currentQuery);
+			var _queryModel = Mapper.Map<Query, QueryViewModel>(currentQuery);
 
-			if (newQuery != null)
+			if (_queryModel != null)
 			{
-				return PartialView("DeleteConnectionPartial", newQuery);
+				return PartialView("DeleteConnectionPartial", _queryModel);
 			}
 			return View("List");
 		}
 
 		[Authorize]
 		[HttpPost]
-		public ActionResult DeleteQueryPartial(QueryViewModel query)
+		public ActionResult DeleteQueryPartial(QueryViewModel _queryModel)
 		{
-			var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+			var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
 			newQuery.Delflag = 1;
 			_serviceQuery.SaveQuery(newQuery);
 

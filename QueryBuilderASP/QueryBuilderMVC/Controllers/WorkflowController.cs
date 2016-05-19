@@ -476,27 +476,26 @@ namespace QueryBuilderMVC.Controllers
 		{
 			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
 			_queryModel.ProjectID = id;
-			_queryModel.UserID = 0;
-			_queryModel.QueryDate = DateTime.Now;
 			return PartialView("CreateQueryPartial", _queryModel);
 
 		}
 		[HttpPost]
 		[Authorize]
-		public ActionResult CreateQueryPartial(QueryViewModel query)
+		public ActionResult CreateQueryPartial(QueryViewModel _queryModel)
 		{
 			if (ModelState.IsValid)
 			{
-				ViewBag.IdCurrentProject = query.ProjectID;
+				ViewBag.IdCurrentProject = _queryModel.ProjectID;
 				if (ModelState.IsValid)
 				{
-					var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+                    _queryModel.QueryDate = DateTime.Now;
+                    var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
 					_serviceQuery.SaveQuery(newQuery);
 
 					return PartialView("Success");
 				}
 			}
-			return PartialView("CreateQueryPartial", query);
+			return PartialView("CreateQueryPartial", _queryModel);
 			
 		}
 		[Authorize]
@@ -518,6 +517,7 @@ namespace QueryBuilderMVC.Controllers
 				ViewBag.IdCurrentProject = query.ProjectID;
 				
 				var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+                
 				_serviceQuery.SaveQuery(newQuery);
 
 				return PartialView("Success");
@@ -552,7 +552,6 @@ namespace QueryBuilderMVC.Controllers
 			return PartialView("Success");
 		}
 		#endregion
-
 
 		#region Invite
 		[Authorize]

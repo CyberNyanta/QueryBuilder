@@ -12,20 +12,27 @@
 	</div>
 
 	<div>
-		<p class="TextField" style="color:black; display:none;">
-			Database: @Html.TextBoxFor(x => x.ProjectID,
+		<p class="TextField" style="color:black; ">
+			Database: @Html.EditorFor(x => x.ProjectID,
 	   new { placeholder = Model.ProjectID })
 
 		</p>
 	</div>
+    <div>
+        <p class="TextField" style="color:black; ">
+            Database: @Html.EditorFor(x => x.QueryDate,
+       new { placeholder = Model.QueryDate })
 
+        </p>
+    </div>
 	<div>
-		<p class="TextField" style="color:black; display:none;">
-			Database: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.ProjectID })
+		<p class="TextField" style="color:black;">
+			Database: @Html.TextBoxFor(x => x.QueryBody)
 		</p>
 	</div>
-	<script>
-		var s = FormatQueryString();
-		$("#QueryBody").val(s);
-	</script>
+	
 }
+<script>
+        var s = FormatQueryString();
+		$("#QueryBody").val(s);
+</script>

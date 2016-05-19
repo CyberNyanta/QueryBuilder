@@ -178,7 +178,11 @@
         <div class="portlet" id="id_5">
             <div class="portlet-header">Queries</div>
             <div class="portlet-content">
-				@Html.Partial("ListQueryPartial")
+                @if (Model.IdCurrentProject != 0)
+                {
+                    @Html.Partial("ListQueryPartial")
+
+                }
 
             </div>
         </div>

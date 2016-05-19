@@ -24,7 +24,7 @@ namespace QueryBuilderMVC.Models
 		public int ProjectID { get; set; }
 		[Required(ErrorMessage = @"Your query is empty")]
 		public string QueryBody { get; set; }
-		[Required]
+	
 		public DateTime QueryDate { get; set; }
 
 

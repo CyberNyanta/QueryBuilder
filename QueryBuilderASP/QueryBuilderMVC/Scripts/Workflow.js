@@ -6,6 +6,8 @@
 
 
 function NotifyAndUpdate(url, updateurl) {
+    console.log($('form').serialize());
+    console.log("url: " + url);
     $.ajax({
         url: url,
         type: "POST",
@@ -13,6 +15,7 @@ function NotifyAndUpdate(url, updateurl) {
         datatype: "json",
         success:
         function (result) {
+            console.log(result);
                 if ( result == "Success") {
                     Notify();
                     
@@ -34,6 +37,7 @@ function Notify() {
 function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl, callback) {
 
     $(selector).on("click", function (e) {
+        console.log(selector+" "+url+" "+updateurl+" "+callback)
         e.preventDefault();
         $("<div id='dialogContent'></div>")
             .addClass("dialog")

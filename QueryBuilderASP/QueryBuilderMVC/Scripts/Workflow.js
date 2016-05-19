@@ -170,3 +170,19 @@ function UpdateConnectionList(url) {
         }
     })
 };
+
+function UpdateQueryList(url) {
+	console.log("UpdateQueryList");
+
+	$.ajax({
+		url: url,
+		type: "POST",
+		datatype: "json",
+		success:
+        function (result) {
+        	$("#ListQuery").remove();
+        	$("#ContainerListQuery").append('<div id="ListQuery"></div>');
+        	$("#ListQuery").append(result);
+        }
+	})
+};

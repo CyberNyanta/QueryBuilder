@@ -152,6 +152,18 @@
                     <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
 			
 
+					
+					@Html.ActionLink(" ", "CreateQueryPartial", "Workflow", new { id = Model.IdCurrentProject },
+								new
+								{
+									@class = "CreateQuery",
+									data_dialog_title = "Create query"
+								})
+					
+
+					
+
+		
                 </div>
 
                 @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
@@ -163,9 +175,9 @@
 
 
         <div class="portlet" id="id_5">
-            <div class="portlet-header">Statistics</div>
+            <div class="portlet-header">Queries</div>
             <div class="portlet-content">
-
+				@Html.Partial("ListQueryPartial")
 
             </div>
         </div>
@@ -366,7 +378,6 @@
 
 <script>
 
-	QB.Web.Application
                 jQuery(".SaveQuery").click(function() {
                     var s = FormatQueryString();
                     $(".sqlQuery").val(s);
@@ -457,9 +468,9 @@
     });
 
     function FillParameters() {
-        var s = FormatQueryString();
-        $(".sqlQueryForSaveToFile").val(s);
-        $(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
+    	var s = FormatQueryString();
+    	$(".sqlQueryForSaveToFile").val(s);
+    	$(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
     }
 
     function FormatQueryString() {
@@ -579,6 +590,8 @@
            
             ///Modal create Connection
             ModalPostDialogCreateWithNotifyAndUpdate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")',UpdateConnectionList);
+
+        	ModalPostDialogCreateWithNotifyAndUpdate(".CreateQuery", '@Url.Action("CreateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")',UpdateQueryList);
 
             $(function () {
 

@@ -2,10 +2,10 @@
 
 
 
-@if (Model.IdCurrentProject != 0)
+@if (Model.IdCurrentProject != 0&& Model.Queries!=null)
 {
-    foreach (var item in Model.Queries)
-    {
+	foreach (var item in Model.Queries)
+	{
 
         <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
             @if (Request.IsAuthenticated)
@@ -68,6 +68,7 @@
                 .prepend("<span class='iconHeaderDelete iconHeader portlet-2'></span>");
         	$(".DeleteQueryItem")
                 .prepend("<span class='iconHeaderDeleteItem iconHeader portlet-2'></span>");
+        	
 
             $(".portlet-toggle").click(function () {
                 var icon = $(this);
@@ -78,8 +79,8 @@
         $.ajaxSetup({ cache: false });
         //CRUD connection
         ModalPostDialogDeleteWithNotifyAndUpdate(".DeleteQueryItem", '@Url.Action("DeleteQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
-    	ModalPostDialogUpdateWithNotifyAndUpdate(".UpdateQueryItem", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateConnectionList);
-        ModalPostDialogUpdateWithNotifyAndUpdate(".LinkEdit", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateConnectionList);
+    	ModalPostDialogUpdateWithNotifyAndUpdate(".UpdateQueryItem", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
+    	ModalPostDialogUpdateWithNotifyAndUpdate(".LinkEdit", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
        
 
     });

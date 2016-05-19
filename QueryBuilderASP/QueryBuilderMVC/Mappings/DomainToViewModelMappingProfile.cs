@@ -40,6 +40,7 @@ namespace QueryBuilderMVC.Mappings
                 .ForMember(x => x.ConnectionID, opt => opt.MapFrom(src => src.ConnectionID));
 
 			Mapper.CreateMap<Query,QueryViewModel>();
+			Mapper.CreateMap<Query, QueryListViewModel>();
 			Mapper.CreateMap<QueryHistory, QueryHistoryViewModel>();
 
 		}

@@ -955,6 +955,9 @@
     <Content Include="Views\Workflow\ListConnectionPartial.cshtml" />
     <Content Include="Views\Workflow\SendResultQueryPartial.cshtml" />
     <Content Include="Views\Workflow\ListQueryPartial.cshtml" />
+    <Content Include="Views\Workflow\CreateQueryPartial.cshtml" />
+    <Content Include="Views\Workflow\UpdateQueryPartial.cshtml" />
+    <Content Include="Views\Workflow\DeleteQueryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

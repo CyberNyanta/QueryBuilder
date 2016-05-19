@@ -31,6 +31,7 @@ namespace QueryBuilderMVC.Mappings
             Mapper.CreateMap<UserViewModel, ApplicationUser>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(src => src.UserId));
 			Mapper.CreateMap<QueryViewModel, Query>();
+			Mapper.CreateMap<QueryListViewModel, Query>();
 			Mapper.CreateMap<QueryHistoryViewModel, QueryHistory>();
 
 		}

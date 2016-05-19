@@ -236,8 +236,29 @@ namespace QueryBuilderMVC.Controllers
             return PartialView("ListConnectionPartial", _projectModel);
         }
 
-        #region Project
-        [Authorize]
+		public ActionResult ListQueryPartial()
+		{
+			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+
+			string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+			string pattern = "[0-9]+$";
+			Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+			Match match = rgx.Match(PreviousPage);
+			int id = Convert.ToInt16(match.Value);
+			_projectModel.IdCurrentProject = id;
+			if (id != 0)
+			{
+				var queriesCurrentProject = _serviceQuery.GetQueries(id);
+				_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueryListViewModel>>(queriesCurrentProject).ToList();
+
+
+			}
+
+			return PartialView("ListQueryPartial", _projectModel);
+		}
+
+		#region Project
+		[Authorize]
         public ActionResult CreateProjectPartial()
         {
             return PartialView("CreateProjectPartial");
@@ -451,32 +472,85 @@ namespace QueryBuilderMVC.Controllers
 		#region Queries
 
 		[Authorize]
-		public ActionResult CreateQueryPartial(int id, string query)
+		public ActionResult CreateQueryPartial(int id)
 		{
 			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
 			_queryModel.ProjectID = id;
-			_queryModel.QueryBody = query;
 			_queryModel.UserID = 0;
 			_queryModel.QueryDate = DateTime.Now;
-			return PartialView("CreateQueryPartial", _connectionModel);
+			return PartialView("CreateQueryPartial", _queryModel);
 
 		}
 		[HttpPost]
 		[Authorize]
 		public ActionResult CreateQueryPartial(QueryViewModel query)
 		{
-			
-			ViewBag.IdCurrentProject = query.ProjectID;
 			if (ModelState.IsValid)
 			{
+				ViewBag.IdCurrentProject = query.ProjectID;
+				if (ModelState.IsValid)
+				{
+					var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+					_serviceQuery.SaveQuery(newQuery);
+
+					return PartialView("Success");
+				}
+			}
+			return PartialView("CreateQueryPartial", query);
+			
+		}
+		[Authorize]
+		public ActionResult UpdateQueryPartial(int id)
+		{
+			var currentQuery = _serviceQuery.GetQueries().FirstOrDefault(x => x.QueryID == id);
+			var newQuery = Mapper.Map<Query, QueryViewModel>(currentQuery);
+
+			return PartialView("UpdateQueryPartial", newQuery);
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult UpdateQueryPartial(QueryViewModel query)
+		{
+
+			if (ModelState.IsValid)
+			{
+				ViewBag.IdCurrentProject = query.ProjectID;
+				
 				var newQuery = Mapper.Map<QueryViewModel, Query>(query);
 				_serviceQuery.SaveQuery(newQuery);
 
 				return PartialView("Success");
+
 			}
-			return PartialView("CreateQueryPartial", query);
+
+			return PartialView("UpdateConnectionPartial", query);
 		}
 
+		[Authorize]
+		public ActionResult DeleteQueryPartial(int id)
+		{
+			var currentQuery = _serviceQuery.GetQueries().FirstOrDefault(x => x.QueryID == id);
+			var newQuery = Mapper.Map<Query, QueryViewModel>(currentQuery);
+
+			if (newQuery != null)
+			{
+				return PartialView("DeleteConnectionPartial", newQuery);
+			}
+			return View("List");
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult DeleteQueryPartial(QueryViewModel query)
+		{
+			var newQuery = Mapper.Map<QueryViewModel, Query>(query);
+			newQuery.Delflag = 1;
+			_serviceQuery.SaveQuery(newQuery);
+
+			ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+			return PartialView("Success");
+		}
 		#endregion
 
 

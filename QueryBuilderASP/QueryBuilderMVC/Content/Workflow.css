@@ -176,7 +176,27 @@
     display: inline-block;
     border: none;
 }
-#SaveQuery, #SavePDF, #SaveExcel
+.CreateQuery
+{
+	 background-repeat: no-repeat;
+    background: url(../Images/Icon/add2.png);
+    width: 27px;
+    height: 27px;
+    background-size: 28px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    display: inline-block;
+    border: none;
+}
+
+.CreateQuery:hover
+{
+	background: url(../Images/Icon/add.png);
+    display: block;
+    background-size: 30px;
+        display: inline-block;
+}
+#SaveQuery, #SavePDF, #SaveExcel, #CreateQuery
 {
     float:left;
 }

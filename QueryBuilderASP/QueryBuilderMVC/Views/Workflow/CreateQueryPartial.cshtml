@@ -1,0 +1,31 @@
+﻿@model QueryBuilderMVC.Models.QueryViewModel
+
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary();
+
+	<div>
+		@Html.LabelFor(model => model.QueryName)
+		<div>
+			@Html.EditorFor(x => x.QueryName)
+		</div>
+	</div>
+
+	<div>
+		<p class="TextField" style="color:black; display:none;">
+			Database: @Html.TextBoxFor(x => x.ProjectID,
+	   new { placeholder = Model.ProjectID })
+
+		</p>
+	</div>
+
+	<div>
+		<p class="TextField" style="color:black; display:none;">
+			Database: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.ProjectID })
+		</p>
+	</div>
+	<script>
+		var s = FormatQueryString();
+		$("#QueryBody").val(s);
+	</script>
+}

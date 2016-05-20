@@ -89,7 +89,6 @@ namespace QueryBuilderMVC.Controllers
                         var sqlConnection =
                             $"Data source= {connect.ServerName}; Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
                         ViewBag.ConnectionString = sqlConnection;
-
                     }
 
 					var quriesCurrentProject = _serviceQuery.GetQueries(_projectModel.IdCurrentProject);
@@ -157,6 +156,9 @@ namespace QueryBuilderMVC.Controllers
                 _projectModel.Description = proj[0].ProjectDescription;
                 _projectModel.Projects = proj;
 
+                var sqlConnection =
+                            $"Data source= {connect[0].ServerName}; Initial catalog= {connect[0].DatabaseName}; UID= {connect[0].LoginDB}; Password= {"Instance@1"};";
+                ViewBag.ConnectionString = sqlConnection;
             }
 
             return View(_projectModel);
@@ -247,8 +249,6 @@ namespace QueryBuilderMVC.Controllers
 			{
 				var historyCurrentProject = _serviceQueryHistory.GetQueriesHistory(id);
 				_projectModel.QueryHistory = Mapper.Map<IEnumerable<QueryHistory>, IEnumerable<QueryHistoryListViewModel>>(historyCurrentProject).ToList();
-
-
 			}
 
 			return PartialView("ListHistoryPartial", _projectModel);
@@ -483,14 +483,12 @@ namespace QueryBuilderMVC.Controllers
 			if (ModelState.IsValid)
 			{
 				ViewBag.IdCurrentProject = _queryModel.ProjectID;
-				if (ModelState.IsValid)
-				{
-                    _queryModel.QueryDate = DateTime.Now;
-                    var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
-					_serviceQuery.SaveQuery(newQuery);
 
-					return PartialView("Success");
-				}
+                _queryModel.QueryDate = DateTime.Now;
+                var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
+				_serviceQuery.SaveQuery(newQuery);
+
+			    return PartialView("Success");
 			}
 			return PartialView("CreateQueryPartial", _queryModel);
 			

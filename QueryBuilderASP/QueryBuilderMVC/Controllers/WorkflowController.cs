@@ -227,8 +227,7 @@ namespace QueryBuilderMVC.Controllers
 			{
 				var queriesCurrentProject = _serviceQuery.GetQueries(id);
 				_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueryListViewModel>>(queriesCurrentProject).ToList();
-
-
+                
 			}
 
 			return PartialView("ListQueryPartial", _projectModel);

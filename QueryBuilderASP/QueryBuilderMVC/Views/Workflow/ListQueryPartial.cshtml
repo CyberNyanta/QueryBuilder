@@ -1,74 +1,217 @@
 ﻿@model QueryBuilderMVC.Models.ProjectViewModel
 
+<link rel="stylesheet" href="~/Content/prettify.css" />
 
-
-@if (Model.IdCurrentProject != 0 && Model.Queries!=null)
+@if (Model.IdCurrentProject != 0 && Model.Queries != null)
 {
-	foreach (var item in Model.Queries)
-	{
+    <div id="accordion">
+        @foreach (var item in Model.Queries)
+        {
+            if (Request.IsAuthenticated)
+            {
+                <h2 class="nameQuery" data-textquery="@item.QueryBody"><a class="link" href="ya.ru">@item.QueryName</a></h2>
+                <div>
+                    <p>@item.Description</p>
+                    <code class="prettyprint" style="white-space:pre-wrap; width:200px;" >@item.QueryBody</code>
+                    <p></p>
+                    <p style="font-size:10px;">@item.QueryDate</p>
+                </div>
+            }
+        }
+    </div>
 
-        <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
+}
+        @*<div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
             @if (Request.IsAuthenticated)
             {
-                <div class="ItemNameConnection">
-                    @Html.ActionLink(@item.QueryName, "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
+            <div class="ItemNameConnection">
+                @Html.ActionLink(@item.QueryName, "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
                                 new
                                 {
                                     @class = "LinkEdit",
                                     data_dialog_title = "Update connection"
                                 })
-                </div>
+            </div>
 
-                <div>
-                    @Html.ActionLink(" ", "DeleteQueryPartial", "Workflow", new { id = item.QueryID },
-							new
-							{
-								@class = "DeleteQueryItem iconHeaderDeleteItem",
-								data_dialog_title = "Delete query"
-							})
-                </div>
-                                <div class="">
-                                    @Html.ActionLink(" ", "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
-										new
-										{
-											@class = "UpdateQueryItem",
-											data_dialog_title = "Update query"
-										})
-                                </div>
+            <div>
+                @Html.ActionLink(" ", "DeleteQueryPartial", "Workflow", new { id = item.QueryID },
+                            new
+                            {
+                                @class = "DeleteQueryItem iconHeaderDeleteItem",
+                                data_dialog_title = "Delete query"
+                            })
+            </div>
+            <div class="">
+                @Html.ActionLink(" ", "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
+                                        new
+                                        {
+                                            @class = "UpdateQueryItem",
+                                            data_dialog_title = "Update query"
+                                        })
+            </div>
             }
             else
             {
-                <div class="ItemNameConnection">
-                    @item.QueryName
-                </div>
+            <div class="ItemNameConnection">
+                @item.QueryName
+            </div>*@
+        @*}*@
+
+
+   
+  
+
+<script src="~/Scripts/prettify.js"></script>
+@*<script src="~/Scripts/run_prettify.js"></script>*@
+<script src="~/Scripts/lang-sql.js"></script>
+
+<script type="text/javascript">
+
+
+window.onload = function(){
+
+    var As = document.getElementsByClassName('nameQuery');
+
+	for(var i = 0, l = As.length; i < l; i ++){
+		As[i].onclick = function(){
+		    return function () {
+		        var query = ($(this).data("textquery"));
+		        $("#sql-code").val(query);
+
+			}
+
+		}(As[i].href);
+
+		As[i].href = "javascript: void 0";
+	}
+}
+</script>
+
+
+
+
+@* Scripts for accordion with openning on hoverintent *@
+<script>
+
+    //$(function () {
+    //    var As = document.getElementsByClassName('link');
+    //    console.log(As);
+    //    for (var i = 0; i < As.length; i++) {
+    //        As[i].onclick = function () {
+    //            return function () {
+    //                            alert(href);
+    //                        }
+    //                    }(As[i].href);
+    //                    As[i].href = "javascript: void 0";
+                
+    //    }
+    //        //for (var i = 0, l = As.length; i = l; i++) {
+    //        //    console.log(As[i]);
+    //        //    As[i].onclick = function (href) {
+    //        //        return function () {
+    //        //            alert(href);
+    //        //        }
+    //        //    }(As[i].href);
+    //        //    As[i].href = "javascript: void 0";
+
+    //        //};
+        
+    //});
+
+
+
+
+
+
+    $(function () {
+        $("#accordion").accordion({
+            event: "click hoverintent"
+        });
+    });
+
+    /*
+     * hoverIntent | Copyright 2011 Brian Cherne
+     * http://cherne.net/brian/resources/jquery.hoverIntent.html
+     * modified by the jQuery UI team
+     */
+    $.event.special.hoverintent = {
+        setup: function () {
+            $(this).bind("mouseover", jQuery.event.special.hoverintent.handler);
+        },
+        teardown: function () {
+            $(this).unbind("mouseover", jQuery.event.special.hoverintent.handler);
+        },
+        handler: function (event) {
+            var currentX, currentY, timeout,
+              args = arguments,
+              target = $(event.target),
+              previousX = event.pageX,
+              previousY = event.pageY;
+
+            function track(event) {
+                currentX = event.pageX;
+                currentY = event.pageY;
+            };
+
+            function clear() {
+                target
+                  .unbind("mousemove", track)
+                  .unbind("mouseout", clear);
+                clearTimeout(timeout);
             }
 
+            function handler() {
+                var prop,
+                  orig = event;
 
-        </div>
-        <br />
+                if ((Math.abs(previousX - currentX) +
+                    Math.abs(previousY - currentY)) < 7) {
+                    clear();
 
-    }
-}
+                    event = $.Event("hoverintent");
+                    for (prop in orig) {
+                        if (!(prop in event)) {
+                            event[prop] = orig[prop];
+                        }
+                    }
+                    // Prevent accessing the original event since the new event
+                    // is fired asynchronously and the old event is no longer
+                    // usable (#6028)
+                    delete event.originalEvent;
 
-<script>
+                    target.trigger(event);
+                } else {
+                    previousX = currentX;
+                    previousY = currentY;
+                    timeout = setTimeout(handler, 100);
+                }
+            }
+
+            timeout = setTimeout(handler, 100);
+            target.bind({
+                mousemove: track,
+                mouseout: clear
+            });
+        }
+    };
 
 
     $(document).ready(function () {
         $(function () {
 
-           
+            prettyPrint();
 
-        	$(".UpdateQuery")
+            $(".UpdateQuery")
                 .prepend("<span class='iconHeaderEdit iconHeader portlet-3'></span>");
 
-        	$(".UpdateQueryItem")
+            $(".UpdateQueryItem")
                 .prepend("<span class='iconHeaderEditItem iconHeader portlet-3'></span>");
 
-        	$(".DeleteQuery")
+            $(".DeleteQuery")
                 .prepend("<span class='iconHeaderDelete iconHeader portlet-2'></span>");
-        	$(".DeleteQueryItem")
+            $(".DeleteQueryItem")
                 .prepend("<span class='iconHeaderDeleteItem iconHeader portlet-2'></span>");
-        	
+
 
             $(".portlet-toggle").click(function () {
                 var icon = $(this);
@@ -76,12 +219,13 @@
                 icon.closest(".portlet").find(".portlet-content").toggle();
             });
         });
+
         $.ajaxSetup({ cache: false });
-        //CRUD connection
+
         ModalPostDialogDeleteWithNotifyAndUpdate(".DeleteQueryItem", '@Url.Action("DeleteQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
-    	ModalPostDialogUpdateWithNotifyAndUpdate(".UpdateQueryItem", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
-    	ModalPostDialogUpdateWithNotifyAndUpdate(".LinkEdit", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
-       
+        ModalPostDialogUpdateWithNotifyAndUpdate(".UpdateQueryItem", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
+        ModalPostDialogUpdateWithNotifyAndUpdate(".LinkEdit", '@Url.Action("UpdateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")', UpdateQueryList);
+
 
     });
 

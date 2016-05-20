@@ -1953,3 +1953,7 @@ a.ui-button:active,
     color: black;
     font-weight:800;
 }
+#ContainerListQuery
+{
+    padding:2px;
+}

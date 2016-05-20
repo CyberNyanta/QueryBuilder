@@ -77,9 +77,7 @@
                     }
                     <p>@ViewBag.desk</p>
                 </div>
-				<div id="ListHistory">
-					@Html.Partial("ListHistoryPartial")
-				</div>
+				
             </div>
         </div>
 
@@ -129,6 +127,14 @@
             </div>
             
         </div>
+
+       
+
+
+       
+      
+        
+
 
         <div class="portlet" id="id_4">
             <div class="portlet-header">@Resources.Resource.ListQuery</div>
@@ -189,7 +195,16 @@
 
 			</div>
         </div>
-       
+        <div class="portlet" id="id_6">
+            <div class="portlet-header">History</div>
+            <div class="portlet-content" id="ContainerListQuery">
+                <div class="portlet-content" id="ContainerHistory">
+                    <div id="ListHistory">
+                        @Html.Partial("ListHistoryPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-xs-12 col-lg-10 col-md-10 col-sm-10" style="padding-left: 0px; padding-right: 2px; ">
 

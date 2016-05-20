@@ -535,7 +535,7 @@ namespace QueryBuilderMVC.Controllers
 
 			if (_queryModel != null)
 			{
-				return PartialView("DeleteConnectionPartial", _queryModel);
+				return PartialView("DeleteQueryPartial", _queryModel);
 			}
 			return View("List");
 		}

@@ -23,12 +23,12 @@
 	</div>
 	<div>
 		<p class="TextField" style="color:black; display:none;">
-			 @Html.EditorFor(x => x.QueryDate, new { placeholder = Model.QueryDate })
+			 @Html.TextAreaFor(x => x.QueryDate, new { placeholder = Model.QueryDate })
 		</p>
 	</div>
 	<div>
 		<p class="TextField" style="color:black; ">
-			@Resources.Resource.CreateQueryBody: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.QueryBody })
+			@Resources.Resource.CreateQueryBody: @Html.TextAreaFor(x => x.QueryBody, new { placeholder = Model.QueryBody })
 		</p>
 	</div>
 	<div>

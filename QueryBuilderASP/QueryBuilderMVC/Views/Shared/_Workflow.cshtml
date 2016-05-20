@@ -41,9 +41,12 @@
 
 </head>
 <body>
-
+    <div id="notify">
+        <div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>
+    </div>
+    <script>$("#notify").hide();</script>
     <div class="container">
-
+       
 
         <ul id="gn-menu" class="gn-menu-main ui-tabs-nav ui-helper-clearfix ui-widget-header">
             <li class="gn-trigger">
@@ -189,8 +192,7 @@
     </div><!-- /container -->
     <div class="container-fluid ">
         @RenderBody()
-        <div id="notify"></div>
-
+       
 
 
     </div>
@@ -210,6 +212,9 @@
 
 
     <script>
+        $(function () {
+            $(document).tooltip();
+        });
 
         $(document).ready(function () {
 

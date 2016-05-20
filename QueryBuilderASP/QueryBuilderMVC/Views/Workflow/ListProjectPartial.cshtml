@@ -64,8 +64,8 @@
                                  })
                             </div>
                         }
-                        <div class="IconMenu">
-                            @Html.ActionLink("C", "List", "Workflow", new { id = item.ProjectID })
+                        <div class="IconMenu CurrentProj">
+                            <p onclick="return location.href = '/Workflow/List/@item.ProjectID'" title="Choose as current project">C</p>
                         </div>
                     }
 
@@ -73,7 +73,6 @@
                 <div>
 
                     <i style="font-size:12px; line-height:normal;">@item.ProjectDescription</i>
-                  @Html.Partial("ListConnectionPartial")
                    
                 </div>
 

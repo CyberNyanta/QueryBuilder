@@ -6,8 +6,8 @@
 
 
 function NotifyAndUpdate(url, updateurl) {
-    console.log($('form').serialize());
-    console.log("url: " + url);
+    //console.log($('form').serialize());
+    //console.log("url: " + url);
     $.ajax({
         url: url,
         type: "POST",
@@ -15,7 +15,6 @@ function NotifyAndUpdate(url, updateurl) {
         datatype: "json",
         success:
         function (result) {
-            console.log(result);
                 if ( result == "Success") {
                     Notify();
                     
@@ -29,7 +28,9 @@ function NotifyAndUpdate(url, updateurl) {
 }
 
 function Notify() {
-    $("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
+    //console.log("notify");
+    //$("#notify").append('<div class="alert alert-success">Success<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></div>');
+    runEffect();
     $(".dialog").remove();
 };
 
@@ -37,7 +38,7 @@ function Notify() {
 function ModalPostDialogCreateWithNotifyAndUpdate(selector, url, updateurl, callback) {
 
     $(selector).on("click", function (e) {
-        console.log(selector+" "+url+" "+updateurl+" "+callback)
+        //console.log(selector+" "+url+" "+updateurl+" "+callback)
         e.preventDefault();
         $("<div id='dialogContent'></div>")
             .addClass("dialog")
@@ -160,8 +161,6 @@ function UpdateProjectList(url) {
 };
 
 function UpdateConnectionList(url) {
-    console.log("UpdateConnectionList");
-
     $.ajax({
         url: url,
         type: "POST",
@@ -176,8 +175,6 @@ function UpdateConnectionList(url) {
 };
 
 function UpdateQueryList(url) {
-	console.log(url);
-
 	$.ajax({
 		url: url,
 		type: "POST",
@@ -190,3 +187,32 @@ function UpdateQueryList(url) {
         }
 	});
 };
+
+
+
+    // run the currently selected effect
+    function runEffect() {
+        // get effect type from
+        var selectedEffect = 'blind';
+
+        // most effect types need no options passed by default
+        var options = {};
+        // some effects have required parameters
+        if (selectedEffect === "scale") {
+            options = { percent: 100 };
+        } else if (selectedEffect === "size") {
+            options = { to: { width: 280, height: 185 } };
+        }
+
+        // run the effect
+        $("#notify").show(selectedEffect, options, 600, callback);
+    };
+
+    //callback function to bring a hidden box back
+    function callback() {
+        setTimeout(function () {
+            $("#notify:visible").removeAttr("style").fadeOut();
+        }, 4000);
+    };
+
+  

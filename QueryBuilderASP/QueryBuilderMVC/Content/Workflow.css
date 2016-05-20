@@ -222,10 +222,11 @@
 
 #IconInviteUser
 {
+    margin-top:-2px;
     background-repeat: no-repeat;
     background: url(../Images/Icon/useradd2.png);
     display: block;
-    width: 25px;
+    width: 30px;
     height: 28px;
     background-size: 30px;
 }
@@ -268,7 +269,7 @@
 
 .IconMenu
 {
-    display:inline-table; float:right; margin-right:10px; margin-top:20px;
+    display:inline-table; float:right; margin-right:10px; margin-top:0px;
 }
 #IconMenuAdd
 {
@@ -573,14 +574,20 @@
 #notify
 {
     position:fixed;
-    top: 63px;
-    right:5px;
+    top: 40%;
+    right:50%;
+        z-index:9000;
 
    
 }
 .alert-success
 {
-    z-index:1000;
+    z-index:9000;
+    width:250px;
+    overflow: hidden;
+    text-align:center;
+    font-size: 20px;
+    font-weight:700;
 }
 
 
@@ -1917,4 +1924,32 @@ td.ui-qb-grid-row-selected { min-width: 24px; width: 24px;  }
 }
 .svg--tab-derived path {
     fill: currentColor;
+}
+
+.navbar-inverse
+{
+    /*background-color:#3d566d!important;
+        border-color:#3d566d!important;*/
+    background:#cccccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+    color:black;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+	border: 1px solid #003eff!important;
+	background: #007fff!important;
+	font-weight: normal;
+	color: #ffffff!important;
+}
+.navbar-inverse .navbar-nav > li > a
+{
+    color:black;
+}
+.navbar-inverse .navbar-brand
+{
+    color: black;
+    font-weight:800;
 }

@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 using QueryBuilder.Utils.DBSchema;
 using QueryBuilder.Utils.Exporters;
 
+
 namespace QueryBuilderMVC.Controllers
 {
     [Culture]
@@ -94,6 +95,8 @@ namespace QueryBuilderMVC.Controllers
 					var quriesCurrentProject = _serviceQuery.GetQueries(_projectModel.IdCurrentProject);
 					_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueryListViewModel>>(quriesCurrentProject).ToList();
 
+					var historyCurrentProject = _serviceQueryHistory.GetQueriesHistory(_projectModel.IdCurrentProject);
+					_projectModel.QueryHistory = Mapper.Map<IEnumerable<QueryHistory>, IEnumerable<QueryHistoryListViewModel>>(historyCurrentProject).ToList();
 
 					var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
@@ -229,6 +232,27 @@ namespace QueryBuilderMVC.Controllers
 			}
 
 			return PartialView("ListQueryPartial", _projectModel);
+		}
+
+		public ActionResult ListHistoryPartial()
+		{
+			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+
+			string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+			string pattern = "[0-9]+$";
+			Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+			Match match = rgx.Match(PreviousPage);
+			int id = Convert.ToInt16(match.Value);
+			_projectModel.IdCurrentProject = id;
+			if (id != 0)
+			{
+				var historyCurrentProject = _serviceQueryHistory.GetQueriesHistory(id);
+				_projectModel.QueryHistory = Mapper.Map<IEnumerable<QueryHistory>, IEnumerable<QueryHistoryListViewModel>>(historyCurrentProject).ToList();
+
+
+			}
+
+			return PartialView("ListHistoryPartial", _projectModel);
 		}
 
 		#region Project
@@ -624,6 +648,7 @@ namespace QueryBuilderMVC.Controllers
 
         public string GetGridModel(string query, int idCurrentProject)
         {
+
             var dataTable = new DataTable();
 
             var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
@@ -635,9 +660,14 @@ namespace QueryBuilderMVC.Controllers
                 var resultQuery = SqlExecuteData.SqlReturnDataFromQuery(query, connectionString);
 
                 if (!resultQuery.HasError)
-                    dataTable = resultQuery.ResultData;
+				{
+					dataTable = resultQuery.ResultData;
+				}
                 else
-                    return JsonConvert.SerializeObject(resultQuery.ErrorText);
+				{
+					return JsonConvert.SerializeObject(resultQuery.ErrorText);
+				}
+                   
             }
 
             Session["datatableForGrid"] = dataTable;
@@ -651,7 +681,13 @@ namespace QueryBuilderMVC.Controllers
                               Align = "center"
                           }).ToList();
 
-            return JsonConvert.SerializeObject(header);
+			_queryHistoryModel.QueryDate = DateTime.Now;
+			_queryHistoryModel.QueryBody = query;
+			_queryHistoryModel.ProjectID = idCurrentProject;
+			var newQuery = Mapper.Map<QueryHistoryViewModel, QueryHistory>(_queryHistoryModel);
+			_serviceQueryHistory.SaveQueryHistory(newQuery);
+
+			return JsonConvert.SerializeObject(header);
         }
 
         public void SaveGridToPdf()

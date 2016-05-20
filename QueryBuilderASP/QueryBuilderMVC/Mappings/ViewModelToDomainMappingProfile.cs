@@ -33,7 +33,7 @@ namespace QueryBuilderMVC.Mappings
 			Mapper.CreateMap<QueryViewModel, Query>();
 			Mapper.CreateMap<QueryListViewModel, Query>();
 			Mapper.CreateMap<QueryHistoryViewModel, QueryHistory>();
-
+			Mapper.CreateMap<QueryHistoryListViewModel, QueryHistory>();
 		}
     }
 }

@@ -68,7 +68,7 @@
                 </div>
 
             </div>
-            <div class="portlet-content">
+            <div class="portlet-content" id="ContainerListHistory">
 
                 <div class="">
                     @if (!Request.IsAuthenticated)
@@ -76,9 +76,10 @@
                         <p>@Model.Description</p>
                     }
                     <p>@ViewBag.desk</p>
-
                 </div>
-
+				<div id="ListHistory">
+					@Html.Partial("ListHistoryPartial")
+				</div>
             </div>
         </div>
 
@@ -562,6 +563,7 @@
 						viewtext: "View",
 						viewtitle: "Selected record"
 					});
+					UpdateHistoryList('@Url.Action("ListHistoryPartial", "Workflow")');
 				};
 
 			},

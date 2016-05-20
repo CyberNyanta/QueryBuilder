@@ -188,6 +188,19 @@ function UpdateQueryList(url) {
 	});
 };
 
+function UpdateHistoryList(url) {
+	$.ajax({
+		url: url,
+		type: "POST",
+		datatype: "json",
+		success:
+        function (result) {
+        	$("#ListHistory").remove();
+        	$("#ContainerListHistory").append('<div id="ListQuery"></div>');
+        	$("#ListHistory").append(result);
+        }
+	});
+};
 
 
     // run the currently selected effect

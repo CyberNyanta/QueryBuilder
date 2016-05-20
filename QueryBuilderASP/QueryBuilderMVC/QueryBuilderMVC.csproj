@@ -1009,6 +1009,7 @@
     <Content Include="Views\Workflow\CreateQueryPartial.cshtml" />
     <Content Include="Views\Workflow\UpdateQueryPartial.cshtml" />
     <Content Include="Views\Workflow\DeleteQueryPartial.cshtml" />
+    <Content Include="Views\Workflow\ListHistoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

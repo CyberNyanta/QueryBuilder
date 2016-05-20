@@ -231,6 +231,27 @@ namespace QueryBuilderMVC.Controllers
 			return PartialView("ListQueryPartial", _projectModel);
 		}
 
+		public ActionResult ListHistoryPartial()
+		{
+			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+
+			string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+			string pattern = "[0-9]+$";
+			Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+			Match match = rgx.Match(PreviousPage);
+			int id = Convert.ToInt16(match.Value);
+			_projectModel.IdCurrentProject = id;
+			if (id != 0)
+			{
+				var historyCurrentProject = _serviceQueryHistory.GetQueriesHistory(id);
+				_projectModel.QueryHistory = Mapper.Map<IEnumerable<QueryHistory>, IEnumerable<QueryHistoryListViewModel>>(historyCurrentProject).ToList();
+
+
+			}
+
+			return PartialView("ListHistoryPartial", _projectModel);
+		}
+
 		#region Project
 		[Authorize]
         public ActionResult CreateProjectPartial()
@@ -624,6 +645,7 @@ namespace QueryBuilderMVC.Controllers
 
         public string GetGridModel(string query, int idCurrentProject)
         {
+
             var dataTable = new DataTable();
 
             var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
@@ -637,7 +659,16 @@ namespace QueryBuilderMVC.Controllers
                 if (!resultQuery.HasError)
                     dataTable = resultQuery.ResultData;
                 else
-                    return JsonConvert.SerializeObject(resultQuery.ErrorText);
+				{
+					_queryHistoryModel.QueryDate = DateTime.Now;
+					_queryHistoryModel.QueryBody = query;
+					_queryHistoryModel.ProjectID = idCurrentProject;
+					_queryHistoryModel.UserID = Convert.ToInt16(User.Identity.GetUserId());
+					var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
+					_serviceQuery.SaveQuery(newQuery);
+					return JsonConvert.SerializeObject(resultQuery.ErrorText);
+				}
+                   
             }
 
             Session["datatableForGrid"] = dataTable;

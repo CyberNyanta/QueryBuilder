@@ -5,33 +5,30 @@
 	@Html.ValidationSummary();
 
 	<div>
-		@Html.LabelFor(model => model.QueryName)
-		<div>
-			@Html.EditorFor(x => x.QueryName, new { placeholder = Model.QueryName })
-		</div>
-	</div>
-
-	<div>
-		<p class="TextField" style="color:black; display:none;">
-			Database: @Html.EditorFor(x => x.ProjectID, new { placeholder = Model.ProjectID })
-
-		</p>
-	</div>
-	<div>
-		<p class="TextField" style="color:black; display:none">
-			Database: @Html.EditorFor(x => x.QueryDate, new { placeholder = Model.QueryDate })
-
-		</p>
+        <p class="TextField" style="color:black;">
+            Name: @Html.EditorFor(x => x.QueryName, new { placeholder = Model.QueryName })
+        </p>
 	</div>
     <div>
         <p class="TextField" style="color:black;">
             Description: @Html.EditorFor(x => x.Description, new { placeholder = Model.Description })
-
         </p>
     </div>
+
+
 	<div>
 		<p class="TextField" style="color:black; display:none;">
-			Database: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.QueryBody })
+			Database: @Html.EditorFor(x => x.ProjectID, new { placeholder = Model.ProjectID })
+		</p>
+	</div>
+	<div>
+		<p class="TextField" style="color:black; display:none;">
+			 @Html.EditorFor(x => x.QueryDate, new { placeholder = Model.QueryDate })
+		</p>
+	</div>
+	<div>
+		<p class="TextField" style="color:black; ">
+			@Resources.Resource.CreateQueryBody: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.QueryBody })
 		</p>
 	</div>
 	<div>
@@ -43,3 +40,8 @@
 	
 
 }
+<script>
+        $('.ui-dialog-buttonset button').addClass("ui-button ui-corner-all ui-widget button-modal");
+        $('.ui-dialog-buttonset button').css('width', 70);
+        $('.ui-dialog-buttonset button').css('height', 30);
+</script>

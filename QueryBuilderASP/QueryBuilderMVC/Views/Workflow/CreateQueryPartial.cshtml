@@ -28,11 +28,18 @@
         </p>
     </div>
 }
-<p class="TextField">
-    <textarea id="textquery" disabled="disabled"> </textarea>
-</p>
+
+    <textarea id="textquery" class="prettyprint " style="width:230px; height:200px; margin-left:10px;" >
+
+    </textarea>
+
 <script>
-        var s = FormatQueryString();
+    var s = FormatQueryString();
+
         $("#QueryBody").val(s);
-        $("#textquery").val(s);
+        $("#textquery").append(s);
+        $('.ui-dialog-buttonset button').addClass("ui-button ui-corner-all ui-widget button-modal");
+        $('.ui-dialog-buttonset button').css('width', 70);
+        $('.ui-dialog-buttonset button').css('height', 30);
+        //prettyPrint();
 </script>

@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 using QueryBuilder.Utils.DBSchema;
 using QueryBuilder.Utils.Exporters;
 
+
 namespace QueryBuilderMVC.Controllers
 {
     [Culture]
@@ -94,6 +95,8 @@ namespace QueryBuilderMVC.Controllers
 					var quriesCurrentProject = _serviceQuery.GetQueries(_projectModel.IdCurrentProject);
 					_projectModel.Queries = Mapper.Map<IEnumerable<Query>, IEnumerable<QueryListViewModel>>(quriesCurrentProject).ToList();
 
+					var historyCurrentProject = _serviceQueryHistory.GetQueriesHistory(_projectModel.IdCurrentProject);
+					_projectModel.QueryHistory = Mapper.Map<IEnumerable<QueryHistory>, IEnumerable<QueryHistoryListViewModel>>(historyCurrentProject).ToList();
 
 					var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
                     if (currentProject != null)
@@ -657,15 +660,11 @@ namespace QueryBuilderMVC.Controllers
                 var resultQuery = SqlExecuteData.SqlReturnDataFromQuery(query, connectionString);
 
                 if (!resultQuery.HasError)
-                    dataTable = resultQuery.ResultData;
+				{
+					dataTable = resultQuery.ResultData;
+				}
                 else
 				{
-					_queryHistoryModel.QueryDate = DateTime.Now;
-					_queryHistoryModel.QueryBody = query;
-					_queryHistoryModel.ProjectID = idCurrentProject;
-					_queryHistoryModel.UserID = Convert.ToInt16(User.Identity.GetUserId());
-					var newQuery = Mapper.Map<QueryViewModel, Query>(_queryModel);
-					_serviceQuery.SaveQuery(newQuery);
 					return JsonConvert.SerializeObject(resultQuery.ErrorText);
 				}
                    
@@ -682,7 +681,13 @@ namespace QueryBuilderMVC.Controllers
                               Align = "center"
                           }).ToList();
 
-            return JsonConvert.SerializeObject(header);
+			_queryHistoryModel.QueryDate = DateTime.Now;
+			_queryHistoryModel.QueryBody = query;
+			_queryHistoryModel.ProjectID = idCurrentProject;
+			var newQuery = Mapper.Map<QueryHistoryViewModel, QueryHistory>(_queryHistoryModel);
+			_serviceQueryHistory.SaveQueryHistory(newQuery);
+
+			return JsonConvert.SerializeObject(header);
         }
 
         public void SaveGridToPdf()

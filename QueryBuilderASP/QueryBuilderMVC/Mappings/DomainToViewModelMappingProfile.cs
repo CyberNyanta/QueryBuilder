@@ -42,7 +42,7 @@ namespace QueryBuilderMVC.Mappings
 			Mapper.CreateMap<Query,QueryViewModel>();
 			Mapper.CreateMap<Query, QueryListViewModel>();
 			Mapper.CreateMap<QueryHistory, QueryHistoryViewModel>();
-
+			Mapper.CreateMap<QueryHistory, QueryHistoryListViewModel>();
 		}
 
 	}

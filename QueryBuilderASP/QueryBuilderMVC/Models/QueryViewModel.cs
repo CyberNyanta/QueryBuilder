@@ -15,13 +15,20 @@ namespace QueryBuilderMVC.Models
         public IEnumerable<QueryListViewModel> Queries { get; set; }
 
 		[Required(ErrorMessage = @"Please enter query name")]
-		public string QueryName { get; set; }
+        [MaxLength(16, ErrorMessageResourceType = typeof(Resources.Resource),
+                 ErrorMessageResourceName = "ProjectValidationMessageMaxLenght")]
+        public string QueryName { get; set; }
 
 		public int QueryID { get; set; }
 
-		public int UserID { get; set; }
+        [MaxLength(150, ErrorMessageResourceType = typeof(Resources.Resource),
+               ErrorMessageResourceName = "ProjectValidationMessageDescriptionMaxLenght")]
+        public string Description { get; set; }
+
+        public int UserID { get; set; }
 
 		public int ProjectID { get; set; }
+
 		[Required(ErrorMessage = @"Your query is empty")]
 		public string QueryBody { get; set; }
 	

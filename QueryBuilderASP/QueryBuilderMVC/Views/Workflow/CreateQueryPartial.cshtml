@@ -5,34 +5,34 @@
 	@Html.ValidationSummary();
 
 	<div>
-		@Html.LabelFor(model => model.QueryName)
-		<div>
-			@Html.EditorFor(x => x.QueryName)
-		</div>
-	</div>
-
-	<div>
-		<p class="TextField" style="color:black; display:none">
-			Database: @Html.EditorFor(x => x.ProjectID,
-	   new { placeholder = Model.ProjectID })
-
-		</p>
+        <p class="TextField" style="color:black;">
+            Name: @Html.EditorFor(x => x.QueryName)
+            </p>
 	</div>
     <div>
         <p class="TextField" style="color:black; display:none">
-            Database: @Html.EditorFor(x => x.QueryDate,
-       new { placeholder = Model.QueryDate })
+            Database: @Html.EditorFor(x => x.ProjectID,
+       new { placeholder = Model.ProjectID })
 
         </p>
     </div>
-	<div>
-		<p class="TextField" style="color:black;display:none">
-			Database: @Html.TextBoxFor(x => x.QueryBody)
-		</p>
-	</div>
-	
+    <div>
+        <p class="TextField" style="color:black;">
+            Description: @Html.EditorFor(x => x.Description)
+        </p>
+    </div>
+    <div>
+       
+        <p class="TextField" style="color:black;display:none">
+            Database: @Html.TextBoxFor(x => x.QueryBody)
+        </p>
+    </div>
 }
+<p class="TextField">
+    <textarea id="textquery" disabled="disabled"> </textarea>
+</p>
 <script>
         var s = FormatQueryString();
-		$("#QueryBody").val(s);
+        $("#QueryBody").val(s);
+        $("#textquery").val(s);
 </script>

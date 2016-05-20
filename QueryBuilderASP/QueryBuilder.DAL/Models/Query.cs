@@ -16,8 +16,9 @@ namespace QueryBuilder.DAL.Models
 		public int UserID { get; set; }
 
 		public string QueryBody { get; set; }
+        public string Description { get; set; }
 
-		public int Delflag { get; set; }
+        public int Delflag { get; set; }
 
         public virtual Project Project { get; set; }
 

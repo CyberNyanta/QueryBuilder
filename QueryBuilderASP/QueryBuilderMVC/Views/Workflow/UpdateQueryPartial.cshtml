@@ -5,28 +5,33 @@
 	@Html.ValidationSummary();
 
 	<div>
-		@Html.LabelFor(model => model.QueryName);
+		@Html.LabelFor(model => model.QueryName)
 		<div>
-			@Html.EditorFor(x => x.QueryName, new { placeholder = Model.QueryName });
+			@Html.EditorFor(x => x.QueryName, new { placeholder = Model.QueryName })
 		</div>
 	</div>
 
 	<div>
 		<p class="TextField" style="color:black; display:none;">
-			Database: @Html.EditorFor(x => x.ProjectID, new { placeholder = Model.ProjectID });
+			Database: @Html.EditorFor(x => x.ProjectID, new { placeholder = Model.ProjectID })
 
 		</p>
 	</div>
 	<div>
 		<p class="TextField" style="color:black; display:none">
-			Database: @Html.EditorFor(x => x.QueryDate, new { placeholder = Model.QueryDate });
+			Database: @Html.EditorFor(x => x.QueryDate, new { placeholder = Model.QueryDate })
 
 		</p>
 	</div>
+    <div>
+        <p class="TextField" style="color:black;">
+            Description: @Html.EditorFor(x => x.Description, new { placeholder = Model.Description })
 
+        </p>
+    </div>
 	<div>
 		<p class="TextField" style="color:black; display:none;">
-			Database: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.QueryBody });
+			Database: @Html.TextBoxFor(x => x.QueryBody, new { placeholder = Model.QueryBody })
 		</p>
 	</div>
 	<div>

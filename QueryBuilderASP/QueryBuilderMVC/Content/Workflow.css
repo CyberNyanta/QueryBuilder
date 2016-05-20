@@ -1449,7 +1449,7 @@ div.editable-select-options { font-family: Verdana, Arial, sans-serif; font-size
 .qb-ui-tree-item-block { height: 458px; }
 #center { order: 2; flex-grow: 1; padding-left: 10px; display: flex; flex-flow: column nowrap; overflow: hidden; padding-right: 10px; min-width: 10px; }
 .qb-ui-canvas-container { flex-grow: 1; display: flex; flex-direction: column;overflow: hidden; width: 100%;}
-#qb-ui-canvas { width: 100%; /* flex: 0 0 356px; */ height: 356px; position: relative; }
+#qb-ui-canvas { width: 100%; /* flex: 0 0 356px; */ height: 500px; position: relative; }
 #qb-ui-grid { width: 100%; }
 #qb-ui-grid { flex-shrink: 1; flex-grow: 1; flex-basis: 0; }
 #qb-ui-grid > table { width: 100%; overflow: visible; /*max-width: 0;*/ }

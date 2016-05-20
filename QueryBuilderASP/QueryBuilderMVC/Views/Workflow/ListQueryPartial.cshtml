@@ -92,8 +92,8 @@ window.onload = function(){
 		As[i].onclick = function(){
 		    return function () {
 		        var query = ($(this).data("textquery"));
-		        $("#sql-code").val(query);
-
+		        QB.Web.Application.importSQL(query);
+		        QB.Web.Application.refreshSql();
 			}
 
 		}(As[i].href);

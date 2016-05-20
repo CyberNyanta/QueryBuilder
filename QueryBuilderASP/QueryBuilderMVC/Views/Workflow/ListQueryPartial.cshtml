@@ -11,6 +11,22 @@
             {
                 <h2 class="nameQuery" data-textquery="@item.QueryBody"><a class="link" href="ya.ru">@item.QueryName</a></h2>
                 <div>
+                    <div>
+                        @Html.ActionLink(" ", "DeleteQueryPartial", "Workflow", new { id = item.QueryID },
+                            new
+                            {
+                                @class = "DeleteQueryItem iconHeaderDeleteItem",
+                                data_dialog_title = "Delete query"
+                            })
+                    </div>
+                    <div class="">
+                        @Html.ActionLink(" ", "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
+                                        new
+                                        {
+                                            @class = "UpdateQueryItem",
+                                            data_dialog_title = "Update query"
+                                        })
+                    </div>
                     <p>@item.Description</p>
                     <code class="prettyprint" style="white-space:pre-wrap; width:200px;" >@item.QueryBody</code>
                     <p></p>

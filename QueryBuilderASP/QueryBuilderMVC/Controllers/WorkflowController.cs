@@ -199,10 +199,9 @@ namespace QueryBuilderMVC.Controllers
                     countInvited++;
                 }
             }
-
             ViewBag.CountInvited = countInvited;
             _projectModel.Projects = projectsViewModel;
-
+            
             return PartialView("ListProjectPartial", _projectModel);
         }
 

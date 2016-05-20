@@ -5,48 +5,28 @@
 
 </li>
 
-<li class="gn-icon">
+<li class="">
 
 
-    @foreach (var item in Model.Projects)
-    {
-        if (item.UserRole != 0)
+    <div id="accordion">
+
+        @foreach (var item in Model.Projects)
         {
-            <ul class="gn-submenu"></ul>
-            <ul class="gn-submenu" style="line-height:normal;">
-                <li>
-                    <div style="display: inline-table; line-height:normal; margin-top:10px; margin-left:10px;">
-
-                        <a href="/Workflow/List/@item.ProjectID">
-                            @if (Model.IdCurrentProject == @item.ProjectID)
-                            {
-                                <div style="color: dodgerblue">
-                                    <div style="display:block;">
-                                        <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
-                                    </div>
-
-
-                                    <div style="display:block;">
-                                        <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div style="display:block;">
-                                    <b style="font-size:16px; line-height:normal;">@item.ProjectName</b>
-                                </div>
-
-
-                                <div style="display:block;">
-                                    <i style="font-size:10px; line-height:normal;">@item.ProjectDescription</i>
-                                </div>
-                            }
-
-                        </a>
-
-
-                    </div>
+            if (item.UserRole != 0)
+            {
+                <div>
+                    @if (HttpContext.Current.Request.UrlReferrer.LocalPath.ToString() == "/Workflow/List/" + @item.ProjectID)
+                    {
+                        <div style="display: inline-table; line-height:normal;">
+                            <b style="color: dodgerblue; font-size:14px; overflow:hidden; ">@item.ProjectName</b>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="display: inline-table; line-height:normal;">
+                            <b style="font-size:14px; overflow:hidden; ">@item.ProjectName</b>
+                        </div>
+                    }
                     @if (Request.IsAuthenticated)
                     {
                         <div class="IconMenu">
@@ -84,36 +64,52 @@
                                  })
                             </div>
                         }
+                        <div class="IconMenu">
+                            @Html.ActionLink("C", "List", "Workflow", new { id = item.ProjectID })
+                        </div>
                     }
 
-                </li>
+                </div>
+                <div>
 
-            </ul>
+                    <i style="font-size:12px; line-height:normal;">@item.ProjectDescription</i>
+                  @Html.Partial("ListConnectionPartial")
+                   
+                </div>
+
+
+
+            }
+
+
+
 
         }
 
-
-
-
-    }
-
-
+    </div>
 </li>
 
+
+
 <script>
-
-        $(document).ready(function () {
-
-            $.ajaxSetup({ cache: false });
-
-            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
-            ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
-            ModalPostDialogInviteWithNotifyAndUpdate(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
-
-            $(".close").on("click", function (e) {
-                e.preventDefault();
-                $(this).closest(".dialog").dialog("close");
-            });
+    $(function () {
+        $("#accordion").accordion({
+            heightStyle: "content"
         });
+    });
+
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
+        ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
+        ModalPostDialogInviteWithNotifyAndUpdate(".IconModalInvite", '@Url.Action("InviteUserToProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
+
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
 
 </script>

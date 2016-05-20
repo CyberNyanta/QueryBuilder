@@ -177,14 +177,16 @@
 
         <div class="portlet" id="id_5">
             <div class="portlet-header">Queries</div>
-            <div class="portlet-content">
-                @if (Model.IdCurrentProject != 0)
-                {
-                    @Html.Partial("ListQueryPartial")
+			<div class="portlet-content" id="ContainerListQuery">
+				<div id="ListQuery">
+					@if (Model.IdCurrentProject != 0)
+					{
+						@Html.Partial("ListQueryPartial");
+					}
 
-                }
+				</div>
 
-            </div>
+			</div>
         </div>
        
     </div>
@@ -272,106 +274,106 @@
 			   };
 		   }).GetHtml()
 
-                <div id="all">
-                    <div id="content-container">
-                        <div id="qb-ui">
-                            <div id="tree">
-                                @Html.ActiveQueryBuilder().ObjectTree(settings =>
-                           {
-                               
-                               settings.ShowFields = false;
-                               settings.ShowDescriptons = false;
-                               settings.SortingType = ObjectsSortingType.None;
-                               settings.VisiblePaginationLinksCount = 6;
-                               settings.ItemsPerPage = 24;
-                               settings.PreloadedPagesCount = 5;
-                               settings.ShowAllItemInGroupingSelectLists = true;
-                               
-                           }).GetHtml()
+					<div id="all">
+						<div id="content-container">
+							<div id="qb-ui">
+								<div id="tree">
+									@Html.ActiveQueryBuilder().ObjectTree(settings =>
+						   {
 
-                            </div>
-                         
-                            
+							   settings.ShowFields = false;
+							   settings.ShowDescriptons = false;
+							   settings.SortingType = ObjectsSortingType.None;
+							   settings.VisiblePaginationLinksCount = 6;
+							   settings.ItemsPerPage = 24;
+							   settings.PreloadedPagesCount = 5;
+							   settings.ShowAllItemInGroupingSelectLists = true;
 
-                            <div id="center">
-                                @Html.ActiveQueryBuilder().SubQueryNavigationBar(settings =>
-                           {
-                               settings.UnionNavBarVisible = true;
-                           }).GetHtml()
+						   }).GetHtml()
 
-                                @Html.ActiveQueryBuilder().Canvas(settings =>
-                           {
-                               settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
-                               settings.DefaultDatasourceWidth = "auto";
-                               settings.DisableDatasourcePropertiesDialog = false;
-                               settings.DisableLinkPropertiesDialog = false;
-                               settings.DisableQueryPropertiesDialog = false;
-                               settings.MaxDefaultDatasourceHeight = "144";
-                           }).GetHtml()
-
-                                
-                               
-                                @*@Html.ActiveQueryBuilder().StatusBar().GetHtml()*@
-                            </div>
-                            <div class="clear">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+								</div>
 
 
+
+								<div id="center">
+									@Html.ActiveQueryBuilder().SubQueryNavigationBar(settings =>
+						   {
+							   settings.UnionNavBarVisible = true;
+						   }).GetHtml()
+
+									@Html.ActiveQueryBuilder().Canvas(settings =>
+						   {
+							   settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
+							   settings.DefaultDatasourceWidth = "auto";
+							   settings.DisableDatasourcePropertiesDialog = false;
+							   settings.DisableLinkPropertiesDialog = false;
+							   settings.DisableQueryPropertiesDialog = false;
+							   settings.MaxDefaultDatasourceHeight = "144";
+						   }).GetHtml()
+
+
+
+									@*@Html.ActiveQueryBuilder().StatusBar().GetHtml()*@
+								</div>
+								<div class="clear">
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 
 
-                }
-            </div>
-        </div>
-        <div class="nonSortable">
-            <div class="portlet-header">@Resources.Resource.ListQuerySettings</div>
-            <div class="portlet-content">
-                @Html.ActiveQueryBuilder().Grid(settings =>
-                           {
-                               settings.OrColumnCount = 1;
-                           }).GetHtml()
-            </div>
-        </div>
-        <div class="nonSortable">
-            <div class="portlet-header">@Resources.Resource.ListResultQuery</div>
-                <div class="portlet-content">
-                    <div class="Tools-panel">
 
-                    </div>
-                    <div class="IconGrid">
-                        <div id="SavePDF">
-                            @using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
-                            {
-                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
-                                <button class="SavePDF"></button>
-                            }
-                        </div>
 
-                        <div id="SaveExcel">
-                            @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
-                            {
-                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
-                                <button class="SaveExcel"></button>
-                            }
-                        </div>
+				}
+			</div>
+		</div>
+		<div class="nonSortable">
+			<div class="portlet-header">@Resources.Resource.ListQuerySettings</div>
+			<div class="portlet-content">
+				@Html.ActiveQueryBuilder().Grid(settings =>
+		   {
+			   settings.OrColumnCount = 1;
+		   }).GetHtml()
+			</div>
+		</div>
+		<div class="nonSortable">
+			<div class="portlet-header">@Resources.Resource.ListResultQuery</div>
+			<div class="portlet-content">
+				<div class="Tools-panel">
 
-                        @Html.ActionLink(" ", "SendResultQuery", "Workflow",
-                        new
-                        {
-                            @id = "SendResultQuery",
-                            @class = "SendResultQuery",
-                            data_dialog_title = "Send result query"
-                        })
+				</div>
+				<div class="IconGrid">
+					<div id="SavePDF">
+						@using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
+						{
+							<input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
+								<button class="SavePDF"></button>
+						}
+					</div>
 
-                    </div>
-                    @Html.Partial("DataGridPartial")
-                </div>
-        </div>
-    </div>
+					<div id="SaveExcel">
+						@using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
+						{
+							<input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
+								<button class="SaveExcel"></button>
+						}
+					</div>
+
+					@Html.ActionLink(" ", "SendResultQuery", "Workflow",
+						new
+						{
+							@id = "SendResultQuery",
+							@class = "SendResultQuery",
+							data_dialog_title = "Send result query"
+						})
+
+				</div>
+				@Html.Partial("DataGridPartial")
+			</div>
+		</div>
+	</div>
 
 </div>
 
@@ -383,58 +385,58 @@
 
 <script>
 
-                jQuery(".SaveQuery").click(function() {
-                    var s = FormatQueryString();
-                    $(".sqlQuery").val(s);
+	jQuery(".SaveQuery").click(function() {
+		var s = FormatQueryString();
+		$(".sqlQuery").val(s);
 
-                });
-				
-                
+	});
 
 
-                $(".SendQuery").hover(function(){
-                    var s = FormatQueryString();
-                    $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
-
-                });
-
-                function AjaxPostWithDialog2(url) {
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: $('form').serialize(),
-                        datatype: "json",
-                        success: function (result) {
-                            $("#dialogContent").html(result);
-                        }
-                    });
-                };
 
 
-                function ModalPostDialogSend(selector, url) {
+	$(".SendQuery").hover(function(){
+		var s = FormatQueryString();
+		$("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
 
-                    $(selector).on("click", function (e) {
-                        e.preventDefault();
-                        $("<div id='dialogContent'></div>")
-                            .addClass("dialog")
-                            .appendTo("body")
-                            .load(this.href)
-                            .dialog({
-                                title: $(this).attr("data-dialog-title"),
-                                close: function () { $(this).remove() },
-                                modal: true,
-                                success: {
-                                    "": function () {
-                                        AjaxPostWithDialog2(url);
-                                    }
-                                }
-                            }
-                            );
-                    });
+	});
 
-                };
-                ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
-                ModalPostDialogSend(".SendResultQuery", '@Url.Action("SendResultQueryPartial", "Workflow")');
+	function AjaxPostWithDialog2(url) {
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: $('form').serialize(),
+			datatype: "json",
+			success: function (result) {
+				$("#dialogContent").html(result);
+			}
+		});
+	};
+
+
+	function ModalPostDialogSend(selector, url) {
+
+		$(selector).on("click", function (e) {
+			e.preventDefault();
+			$("<div id='dialogContent'></div>")
+				.addClass("dialog")
+				.appendTo("body")
+				.load(this.href)
+				.dialog({
+					title: $(this).attr("data-dialog-title"),
+					close: function () { $(this).remove() },
+					modal: true,
+					success: {
+						"": function () {
+							AjaxPostWithDialog2(url);
+						}
+					}
+				}
+				);
+		});
+
+	};
+	ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
+	ModalPostDialogSend(".SendResultQuery", '@Url.Action("SendResultQueryPartial", "Workflow")');
 
 </script>
 
@@ -443,132 +445,132 @@
 
 <script>
 
-    $(function SetGetWindow() {
-        $(".column").sortable(
+	$(function SetGetWindow() {
+		$(".column").sortable(
             {
-                connectWith: ".column",
-                handle: ".portlet-header",
-                cancel: ".portlet-toggle",
-                placeholder: "portlet-placeholder ui-corner-all",
-                update: function (event, ui) {
-                    var sort_right = $('.column_right').sortable('serialize', { key: 'id' });
-                    var sort_left = $('.column').sortable('serialize', { key: 'id' });
-                    document.cookie = "sort_right"+@Model.IdCurrentProject+"= " + sort_right;
-                    document.cookie = "sort_left"+@Model.IdCurrentProject+"= " + sort_left;
-                }
+            	connectWith: ".column",
+            	handle: ".portlet-header",
+            	cancel: ".portlet-toggle",
+            	placeholder: "portlet-placeholder ui-corner-all",
+            	update: function (event, ui) {
+            		var sort_right = $('.column_right').sortable('serialize', { key: 'id' });
+            		var sort_left = $('.column').sortable('serialize', { key: 'id' });
+            		document.cookie = "sort_right"+@Model.IdCurrentProject+"= " + sort_right;
+            		document.cookie = "sort_left"+@Model.IdCurrentProject+"= " + sort_left;
+            	}
 
             });
 
-        var x = get_cookie("sort_left"+@Model.IdCurrentProject);
-        set_blocks(@Model.IdCurrentProject);
+		var x = get_cookie("sort_left"+@Model.IdCurrentProject);
+		set_blocks(@Model.IdCurrentProject);
 
-    });
+	});
 
-    $(".SavePDF").click(function() {
-        FillParameters();
-    });
+	$(".SavePDF").click(function() {
+		FillParameters();
+	});
 
-    $(".SaveExcel").click(function() {
-        FillParameters();
-    });
+	$(".SaveExcel").click(function() {
+		FillParameters();
+	});
 
-    function FillParameters() {
-    	var s = FormatQueryString();
-    	$(".sqlQueryForSaveToFile").val(s);
-    	$(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
-    }
+	function FillParameters() {
+		var s = FormatQueryString();
+		$(".sqlQueryForSaveToFile").val(s);
+		$(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
+	}
 
-    function FormatQueryString() {
-        var query = $("#sql-code").val();
+	function FormatQueryString() {
+		var query = $("#sql-code").val();
 
-        var arr = query.split('From');
-        query = '';
-        for (var i = 0; i < arr.length; i++) {
-            query += arr[i];
-            if (i === 0) {
-                query += ' From';
-            }
-        }
+		var arr = query.split('From');
+		query = '';
+		for (var i = 0; i < arr.length; i++) {
+			query += arr[i];
+			if (i === 0) {
+				query += ' From';
+			}
+		}
 
-        return query;
-    }
+		return query;
+	}
 
-    function LoadGrid() {
-        var s = FormatQueryString();
+	function LoadGrid() {
+		var s = FormatQueryString();
 
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
-            data: "",
-            dataType: "json",
-            success: function(result) {
-                debugger;
+		$.ajax({
+			type: "POST",
+			url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
+			data: "",
+			dataType: "json",
+			success: function(result) {
+				debugger;
 
-                var modelList = [];
-                if (typeof result == 'string'){ 
-                    $("#gridWrapper").hide();
-                    $("#nodata_jqg").text(result);
-                    $("#nodata_jqg").show();
-                }
-                else {
-                    for (var i = 0; i < result.length; i++) {
-                        modelList.push({
-                            name: result[i].Name,
-                            index: result[i].Index,
-                            sortable: result[i].Sortable,
-                            align: result[i].Align
-                        });
-                    } 
-                    
-                    $("#jqg").jqGrid("GridUnload");
+				var modelList = [];
+				if (typeof result == 'string'){
+					$("#gridWrapper").hide();
+					$("#nodata_jqg").text(result);
+					$("#nodata_jqg").show();
+				}
+				else {
+					for (var i = 0; i < result.length; i++) {
+						modelList.push({
+							name: result[i].Name,
+							index: result[i].Index,
+							sortable: result[i].Sortable,
+							align: result[i].Align
+						});
+					}
 
-                    $("#jqg").jqGrid({
-                        jsonReader: {
-                            cell: "",
-                            id: "0"
-                        },
-                        url: '@Url.Action("GetData")',
-                        colModel: modelList,
-                        datatype: 'json',
-                        rowNum: 10,
-                        rowList: [10, 20, 30, 50, 100],
-                        pager: '#jpager',
-                        loadonce: true,
-                        autowidth: true,
-                        scrollerbar: true,
-                        gridComplete: function() {
-                            var recs = parseInt($("#jqg").getGridParam("records"),10);
-                            if (isNaN(recs) || recs === 0) {
-                                $("#gridWrapper").hide();
-                                $("#nodata_jqg").show();                           
-                            }
-                            else {
-                                $('#gridWrapper').show();
-                                $("#nodata_jqg").hide();
-                            }
-                        }
-                    });
+					$("#jqg").jqGrid("GridUnload");
 
-                    $("#jqg").jqGrid('navGrid', '#jpager', {
-                        search: true,
-                        searchtext: "Search",
-                        refresh: false,
-                        add: false,
-                        del: false,
-                        edit: false,
-                        view: true,
-                        viewtext: "View",
-                        viewtitle: "Selected record"
-                    });
-                };
-                              
-            },
-            error: function(x, e)
-            {
-                alert(x.readyState + " "+ x.status +" "+ e.msg);
-            }
-        });
-    };
+					$("#jqg").jqGrid({
+						jsonReader: {
+							cell: "",
+							id: "0"
+						},
+						url: '@Url.Action("GetData")',
+						colModel: modelList,
+						datatype: 'json',
+						rowNum: 10,
+						rowList: [10, 20, 30, 50, 100],
+						pager: '#jpager',
+						loadonce: true,
+						autowidth: true,
+						scrollerbar: true,
+						gridComplete: function() {
+							var recs = parseInt($("#jqg").getGridParam("records"),10);
+							if (isNaN(recs) || recs === 0) {
+								$("#gridWrapper").hide();
+								$("#nodata_jqg").show();
+							}
+							else {
+								$('#gridWrapper').show();
+								$("#nodata_jqg").hide();
+							}
+						}
+					});
+
+					$("#jqg").jqGrid('navGrid', '#jpager', {
+						search: true,
+						searchtext: "Search",
+						refresh: false,
+						add: false,
+						del: false,
+						edit: false,
+						view: true,
+						viewtext: "View",
+						viewtitle: "Selected record"
+					});
+				};
+
+			},
+			error: function(x, e)
+			{
+				alert(x.readyState + " "+ x.status +" "+ e.msg);
+			}
+		});
+	};
 </script>
 
 <script>
@@ -578,45 +580,45 @@
 		QB.Web.Application.reconnect();
 		QB.Web.Application.reconnect();
 	};
-	
-
-        $(document).ready(function () {
-        
-        	
-        	FixTreeView();
-        	FixTreeView();
-
-            $.ajaxSetup({ cache: false });
-            ///Modal edit for edit Project
-            ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete2", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
-            ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit2", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
 
 
-           
-            ///Modal create Connection
-            ModalPostDialogCreateWithNotifyAndUpdate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")',UpdateConnectionList);
-
-        	ModalPostDialogCreateWithNotifyAndUpdate(".CreateQuery", '@Url.Action("CreateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")',UpdateQueryList);
-
-            $(function () {
+	$(document).ready(function () {
 
 
-                $(".portlet-toggle").click(function () {
-                    var icon = $(this);
-                    icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-                    icon.closest(".portlet").find(".portlet-content").toggle();
-                });
-            });
+		FixTreeView();
+		FixTreeView();
+
+		$.ajaxSetup({ cache: false });
+		///Modal edit for edit Project
+		ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete2", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
+		ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit2", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
 
 
 
-            $(".close").on("click", function (e) {
-                e.preventDefault();
-                $(this).closest(".dialog").dialog("close");
-            });
+		///Modal create Connection
+		ModalPostDialogCreateWithNotifyAndUpdate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")',UpdateConnectionList);
 
-           $("#emailResultQueryForm").validate();
-           $("#emailQueryForm").validate();
-        });
-	
+		ModalPostDialogCreateWithNotifyAndUpdate(".CreateQuery", '@Url.Action("CreateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")',UpdateQueryList);
+
+		$(function () {
+
+
+			$(".portlet-toggle").click(function () {
+				var icon = $(this);
+				icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+				icon.closest(".portlet").find(".portlet-content").toggle();
+			});
+		});
+
+
+
+		$(".close").on("click", function (e) {
+			e.preventDefault();
+			$(this).closest(".dialog").dialog("close");
+		});
+
+		$("#emailResultQueryForm").validate();
+		$("#emailQueryForm").validate();
+	});
+
 </script>

@@ -310,4 +310,13 @@
   <data name="WorkflowSettingAccount" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="CreateQueryBody" xml:space="preserve">
+    <value>Тело запроса:</value>
+  </data>
+  <data name="CreateQueryName" xml:space="preserve">
+    <value>Имя запроса:</value>
+  </data>
+  <data name="DeleteQueryQuestion" xml:space="preserve">
+    <value>Вы действительно хотите удалить этот запрос?</value>
+  </data>
 </root>

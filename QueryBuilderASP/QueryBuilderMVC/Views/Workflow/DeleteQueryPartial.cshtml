@@ -1,11 +1,10 @@
 ﻿@model QueryBuilderMVC.Models.QueryViewModel
 
 
-<h5>@Resources.Resource.DeleteProjectQuestion</h5>
+<h5>@Resources.Resource.DeleteQueryQuestion</h5>
 <div>
-    <p>Id: @Html.DisplayFor(m => m.IdCurrentProject)</p>
-    <p>@Resources.Resource.CreateProjectName @Html.DisplayFor(m => m.QueryName)</p>
-  
+	<p>@Resources.Resource.CreateQueryName @Html.DisplayFor(m => m.QueryName)</p>
+	<p>@Resources.Resource.CreateQueryBody @Html.DisplayFor(m => m.QueryBody)</p>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

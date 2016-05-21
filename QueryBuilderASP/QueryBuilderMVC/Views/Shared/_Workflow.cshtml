@@ -214,12 +214,6 @@
             ModalPostDialogCreateWithNotifyAndUpdate(".CreateNewProject", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
             UpdateProjectClick();
 
-            @*function UpdateProjectClick() {
-                $("input:checkbox").bind("change click", function () {
-                    UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');
-                })
-
-            };*@
             function UpdateProjectClick() {
                 $("#WorkflowMenu").click(function () {
                     UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');

@@ -95,7 +95,8 @@
     overflow: hidden;
     width: 60px;
     border-top: 1px solid #c6d0da;
-    background: white;
+    background: #e5e6e8;
+    padding-right:5px;
     -webkit-transform: translateX(-60px);
     -moz-transform: translateX(-60px);
     -ms-transform: translateX(-60px);
@@ -110,7 +111,7 @@
 .gn-scroller {
 		position: absolute;
 		overflow-y: scroll;
-		width: 370px;
+		width: 355px;
 		height: 100%;
 }
 

@@ -50,12 +50,33 @@
 
         <ul id="gn-menu" class="gn-menu-main ui-tabs-nav ui-helper-clearfix ui-widget-header" style="z-index:9000;">
             <li class="gn-trigger">
-                <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                <a class="gn-icon gn-icon-menu" id="WorkflowMenu"><span>Menu</span></a>
                 <nav class="gn-menu-wrapper">
                     <div class="gn-scroller">
                         <ul class="gn-menu">
+                            <li>
+                                <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div class="IconMenuAdd ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons">
+                                        @Html.ActionLink(Resources.Resource.WorkflowNewProject, "CreateProjectPartial", "Workflow",
+                                                       new
+                                                       {
+                                                           @class = "CreateNewProject",
+                                                           @id = "IconMenuAdd",
+                                                           data_dialog_title = "Create new project"
+                                                       })
+                                    </div>
+                                }
 
-                            <div class="demo" style="line-height:50px;">
+                                <div id="proj"></div>
+
+                            </li>
+
+
+
+
+                            @*<div class="demo" style="line-height:50px;">
                                 <input type="checkbox" id="hd-1" class="hide " />
                                 <label for="hd-1">My projects</label>
                                 <div>
@@ -73,23 +94,9 @@
                                         </div>
                                     }
 
-                                    <div id="proj">
-                                        @*<div id="ListProject">
-                                            @Html.Partial("ListProjectPartial")
-
-                                        </div>*@
-
-                                    </div>
-                                    <script>
-                                       
-                                    </script>
-
+                                    <div id="proj"></div>
                                 </div>
-                            </div>
-
-
-
-                            <li><a class="gn-icon">@Resources.Resource.SettingsForMenu</a></li>
+                            </div>*@
 
                         </ul>
                     </div><!-- /gn-scroller -->
@@ -164,23 +171,7 @@
 
             <li class="codrops-icon dropdown ">
                 @Html.Partial("_NotificationUserPartial")
-
             </li>
-            
-            @*<li>
-                <div>
-                    @using (Html.BeginForm("ChangeCulture", "Workflow"))
-                    {
-                        <select name="lang">
-                            <option disabled selected>@Resources.Resource.ChooseLang</option>
-                            <option value="ru">Русский</option>
-                            <option value="en">English</option>
-                        </select>
-                        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
-                    }
-                </div>
-            </li>*@
-
         </ul>
 
 
@@ -223,14 +214,24 @@
             ModalPostDialogCreateWithNotifyAndUpdate(".CreateNewProject", '@Url.Action("CreateProjectPartial", "Workflow")', '@Url.Action("ListProjectPartial", "Workflow")', UpdateProjectList);
             UpdateProjectClick();
 
-            function UpdateProjectClick() {
+            @*function UpdateProjectClick() {
                 $("input:checkbox").bind("change click", function () {
                     UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');
                 })
 
-            };
+            };*@
+            function UpdateProjectClick() {
+                $("#WorkflowMenu").click(function () {
+                    UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');
+                })
 
-            
+            };
+            function UpdateProjectClick() {
+                $("#WorkflowMenu").hover(function () {
+                    UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');
+                })
+
+            };
 
             $(".close").on("click", function (e) {
                 e.preventDefault();

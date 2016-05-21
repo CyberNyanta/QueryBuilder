@@ -5,8 +5,9 @@
 	foreach (var item in Model.QueryHistory)
 	{
 
-        <div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
-                <div >
+        <div style="width:100%; border-bottom: solid 1px gray; height: 25px; font-size:14px;">
+                <div class="HistoryQuery" title='@item.QueryBody' data-textquery='@item.QueryBody'>
+
 					@item.QueryDate.ToString("M/dd/yyyy HH:mm")
                 </div>
         </div>
@@ -15,3 +16,24 @@
     }
 }
 
+<script type="text/javascript">
+
+
+window.onload = function(){
+
+    var As = document.getElementsByClassName('HistoryQuery');
+
+	for(var i = 0, l = As.length; i < l; i ++){
+		As[i].onclick = function(){
+		    return function () {
+		        var query = ($(this).data("textquery"));
+		        QB.Web.Application.importSQL(query);
+		        QB.Web.Application.refreshSql();
+			}
+
+		}(As[i].href);
+
+		As[i].href = "javascript: void 0";
+	}
+}
+</script>

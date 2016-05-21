@@ -37,45 +37,7 @@
     </div>
 
 }
-        @*<div style="width:100%; border-bottom: solid 1px gray; height: 30px;">
-            @if (Request.IsAuthenticated)
-            {
-            <div class="ItemNameConnection">
-                @Html.ActionLink(@item.QueryName, "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
-                                new
-                                {
-                                    @class = "LinkEdit",
-                                    data_dialog_title = "Update connection"
-                                })
-            </div>
-
-            <div>
-                @Html.ActionLink(" ", "DeleteQueryPartial", "Workflow", new { id = item.QueryID },
-                            new
-                            {
-                                @class = "DeleteQueryItem iconHeaderDeleteItem",
-                                data_dialog_title = "Delete query"
-                            })
-            </div>
-            <div class="">
-                @Html.ActionLink(" ", "UpdateQueryPartial", "Workflow", new { id = item.QueryID },
-                                        new
-                                        {
-                                            @class = "UpdateQueryItem",
-                                            data_dialog_title = "Update query"
-                                        })
-            </div>
-            }
-            else
-            {
-            <div class="ItemNameConnection">
-                @item.QueryName
-            </div>*@
-        @*}*@
-
-
-   
-  
+       
 
 <script src="~/Scripts/prettify.js"></script>
 @*<script src="~/Scripts/run_prettify.js"></script>*@

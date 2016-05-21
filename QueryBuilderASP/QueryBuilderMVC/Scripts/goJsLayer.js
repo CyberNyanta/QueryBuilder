@@ -5,7 +5,7 @@ function init(data) {
 	goGraph = go.GraphObject.make;
 
 	settings = {
-		color: "greengrad"
+		color: "graygrad"
 	}
  
 	// define several shared Brushes
@@ -14,6 +14,7 @@ function init(data) {
 	redgrad = goGraph(go.Brush, "Linear", { 0: "rgb(206, 106, 100)", 1: "rgb(180, 56, 50)" });
 	yellowgrad = goGraph(go.Brush, "Linear", { 0: "rgb(254, 221, 50)", 1: "rgb(254, 182, 50)" });
 	lightgrad = goGraph(go.Brush, "Linear", { 1: "#E6E6FA", 0: "#FFFAF0" });
+	graygrad = goGraph(go.Brush, "Linear", { 1: "#CCCCCC", 0: "#ffffff" });
 
 	myDiagram = goGraph(go.Diagram, "erModel", {
 		initialContentAlignment: go.Spot.Center,
@@ -81,7 +82,7 @@ function init(data) {
 				alignment: go.Spot.TopLeft,
 				defaultAlignment: go.Spot.Left,
 				stretch: go.GraphObject.Horizontal,
-				itemTemplate: itemTempl
+				itemTemplate: itemTempl,
 			},
 			new go.Binding("itemArray", "items"))
 		)  // end Table Panel
@@ -129,7 +130,8 @@ function changeColor() {
 		  { fill: yellowgrad, stroke: "#756875", strokeWidth: 3 }),
 		goGraph(go.Panel, "Table",
 		  { margin: 8, stretch: go.GraphObject.Fill },
-		  goGraph(go.RowColumnDefinition, { row: 0, sizing: go.RowColumnDefinition.None }),
+		  goGraph(go.RowColumnDefinition, { row: 0, sizing: go.RowColumnDefinition.None}),
+		  goGraph(go.RowColumnDefinition,{row: 1, sizing: go.RowColumnDefinition.None}),
 		  // the table header
 		  goGraph(go.TextBlock,
 			{

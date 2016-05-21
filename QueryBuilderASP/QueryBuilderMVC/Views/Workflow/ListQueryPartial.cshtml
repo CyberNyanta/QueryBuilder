@@ -92,7 +92,7 @@ window.onload = function(){
 		As[i].onclick = function(){
 		    return function () {
 		        var query = ($(this).data("textquery"));
-		        QB.Web.Application.importSQL(query);
+		        $("#sql-code").val(query);
 		        QB.Web.Application.refreshSql();
 			}
 

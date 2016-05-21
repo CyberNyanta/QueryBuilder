@@ -40,7 +40,6 @@
        
 
 <script src="~/Scripts/prettify.js"></script>
-@*<script src="~/Scripts/run_prettify.js"></script>*@
 <script src="~/Scripts/lang-sql.js"></script>
 
 <script type="text/javascript">
@@ -54,7 +53,7 @@ window.onload = function(){
 		As[i].onclick = function(){
 		    return function () {
 		        var query = ($(this).data("textquery"));
-		        QB.Web.Application.importSQL(query);
+		        $("#sql-code").val(query);
 		        QB.Web.Application.refreshSql();
 			}
 
@@ -70,8 +69,6 @@ window.onload = function(){
 
 @* Scripts for accordion with openning on hoverintent *@
 <script>
-
-
 
     $(function () {
         $("#accordion").accordion({

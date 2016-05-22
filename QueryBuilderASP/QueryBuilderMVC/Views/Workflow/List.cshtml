@@ -119,9 +119,10 @@
 
             <div class="portlet-header">@Resources.Resource.ListQuery</div>
             <div class="portlet-content">
-                @if (Request.IsAuthenticated)
-                {
-                    <div class="IconQuery">
+
+                <div class="IconQuery">
+                    @if (Request.IsAuthenticated)
+                    {
                         @Html.ActionLink(" ", "SendQuery", "Workflow", new { query = "00" },
                             new
                             {
@@ -138,7 +139,6 @@
                             }
                         </div>
 
-                        <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
 
                         @Html.ActionLink(" ", "CreateQueryPartial", "Workflow", new { id = Model.IdCurrentProject },
                             new
@@ -146,8 +146,10 @@
                                 @class = "CreateQuery",
                                 data_dialog_title = "Create query"
                             })
-                    </div>
-                }
+                    }
+                    <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
+
+                </div>
                 <div>
                     @Html.ActiveQueryBuilder().SqlEditor().GetHtml()
                 </div>
@@ -271,7 +273,7 @@
                         <div id="content-container">
                             <div id="qb-ui">
                                 <div id="tree">
-                                            @Html.ActiveQueryBuilder().ObjectTree(settings =>
+                                    @Html.ActiveQueryBuilder().ObjectTree(settings =>
                                    {
 
                                        settings.ShowFields = false;
@@ -290,7 +292,7 @@
                                                settings.UnionNavBarVisible = true;
                                            }).GetHtml()
 
-                                                    @Html.ActiveQueryBuilder().Canvas(settings =>
+                                    @Html.ActiveQueryBuilder().Canvas(settings =>
                                            {
                                                settings.AllowLinkManipulations = ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server.Models.LinkManipulations.Allow;
                                                settings.DefaultDatasourceWidth = "auto";
@@ -324,24 +326,26 @@
                 <div class="Tools-panel">
 
                 </div>
-                <div class="IconGrid">
-                    <div id="SavePDF">
-                        @using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
-                        {
-                            <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
-                            <button class="SavePDF"></button>
-                        }
-                    </div>
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="IconGrid">
+                        <div id="SavePDF">
+                            @using (Html.BeginForm("SaveGridToPdf", "Workflow", FormMethod.Post))
+                            {
+                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
+                                <button class="SavePDF"></button>
+                            }
+                        </div>
 
-                    <div id="SaveExcel">
-                        @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
-                        {
-                            <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
-                            <button class="SaveExcel"></button>
-                        }
-                    </div>
+                        <div id="SaveExcel">
+                            @using (Html.BeginForm("SaveGridToExcel", "Workflow", FormMethod.Post))
+                            {
+                                <input type="text" name="query" class="sqlQueryForSaveToFile" style="display: none;" />
+                                <button class="SaveExcel"></button>
+                            }
+                        </div>
 
-                    @Html.ActionLink(" ", "SendResultQuery", "Workflow",
+                        @Html.ActionLink(" ", "SendResultQuery", "Workflow",
                     new
                     {
                         @id = "SendResultQuery",
@@ -349,7 +353,8 @@
                         data_dialog_title = "Send result query"
                     })
 
-                </div>
+                    </div>
+                }
                 @Html.Partial("DataGridPartial")
             </div>
         </div>
@@ -446,122 +451,122 @@
 
             });
 
-		var x = get_cookie("sort_left"+@Model.IdCurrentProject);
-		set_blocks(@Model.IdCurrentProject);
+        var x = get_cookie("sort_left"+@Model.IdCurrentProject);
+        set_blocks(@Model.IdCurrentProject);
 
-	});
+    });
 
-	$(".SavePDF").click(function() {
-		FillParameters();
-	});
+    $(".SavePDF").click(function() {
+        FillParameters();
+    });
 
-	$(".SaveExcel").click(function() {
-		FillParameters();
-	});
+    $(".SaveExcel").click(function() {
+        FillParameters();
+    });
 
-	function FillParameters() {
-		var s = FormatQueryString();
-		$(".sqlQueryForSaveToFile").val(s);
-		$(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
-	}
+    function FillParameters() {
+        var s = FormatQueryString();
+        $(".sqlQueryForSaveToFile").val(s);
+        $(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
+    }
 
-	function FormatQueryString() {
-		var query = $("#sql-code").val();
+    function FormatQueryString() {
+        var query = $("#sql-code").val();
 
-		var arr = query.split('From');
-		query = '';
-		for (var i = 0; i < arr.length; i++) {
-			query += arr[i];
-			if (i === 0) {
-				query += ' From';
-			}
-		}
+        var arr = query.split('From');
+        query = '';
+        for (var i = 0; i < arr.length; i++) {
+            query += arr[i];
+            if (i === 0) {
+                query += ' From';
+            }
+        }
 
-		return query;
-	}
+        return query;
+    }
 
-	function LoadGrid() {
-		var s = FormatQueryString();
+    function LoadGrid() {
+        var s = FormatQueryString();
 
-		$.ajax({
-			type: "POST",
-			url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
-			data: "",
-			dataType: "json",
-			success: function(result) {
-				debugger;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
+            data: "",
+            dataType: "json",
+            success: function(result) {
+                debugger;
 
-				var modelList = [];
-				if (typeof result == 'string'){
-					$("#gridWrapper").hide();
-					$("#nodata_jqg").text(result);
-					$("#nodata_jqg").show();
-				}
-				else {
-					for (var i = 0; i < result.length; i++) {
-						modelList.push({
-							name: result[i].Name,
-							index: result[i].Index,
-							sortable: result[i].Sortable,
-							align: result[i].Align
-						});
-					}
+                var modelList = [];
+                if (typeof result == 'string'){
+                    $("#gridWrapper").hide();
+                    $("#nodata_jqg").text(result);
+                    $("#nodata_jqg").show();
+                }
+                else {
+                    for (var i = 0; i < result.length; i++) {
+                        modelList.push({
+                            name: result[i].Name,
+                            index: result[i].Index,
+                            sortable: result[i].Sortable,
+                            align: result[i].Align
+                        });
+                    }
 
-					$("#jqg").jqGrid("GridUnload");
+                    $("#jqg").jqGrid("GridUnload");
 
-					$("#jqg").jqGrid({
-						jsonReader: {
-							cell: "",
-							id: "0"
-						},
-						url: '@Url.Action("GetData")',
-						colModel: modelList,
-						datatype: 'json',
-						rowNum: 10,
-						rowList: [10, 20, 30, 50, 100],
-						pager: '#jpager',
-						loadonce: true,
-						autowidth: true,
-						scrollerbar: true,
-						gridComplete: function() {
-							var recs = parseInt($("#jqg").getGridParam("records"),10);
-							if (isNaN(recs) || recs === 0) {
-								$("#gridWrapper").hide();
-								$("#nodata_jqg").show();
-							}
-							else {
-								$('#gridWrapper').show();
-								$("#nodata_jqg").hide();
-							}
-						}
-					});
+                    $("#jqg").jqGrid({
+                        jsonReader: {
+                            cell: "",
+                            id: "0"
+                        },
+                        url: '@Url.Action("GetData")',
+                        colModel: modelList,
+                        datatype: 'json',
+                        rowNum: 10,
+                        rowList: [10, 20, 30, 50, 100],
+                        pager: '#jpager',
+                        loadonce: true,
+                        autowidth: true,
+                        scrollerbar: true,
+                        gridComplete: function() {
+                            var recs = parseInt($("#jqg").getGridParam("records"),10);
+                            if (isNaN(recs) || recs === 0) {
+                                $("#gridWrapper").hide();
+                                $("#nodata_jqg").show();
+                            }
+                            else {
+                                $('#gridWrapper').show();
+                                $("#nodata_jqg").hide();
+                            }
+                        }
+                    });
 
-					$("#jqg").jqGrid('navGrid', '#jpager', {
-						search: true,
-						searchtext: "Search",
-						refresh: false,
-						add: false,
-						del: false,
-						edit: false,
-						view: true,
-						viewtext: "View",
-						viewtitle: "Selected record"
-					});
+                    $("#jqg").jqGrid('navGrid', '#jpager', {
+                        search: true,
+                        searchtext: "Search",
+                        refresh: false,
+                        add: false,
+                        del: false,
+                        edit: false,
+                        view: true,
+                        viewtext: "View",
+                        viewtitle: "Selected record"
+                    });
 
-					var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
-					if (userAuthorized) {
-					    var actionListHistory = '@Url.Action("ListHistoryPartial", "Workflow")';
-					    UpdateHistoryList(actionListHistory);
-					}
-				};
+                    var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
+                    if (userAuthorized) {
+                        var actionListHistory = '@Url.Action("ListHistoryPartial", "Workflow")';
+                        UpdateHistoryList(actionListHistory);
+                    }
+                };
 
-			},
-			error: function(x, e)
-			{
-				alert(x.readyState + " "+ x.status +" "+ e.msg);
-			}
-		});
-	};
+            },
+            error: function(x, e)
+            {
+                alert(x.readyState + " "+ x.status +" "+ e.msg);
+            }
+        });
+    };
 </script>
 
 <script>

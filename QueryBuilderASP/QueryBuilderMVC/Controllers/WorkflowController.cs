@@ -507,7 +507,6 @@ namespace QueryBuilderMVC.Controllers
 		[HttpPost]
 		public ActionResult UpdateQueryPartial(QueryViewModel _queryModel)
 		{
-
 			if (ModelState.IsValid)
 			{
 				ViewBag.IdCurrentProject = _queryModel.ProjectID;
@@ -517,10 +516,9 @@ namespace QueryBuilderMVC.Controllers
 				_serviceQuery.SaveQuery(newQuery);
 
 				return PartialView("Success");
-
 			}
 
-			return PartialView("UpdateConnectionPartial", _queryModel);
+			return PartialView("UpdateQueryPartial", _queryModel);
 		}
 
 		[Authorize]

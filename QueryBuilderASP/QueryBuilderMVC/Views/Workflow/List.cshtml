@@ -581,7 +581,12 @@
 						viewtext: "View",
 						viewtitle: "Selected record"
 					});
-					UpdateHistoryList('@Url.Action("ListHistoryPartial", "Workflow")');
+
+					var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
+					if (userAuthorized) {
+					    var actionListHistory = '@Url.Action("ListHistoryPartial", "Workflow")';
+					    UpdateHistoryList(actionListHistory);
+					}
 				};
 
 			},

@@ -197,12 +197,10 @@
         </div>
         <div class="portlet" id="id_6">
             <div class="portlet-header">History</div>
-            <div class="portlet-content" id="ContainerListQuery">
                 <div class="portlet-content" id="ContainerHistory">
                     <div id="ListHistory">
                         @Html.Partial("ListHistoryPartial")
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -417,19 +415,23 @@
 	});
 
 	function AjaxPostWithDialog2(url) {
+	    console.log("AjaxPostWithDialog2");
+
 		$.ajax({
 			url: url,
 			type: "POST",
 			data: $('form').serialize(),
 			datatype: "json",
 			success: function (result) {
-				$("#dialogContent").html(result);
+			    $("#dialogContent").html(result);
+                console.log(result);
 			}
 		});
 	};
 
 
 	function ModalPostDialogSend(selector, url) {
+	    console.log('ModalPostDialogSend ' + url);
 
 		$(selector).on("click", function (e) {
 			e.preventDefault();
@@ -442,7 +444,8 @@
 					close: function () { $(this).remove() },
 					modal: true,
 					success: {
-						"": function () {
+					    "": function () {
+					        console.log('success ' + url);
 							AjaxPostWithDialog2(url);
 						}
 					}

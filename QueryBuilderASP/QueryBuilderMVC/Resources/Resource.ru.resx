@@ -319,4 +319,25 @@
   <data name="DeleteQueryQuestion" xml:space="preserve">
     <value>Вы действительно хотите удалить этот запрос?</value>
   </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>Английский</value>
+  </data>
+  <data name="LanguageRussian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="LanguageUkrainian" xml:space="preserve">
+    <value>Украинский</value>
+  </data>
+  <data name="TooltipCurrentProject" xml:space="preserve">
+    <value>Выбрать проект, как текущий</value>
+  </data>
+  <data name="TooltipDeleteProject" xml:space="preserve">
+    <value>Удалить этот проект</value>
+  </data>
+  <data name="TooltipEditProject" xml:space="preserve">
+    <value>Редактировать этот проект</value>
+  </data>
+  <data name="TooltipInviteProject" xml:space="preserve">
+    <value>Предоставить доступ этому проекту вашим коллегам</value>
+  </data>
 </root>

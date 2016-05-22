@@ -192,7 +192,8 @@ function UpdateHistoryList(url) {
 		success:
         function (result) {
         	$("#ListHistory").remove();
-        	$("#ContainerListHistory").append('<div id="ListQuery"></div>');
+        	console.log(result);
+        	$("#ContainerHistory").append('<div id="ListHistory"></div>');
         	$("#ListHistory").append(result);
         }
 	});

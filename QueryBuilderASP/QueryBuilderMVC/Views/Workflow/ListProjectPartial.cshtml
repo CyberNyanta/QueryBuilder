@@ -29,7 +29,7 @@
                     }
                     @if (Request.IsAuthenticated)
                     {
-                        <div class="IconMenu">
+                        <div class="IconMenu" title="@Resources.Resource.TooltipDeleteProject" >
                             @Html.ActionLink(" ", "DeleteProjectPartial", "Workflow",
                             new
                             {
@@ -42,7 +42,7 @@
                                 data_dialog_title = "Delete project"
                             })
                         </div>
-                        <div class="IconMenu">
+                        <div class="IconMenu" title="@Resources.Resource.TooltipEditProject">
                             @Html.ActionLink(" ", "UpdateProjectPartial", "Workflow", new { id = item.ProjectID },
                             new
                             {
@@ -54,7 +54,7 @@
 
                         if ((item.UserRole == 2) && (item.CountUsersForShared > 0))
                         {
-                            <div class="IconMenu">
+                            <div class="IconMenu" title="@Resources.Resource.TooltipInviteProject">
                                 @Html.ActionLink(" ", "InviteUserToProjectPartial", "Workflow", new { id = item.ProjectID },
                                  new
                                  {
@@ -65,7 +65,7 @@
                             </div>
                         }
                         <div class="IconMenu CurrentProj">
-                            <p onclick="return location.href = '/Workflow/List/@item.ProjectID'" title="Choose as current project">C</p>
+                            <p onclick="return location.href = '/Workflow/List/@item.ProjectID'" title="@Resources.Resource.TooltipCurrentProject">C</p>
                         </div>
                     }
 

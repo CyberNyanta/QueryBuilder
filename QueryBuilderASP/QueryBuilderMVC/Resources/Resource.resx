@@ -319,4 +319,25 @@
   <data name="DeleteQueryQuestion" xml:space="preserve">
     <value>Do you want delete this query?</value>
   </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageRussian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="LanguageUkrainian" xml:space="preserve">
+    <value>Ukrainian</value>
+  </data>
+  <data name="TooltipCurrentProject" xml:space="preserve">
+    <value>Choose as current project</value>
+  </data>
+  <data name="TooltipDeleteProject" xml:space="preserve">
+    <value>Delete this project</value>
+  </data>
+  <data name="TooltipEditProject" xml:space="preserve">
+    <value>Edit this project</value>
+  </data>
+  <data name="TooltipInviteProject" xml:space="preserve">
+    <value>Shared this project your colleges</value>
+  </data>
 </root>

@@ -58,7 +58,8 @@
                                 <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
                                 @if (Request.IsAuthenticated)
                                 {
-                                    <div class="IconMenuAdd ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons">
+                                    <div class="IconMenuAdd ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons" 
+                                         title="@Resources.Resource.WorkflowNewProject">
                                         @Html.ActionLink(Resources.Resource.WorkflowNewProject, "CreateProjectPartial", "Workflow",
                                                        new
                                                        {
@@ -72,51 +73,25 @@
                                 <div id="proj"></div>
 
                             </li>
-
-
-
-
-                            @*<div class="demo" style="line-height:50px;">
-                                <input type="checkbox" id="hd-1" class="hide " />
-                                <label for="hd-1">My projects</label>
-                                <div>
-                                    <ul class="gn-submenu" style="border-top: 1px solid #c6d0da;"></ul>
-                                    @if (Request.IsAuthenticated)
-                                    {
-                                        <div class="IconMenuAdd">
-                                            @Html.ActionLink(Resources.Resource.WorkflowNewProject, "CreateProjectPartial", "Workflow",
-                                                       new
-                                                       {
-                                                           @class = "CreateNewProject",
-                                                           @id = "IconMenuAdd",
-                                                           data_dialog_title = "Create new project"
-                                                       })
-                                        </div>
-                                    }
-
-                                    <div id="proj"></div>
-                                </div>
-                            </div>*@
-
                         </ul>
                     </div><!-- /gn-scroller -->
                 </nav>
             </li>
             <li class="codrops-icon dropdown ">
                 <ul id="LangWorkflow">
-                    <li class="containerLanguage">
+                    <li class="containerLanguage" title="@Resources.Resource.LanguageEnglish">
                         @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "en" }, new
                    {
                        @class = "IconLanguage EN",
                    })
                     </li>
-                    <li class="containerLanguage">
+                    <li class="containerLanguage" title="@Resources.Resource.LanguageUkrainian">
                         @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ua" }, new
                    {
                        @class = "IconLanguage UA",
                    })
                     </li>
-                    <li class="containerLanguage">
+                    <li class="containerLanguage" title="@Resources.Resource.LanguageRussian">
                         @Html.ActionLink(" ", "ChangeCulture", "Home", new { lang = "ru" }, new
                    {
                        @class = "IconLanguage RU",
@@ -136,7 +111,7 @@
                     <li>
                         @if (Request.IsAuthenticated)
                         {
-                            <div class="SettingsUser">
+                            <div class="SettingsUser" >
                                 @Html.ActionLink(Resources.Resource.WorkflowSettingAccount, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                             </div>
                         }

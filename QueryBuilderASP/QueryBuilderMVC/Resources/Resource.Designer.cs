@@ -439,6 +439,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string LanguageEnglish {
+            get {
+                return ResourceManager.GetString("LanguageEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Russian.
+        /// </summary>
+        public static string LanguageRussian {
+            get {
+                return ResourceManager.GetString("LanguageRussian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukrainian.
+        /// </summary>
+        public static string LanguageUkrainian {
+            get {
+                return ResourceManager.GetString("LanguageUkrainian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string LayoutAbout {
@@ -597,6 +624,42 @@ namespace Resources {
         public static string SettingsForMenu {
             get {
                 return ResourceManager.GetString("SettingsForMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose as current project.
+        /// </summary>
+        public static string TooltipCurrentProject {
+            get {
+                return ResourceManager.GetString("TooltipCurrentProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete this project.
+        /// </summary>
+        public static string TooltipDeleteProject {
+            get {
+                return ResourceManager.GetString("TooltipDeleteProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit this project.
+        /// </summary>
+        public static string TooltipEditProject {
+            get {
+                return ResourceManager.GetString("TooltipEditProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared this project your colleges.
+        /// </summary>
+        public static string TooltipInviteProject {
+            get {
+                return ResourceManager.GetString("TooltipInviteProject", resourceCulture);
             }
         }
         

@@ -58,6 +58,7 @@ namespace QueryBuilderMVC.Controllers
         [HttpGet]
         public ActionResult List(string id = "0")
         {
+            
             if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
@@ -123,12 +124,50 @@ namespace QueryBuilderMVC.Controllers
                     ViewBag.ServerName = "ServerName";
                 }
 
-
+                return View(_projectModel);
             }
             else
             {
-                var proj = new List<ProjectsListViewModel>
+                return View(GetExampleProject());
+            }
+
+        }
+
+        public ActionResult ListProjectPartial()
+        {
+            var countInvited = 0;
+            if (Request.IsAuthenticated)
+            {
+                _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+                var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
+                var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
+                foreach (var project in projectsViewModel)
                 {
+                    project.CountUsersForShared = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(project.ProjectID)).Count();
+                    project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
+                    if (project.UserRole == 0)
+                    {
+                        countInvited++;
+                    }
+                }
+                _projectModel.Projects = projectsViewModel;
+                ViewBag.CountInvited = countInvited;
+                return PartialView("ListProjectPartial", _projectModel);
+            }
+            else
+            {
+                countInvited = 1;
+                ViewBag.CountInvited = countInvited;
+                return PartialView("ListProjectPartial", GetExampleProject());
+            }
+
+        }
+
+        public ProjectViewModel GetExampleProject()
+        {
+            var proj = new List<ProjectsListViewModel>
+                {
+
                     new ProjectsListViewModel
                     {
                         ProjectID = 1,
@@ -138,7 +177,7 @@ namespace QueryBuilderMVC.Controllers
                      }
 
                 };
-                var connect = new List<ConnectionsListViewModel>
+            var connect = new List<ConnectionsListViewModel>
                 {
                     new ConnectionsListViewModel
                     {
@@ -151,39 +190,16 @@ namespace QueryBuilderMVC.Controllers
                         PasswordDB = Rijndael.EncryptStringToBytes(DefaultDatabaseConstants.Password)
                     }
                 };
-                _projectModel.ConnectionDbs = connect;
-                _projectModel.IdCurrentProject = proj[0].ProjectID;
-                _projectModel.Name = proj[0].ProjectName;
-                _projectModel.Description = proj[0].ProjectDescription;
-                _projectModel.Projects = proj;
+            _projectModel.ConnectionDbs = connect;
+            _projectModel.IdCurrentProject = proj[0].ProjectID;
+            _projectModel.Name = proj[0].ProjectName;
+            _projectModel.Description = proj[0].ProjectDescription;
+            _projectModel.Projects = proj;
 
-                var sqlConnection =
-                            $"Data source= {connect[0].ServerName}; Initial catalog= {connect[0].DatabaseName}; UID= {connect[0].LoginDB}; Password= {"Instance@1"};";
-                ViewBag.ConnectionString = sqlConnection;
-            }
-
-            return View(_projectModel);
-        }
-
-        public ActionResult ListProjectPartial()
-        {
-            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-            var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
-            var projectsViewModel = Mapper.Map<IEnumerable<Project>, IEnumerable<ProjectsListViewModel>>(projects).ToList();
-            var countInvited = 0;
-            foreach (var project in projectsViewModel)
-            {
-                project.CountUsersForShared = _serviceProjectsShareService.GetUsersForSharedProject(_serviceProject.GetProject(project.ProjectID)).Count();
-                project.UserRole = _serviceProjectsShareService.GetUserRole(_currentUser, project.ProjectID);
-                if (project.UserRole == 0)
-                {
-                    countInvited++;
-                }
-            }
-            ViewBag.CountInvited = countInvited;
-            _projectModel.Projects = projectsViewModel;
-            
-            return PartialView("ListProjectPartial", _projectModel);
+            var sqlConnection =
+                        $"Data source= {connect[0].ServerName}; Initial catalog= {connect[0].DatabaseName}; UID= {connect[0].LoginDB}; Password= {"Instance@1"};";
+            ViewBag.ConnectionString = sqlConnection;
+            return _projectModel;
         }
 
         public ActionResult ListConnectionPartial()

@@ -37,6 +37,7 @@
     <Compile Include="DbConstants\ColorConstants.cs" />
     <Compile Include="DbConstants\DbLengthString.cs" />
     <Compile Include="DbConstants\DbTablesNames.cs" />
+    <Compile Include="DbConstants\DefaultDatabaseConstants.cs" />
     <Compile Include="DbConstants\SqlConnectionConstants.cs" />
     <Compile Include="DelflagConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,6 +17,7 @@ using System.IO;
 using System.Text;
 using QueryBuilderMVC.Filters;
 using System.Text.RegularExpressions;
+using QueryBuilder.Constants.DbConstants;
 using QueryBuilder.Utils.DBSchema;
 using QueryBuilder.Utils.Exporters;
 
@@ -143,11 +144,11 @@ namespace QueryBuilderMVC.Controllers
                     {
                         ConnectionID = -1,
                         ConnectionName = "Example",
-                        ConnectionOwner = 1,
-                        DatabaseName = "defaultsamples",
-                        LoginDB = "scrumtracker01@e7g8mfm8ri",
-                        ServerName = "tcp:e7g8mfm8ri.database.windows.net,1433",
-                        PasswordDB = Rijndael.EncryptStringToBytes("Instance@1")
+                        ConnectionOwner = proj[0].ProjectID,
+                        DatabaseName = DefaultDatabaseConstants.DatabaseName,
+                        LoginDB = DefaultDatabaseConstants.Login,
+                        ServerName = DefaultDatabaseConstants.ServerName,
+                        PasswordDB = Rijndael.EncryptStringToBytes(DefaultDatabaseConstants.Password)
                     }
                 };
                 _projectModel.ConnectionDbs = connect;
@@ -645,11 +646,26 @@ namespace QueryBuilderMVC.Controllers
 
         public string GetGridModel(string query, int idCurrentProject)
         {
+            ConnectionDB connect;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
+                connect = connectionsCurrentProject.FirstOrDefault();
+            }
+            else
+            {
+                connect = new ConnectionDB
+                {
+                    DatabaseName = DefaultDatabaseConstants.DatabaseName,
+                    LoginDB = DefaultDatabaseConstants.Login,
+                    ServerName = DefaultDatabaseConstants.ServerName,
+                    PasswordDB = Rijndael.EncryptStringToBytes(DefaultDatabaseConstants.Password)
+                };
+            }
 
             var dataTable = new DataTable();
-
-            var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(idCurrentProject);
-            var connect = connectionsCurrentProject.FirstOrDefault();
+           
             if (connect != null)
             {
                 var connectionString = $"Data source= {connect.ServerName};Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
@@ -663,8 +679,7 @@ namespace QueryBuilderMVC.Controllers
                 else
 				{
 					return JsonConvert.SerializeObject(resultQuery.ErrorText);
-				}
-                   
+				}                  
             }
 
             Session["datatableForGrid"] = dataTable;

@@ -707,13 +707,17 @@ namespace QueryBuilderMVC.Controllers
                               Align = "center"
                           }).ToList();
 
-			_queryHistoryModel.QueryDate = DateTime.Now;
-			_queryHistoryModel.QueryBody = query;
-			_queryHistoryModel.ProjectID = idCurrentProject;
-			var newQuery = Mapper.Map<QueryHistoryViewModel, QueryHistory>(_queryHistoryModel);
-			_serviceQueryHistory.SaveQueryHistory(newQuery);
+            if (User.Identity.IsAuthenticated)
+            {
+                _queryHistoryModel.QueryDate = DateTime.Now;
+                _queryHistoryModel.QueryBody = query;
+                _queryHistoryModel.ProjectID = idCurrentProject;
 
-			return JsonConvert.SerializeObject(header);
+                var newQuery = Mapper.Map<QueryHistoryViewModel, QueryHistory>(_queryHistoryModel);
+                _serviceQueryHistory.SaveQueryHistory(newQuery);
+            }
+
+            return JsonConvert.SerializeObject(header);
         }
 
         public void SaveGridToPdf()

@@ -446,117 +446,122 @@
 
             });
 
-        var x = get_cookie("sort_left"+@Model.IdCurrentProject);
-        set_blocks(@Model.IdCurrentProject);
+		var x = get_cookie("sort_left"+@Model.IdCurrentProject);
+		set_blocks(@Model.IdCurrentProject);
 
-    });
+	});
 
-    $(".SavePDF").click(function() {
-        FillParameters();
-    });
+	$(".SavePDF").click(function() {
+		FillParameters();
+	});
 
-    $(".SaveExcel").click(function() {
-        FillParameters();
-    });
+	$(".SaveExcel").click(function() {
+		FillParameters();
+	});
 
-    function FillParameters() {
-        var s = FormatQueryString();
-        $(".sqlQueryForSaveToFile").val(s);
-        $(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
-    }
+	function FillParameters() {
+		var s = FormatQueryString();
+		$(".sqlQueryForSaveToFile").val(s);
+		$(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
+	}
 
-    function FormatQueryString() {
-        var query = $("#sql-code").val();
+	function FormatQueryString() {
+		var query = $("#sql-code").val();
 
-        var arr = query.split('From');
-        query = '';
-        for (var i = 0; i < arr.length; i++) {
-            query += arr[i];
-            if (i === 0) {
-                query += ' From';
-            }
-        }
+		var arr = query.split('From');
+		query = '';
+		for (var i = 0; i < arr.length; i++) {
+			query += arr[i];
+			if (i === 0) {
+				query += ' From';
+			}
+		}
 
-        return query;
-    }
+		return query;
+	}
 
-    function LoadGrid() {
-        var s = FormatQueryString();
+	function LoadGrid() {
+		var s = FormatQueryString();
 
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
-            data: "",
-            dataType: "json",
-            success: function(result) {
-                debugger;
+		$.ajax({
+			type: "POST",
+			url: '@Url.Action("GetGridModel")?query=' + s + '&idCurrentProject=' + @Model.IdCurrentProject,
+			data: "",
+			dataType: "json",
+			success: function(result) {
+				debugger;
 
-                var modelList = [];
-                if (typeof result == 'string'){
-                    $("#gridWrapper").hide();
-                    $("#nodata_jqg").text(result);
-                    $("#nodata_jqg").show();
-                }
-                else {
-                    for (var i = 0; i < result.length; i++) {
-                        modelList.push({
-                            name: result[i].Name,
-                            index: result[i].Index,
-                            sortable: result[i].Sortable,
-                            align: result[i].Align
-                        });
-                    }
+				var modelList = [];
+				if (typeof result == 'string'){
+					$("#gridWrapper").hide();
+					$("#nodata_jqg").text(result);
+					$("#nodata_jqg").show();
+				}
+				else {
+					for (var i = 0; i < result.length; i++) {
+						modelList.push({
+							name: result[i].Name,
+							index: result[i].Index,
+							sortable: result[i].Sortable,
+							align: result[i].Align
+						});
+					}
 
-                    $("#jqg").jqGrid("GridUnload");
+					$("#jqg").jqGrid("GridUnload");
 
-                    $("#jqg").jqGrid({
-                        jsonReader: {
-                            cell: "",
-                            id: "0"
-                        },
-                        url: '@Url.Action("GetData")',
-                        colModel: modelList,
-                        datatype: 'json',
-                        rowNum: 10,
-                        rowList: [10, 20, 30, 50, 100],
-                        pager: '#jpager',
-                        loadonce: true,
-                        autowidth: true,
-                        scrollerbar: true,
-                        gridComplete: function() {
-                            var recs = parseInt($("#jqg").getGridParam("records"),10);
-                            if (isNaN(recs) || recs === 0) {
-                                $("#gridWrapper").hide();
-                                $("#nodata_jqg").show();
-                            }
-                            else {
-                                $('#gridWrapper').show();
-                                $("#nodata_jqg").hide();
-                            }
-                        }
-                    });
+					$("#jqg").jqGrid({
+						jsonReader: {
+							cell: "",
+							id: "0"
+						},
+						url: '@Url.Action("GetData")',
+						colModel: modelList,
+						datatype: 'json',
+						rowNum: 10,
+						rowList: [10, 20, 30, 50, 100],
+						pager: '#jpager',
+						loadonce: true,
+						autowidth: true,
+						scrollerbar: true,
+						gridComplete: function() {
+							var recs = parseInt($("#jqg").getGridParam("records"),10);
+							if (isNaN(recs) || recs === 0) {
+								$("#gridWrapper").hide();
+								$("#nodata_jqg").show();
+							}
+							else {
+								$('#gridWrapper').show();
+								$("#nodata_jqg").hide();
+							}
+						}
+					});
 
-                    $("#jqg").jqGrid('navGrid', '#jpager', {
-                        search: true,
-                        searchtext: "Search",
-                        refresh: false,
-                        add: false,
-                        del: false,
-                        edit: false,
-                        view: true,
-                        viewtext: "View",
-                        viewtitle: "Selected record"
-                    });
-                    UpdateHistoryList('@Url.Action("ListHistoryPartial", "Workflow")');
-                };
+					$("#jqg").jqGrid('navGrid', '#jpager', {
+						search: true,
+						searchtext: "Search",
+						refresh: false,
+						add: false,
+						del: false,
+						edit: false,
+						view: true,
+						viewtext: "View",
+						viewtitle: "Selected record"
+					});
 
-            },
-            error: function(x, e)
-            {
-                alert(x.readyState + " "+ x.status +" "+ e.msg);
-            }
-        });
-    };
+					var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
+					if (userAuthorized) {
+					    var actionListHistory = '@Url.Action("ListHistoryPartial", "Workflow")';
+					    UpdateHistoryList(actionListHistory);
+					}
+				};
+
+			},
+			error: function(x, e)
+			{
+				alert(x.readyState + " "+ x.status +" "+ e.msg);
+			}
+		});
+	};
 </script>
 
 <script>

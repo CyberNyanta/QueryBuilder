@@ -947,6 +947,8 @@
     <Content Include="Scripts\Workflow.js" />
     <Content Include="Scripts\WorkflowList.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Content\Errors\404.html" />
+    <Content Include="Content\Errors\500.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

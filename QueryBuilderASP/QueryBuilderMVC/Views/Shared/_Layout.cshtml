@@ -9,6 +9,7 @@
     <link href="~/Content/parallax-slider/style-responsive.css" rel="stylesheet" />
     <script src="~/Scripts/respond.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 
     <link href="~/Content/Workflow.css" rel="stylesheet" />
 
@@ -52,7 +53,10 @@
 
 
 
+    <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 
+    <script src="~/Scripts/Workflow.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
     @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
@@ -61,4 +65,42 @@
 </html>
 
 
+<script>
+    function AjaxPostWithDialog2(url) {
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: $('form').serialize(),
+            datatype: "json",
+            success: function (result) {
+                $("#dialogContent").html(result);
+            }
+        });
+    };
 
+
+    function ModalPostDialogSend(selector, url) {
+        $(selector).on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>")
+				.addClass("dialog")
+				.appendTo("body")
+				.load(this.href)
+				.dialog({
+				    title: $(this).attr("data-dialog-title"),
+				    close: function () { $(this).remove() },
+				    modal: true,
+				    success: {
+				        "": function () {
+				            AjaxPostWithDialog2(url);
+				        }
+				    }
+				}
+				);
+        });
+    };
+
+    $(document).ready(function () {
+        ModalPostDialogSend("#LoginLink", '@Url.Action("Login", "Account")');
+    });
+</script>

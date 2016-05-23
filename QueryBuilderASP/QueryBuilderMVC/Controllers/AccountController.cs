@@ -60,7 +60,7 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return PartialView("Login");
+            return View();
         }
 
         //

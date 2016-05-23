@@ -386,8 +386,6 @@
     });
 
     function AjaxPostWithDialog2(url) {
-        console.log("AjaxPostWithDialog2");
-
         $.ajax({
             url: url,
             type: "POST",
@@ -395,15 +393,12 @@
             datatype: "json",
             success: function (result) {
                 $("#dialogContent").html(result);
-                console.log(result);
             }
         });
     };
 
 
     function ModalPostDialogSend(selector, url) {
-        console.log('ModalPostDialogSend ' + url);
-
         $(selector).on("click", function (e) {
             e.preventDefault();
             $("<div id='dialogContent'></div>")
@@ -416,15 +411,15 @@
 				    modal: true,
 				    success: {
 				        "": function () {
-				            console.log('success ' + url);
 				            AjaxPostWithDialog2(url);
 				        }
 				    }
 				}
 				);
         });
-
     };
+    
+
     ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
     ModalPostDialogSend(".SendResultQuery", '@Url.Action("SendResultQueryPartial", "Workflow")');
 

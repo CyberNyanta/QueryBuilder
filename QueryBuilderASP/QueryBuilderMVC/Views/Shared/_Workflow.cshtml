@@ -61,12 +61,12 @@
                                     <div class="IconMenuAdd ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons" 
                                          title="@Resources.Resource.WorkflowNewProject">
                                         @Html.ActionLink(Resources.Resource.WorkflowNewProject, "CreateProjectPartial", "Workflow",
-                                                       new
-                                                       {
-                                                           @class = "CreateNewProject",
-                                                           @id = "IconMenuAdd",
-                                                           data_dialog_title = "Create new project"
-                                                       })
+                    new
+                    {
+                        @class = "CreateNewProject",
+                        @id = "IconMenuAdd",
+                        data_dialog_title = "Create new project"
+                    })
                                     </div>
                                 }
 
@@ -103,7 +103,7 @@
 
 
             </li>
-            <li class="codrops-icon dropdown TopRightMenu">
+            <li class="codrops-icon dropdown TopRightMenu" id="userMenu">
                 <a class="dropdown-toggle" id="User" data-toggle="dropdown" href="#" aria-expanded="false">
                 </a>
 
@@ -123,14 +123,20 @@
                             @if (Request.IsAuthenticated)
                             {
                                 @Html.ActionLink(Resources.Resource.WorkflowLogOff, "LogOff", "Account");
-                               
+
                             }
                             else
                             {
                                 <ul class="LogOutUser">
                                     <li>@Html.ActionLink(Resources.Resource.WorkflowRegister, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                                    <li>@Html.ActionLink(Resources.Resource.WorkflowLogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-                                   
+                                    <li>@*@Html.ActionLink(Resources.Resource.WorkflowLogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@</li>
+                                   <li>
+                                       @Html.ActionLink(Resources.Resource.WorkflowLogIn, "Login", "Account", routeValues: null, htmlAttributes: new
+                                  {
+                                      id = "LoginLink",
+                                      data_dialog_title = "Login"
+                                  })
+                                   </li>
                                   </ul>
                             }
                         </div>
@@ -144,7 +150,7 @@
 
             </li>
 
-            <li class="codrops-icon dropdown ">
+            <li class="codrops-icon dropdown " id="NotificationMenu">
                 @Html.Partial("_NotificationUserPartial")
             </li>
         </ul>
@@ -195,12 +201,7 @@
                 })
 
             };
-            function UpdateProjectClick() {
-                $("#WorkflowMenu").hover(function () {
-                    UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');
-                })
-
-            };
+                      
 
             $(".close").on("click", function (e) {
                 e.preventDefault();
@@ -208,9 +209,10 @@
             });
         });
 
+        
+        ModalPostDialogSend("#LoginLink", '@Url.Action("Login", "Account")');
+
     </script>
-
-
 
 </body>
 </html>

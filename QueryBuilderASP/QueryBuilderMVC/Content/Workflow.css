@@ -676,12 +676,12 @@
 .ui-widget-content a {
 	color: #222222;
 }
-.ui-widget-header {
+/*.ui-widget-header {
 	border: 1px solid #3d566d;
 	background: #3d566d url("../Images/QueryBuilder/images/ui-bg_flat_100_3d566d_40x100.png") 50% 50% repeat-x;
 	color: #ffffff;
 	font-weight: bold;
-}
+}*/
 .ui-widget-header a {
 	color: #ffffff;
 }
@@ -1598,7 +1598,7 @@ button.qb-ui-editor-refresh-button:hover .second-icon { opacity: 1; visibility: 
 #qb-ui-criteria-builder,
 .context-menu-list,
 .ui-dialog { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; color: #333333; background-color: transparent; }
-.ui-dialog { background-color: white; }
+.ui-dialog { background-color: white; top:125px!important;}
 
 #all,
 #qb-ui,
@@ -1956,4 +1956,39 @@ a.ui-button:active,
 #ContainerListQuery
 {
     padding:2px;
+}
+#Facebook
+{
+    background-color: #3f63a2;
+    border: 2px solid #576f9e;
+    margin-bottom: 5px;
+    padding: 2px 10px 2px 35px;
+    color:white;
+    height:25px;
+    display: inline-block;
+    text-align: center;
+    padding-top:5px;
+    /*padding: 9px 34px 11px;*/
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1;
+    font-family: "AvenirNextLTW02-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    position: relative;
+}
+#Facebook span
+{
+    background-image: url("http://scf.etb.ht/graphics/new-design/sprite-0629.png");
+    background-position: -218px -1502px;
+    width: 25px;
+    height: 21px;
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    left: 5px;
+    top:0px;
+}
+#Google
+{
+        background-color: #AA0706;
+    border: 2px solid #8E0604;
 }

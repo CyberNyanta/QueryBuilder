@@ -118,7 +118,7 @@ function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, call
         e.preventDefault();
 
         $("<div id='dialogContent'></div>")
-            .addClass("dialog")
+            .addClass("ui-dialog")
             .appendTo("body")
             .load(this.href)
             .dialog({

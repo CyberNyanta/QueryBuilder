@@ -3,7 +3,35 @@
     $("#invitedUserId").val(userId);
 };
 
+function fillParameters(projectId) {
+    var s = formatQueryString();
+    $(".sqlQueryForSaveToFile").val(s);
+    $(".idCurrentProjectForSaveToFile").val(projectId);
+}
 
+function formatQueryString() {
+    var query = $("#sql-code").val();
+
+    query = formatQueryStringByKeyword(query, "From");
+    query = formatQueryStringByKeyword(query, "Where");
+    query = formatQueryStringByKeyword(query, "Group By");
+    query = formatQueryStringByKeyword(query, "Order By");
+
+    return query;
+}
+
+function formatQueryStringByKeyword(query, keyword) {
+    var arr = query.split(keyword);
+    query = "";
+    for (var i = 0; i < arr.length; i++) {
+        query += arr[i];
+        if (i !== arr.length - 1) {
+            query += " " + keyword;
+        }
+    }
+
+    return query;        
+}
 
 function NotifyAndUpdate(url, updateurl) {
     $.ajax({

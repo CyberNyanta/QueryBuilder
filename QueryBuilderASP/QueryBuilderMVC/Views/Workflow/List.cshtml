@@ -370,17 +370,14 @@
 
 <script>
 
-    jQuery(".SaveQuery").click(function() {
-        var s = FormatQueryString();
+    $(".SaveQuery").click(function() {
+        var s = formatQueryString();
         $(".sqlQuery").val(s);
 
     });
 
-
-
-
     $(".SendQuery").hover(function(){
-        var s = FormatQueryString();
+        var s = formatQueryString();
         $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
 
     });
@@ -396,7 +393,6 @@
             }
         });
     };
-
 
     function ModalPostDialogSend(selector, url) {
         $(selector).on("click", function (e) {
@@ -451,37 +447,8 @@
 
     });
 
-    $(".SavePDF").click(function() {
-        FillParameters();
-    });
-
-    $(".SaveExcel").click(function() {
-        FillParameters();
-    });
-
-    function FillParameters() {
-        var s = FormatQueryString();
-        $(".sqlQueryForSaveToFile").val(s);
-        $(".idCurrentProjectForSaveToFile").val(@Model.IdCurrentProject);
-    }
-
-    function FormatQueryString() {
-        var query = $("#sql-code").val();
-
-        var arr = query.split('From');
-        query = '';
-        for (var i = 0; i < arr.length; i++) {
-            query += arr[i];
-            if (i === 0) {
-                query += ' From';
-            }
-        }
-
-        return query;
-    }
-
     function LoadGrid() {
-        var s = FormatQueryString();
+        var s = formatQueryString();
 
         $.ajax({
             type: "POST",
@@ -489,8 +456,6 @@
             data: "",
             dataType: "json",
             success: function(result) {
-                debugger;
-
                 var modelList = [];
                 if (typeof result == 'string'){
                     $("#gridWrapper").hide();

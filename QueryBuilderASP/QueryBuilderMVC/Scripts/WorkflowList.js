@@ -59,3 +59,56 @@ function set_blocks(id) {
     }
 };
 
+function AjaxPostWithDialog2(url) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: $('form').serialize(),
+        datatype: "json",
+        success: function (result) {
+            $("#dialogContent").html(result);
+        }
+    });
+};
+
+function ModalPostDialogSend(selector, url) {
+    $(selector).on("click", function (e) {
+        e.preventDefault();
+        $("<div id='dialogContent'></div>")
+            .addClass("dialog")
+            .appendTo("body")
+            .load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() },
+                modal: true,
+                success: {
+                    "": function () {
+                        AjaxPostWithDialog2(url);
+                    }
+                }
+            }
+            );
+    });
+};
+
+function SetGetWindow(id) {
+    $(".column").sortable(
+        {
+            connectWith: ".column",
+            handle: ".portlet-header",
+            cancel: ".portlet-toggle",
+            placeholder: "portlet-placeholder ui-corner-all",
+            update: function (event, ui) {
+                var sort_right = $('.column_right').sortable('serialize', { key: 'id' });
+                var sort_left = $('.column').sortable('serialize', { key: 'id' });
+                document.cookie = "sort_right" + id + "= " + sort_right;
+                document.cookie = "sort_left" + id + "= " + sort_left;
+            }
+
+        });
+
+    var x = get_cookie("sort_left" + id);
+    set_blocks(id);
+
+};

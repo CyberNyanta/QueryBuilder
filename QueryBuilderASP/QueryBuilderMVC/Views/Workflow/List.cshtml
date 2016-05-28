@@ -368,84 +368,13 @@
 <script src="~/Scripts/WorkflowList.js"></script>
 
 
+
+
+
 <script>
-
-    $(".SaveQuery").click(function() {
-        var s = formatQueryString();
-        $(".sqlQuery").val(s);
-
-    });
-
-    $(".SendQuery").hover(function(){
-        var s = formatQueryString();
-        $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
-
-    });
-
-    function AjaxPostWithDialog2(url) {
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: $('form').serialize(),
-            datatype: "json",
-            success: function (result) {
-                $("#dialogContent").html(result);
-            }
-        });
-    };
-
-    function ModalPostDialogSend(selector, url) {
-        $(selector).on("click", function (e) {
-            e.preventDefault();
-            $("<div id='dialogContent'></div>")
-				.addClass("dialog")
-				.appendTo("body")
-				.load(this.href)
-				.dialog({
-				    title: $(this).attr("data-dialog-title"),
-				    close: function () { $(this).remove() },
-				    modal: true,
-				    success: {
-				        "": function () {
-				            AjaxPostWithDialog2(url);
-				        }
-				    }
-				}
-				);
-        });
-    };
     
 
-    ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
-    ModalPostDialogSend(".SendResultQuery", '@Url.Action("SendResultQueryPartial", "Workflow")');
-
-</script>
-
-
-
-
-<script>
-
-    $(function SetGetWindow() {
-        $(".column").sortable(
-            {
-                connectWith: ".column",
-                handle: ".portlet-header",
-                cancel: ".portlet-toggle",
-                placeholder: "portlet-placeholder ui-corner-all",
-                update: function (event, ui) {
-                    var sort_right = $('.column_right').sortable('serialize', { key: 'id' });
-                    var sort_left = $('.column').sortable('serialize', { key: 'id' });
-                    document.cookie = "sort_right"+@Model.IdCurrentProject+"= " + sort_right;
-                    document.cookie = "sort_left"+@Model.IdCurrentProject+"= " + sort_left;
-                }
-
-            });
-
-        var x = get_cookie("sort_left"+@Model.IdCurrentProject);
-        set_blocks(@Model.IdCurrentProject);
-
-    });
+ 
 
     function LoadGrid() {
         var s = formatQueryString();
@@ -542,11 +471,27 @@
         FixTreeView();
 
         $.ajaxSetup({ cache: false });
+
+        $(".SaveQuery").click(function() {
+            var s = formatQueryString();
+            $(".sqlQuery").val(s);
+
+        });
+
+        $(".SendQuery").hover(function(){
+            var s = formatQueryString();
+            $("#buttonSend").attr("href", "/Workflow/SendQuery?query="+s) ;
+
+        });
+
+        SetGetWindow(@Model.IdCurrentProject);
+
+        ModalPostDialogSend(".SendQuery", '@Url.Action("SendQueryPartial", "Workflow")');
+        ModalPostDialogSend(".SendResultQuery", '@Url.Action("SendResultQueryPartial", "Workflow")');
+
         ///Modal edit for edit Project
         ModalPostDialogDeleteWithNotifyAndUpdate(".IconModalDelete2", '@Url.Action("DeleteProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
         ModalPostDialogUpdateWithNotifyAndUpdate(".IconModalEdit2", '@Url.Action("UpdateProjectPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")', UpdateConnectionList);
-
-
 
         ///Modal create Connection
         ModalPostDialogCreateWithNotifyAndUpdate(".CreateConnection", '@Url.Action("CreateConnectionPartial", "Workflow")', '@Url.Action("ListConnectionPartial", "Workflow")',UpdateConnectionList);
@@ -554,8 +499,6 @@
         ModalPostDialogCreateWithNotifyAndUpdate(".CreateQuery", '@Url.Action("CreateQueryPartial", "Workflow")', '@Url.Action("ListQueryPartial", "Workflow")',UpdateQueryList);
 
         $(function () {
-
-
             $(".portlet-toggle").click(function () {
                 var icon = $(this);
                 icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");

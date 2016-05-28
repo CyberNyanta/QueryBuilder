@@ -253,4 +253,3 @@ function UpdateHistoryList(url) {
         }, 4000);
     };
 
-  

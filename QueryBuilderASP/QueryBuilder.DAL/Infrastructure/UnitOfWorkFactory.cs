@@ -1,5 +1,4 @@
-﻿using System;
-using QueryBuilder.DAL.Contracts;
+﻿using QueryBuilder.DAL.Contracts;
 
 namespace QueryBuilder.DAL.Infrastructure
 {

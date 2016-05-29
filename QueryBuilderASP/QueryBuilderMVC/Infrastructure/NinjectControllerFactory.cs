@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Ninject;
 using System.Web.Mvc;
 using System.Web.Routing;
-using QueryBuilder.DAL.Repositories;
 using QueryBuilder.DAL.Infrastructure;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.Services.Contracts;

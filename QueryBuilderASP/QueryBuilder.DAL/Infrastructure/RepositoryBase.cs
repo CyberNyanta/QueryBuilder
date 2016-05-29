@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using QueryBuilder.DAL.Contexts;
 using QueryBuilder.DAL.Contracts;
-using QueryBuilder.DAL.Models;
 
 namespace QueryBuilder.DAL.Infrastructure
 {

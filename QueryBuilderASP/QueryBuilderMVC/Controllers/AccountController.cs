@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -7,7 +6,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using QueryBuilder.Constants;
 using QueryBuilderMVC.Models;
 using QueryBuilder.DAL.Models;
 using QueryBuilder.Utils.Mailers;

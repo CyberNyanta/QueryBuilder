@@ -46,6 +46,8 @@ namespace Wpf.ViewModel
 			}
 		}
 
+		public DataTable ResultTable { get; set; }
+
 
 		public void AddField(object item)
         {

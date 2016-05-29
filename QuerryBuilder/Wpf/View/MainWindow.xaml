@@ -297,7 +297,7 @@
             </TreeView>
             <ToolBarTray Grid.Row="4" Grid.Column="0" Width="Auto" >
                 <ToolBar>
-                    <Button Command="{Binding }" ToolTip="{StaticResource RunQuerry}">
+					<Button Command="{Binding ClickRunQuerryCommand}" ToolTip="{StaticResource RunQuerry}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource TestQuerry}" />
                         </StackPanel>
@@ -464,6 +464,8 @@
                       Grid.Row="2" Grid.Column="0"
                       MinWidth="500" MinHeight="200"
                       Width="Auto" Height="Auto"
+					  DataContext ="{Binding}"
+                      ItemsSource ="{Binding ResultTable}"
                      />
             
         </Grid>

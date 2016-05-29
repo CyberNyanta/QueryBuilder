@@ -61,6 +61,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Scrambler.cs" />
+    <Compile Include="SqlExecuteData.cs" />
+    <Compile Include="SqlExtention.cs" />
     <Compile Include="ValidationMethods.cs" />
   </ItemGroup>
   <ItemGroup>

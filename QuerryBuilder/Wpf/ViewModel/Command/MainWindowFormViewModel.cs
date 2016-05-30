@@ -208,7 +208,6 @@ namespace Wpf.ViewModel
 
 		private void ClickMethodRunQuerryCommand()
 		{
-//			"Data source = .; Initial Catalog = master; Integrated security = SSPI"
 			ResultTable = SqlExecuteData.SqlReturnDataFromQuery(SqlQuerry, MainWindowData.StringConnect).ResultData;
 			OnPropertyChanged("ResultTable");
 

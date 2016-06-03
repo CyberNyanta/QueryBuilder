@@ -845,6 +845,7 @@
     <Content Include="fonts\Roboto-Italic.woff" />
     <Content Include="fonts\Roboto-Italic.ttf" />
     <Content Include="Content\Querybuider\css_files" />
+    <Content Include="Graph1.dgml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\query-builder - FTP %283%29.pubxml" />
@@ -949,6 +950,8 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\Errors\404.html" />
     <Content Include="Content\Errors\500.html" />
+    <Content Include="Views\Home\publish.htm" />
+    <Content Include="Views\Home\setup.exe" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1016,6 +1019,35 @@
     <Content Include="Views\Workflow\UpdateQueryPartial.cshtml" />
     <Content Include="Views\Workflow\DeleteQueryPartial.cshtml" />
     <Content Include="Views\Workflow\ListHistoryPartial.cshtml" />
+    <Content Include="Views\Home\WPF.cshtml" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\BuilderBL.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\ClosedXML.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\DocumentFormat.OpenXml.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\EntityFramework.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\EntityFramework.SqlServer.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharp.Contracts.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharp.Controls.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharp.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharpDemo\Lib\GraphSharp.Contracts.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharpDemo\Lib\GraphSharp.Controls.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharpDemo\Lib\GraphSharp.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharpDemo\Lib\Microsoft.Contracts.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharpDemo\Lib\QuickGraph.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\GraphSharpDemo\Lib\WPFExtensions.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\itextsharp.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\Microsoft.Contracts.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\Microsoft.Expression.Interactions.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\QueryBuilder.DAL.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\QueryBuilder.Services.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\QueryBuilder.Utils.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\QuickGraph.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\System.Windows.Interactivity.dll.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\Wpf.application" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\Wpf.exe.config.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\Wpf.exe.deploy" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\Wpf.exe.manifest" />
+    <Content Include="Views\Home\Application Files\Wpf_1_0_0_6\WPFExtensions.dll.deploy" />
+    <Content Include="Views\Home\Wpf.application" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

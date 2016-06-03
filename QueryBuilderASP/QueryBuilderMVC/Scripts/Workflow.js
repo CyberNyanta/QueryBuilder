@@ -144,7 +144,6 @@ function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, call
 
     $(selector).on("click", function (e) {
         e.preventDefault();
-
         $("<div id='dialogContent'></div>")
             .addClass("ui-dialog")
             .appendTo("body")

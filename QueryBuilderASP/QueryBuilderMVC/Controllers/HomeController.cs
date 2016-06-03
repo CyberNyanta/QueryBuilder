@@ -36,6 +36,12 @@ namespace QueryBuilderMVC.Controllers
 
             return View();
         }
+        public ActionResult WPF()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
         public ActionResult ChangeCulture(string lang)
         {
             string returnUrl = Request.UrlReferrer.AbsolutePath;

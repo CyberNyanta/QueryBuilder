@@ -3,6 +3,85 @@
     $("#invitedUserId").val(userId);
 };
 
+function LoadGrid(idProject, actionGetGridModel, actionGetData, actionListHistory, userAuthorized) {
+    var s = formatQueryString();
+
+    $.ajax({
+        type: "POST",
+        url: actionGetGridModel + "?query=" + s + "&idCurrentProject=" + idProject,
+        data: "",
+        dataType: "json",
+        success: function(result) {
+            var modelList = [];
+            if (typeof result == "string"){
+                $("#gridWrapper").hide();
+                $("#nodata_jqg").text(result);
+                $("#nodata_jqg").show();
+            }
+            else {
+                for (var i = 0; i < result.length; i++) {
+                    modelList.push({
+                        name: result[i].Name,
+                        index: result[i].Index,
+                        sortable: result[i].Sortable,
+                        align: result[i].Align
+                    });
+                }
+
+                $("#jqg").jqGrid("GridUnload");
+
+                $("#jqg").jqGrid({
+                    jsonReader: {
+                        cell: "",
+                        id: "0"
+                    },
+                    url: actionGetData,
+                    colModel: modelList,
+                    datatype: "json",
+                    rowNum: 10,
+                    rowList: [10, 20, 30, 50, 100],
+                    pager: "#jpager",
+                    loadonce: true,
+                    autowidth: true,
+                    scrollerbar: true,
+                    gridComplete: function() {
+                        var recs = parseInt($("#jqg").getGridParam("records"),10);
+                        if (isNaN(recs) || recs === 0) {
+                            $("#gridWrapper").hide();
+                            $("#nodata_jqg").show();
+                        }
+                        else {
+                            $("#gridWrapper").show();
+                            $("#nodata_jqg").hide();
+                        }
+                    }
+                });
+
+                $("#jqg").jqGrid("navGrid", "#jpager", {
+                    search: true,
+                    searchtext: "Search",
+                    refresh: false,
+                    add: false,
+                    del: false,
+                    edit: false,
+                    view: true,
+                    viewtext: "View",
+                    viewtitle: "Selected record"
+                });
+
+                if (userAuthorized) {
+                    UpdateHistoryList(actionListHistory);
+                }
+            };
+
+        },
+        error: function(x, e)
+        {
+            alert(x.readyState + " "+ x.status +" "+ e.msg);
+        }
+    });
+};
+
 function fillParameters(projectId) {
     var s = formatQueryString();
     $(".sqlQueryForSaveToFile").val(s);

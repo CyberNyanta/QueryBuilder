@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Timers;
-using QueryBuilder.Utils.Extentions;
-using QueryBuilder.Constants.DbConstants;
 
 namespace QueryBuilderMVC.Models
 {

@@ -146,6 +146,7 @@ namespace QueryBuilder.DAL.Infrastructure
                 _projectsRepository = null;
                 _projectsShareRepository = null;
                 _queriesRepository = null;
+                _queriesHistoryRepository = null;
                 _usersRepository = null;
             }
             QueryBuilderContext.Dispose();

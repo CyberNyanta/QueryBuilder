@@ -10,7 +10,7 @@
         Icon="/View/Styles/WindowStyle/MainIcon.ico"
             Style="{StaticResource WindowStyle}"
     Title="MainWindow" MinHeight="350" MinWidth="350"
-    WindowState="Maximized" ShowInTaskbar="True" >
+    WindowState="Maximized" ShowInTaskbar="True" Height="820" Width="1023" >
 
     <Window.DataContext>
         <local:MainWindowFormViewModel/>
@@ -297,7 +297,7 @@
             </TreeView>
             <ToolBarTray Grid.Row="4" Grid.Column="0" Width="Auto" >
                 <ToolBar>
-                    <Button Command="{Binding }" ToolTip="{StaticResource RunQuerry}">
+					<Button Command="{Binding ClickRunQuerryCommand}" ToolTip="{StaticResource RunQuerry}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource TestQuerry}" />
                         </StackPanel>
@@ -425,7 +425,7 @@
             <DataGrid x:Name="DatabaseBuilder" 
                       HorizontalAlignment="Left" VerticalAlignment="Top"
                       Grid.Row="0" Grid.Column="0"
-                      MinWidth="500" MinHeight="200"
+                      
                       Width="Auto" Height="Auto"
                       ColumnWidth="*"
 					  DataContext ="{Binding}"
@@ -462,8 +462,10 @@
             <DataGrid x:Name="DatabaseDataGrid" 
                       HorizontalAlignment="Left" VerticalAlignment="Top"
                       Grid.Row="2" Grid.Column="0"
-                      MinWidth="500" MinHeight="200"
+					  ColumnWidth="*"
                       Width="Auto" Height="Auto"
+					  DataContext ="{Binding}"
+                      ItemsSource ="{Binding ResultTable}"
                      />
             
         </Grid>

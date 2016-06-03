@@ -8,6 +8,7 @@ using QueryBuilder.DAL.Models;
 using QueryBuilder.Services.Contracts;
 using QueryBuilder.Services.DbServices;
 using QueryBuilder.Utils.Exporters;
+using QueryBuilder.Utils;
 using Wpf.DataModel;
 using Wpf.View;
 using Wpf.ViewModel.Command;
@@ -38,6 +39,7 @@ namespace Wpf.ViewModel
         public ICommand ClickBuildErModelCommand { get; set; }
         public ICommand ClickChangeQuerryCommand { get; set; }
 		public ICommand ClickRefreshQuerryCommand { get; set; }
+		public ICommand ClickRunQuerryCommand { get; set; }
 		public ICommand ClickDeleteRowCommand { get; set; }
 		#endregion
 
@@ -117,7 +119,7 @@ namespace Wpf.ViewModel
             ClickSendQuerryToEmailCommand = new RelayCommand(arg => ClickMethodSendQuerryToEmail());
 			ClickRefreshQuerryCommand = new RelayCommand(arg => ClickMethodRefreshQuerryCommand());
 			ClickDeleteRowCommand = new RelayCommand(arg => ClickMethodDeleteRowCommand());
-
+			ClickRunQuerryCommand = new RelayCommand(arg => ClickMethodRunQuerryCommand());
 			MainWindowData.UserConnections = new ObservableCollection<Group>();
             CanExecute = false;
             _currentUser = new User();
@@ -204,6 +206,12 @@ namespace Wpf.ViewModel
 			OnPropertyChanged("SqlQuerry");
 		}
 
+		private void ClickMethodRunQuerryCommand()
+		{
+			ResultTable = SqlExecuteData.SqlReturnDataFromQuery(SqlQuerry, MainWindowData.StringConnect).ResultData;
+			OnPropertyChanged("ResultTable");
+
+		}
 		/// <summary>
 		/// Метод команды, сохраняющий запрос в TXT
 		/// </summary>

@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using Newtonsoft.Json;
-using System.Dynamic;
+﻿using System.Data.SqlClient;
 using QueryBuilder.Utils.DBSchema;
 
 namespace QueryBuilderMVC.Models

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 #pragma warning disable 0436
 
 namespace QueryBuilder.DAL.Models

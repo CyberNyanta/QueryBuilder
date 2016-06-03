@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace QueryBuilderMVC.Models
+﻿namespace QueryBuilderMVC.Models
 {
     public class UsersListViewModel
     {

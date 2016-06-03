@@ -1,5 +1,4 @@
 ﻿using System;
-using QueryBuilder.Constants;
 
 namespace QueryBuilderMVC.Models
 {

@@ -147,7 +147,7 @@
                                 data_dialog_title = "Create query"
                             })
                     }
-                    <a href="Javascript:void(0);" class="GetResult" onclick="LoadGrid();"></a>
+                    <a href="Javascript:void(0);" id="ExecuteQuery" class="GetResult"></a>
 
                 </div>
                 <div>
@@ -377,11 +377,14 @@
 
     $(document).ready(function () {
 
-
+		
         FixTreeView();
 
         $.ajaxSetup({ cache: false });
 
+        $("#ExecuteQuery").click(function () {
+        	LoadGrid(@Model.IdCurrentProject, "@Url.Action("GetGridModel")","@Url.Action("GetData")","@Url.Action("ListHistoryPartial", "Workflow")","@User.Identity.IsAuthenticated.ToString().ToLower()");
+        });
         $(".SaveQuery").click(function() {
             var s = formatQueryString();
             $(".sqlQuery").val(s);

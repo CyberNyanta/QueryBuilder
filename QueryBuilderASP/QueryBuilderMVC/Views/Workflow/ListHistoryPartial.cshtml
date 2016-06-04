@@ -73,7 +73,6 @@
 		$("#currentPage").append(index);
 
 		for(i=(index - 1) * QueryHistory.QuantityOnPage  +1; i <= index * QueryHistory.QuantityOnPage;i++){
-			console.log(i);
 			$("#HistoryWrapper").append("<div style=\"width:100%; border-bottom: solid 1px gray; height: 25px; font-size:14px;\"><div class=\"HistoryQuery\" title='"+QueryHistory[i].QueryBody+"' data-textquery='"+QueryHistory[i].QueryBody+"'>"+QueryHistory[i].QueryDate+"</div></div><br />");
 
 		}

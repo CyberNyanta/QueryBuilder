@@ -100,7 +100,7 @@ function formatQueryString() {
 }
 
 function formatQueryStringByKeyword(query, keyword) {
-    var arr = query.split(keyword);
+    var arr = query.toString().split(keyword);
     query = "";
     if (arr.length > 1) {
     	for (var i = 0; i < arr.length; i++) {
@@ -110,7 +110,7 @@ function formatQueryStringByKeyword(query, keyword) {
     		}
     	}
     } else {
-    	query = arr;
+    	return arr;
     }
     return query;        
 }

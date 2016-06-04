@@ -42,42 +42,6 @@
 <script src="~/Scripts/prettify.js"></script>
 <script src="~/Scripts/lang-sql.js"></script>
 
-<script type="text/javascript">
-
-
-window.onload = function(){
-
-    var As = document.getElementsByClassName('nameQuery');
-
-	for(var i = 0, l = As.length; i < l; i ++){
-		As[i].onclick = function(){
-		    return function () {
-		        var query = ($(this).data("textquery"));
-		        $("#sql-code").val(query);
-		        QB.Web.Application.refreshSql();
-			}
-
-		}(As[i].href);
-
-		As[i].href = "javascript: void 0";
-	}
-
-	var As = document.getElementsByClassName('HistoryQuery');
-	for (var i = 0, l = As.length; i < l; i++) {
-		As[i].onclick = function () {
-			return function () {
-				var query = ($(this).data("textquery"));
-				$("#sql-code").val(query);
-				QB.Web.Application.refreshSql();
-			}
-		}(As[i].href);
-
-		As[i].href = "javascript: void 0";
-	}
-}
-</script>
-
-
 
 
 @* Scripts for accordion with openning on hoverintent *@
@@ -158,7 +122,12 @@ window.onload = function(){
 
     $(document).ready(function () {
         $(function () {
-
+        	$("#first_pager").click(firstHistoryPage);
+        	$("#next_pager").click(nextHistoryPage);
+        	$("#last_pager").click(lastHistoryPage);
+        	$("#prev_pager").click(prevHistoryPage);
+        	RefreshQueryList();
+        	RefreshQueryHistoryList();
             prettyPrint();
 
             $(".UpdateQuery")

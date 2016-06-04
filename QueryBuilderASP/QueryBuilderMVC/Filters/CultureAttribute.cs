@@ -23,10 +23,10 @@ namespace QueryBuilderMVC.Filters
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
-                cultureName = "ru";
+                cultureName = "en";
 
             // Список культур
-            List<string> cultures = new List<string>() { "ru", "en"};
+            List<string> cultures = new List<string>() { "ru", "en","de"};
             if (!cultures.Contains(cultureName))
             {
                 cultureName = "en";

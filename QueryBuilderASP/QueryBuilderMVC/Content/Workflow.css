@@ -1598,7 +1598,7 @@ button.qb-ui-editor-refresh-button:hover .second-icon { opacity: 1; visibility: 
 #qb-ui-criteria-builder,
 .context-menu-list,
 .ui-dialog { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; color: #333333; background-color: transparent; }
-.ui-dialog { background-color: white; top:125px!important;}
+.ui-dialog { background-color: white;}
 
 #all,
 #qb-ui,

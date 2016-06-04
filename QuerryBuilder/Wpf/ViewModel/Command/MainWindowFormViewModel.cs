@@ -248,18 +248,14 @@ namespace Wpf.ViewModel
         /// </summary>
         private void ClickMethodSavePdf()
         {
-            DataTable cc = new DataTable();
-            cc.Columns.Add("Column1");
-            cc.Rows.Add("1");
-            cc.Rows.Add("2");
-            SavePDF(cc, "title");
+            SavePDF(ResultTable, "Result");
         }
 
         public static void SavePDF(DataTable table, string title)
         {
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "ResultQuerry"; // Default file name
+            dlg.FileName = "ResultQuery"; // Default file name
             dlg.DefaultExt = ".pdf"; // Default file extension
             dlg.Filter = "Text documents |*.pdf"; // Filter files by extension
 
@@ -314,8 +310,8 @@ namespace Wpf.ViewModel
         /// </summary>
         private void ClickMethodSaveExcel()
         {
-            DataTable table = null;
-            SaveExcel(table, "title");
+            DataTable table = ResultTable;
+            SaveExcel(table, "Result");
         }
         /// <summary>
         /// Метод сохранения в Эксель. Принимает таблицу и заголовок.
@@ -327,7 +323,7 @@ namespace Wpf.ViewModel
         {
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "ResultQuerry"; // Default file name
+            dlg.FileName = "ResultQuery"; // Default file name
             dlg.DefaultExt = ".xlsx"; // Default file extension
             dlg.Filter = "Text documents |*.xlsx"; // Filter files by extension
 

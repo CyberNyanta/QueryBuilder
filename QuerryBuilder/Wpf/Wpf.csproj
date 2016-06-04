@@ -15,7 +15,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\Users\valera\Desktop\wpf\web\</PublishUrl>
+    <PublishUrl>C:\Users\valera\Documents\queryLAST\QueryBuilderASP\QueryBuilderMVC\WPFapp\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -23,16 +23,19 @@
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://localhost:44300/</InstallUrl>
+    <InstallUrl>https://query-builder.azurewebsites.net/WPFapp/</InstallUrl>
+    <SupportUrl>https://query-builder.azurewebsites.net/WPFapp/publish.htm</SupportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Querybuilder</ProductName>
     <PublisherName>AltexSoftLab</PublisherName>
+    <SuiteName>SQL Querybuilder</SuiteName>
+    <MinimumRequiredVersion>1.1.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

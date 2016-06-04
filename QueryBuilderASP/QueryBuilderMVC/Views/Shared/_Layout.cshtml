@@ -33,7 +33,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(Resources.Resource.LayoutHome, "Index", "Home")</li>
-                    <li>@Html.ActionLink("Desktop version", "WPF", "Home")</li>
+                    <li><A ID="InstallButton" HREF="~/WPFapp/setup.exe">DOWNLOAD</A></TD><TD width="20"></li>
+                    @*<li>@Html.ActionLink("Desktop version", "WPF", "Home")</li>*@
                     <li>@Html.ActionLink(Resources.Resource.LayoutAbout, "About", "Home")</li>
                     <li>@Html.ActionLink(Resources.Resource.LayoutContact, "Contact", "Home")</li>
                 </ul>

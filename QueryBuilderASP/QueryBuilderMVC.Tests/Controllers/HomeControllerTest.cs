@@ -50,5 +50,17 @@ namespace QueryBuilderMVC.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+        [TestMethod]
+        public void WPF()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.WPF() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
     }
 }

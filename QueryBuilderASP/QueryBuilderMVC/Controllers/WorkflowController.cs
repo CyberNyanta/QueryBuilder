@@ -54,7 +54,6 @@ namespace QueryBuilderMVC.Controllers
 			_serviceQueryHistory = serviceQueryHistory;
 		}
 
-
         [HttpGet]
         public ActionResult List(string id = "0")
         {
@@ -136,7 +135,7 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult ListProjectPartial()
         {
             var countInvited = 0;
-            if (Request.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 var projects = _serviceProjectsShareService.GetUserProjects(_currentUser);
@@ -152,6 +151,7 @@ namespace QueryBuilderMVC.Controllers
                 }
                 _projectModel.Projects = projectsViewModel;
                 ViewBag.CountInvited = countInvited;
+
                 return PartialView("ListProjectPartial", _projectModel);
             }
             else
@@ -204,9 +204,12 @@ namespace QueryBuilderMVC.Controllers
 
         public ActionResult ListConnectionPartial()
         {
+            string PreviousPage = "http://stackoverflow.com/1";
             _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-
-            string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            if (System.Web.HttpContext.Current != null)
+            {
+                PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            }
             string pattern = "[0-9]+$";
             Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
             Match match = rgx.Match(PreviousPage);
@@ -223,8 +226,6 @@ namespace QueryBuilderMVC.Controllers
                     var sqlConnection =
                         $"Data source= {connect.ServerName}; Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
                     ViewBag.ConnectionString = sqlConnection;
-
-
                 }
 
             }
@@ -234,10 +235,14 @@ namespace QueryBuilderMVC.Controllers
 
 		public ActionResult ListQueryPartial()
 		{
-			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            string PreviousPage = "http://stackoverflow.com/1";
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            if (System.Web.HttpContext.Current != null)
+            {
+                PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            }
 
-			string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
-			string pattern = "[0-9]+$";
+            string pattern = "[0-9]+$";
 			Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
 			Match match = rgx.Match(PreviousPage);
 			int id = Convert.ToInt16(match.Value);
@@ -254,10 +259,13 @@ namespace QueryBuilderMVC.Controllers
 
 		public ActionResult ListHistoryPartial()
 		{
-			_currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
-
-			string PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
-			string pattern = "[0-9]+$";
+            string PreviousPage = "http://stackoverflow.com/1";
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            if (System.Web.HttpContext.Current != null)
+            {
+                PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            }
+            string pattern = "[0-9]+$";
 			Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
 			Match match = rgx.Match(PreviousPage);
 			int id = Convert.ToInt16(match.Value);
@@ -290,7 +298,12 @@ namespace QueryBuilderMVC.Controllers
 
                 _serviceProjectsShareService.AddUserToProjectsShare(newProject, _currentUser, UserRoleProjectsShareConstants.Owner);
 
-                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                ViewBag.PreviousPage = "http://stackoverflow.com/1";
+                if (System.Web.HttpContext.Current != null)
+                {
+                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                }
+                
                 return PartialView("Success");
             }
             return PartialView("CreateProjectPartial");
@@ -303,10 +316,13 @@ namespace QueryBuilderMVC.Controllers
             _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
             //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
-            ProjectViewModel newProject = new ProjectViewModel();
-            newProject.Name = currentProject.ProjectName;
-            newProject.Description = currentProject.ProjectDescription;
-            newProject.IdCurrentProject = currentProject.ProjectID;
+            if (currentProject != null)
+            {
+                ProjectViewModel newProject = new ProjectViewModel();
+                newProject.Name = currentProject.ProjectName;
+                newProject.Description = currentProject.ProjectDescription;
+                newProject.IdCurrentProject = currentProject.ProjectID;
+            }
             if (newProject != null)
             {
                 return PartialView("UpdateProjectPartial", newProject);

@@ -6,6 +6,11 @@ using QueryBuilder.DAL.Infrastructure;
 using QueryBuilder.DAL.Contracts;
 using QueryBuilder.Services.Contracts;
 using QueryBuilder.Services.DbServices;
+using Moq;
+using QueryBuilder.DAL.Models;
+using System.Collections.Generic;
+using System.Linq;
+using QueryBuilder.Utils.Encryption;
 
 namespace QueryBuilderMVC.Infrastructure
 {
@@ -34,8 +39,7 @@ namespace QueryBuilderMVC.Infrastructure
             ninjectKernel.Bind<IProjectsShareService>().To<ProjectsShareService>();
             ninjectKernel.Bind<IQueryService>().To<QueryService>();
 			ninjectKernel.Bind<IQueriesHistoryService>().To<QueryHistoryService>();
-
-
+            
 		}
     }
 }

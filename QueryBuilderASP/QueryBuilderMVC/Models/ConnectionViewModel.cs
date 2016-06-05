@@ -9,7 +9,7 @@ using QueryBuilder.Constants.DbConstants;
 namespace QueryBuilderMVC.Models
 {
 	public class ConnectionViewModel
-	{
+    {
         public IEnumerable<ConnectionsListViewModel> Connections { get; set; }
 
         [Required(ErrorMessage = @"Please enter connection name")]

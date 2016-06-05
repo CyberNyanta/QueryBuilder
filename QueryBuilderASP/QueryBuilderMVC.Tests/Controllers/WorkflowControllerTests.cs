@@ -115,11 +115,10 @@ namespace QueryBuilderMVC.Controllers.Tests
             var mockIQueryService = new Mock<IQueryService>();
             var mockIQueriesHistoryService = new Mock<IQueriesHistoryService>();
             Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
-            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
             mockIProjectService.Setup(a => a.GetProjects()).Returns(new List<Project>() {new Project() });
             mockIUserService.Setup(a => a.GetUsers()).Returns(new List<ApplicationUser>());
             mockIProjectsShareService.Setup(a => a.GetUserProjects(new ApplicationUser())).Returns(new List<Project>());
-            mockIConnectionDbService.Setup(a => a.GetConnectionDBs()).Returns(new List<ConnectionDB>());
+            mockIConnectionDbService.Setup(a => a.GetConnectionDBs()).Returns(new List<ConnectionDB>() { new ConnectionDB()});
             mockIQueryService.Setup(a => a.GetQueries()).Returns(new List<Query>());
             mockIQueriesHistoryService.Setup(a => a.GetQueriesHistory()).Returns(new List<QueryHistory>());
 
@@ -351,45 +350,196 @@ namespace QueryBuilderMVC.Controllers.Tests
             Assert.IsNotNull(result.Model);
         }
 
-        
+        [TestMethod()]
+        public void UpdateProjectPartialTestPostValid()
+        {
+            SetFakeContext(wc, true);
+            var project = new ProjectViewModel();
+            project.Name = "dfdf";
+
+            PartialViewResult result = wc.UpdateProjectPartial(project) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void UpdateProjectPartialTestPostNotValid()
+        {
+            SetFakeContext(wc, true);
+            wc.ModelState.AddModelError("name", "error");
+            PartialViewResult result = wc.UpdateProjectPartial(new ProjectViewModel()) as PartialViewResult;
+            Assert.AreEqual("UpdateProjectPartial", result.ViewName);
+        }
 
         #endregion
+
+        #region DeleteProject
+        [TestMethod()]
+        public void DeleteProjectPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.DeleteProjectPartial(1) as PartialViewResult;
+            Assert.AreEqual("DeleteProjectPartial", result.ViewName);
+        }
 
         [TestMethod()]
         public void DeleteProjectPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.DeleteProjectPartial(1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
         }
 
         [TestMethod()]
-        public void DeleteProjectPartialTest1()
+        public void DeleteProjectPartialTestPostValid()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            var project = new ProjectViewModel();
+            project.Name = "dfdf";
+
+            PartialViewResult result = wc.DeleteProjectPartial(project) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void DeleteProjectPartialTestPostNotValid()
+        {
+            SetFakeContext(wc, true);
+            wc.ModelState.AddModelError("name", "error");
+            PartialViewResult result = wc.UpdateProjectPartial(new ProjectViewModel()) as PartialViewResult;
+            Assert.AreEqual("UpdateProjectPartial", result.ViewName);
+        }
+
+        #endregion
+
+        #region CreateConnection
+        [TestMethod()]
+        public void CreateConnectionPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.CreateConnectionPartial(1) as PartialViewResult;
+            Assert.AreEqual("CreateConnectionPartial", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateConnectionPartialEquals2()
+        {
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.CreateConnectionPartial(1, 2) as PartialViewResult;
+            Assert.AreEqual("CreateConnectionPartial", result.ViewName);
         }
 
         [TestMethod()]
         public void CreateConnectionPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.CreateConnectionPartial(1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
         }
 
         [TestMethod()]
-        public void CreateConnectionPartialTest1()
+        public void CreateConnectionPartialTest2()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.CreateConnectionPartial(1,1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
+        }
+
+        [TestMethod()]
+        public void CreateConnectionPartialTestPostNotValid()
+        {
+            SetFakeContext(wc, true);
+            wc.ModelState.AddModelError("LoginDB", "error");
+            PartialViewResult result = wc.CreateConnectionPartial(new ConnectionViewModel()) as PartialViewResult;
+            Assert.AreEqual("CreateConnectionPartial", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateConnectionPartialTestPostValid()
+        {
+            //Для корректного прохождения нужно замокать как-то проверку на подключение к БД,
+            // либо вставить данные для подключения, что не очень правильно
+            SetFakeContext(wc, true);
+            var connection = new ConnectionViewModel();
+            connection.ConnectionName = "dgdfg";
+            connection.DatabaseName = "master";
+            connection.LoginDB = "sa";
+            connection.PasswordDB = "vjzbuhf";
+            connection.ServerName = ".";
+            PartialViewResult result = wc.CreateConnectionPartial(connection) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateConnectionPartialTestPostNotValid2()
+        {
+            SetFakeContext(wc, true);
+            var connection = new ConnectionViewModel();
+            connection.ConnectionName = "dgdfg";
+            connection.DatabaseName = "master";
+            connection.LoginDB = "Login";
+            connection.PasswordDB = "sdf";
+            connection.ServerName = ".";
+            PartialViewResult result = wc.CreateConnectionPartial(connection) as PartialViewResult;
+            Assert.AreEqual("CreateConnectionPartial", result.ViewName);
+        }
+        #endregion
+
+        #region UpdateConnection
+        [TestMethod()]
+        public void UpdateConnectionPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.UpdateConnectionPartial(1) as PartialViewResult;
+            Assert.AreEqual("UpdateConnectionPartial", result.ViewName);
         }
 
         [TestMethod()]
         public void UpdateConnectionPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            PartialViewResult result = wc.UpdateConnectionPartial(1) as PartialViewResult;
+            Assert.IsNull(result.Model);
         }
 
         [TestMethod()]
-        public void UpdateConnectionPartialTest1()
+        public void UpdateConnectionPartialTestPostNotValid()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            wc.ModelState.AddModelError("LoginDB", "error");
+            PartialViewResult result = wc.UpdateConnectionPartial(new ConnectionViewModel()) as PartialViewResult;
+            Assert.AreEqual("UpdateConnectionPartial", result.ViewName);
         }
+
+        [TestMethod()]
+        public void UpdateConnectionPartialTestPostValid()
+        {
+            //Для корректного прохождения нужно замокать как-то проверку на подключение к БД,
+            // либо вставить данные для подключения, что не очень правильно
+            SetFakeContext(wc, true);
+            var connection = new ConnectionViewModel();
+            connection.ConnectionName = "dgdfg";
+            connection.DatabaseName = "master";
+            connection.LoginDB = "sa";
+            connection.PasswordDB = "vjzbuhf";
+            connection.ServerName = ".";
+            PartialViewResult result = wc.UpdateConnectionPartial(connection) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void UpdateConnectionPartialTestPostNotValid2()
+        {
+            SetFakeContext(wc, true);
+            var connection = new ConnectionViewModel();
+            connection.ConnectionName = "dgdfg";
+            connection.DatabaseName = "master";
+            connection.LoginDB = "Login";
+            connection.PasswordDB = "sdf";
+            connection.ServerName = ".";
+            PartialViewResult result = wc.UpdateConnectionPartial(connection) as PartialViewResult;
+            Assert.AreEqual("UpdateConnectionPartial", result.ViewName);
+        }
+        #endregion
 
         [TestMethod()]
         public void DeleteConnectionPartialTest()

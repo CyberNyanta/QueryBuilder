@@ -303,7 +303,6 @@ namespace QueryBuilderMVC.Controllers
                 {
                     ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
                 }
-                
                 return PartialView("Success");
             }
             return PartialView("CreateProjectPartial");
@@ -316,9 +315,9 @@ namespace QueryBuilderMVC.Controllers
             _projectModel.IdCurrentProject = id;
             var currentProject = _serviceProject.GetProject(_projectModel.IdCurrentProject);
             //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
+            ProjectViewModel newProject = new ProjectViewModel();
             if (currentProject != null)
             {
-                ProjectViewModel newProject = new ProjectViewModel();
                 newProject.Name = currentProject.ProjectName;
                 newProject.Description = currentProject.ProjectDescription;
                 newProject.IdCurrentProject = currentProject.ProjectID;
@@ -338,8 +337,11 @@ namespace QueryBuilderMVC.Controllers
             {
                 var newProject = Mapper.Map<ProjectViewModel, Project>(project);
                 _serviceProject.SaveProject(newProject);
-                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-
+                ViewBag.PreviousPage = "http://stackoverflow.com/1";
+                if (System.Web.HttpContext.Current != null)
+                {
+                    ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+                }
                 return PartialView("Success");
             }
             return PartialView("UpdateProjectPartial", project);
@@ -353,8 +355,9 @@ namespace QueryBuilderMVC.Controllers
             //var newProject = Mapper.Map<Project, ProjectViewModel>(currentProject);
             var newProject = new ProjectViewModel
             {
-                Name = currentProject.ProjectName,
-                Description = currentProject.ProjectDescription,
+                   
+                Name = currentProject?.ProjectName,
+                Description = currentProject?.ProjectDescription,
                 IdCurrentProject = id
             };
             if (newProject != null)
@@ -390,7 +393,11 @@ namespace QueryBuilderMVC.Controllers
                 }
             }
 
-            ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            ViewBag.PreviousPage = "http://stackoverflow.com/1";
+            if (System.Web.HttpContext.Current != null)
+            {
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            }
             return PartialView("Success");
         }
         #endregion

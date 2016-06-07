@@ -116,10 +116,10 @@ namespace QueryBuilderMVC.Controllers.Tests
             var mockIQueriesHistoryService = new Mock<IQueriesHistoryService>();
             Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
             mockIProjectService.Setup(a => a.GetProjects()).Returns(new List<Project>() {new Project() });
-            mockIUserService.Setup(a => a.GetUsers()).Returns(new List<ApplicationUser>());
+            mockIUserService.Setup(a => a.GetUsers()).Returns(new List<ApplicationUser>() { new ApplicationUser() {FirstName="s", LastName="d" } });
             mockIProjectsShareService.Setup(a => a.GetUserProjects(new ApplicationUser())).Returns(new List<Project>());
-            mockIConnectionDbService.Setup(a => a.GetConnectionDBs()).Returns(new List<ConnectionDB>() { new ConnectionDB()});
-            mockIQueryService.Setup(a => a.GetQueries()).Returns(new List<Query>());
+            mockIConnectionDbService.Setup(a => a.GetConnectionDBs()).Returns(new List<ConnectionDB>() { new ConnectionDB() {ConnectionID=0,ConnectionName="Name",PasswordDB=Rijndael.EncryptStringToBytes("pass"),DatabaseName="nameDB" } });
+            mockIQueryService.Setup(a => a.GetQueries()).Returns(new List<Query>() { new Query() {QueryID=1, QueryBody="Select", ProjectID=1 } });
             mockIQueriesHistoryService.Setup(a => a.GetQueriesHistory()).Returns(new List<QueryHistory>());
 
             wc = new WorkflowController(mockIProjectService.Object, mockIUserService.Object, mockIProjectsShareService.Object,
@@ -405,8 +405,8 @@ namespace QueryBuilderMVC.Controllers.Tests
         {
             SetFakeContext(wc, true);
             wc.ModelState.AddModelError("name", "error");
-            PartialViewResult result = wc.UpdateProjectPartial(new ProjectViewModel()) as PartialViewResult;
-            Assert.AreEqual("UpdateProjectPartial", result.ViewName);
+            PartialViewResult result = wc.DeleteProjectPartial(new ProjectViewModel()) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
         }
 
         #endregion
@@ -541,77 +541,200 @@ namespace QueryBuilderMVC.Controllers.Tests
         }
         #endregion
 
+        #region DeleteConnection
         [TestMethod()]
-        public void DeleteConnectionPartialTest()
+        public void DeleteConnectionPartialEquals()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.DeleteConnectionPartial(0) as PartialViewResult;
+            Assert.AreEqual("DeleteConnectionPartial", result.ViewName);
         }
 
         [TestMethod()]
-        public void DeleteConnectionPartialTest1()
+        public void DeleteConnectionPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.DeleteConnectionPartial(0) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
+        }
+
+        [TestMethod()]
+        public void DeleteConnectionPartialTestPostValid()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var connection = new ConnectionViewModel();
+            connection.ConnectionID = 0;
+            connection.ConnectionName = "Name";
+            connection.PasswordDB = "pass";
+            connection.DatabaseName = "nameDB";
+            PartialViewResult result = wc.DeleteConnectionPartial(connection) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        #endregion
+
+        #region CreateQuery
+        [TestMethod()]
+        public void CreateQueryPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.CreateQueryPartial(1) as PartialViewResult;
+            Assert.AreEqual("CreateQueryPartial", result.ViewName);
         }
 
         [TestMethod()]
         public void CreateQueryPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.CreateQueryPartial(1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
         }
 
         [TestMethod()]
-        public void CreateQueryPartialTest1()
+        public void CreateQueryPartialTestPostValid()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var _queryModel = new QueryViewModel();
+            _queryModel.ProjectID = 1;
+            _queryModel.QueryBody = "Select";
+            PartialViewResult result = wc.CreateQueryPartial(_queryModel) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateQueryPartialTestPostNotValid()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var _queryModel = new QueryViewModel();
+            _queryModel.ProjectID = 1;
+            _queryModel.QueryBody = "Select";
+            wc.ModelState.AddModelError("LoginDB", "error");
+            PartialViewResult result = wc.CreateQueryPartial(_queryModel) as PartialViewResult;
+            Assert.AreEqual("CreateQueryPartial", result.ViewName);
+        }
+
+        #endregion
+
+        #region UpdateQuery
+        [TestMethod()]
+        public void UpdateQueryPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.UpdateQueryPartial(1) as PartialViewResult;
+            Assert.AreEqual("UpdateQueryPartial", result.ViewName);
         }
 
         [TestMethod()]
         public void UpdateQueryPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.UpdateQueryPartial(1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
         }
 
         [TestMethod()]
-        public void UpdateQueryPartialTest1()
+        public void UpdateQueryPartialTestPostValid()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var _queryModel = new QueryViewModel();
+            _queryModel.ProjectID = 1;
+            _queryModel.QueryBody = "Select";
+            PartialViewResult result = wc.UpdateQueryPartial(_queryModel) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        [TestMethod()]
+        public void UpdateQueryPartialTestPostNotValid()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var _queryModel = new QueryViewModel();
+            _queryModel.ProjectID = 1;
+            _queryModel.QueryBody = "Select";
+            wc.ModelState.AddModelError("LoginDB", "error");
+            PartialViewResult result = wc.UpdateQueryPartial(_queryModel) as PartialViewResult;
+            Assert.AreEqual("UpdateQueryPartial", result.ViewName);
+        }
+
+        #endregion
+
+        #region DeleteQuery
+        [TestMethod()]
+        public void DeleteQueryPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.DeleteQueryPartial(1) as PartialViewResult;
+            Assert.AreEqual("DeleteQueryPartial", result.ViewName);
         }
 
         [TestMethod()]
         public void DeleteQueryPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.DeleteQueryPartial(1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
         }
 
         [TestMethod()]
-        public void DeleteQueryPartialTest1()
+        public void DeleteQueryPartialTestPostValid()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var _queryModel = new QueryViewModel();
+            _queryModel.ProjectID = 1;
+            _queryModel.QueryBody = "Select";
+            PartialViewResult result = wc.DeleteQueryPartial(_queryModel) as PartialViewResult;
+            Assert.AreEqual("Success", result.ViewName);
+        }
+
+        #endregion
+
+        #region DeleteQuery
+        [TestMethod()]
+        public void InviteUserToProjectPartialEquals()
+        {
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.InviteUserToProjectPartial(1) as PartialViewResult;
+            Assert.AreEqual("InviteUserToProjectPartial", result.ViewName);
         }
 
         [TestMethod()]
         public void InviteUserToProjectPartialTest()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<DomainToViewModelMappingProfile>());
+            PartialViewResult result = wc.InviteUserToProjectPartial(1) as PartialViewResult;
+            Assert.IsNotNull(result.Model);
         }
 
         [TestMethod()]
-        public void InviteUserToProjectPartialTest1()
+        public void InviteUserToProjectPartialTestPostNotValid()
         {
-            Assert.Fail();
+            SetFakeContext(wc, true);
+            Mapper.Initialize(m => m.AddProfile<ViewModelToDomainMappingProfile>());
+            var user = new UserViewModel();
+            user.ProjectId = 1;
+            user.UserName = "name";
+            user.UserId = "1";
+            wc.ModelState.AddModelError("user", "eroor");
+            PartialViewResult result = wc.InviteUserToProjectPartial(user) as PartialViewResult;
+            Assert.AreEqual("InviteUserToProjectPartial", result.ViewName);
         }
 
-        [TestMethod()]
-        public void AcceptInviteTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void DeleteInviteTest()
-        {
-            Assert.Fail();
-        }
+        #endregion
 
         [TestMethod()]
         public void SearchUserTest()

@@ -501,7 +501,11 @@ namespace QueryBuilderMVC.Controllers
             newConnection.Delflag = 1;
             _serviceConnection.SaveConnection(newConnection);
 
-            ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            ViewBag.PreviousPage = "http://stackoverflow.com/1";
+            if (System.Web.HttpContext.Current != null)
+            {
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            }
             return PartialView("Success");
         }
 		#endregion
@@ -581,8 +585,12 @@ namespace QueryBuilderMVC.Controllers
 			newQuery.Delflag = 1;
 			_serviceQuery.SaveQuery(newQuery);
 
-			ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
-			return PartialView("Success");
+            ViewBag.PreviousPage = "http://stackoverflow.com/1";
+            if (System.Web.HttpContext.Current != null)
+            {
+                ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;
+            }
+            return PartialView("Success");
 		}
 		#endregion
 
@@ -616,7 +624,7 @@ namespace QueryBuilderMVC.Controllers
                 _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
                 _serviceProjectsShareService.AddUserToProjectsShare(projectForShared, userForShared, UserRoleProjectsShareConstants.Invited, _currentUser);
 
-                var bodyMail = _currentUser.UserName + " invited you to a project!";
+                var bodyMail = _currentUser?.UserName + " invited you to a project!";
                 SmtpMailer.Instance(WebConfigurationManager.OpenWebConfiguration("~/web.config")).SendMail(userForShared.Email, "Invitation to project", bodyMail);
 
                 ViewBag.PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer;

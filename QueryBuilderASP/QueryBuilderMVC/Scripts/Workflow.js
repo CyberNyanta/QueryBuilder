@@ -117,7 +117,7 @@ function formatQueryStringByKeyword(query, keyword) {
 
 function RefreshQueryList() {
 	var As = document.getElementsByClassName('nameQuery');
-
+	if(As.lenght>5)
 	for (var i = 0, l = As.length; i < l; i++) {
 		As[i].onclick = function () {
 			return function () {
@@ -154,10 +154,10 @@ function changeHistoryPage(index) {
 	$("#HistoryWrapper").empty();
 	$("#currentPage").empty();
 	$("#currentPage").append(index);
-
-	for (i = (index - 1) * QueryHistory.QuantityOnPage + 1; i <= index * QueryHistory.QuantityOnPage; i++) {
+	if (QueryHistory.length != 0) {
+		for (i = (index - 1) * QueryHistory.QuantityOnPage + 1; i <= index * QueryHistory.QuantityOnPage; i++) {
 		$("#HistoryWrapper").append("<div style=\"width:100%; border-bottom: solid 1px gray; height: 25px; font-size:14px;\"><div class=\"HistoryQuery\" title='" + QueryHistory[i].QueryBody + "' data-textquery='" + QueryHistory[i].QueryBody + "'>" + QueryHistory[i].QueryDate + "</div></div><br />");
-
+		}
 	}
 }
 function CheckHistoryPage() {
@@ -336,7 +336,6 @@ function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, call
 
 
 function UpdateProjectList(url) {
-    console.log("UpdateProjectList ");
 
     $.ajax({
         url: url,

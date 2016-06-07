@@ -60,71 +60,17 @@
 	</div>
 	<script type="text/javascript">
 	var QueryHistory = @Html.Raw(JsonConvert.SerializeObject(Model.QueryHistory, Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "M/dd/yyyy HH:mm" }));
+	QueryHistory.reverse();
 	QueryHistory.QuantityOnPage = 5;
 	QueryHistory.PageCount = QueryHistory.length / QueryHistory.QuantityOnPage << 0;
 	QueryHistory.CurrentPage = 1;
 	$("#pageСount").append(QueryHistory.PageCount);
 
 
-	function changeHistoryPage(index){
-		QueryHistory.CurrentPage = index;
-		$("#HistoryWrapper").empty();
-		$("#currentPage").empty();
-		$("#currentPage").append(index);
 
-		//for(i=(index - 1) * QueryHistory.QuantityOnPage  +1; i <= index * QueryHistory.QuantityOnPage;i++){
-		//	$("#HistoryWrapper").append("<div style=\"width:100%; border-bottom: solid 1px gray; height: 25px; font-size:14px;\"><div class=\"HistoryQuery\" title='"+QueryHistory[i].QueryBody+"' data-textquery='"+QueryHistory[i].QueryBody+"'>"+QueryHistory[i].QueryDate+"</div></div><br />");
-
-		//}
-	}
-	function CheckHistoryPage(){
-		if (QueryHistory.CurrentPage == QueryHistory.PageCount){
-			$("#next_pager").addClass("ui-state-disabled");
-			$("#last_pager").addClass("ui-state-disabled");
-		}
-		else
-		if (QueryHistory.CurrentPage == 1){
-			$("#first_pager").addClass("ui-state-disabled");
-			$("#prev_pager").addClass("ui-state-disabled");
-		}
-		if(QueryHistory.CurrentPage > 1){
-			$("#first_pager").removeClass("ui-state-disabled");
-			$("#prev_pager").removeClass("ui-state-disabled");
-		}
-		if(QueryHistory.CurrentPage < QueryHistory.PageCount){
-			$("#next_pager").removeClass("ui-state-disabled");
-			$("#last_pager").removeClass("ui-state-disabled");
-		}
-	}
-	function nextHistoryPage(){
-		if (QueryHistory.CurrentPage < QueryHistory.PageCount)
-			changeHistoryPage(QueryHistory.CurrentPage+1)
-		CheckHistoryPage();
-	}
-	function prevHistoryPage(){
-		if (QueryHistory.CurrentPage > 1)
-			changeHistoryPage(QueryHistory.CurrentPage-1)
-		CheckHistoryPage();
-		
-	}
-	function lastHistoryPage(){
-		changeHistoryPage( QueryHistory.PageCount)
-		CheckHistoryPage();
-	}
-	function firstHistoryPage(){
-		if (QueryHistory.CurrentPage > 1)
-			changeHistoryPage(1)
-		CheckHistoryPage();
-		
-	}
-
-
-	$("#first_pager").click(firstHistoryPage);
-	$("#next_pager").click(nextHistoryPage);
-	$("#last_pager").click(lastHistoryPage);
-	$("#prev_pager").click(prevHistoryPage);
-
-	changeHistoryPage(1);
+	$(document).ready(function(){
+		changeHistoryPage(1);
+	});
 	</script>
 }
 

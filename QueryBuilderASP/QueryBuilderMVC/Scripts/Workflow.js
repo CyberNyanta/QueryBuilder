@@ -155,7 +155,7 @@ function changeHistoryPage(index) {
 	$("#currentPage").empty();
 	$("#currentPage").append(index);
 	if (QueryHistory.length != 0) {
-		for (i = (index - 1) * QueryHistory.QuantityOnPage + 1; i <= index * QueryHistory.QuantityOnPage; i++) {
+		for (i = (index - 1) * QueryHistory.QuantityOnPage + 1; i <= index * QueryHistory.QuantityOnPage && i < QueryHistory.length; i++) {
 		$("#HistoryWrapper").append("<div style=\"width:100%; border-bottom: solid 1px gray; height: 25px; font-size:14px;\"><div class=\"HistoryQuery\" title='" + QueryHistory[i].QueryBody + "' data-textquery='" + QueryHistory[i].QueryBody + "'>" + QueryHistory[i].QueryDate + "</div></div><br />");
 		}
 	}

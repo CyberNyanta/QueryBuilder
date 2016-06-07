@@ -34,12 +34,16 @@
     </textarea>
 
 <script>
-    var s = FormatQueryString();
-
+    function SetQuery()
+    {
+        var s = formatQueryString();
         $("#QueryBody").val(s);
         $("#textquery").append(s);
         $('.ui-dialog-buttonset button').addClass("ui-button ui-corner-all ui-widget button-modal");
         $('.ui-dialog-buttonset button').css('width', 70);
         $('.ui-dialog-buttonset button').css('height', 30);
         //prettyPrint();
+    }
+    
+    SetQuery();
 </script>

@@ -309,11 +309,11 @@ function ModalPostDialogInviteWithNotifyAndUpdate(selector, url, updateurl, call
 };
 
 function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, callback) {
-
     $(selector).on("click", function (e) {
         e.preventDefault();
+
         $("<div id='dialogContent'></div>")
-            .addClass("ui-dialog")
+            .addClass("dialog")
             .appendTo("body")
             .load(this.href)
             .dialog({

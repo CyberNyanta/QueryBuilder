@@ -3,11 +3,6 @@
     $("#invitedUserId").val(userId);
 };
 
-function FixTreeView(){
-		QB.Web.Application.reconnect();
-		QB.Web.Application.reconnect();
-	};
-
 
 function LoadGrid(idProject, actionGetGridModel, actionGetData, actionListHistory, userAuthorized) {
     var s = formatQueryString();

@@ -53,8 +53,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBSchema\CustomMetadataProvider.cs" />
     <Compile Include="DBSchema\JsonERModel.cs" />
     <Compile Include="DBSchema\SqlExecuteData.cs" />
     <Compile Include="Encryption\Rijndael.cs" />

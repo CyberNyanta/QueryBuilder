@@ -3,6 +3,12 @@
     $("#invitedUserId").val(userId);
 };
 
+function FixTreeView(){
+		QB.Web.Application.reconnect();
+		QB.Web.Application.reconnect();
+	};
+
+
 function LoadGrid(idProject, actionGetGridModel, actionGetData, actionListHistory, userAuthorized) {
     var s = formatQueryString();
 
@@ -117,7 +123,6 @@ function formatQueryStringByKeyword(query, keyword) {
 
 function RefreshQueryList() {
 	var As = document.getElementsByClassName('nameQuery');
-	if(As.lenght>5)
 	for (var i = 0, l = As.length; i < l; i++) {
 		As[i].onclick = function () {
 			return function () {
@@ -325,7 +330,7 @@ function ModalPostDialogUpdateWithNotifyAndUpdate(selector, url, updateurl, call
                         NotifyAndUpdate(url, updateurl);
                         setTimeout(function () {
                             callback(updateurl);
-                        }, 500);
+                        }, 50);
                     }
                 }
             }
@@ -386,7 +391,6 @@ function UpdateHistoryList(url) {
 		success:
         function (result) {
         	$("#ListHistory").remove();
-        	console.log(result);
         	$("#ContainerHistory").append('<div id="ListHistory"></div>');
         	$("#ListHistory").append(result);
         }

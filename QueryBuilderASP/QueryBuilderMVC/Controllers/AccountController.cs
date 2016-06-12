@@ -58,7 +58,7 @@ namespace QueryBuilderMVC.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return PartialView("Login");
         }
 
         //
@@ -87,7 +87,7 @@ namespace QueryBuilderMVC.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("Login", model);
             }
         }
 
@@ -139,7 +139,7 @@ namespace QueryBuilderMVC.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return PartialView("Register");
         }
 
         //
@@ -170,7 +170,7 @@ namespace QueryBuilderMVC.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return PartialView("Register",model);
         }
 
         //

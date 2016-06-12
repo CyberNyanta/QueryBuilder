@@ -163,6 +163,40 @@ namespace QueryBuilderMVC.Controllers
 
         }
 
+        public ActionResult QueryBuilderPartial()
+        {
+            string PreviousPage = "http://stackoverflow.com/1";
+            _currentUser = _serviceUser.GetUserByID(User.Identity.GetUserId());
+            if (System.Web.HttpContext.Current != null)
+            {
+                PreviousPage = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            }
+            string pattern = "[0-9]+$";
+            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match match = rgx.Match(PreviousPage);
+            int id = Convert.ToInt16(match.Value);
+            _projectModel.IdCurrentProject = id;
+            if (id != 0)
+            {
+                var connectionsCurrentProject = _serviceConnection.GetConnectionDBs(_projectModel.IdCurrentProject);
+                _projectModel.ConnectionDbs = Mapper.Map<IEnumerable<ConnectionDB>, IEnumerable<ConnectionsListViewModel>>(connectionsCurrentProject).ToList();
+
+                if (_projectModel.ConnectionDbs.Any())
+                {
+                    var connect = _projectModel.ConnectionDbs.First();
+                    var sqlConnection =
+                        $"Data source= {connect.ServerName}; Initial catalog= {connect.DatabaseName}; UID= {connect.LoginDB}; Password= {Rijndael.DecryptStringFromBytes(connect.PasswordDB)};";
+                    ViewBag.ConnectionString = sqlConnection;
+                }
+
+            }
+            else
+            {
+                return PartialView("QueryBuilderPartial", GetExampleProject());
+            }
+                return PartialView("QueryBuilderPartial", _projectModel);
+        }
+
         public ProjectViewModel GetExampleProject()
         {
             var proj = new List<ProjectsListViewModel>

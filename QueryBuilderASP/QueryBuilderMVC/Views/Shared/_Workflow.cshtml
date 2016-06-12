@@ -188,12 +188,18 @@
             UpdateProjectClick();
 
             function UpdateProjectClick() {
-                $("#WorkflowMenu").click(function () {
+                $("#WorkflowMenu").hover(function () {
                     UpdateProjectList('@Url.Action("ListProjectPartial", "Workflow")');
                 });
 
             };
                       
+            $(".portlet-toggle").click(function () {
+                var icon = $(this);
+                icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+                icon.closest(".portlet").find(".portlet-content").toggle();
+            });
+
 
             $(".close").on("click", function (e) {
                 e.preventDefault();

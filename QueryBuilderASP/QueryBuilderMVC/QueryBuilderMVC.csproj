@@ -1016,6 +1016,7 @@
     <Content Include="WPFapp\Application Files\Wpf_1_1_0_1\Wpf.exe.deploy" />
     <Content Include="WPFapp\Application Files\Wpf_1_1_0_1\Wpf.exe.manifest" />
     <Content Include="WPFapp\Application Files\Wpf_1_1_0_1\WPFExtensions.dll.deploy" />
+    <Content Include="Views\Workflow\QueryBuilderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

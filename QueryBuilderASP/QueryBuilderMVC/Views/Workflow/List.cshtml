@@ -5,6 +5,7 @@
 @using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Mvc.UI
 @using ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Server
 @using QueryBuilder.Utils.Encryption
+@using QueryBuilder.Utils.DBSchema
 
 
 
@@ -202,64 +203,41 @@
 				   settings.PersistentConnection = false;
 				   settings.Language = "auto";
 				   settings.UseCustomLanguageFiles = false;
+				   settings.DisablePageReload = true;
 				   settings.CustomLanguagePath = "~/Language Files/";
 
 				   settings.Init += (sender, e) =>
 				   {
+					   // ===========================================================
+					   // a) you can load metadata from the database connection using live database connection
+					   //var connection = new SqlConnection { ConnectionString = "Data Source = .; Initial catalog= QueryBuilder; Integrated Security = True" };
+					   //var connection = new SqlConnection { ConnectionString = "Data source= .; Initial catalog= QueryBuilder; UID= sa; Password= vjzbuhf;" };
+					   var connectionList = new List<SqlConnection>();
 
+					   foreach (var item in Model.ConnectionDbs)
+					   {
+						   string connectString = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
+						   item.ServerName, item.DatabaseName, item.LoginDB, Rijndael.DecryptStringFromBytes(item.PasswordDB));
+						   connectionList.Add(new SqlConnection { ConnectionString = connectString });
+					   }
 					   var sessionStoreItem = sender as SessionStoreItem;
-					   // Get instance of the QueryBuilder object
 					   var queryBuilder = sessionStoreItem.QueryBuilder;
+					  // queryBuilder.MetadataContainer.Clear();
 					   queryBuilder.ClearMetadata();
-					   //queryBuilder.RefreshDatasourcesMetadata();
+					   //var queryBuilder = new QueryBuilder();
 					   // create an instance of the proper syntax provider for your database server.
 					   // - use AutoSyntaxProvider if you want to detect your database server automatically
 					   //   (autodetection works in case of live database connection only);
 					   // - use ANSI or Universal syntax provider only if you can't find the right syntax
 					   //   provider for your database server.
-					   var syntaxProvider = new MSSQLSyntaxProvider();
-
-					   queryBuilder.SyntaxProvider = syntaxProvider;
-					   // ===========================================================
-					   // a) you can load metadata from the database connection using live database connection
-					   //var connection = new SqlConnection { ConnectionString = "Data Source = .; Initial catalog= QueryBuilder; Integrated Security = True" };
-					   //var connection = new SqlConnection { ConnectionString = "Data source= .; Initial catalog= QueryBuilder; UID= sa; Password= vjzbuhf;" };
-					   var connection = new SqlConnection();
-
-					   var count = 0;
-					   foreach (var item in Model.ConnectionDbs)
-					   {
-						   count++;
-						   if (count == 1)
-						   {
-							   string connectString = String.Format("Data source= {0}; Initial catalog= {1}; UID= {2}; Password= {3};",
-						   item.ServerName, item.DatabaseName, item.LoginDB, Rijndael.DecryptStringFromBytes(item.PasswordDB));
-							   connection = new SqlConnection { ConnectionString = connectString };
-
-						   }
-						   MetadataItem database = queryBuilder.MetadataContainer.AddDatabase(item.DatabaseName);
-					   }
-
-
-					   var metadataProvider = new MSSQLMetadataProvider { Connection = connection };
-					   queryBuilder.MetadataProvider = metadataProvider;
-
-
-
-					   //MetadataItem database = queryBuilder.MetadataContainer.AddDatabase("ReportServer");
-					   //MetadataItem databases = queryBuilder.MetadataContainer.AddDatabase("QueryBuilder");
-
-					   //MetadataItem server = queryBuilder.MetadataContainer.AddServer(".");
-
-					   queryBuilder.MetadataContainer.LoadAll(true);
-
+					   queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
+					   //queryBuilder.MetadataProvider = new MSSQLMetadataProvider();
 					   queryBuilder.MetadataStructureOptions.GroupBySchemas = false;
-					   queryBuilder.MetadataStructureOptions.GroupByServers = false;
-					   queryBuilder.MetadataStructureOptions.GroupByTypes = false;
-					  // queryBuilder.InitializeDatabaseSchemaTree();
+					   queryBuilder.OfflineMode = true;
 
-
-
+					   queryBuilder.MetadataContainer.XML = CustomMetadataProvider.GetMetadata(connectionList.ToArray());
+					   queryBuilder.MetadataContainer.LoadAll(true);
+					   queryBuilder.InitializeDatabaseSchemaTree();
 
 
 					   if (ViewBag.ConnectionString != null)
@@ -385,7 +363,7 @@
 
 	$(document).ready(function () {
 
-		FixTreeView();
+		//FixTreeView();
 		$.ajaxSetup({ cache: false });
 
 		$("#ExecuteQuery").click(function () {
